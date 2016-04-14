@@ -1,0 +1,5 @@
+<h1><%= @profile.first_name %> <%= @profile.last_name %>'s Profile</h1>
+<h2><%= @profile.tagline %></h2>
+<p><%= @profile.bio %></p>
+<p><%= @profile.city %>, <%= @profile.state %></p>
+<%= link_to 'Edit', edit_user_profile_path(current_user) %>

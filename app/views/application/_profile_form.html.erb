@@ -1,0 +1,21 @@
+<%= form_for @profile, url: user_profile_path(current_user) do |profile_fields| %>
+  <%= profile_fields.label :tagline %>
+  <%= profile_fields.text_field :tagline %>
+  <br>
+  <%= profile_fields.label :bio %>
+  <%= profile_fields.text_area :bio %>
+  <br>
+  <%= profile_fields.label :first_name %>
+  <%= profile_fields.text_field :first_name %>
+  <br>
+  <%= profile_fields.label :last_name %>
+  <%= profile_fields.text_field :last_name %>
+  <br>
+  <%= profile_fields.label :city %>
+  <%= profile_fields.text_field :city %>
+  <br>
+  <%= profile_fields.label :state %>
+  <%= profile_fields.text_field :state %>
+  <br>
+  <%= profile_fields.submit %>
+<% end %>
