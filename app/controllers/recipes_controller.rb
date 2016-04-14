@@ -10,8 +10,10 @@ class RecipesController < ApplicationController
   def create
 
     @recipe = current_user.recipes.build(recipe_params)
-    
-    @recipe.recipeingredients.build
+    @ri = @recipe.recipeingredients.build
+    @ri.ingredient_id = params["recipe"]["recipeingredient"]["ingredient_id"]
+    @ri.unit_id = params["recipe"]["recipeingredient"]["unit_id"]
+    @ri.quantity = params["recipe"]["recipeingredient"]["quantity"]
     # @recipe.recipeingredients.build
     # @recipe.recipeingredients.build
 
