@@ -362,7 +362,6 @@ DEPENDENCIES
   factory_girl_rails
   faker
   figaro
-  guard
   guard-rspec
   hirb
   jazz_hands!
