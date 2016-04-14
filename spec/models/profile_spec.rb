@@ -14,10 +14,10 @@ describe Profile do
     end
 
     it "can't create two profiles for one user" do
-      profile = build(:profile)
+      profile = build(:profile, user_id: 1000)
       profile.save!
-      second_profile = build(:profile)
-      expect{ second_profile.save! }.to raise_error
+      second_profile = build(:profile, user_id: 1000)
+      expect{ second_profile.save! }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
