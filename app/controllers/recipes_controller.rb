@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
 
   def index
+    @recipes = Recipe.all
   end
 
   def new
@@ -25,7 +26,7 @@ class RecipesController < ApplicationController
 
       respond_to do |format|
 
-        format.html {redirect_to new_recipe_path}
+        format.html {redirect_to recipe_path(@recipe)}
 
         format.js {render :none}
       end  
@@ -35,8 +36,28 @@ class RecipesController < ApplicationController
         redirect_to new_recipe_path
       end
     end  
-  end  
+  end
 
+  def show
+    @recipe = Recipe.find(params[:id])
+    @comment = Comment.new
+  end
+
+  def edit
+    @recipe = Recipe.find(params[:id])
+  end
+
+  def update
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(recipe_params)
+      flash[:success] = 'Recipe updated'
+    else
+      flash[:error] = 'Recipe failed to update'
+    end
+    redirect_to recipe_path(@recipe)
+  end
+
+  private
   
   def recipe_params
 

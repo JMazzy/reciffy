@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
 
   has_many :recipes       
+  has_many :comments
 
   has_one :profile, dependent: :destroy
   has_many :taggings, as: :taggable
