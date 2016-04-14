@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :recipes
+  has_many :comments
 
   has_one :profile, dependent: :destroy
   has_many :taggings, as: :taggable
