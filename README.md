@@ -1,6 +1,6 @@
 # Reciffy
-
-Andrew Baik
-Kelsey James
-Deepa Kackar
-Joshua Masland-Sarani
+Contributors:
+* Andrew Baik
+* Kelsey James
+* Deepa Kackar
+* Joshua Masland-Sarani
