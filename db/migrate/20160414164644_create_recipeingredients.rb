@@ -8,6 +8,6 @@ class CreateRecipeingredients < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :recipeingredients, [:recipe_id, :ingredient_id, :unit_id]
+    add_index :recipeingredients, [:recipe_id, :ingredient_id, :unit_id], name: 'recipe_ingredient_unit_index'
   end
 end
