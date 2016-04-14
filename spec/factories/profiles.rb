@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :profile do
-    bio "MyText"
-    tagline "MyString"
-    first_name "MyString"
-    last_name "MyString"
-    city "MyString"
-    state "MyString"
+    bio "MyBio Text"
+    tagline "MyTagline"
+    first_name "FirstName"
+    last_name "LastName"
+    city "City"
+    state "State"
     user_id 1
   end
 end

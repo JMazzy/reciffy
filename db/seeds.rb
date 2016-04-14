@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -25,3 +26,10 @@ units = ["cup" ,"oz", "lbs", "grams", "tbsp", "tsp", "count"]
 units.each do |element| 
  Unit.create(unit_type: element)
 end
+=======
+test_user = User.create(  email: "foo@bar.com",
+                          password: "foo1bar2" )
+
+test_user.tags.create(  name: "footag" )
+test_user.tags.create(  name: "bartag" )
+>>>>>>> 9093504d59901276a67f6b79be513a7f698bf52e

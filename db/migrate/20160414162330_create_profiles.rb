@@ -8,6 +8,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :city
       t.string :state
       t.integer :user_id, null: false
+      t.integer :photo_id
 
       t.timestamps null: false
     end

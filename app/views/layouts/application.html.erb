@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Reciffy</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Reciffy</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            Reciffy
+          </a>
+        </div>
+        <div class="navbar-right">
+          <% if user_signed_in? %>
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger navbar-btn" %>
+          <% else %>
+            <%= link_to "Sign In", new_user_session_path, class: "btn btn-success navbar-btn" %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary navbar-btn" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
 
-<%= yield %>
+    <%= render partial: 'shared/flash' %>
 
-</body>
+    <main class="container">
+      <%= yield %>
+    </main>
+
+  </body>
 </html>
