@@ -1,5 +1,10 @@
 # Reciffy
-Contributors:
+
+## Deployment
+
+Deployed to Heroku at: https://reciffy.herokuapp.com/
+
+## Contributors
 * Andrew Baik
 * Kelsey James
 * Deepa Kackar
