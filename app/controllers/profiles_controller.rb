@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = Profile.find(params[:user_id])
-  end 
+  end
 
   def update
     @profile = Profile.find(params[:user_id])
