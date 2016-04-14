@@ -6,7 +6,6 @@ class RecipesController < ApplicationController
   def new
     @recipe  = current_user.recipes.build
     @recipe.recipeingredients.build
-    @recipe.recipeingredients.build
   end  
 
   def create
@@ -16,8 +15,6 @@ class RecipesController < ApplicationController
     @ri.ingredient_id = params["recipe"]["recipeingredient"]["ingredient_id"]
     @ri.unit_id = params["recipe"]["recipeingredient"]["unit_id"]
     @ri.quantity = params["recipe"]["recipeingredient"]["quantity"]
-    # @recipe.recipeingredients.build
-    # @recipe.recipeingredients.build
 
     if @recipe.save
       
