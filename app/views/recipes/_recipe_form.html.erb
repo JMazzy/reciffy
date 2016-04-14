@@ -1,6 +1,6 @@
 
 
-<h3>New Recipe</h3>
+
 <%= form_for @recipe do |recipe_fields| %>
 
   <%= recipe_fields.label :name %>:
@@ -19,19 +19,19 @@
   <%= recipe_fields.text_area :instructions%><br><br>
 
 
-  <%= recipe_fields.fields_for :recipeingredient do |recipe_ingredients| %>
+  <%= recipe_fields.fields_for :recipeingredient do |recipe_ingredient| %>
     <li>
       <ul>
         Ingredient: 
-        <%= recipe_ingredients.collection_select :ingredient_id, Ingredient.all, :id, :name %>
+        <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.all, :id, :name %>
         Qty:
-        <%= recipe_ingredients.number_field :quantity%>
-        <%= recipe_ingredients.collection_select :unit_id, Unit.all, :id, :unit_type %>br>
+        <%= recipe_ingredient.number_field :quantity%>
+        <%= recipe_ingredient.collection_select :unit_id, Unit.all, :id, :unit_type %><br>
       </ul>
     </li>    
   <% end %>
 
-  <%= recipe_fields.submit "Create Recipe" %>
+  <%= recipe_fields.submit %>
 <% end %>
 
 
