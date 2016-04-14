@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414165029) do
+ActiveRecord::Schema.define(version: 20160414192617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,14 +91,15 @@ ActiveRecord::Schema.define(version: 20160414165029) do
   add_index "recipeingredients", ["recipe_id", "ingredient_id", "unit_id"], name: "recipe_ingredient_unit_index", using: :btree
 
   create_table "recipes", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.text     "description", null: false
-    t.integer  "prep_time",   null: false
-    t.integer  "cook_time",   null: false
-    t.integer  "user_id",     null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",         null: false
+    t.string   "description",  null: false
+    t.integer  "prep_time",    null: false
+    t.integer  "cook_time",    null: false
+    t.integer  "user_id",      null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "original_id"
+    t.text     "instructions"
   end
 
   add_index "recipes", ["original_id"], name: "index_recipes_on_original_id", using: :btree
@@ -139,7 +140,7 @@ ActiveRecord::Schema.define(version: 20160414165029) do
   end
 
   create_table "units", force: :cascade do |t|
-    t.string   "type",       null: false
+    t.string   "unit_type",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
