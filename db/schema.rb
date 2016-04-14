@@ -62,10 +62,13 @@ ActiveRecord::Schema.define(version: 20160414192617) do
     t.string   "last_name"
     t.string   "city"
     t.string   "state"
-    t.integer  "user_id",    null: false
-    t.integer  "photo_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",             null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
