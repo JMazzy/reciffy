@@ -41,15 +41,13 @@ class RecipesController < ApplicationController
     @comment = Comment.new
   end
 
-  private
-
   def edit
     @recipe  = Recipe.includes(:recipeingredients).find(params[:id])
     #@recipeingredient = Recipeingredient.find_by_recipe_id(@recipe.id)
   end
 
   def update
-  	@recipe  = Recipe.find(params[:id])
+    @recipe  = Recipe.find(params[:id])
     if @recipe.update(recipe_params)
         flash[:success] = "#{@recipe} was updated successfully!"
         #redirect_to recipe_path(@recipe)
@@ -58,6 +56,8 @@ class RecipesController < ApplicationController
       render :edit
     end
   end
+
+  private
 
   def recipe_params
 
