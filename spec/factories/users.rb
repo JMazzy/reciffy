@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :user, aliases: [:taggable] do
-    sequence(:email) { |n| "user#{n}@example.com" }
-    password "password"
+  factory :user do
+    sequence(:email){ |n| "foo#{n}@bar.com" }
+    password 'testtest'
     profile
   end
 end
