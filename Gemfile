@@ -23,7 +23,6 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'hirb'
   gem 'rspec-rails'
-  gem 'guard'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
   gem 'database_cleaner'

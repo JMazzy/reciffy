@@ -1,3 +1,4 @@
+# require './controller_helper.rb'
 module ViewHelper
-  include ControllerHelper
+  # include ControllerHelper
 end
