@@ -16,8 +16,6 @@ require 'factory_girl_rails'
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
 
-
-
 require 'devise'
 RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
