@@ -15,5 +15,6 @@
 //= require ember
 //= require ember-data
 //= require ember-rails/application
+//= require bootstrap-sprockets
 //= require ./reciffy
 //= require_self
