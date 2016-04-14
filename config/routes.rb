@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :static_pages, only: [:index]
   resources :photos
+  resources :subscriptions
 
   root to: "static_pages#index"
 end
