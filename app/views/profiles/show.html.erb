@@ -2,4 +2,6 @@
 <h2><%= @profile.tagline %></h2>
 <p><%= @profile.bio %></p>
 <p><%= @profile.city %>, <%= @profile.state %></p>
-<%= link_to 'Edit', edit_user_profile_path(current_user) %>
+<% if @profile.user_id == current_user.id %>
+  <%= link_to 'Edit', edit_user_profile_path(current_user) %>
+<% end %>
