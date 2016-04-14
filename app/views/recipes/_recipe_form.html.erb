@@ -1,0 +1,36 @@
+
+
+<h3>New Recipe</h3>
+<%= form_for @recipe do |recipe_fields| %>
+
+  <%= recipe_fields.label :name %>:
+  <%= recipe_fields.text_field :name%><br>
+
+  <%= recipe_fields.label :description %>:
+  <%= recipe_fields.text_area :description%><br>
+  
+  <%= recipe_fields.label :prep_time %>:
+  <%= recipe_fields.number_field :prep_time%><br>
+  
+  <%= recipe_fields.label :cook_time %>:
+  <%= recipe_fields.number_field :cook_time%><br>
+  
+  <%= recipe_fields.label :instructions %>:
+  <%= recipe_fields.text_area :instructions%><br><br>
+
+
+  <%= recipe_fields.fields_for :recipeingredient do |recipe_ingredients| %>
+    <li>
+      <ul>
+        Ingredient: 
+        <%= recipe_ingredients.number_field :ingredient_id %>
+        Qty:
+        <%= recipe_ingredients.number_field :quantity%>
+        <%= recipe_ingredients.number_field :unit_id%><br>
+      </ul>
+    </li>    
+  <% end %>
+
+  <%= recipe_fields.submit "Create Recipe" %>
+<% end %>
+
