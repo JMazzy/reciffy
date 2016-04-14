@@ -42,7 +42,6 @@ class RecipesController < ApplicationController
 
   def edit
     @recipe  = Recipe.includes(:recipeingredients).find(params[:id])
-    #@recipeingredient = Recipeingredient.find_by_recipe_id(@recipe.id)
   end  
 
 
@@ -50,15 +49,13 @@ class RecipesController < ApplicationController
     @recipe  = Recipe.find(params[:id])
     if @recipe.update(recipe_params)
         flash[:success] = "#{@recipe} was updated successfully!"
-        #redirect_to recipe_path(@recipe)
     else    
       flash[:alert] = "Your update was NOT successfull!"
-      render :edit
     end
+    redirect_to recipe_path(@recipe)
   end  
-
-  private
   
+  private 
   def recipe_params
 
     params.require(:recipe).permit(
