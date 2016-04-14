@@ -20,11 +20,15 @@
 
 
   <%= recipe_fields.fields_for :recipeingredient do |recipe_ingredients| %>
-    Ingredient: 
-    <%= recipe_ingredients.number_field :ingredient_id %>
-    Qty:
-    <%= recipe_ingredients.number_field :quantity%>
-    <%= recipe_ingredients.number_field :unit_id%><br>
+    <li>
+      <ul>
+        Ingredient: 
+        <%= recipe_ingredients.number_field :ingredient_id %>
+        Qty:
+        <%= recipe_ingredients.number_field :quantity%>
+        <%= recipe_ingredients.number_field :unit_id%><br>
+      </ul>
+    </li>    
   <% end %>
 
   <%= recipe_fields.submit "Create Recipe" %>

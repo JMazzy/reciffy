@@ -5,6 +5,8 @@ class RecipesController < ApplicationController
 
   def new
     @recipe  = current_user.recipes.build
+    @recipe.recipeingredients.build
+    @recipe.recipeingredients.build
   end  
 
   def create
