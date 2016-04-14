@@ -11,4 +11,17 @@ class User < ActiveRecord::Base
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
 
+  after_create :create_profile
+
+  # private
+  #
+  # def create_profile
+  #   p self
+  #self.create_profile
+  #   Profile.create(user_id: self.id)
+  #   # self.create_profile!
+  #   # newProfile.save
+  #   # p self.profile
+  # end
+
 end
