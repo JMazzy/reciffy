@@ -6,6 +6,6 @@ FactoryGirl.define do
     last_name "LastName"
     city "City"
     state "State"
-    user_id 1
+    sequence(:user_id){ |n| n } 
   end
 end

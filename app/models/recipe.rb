@@ -12,5 +12,5 @@ class Recipe < ActiveRecord::Base
 	  :allow_destroy => true,
       :reject_if     => :all_blank
 
-
+  validates :name, :description, :instructions, :prep_time, :cook_time, presence: true
 end
