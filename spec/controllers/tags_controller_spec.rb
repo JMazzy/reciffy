@@ -46,6 +46,7 @@ describe TagsController, type: :controller do
 
   describe "#destroy" do
     it "destroys a tag" do
+      tag
       expect{ delete :destroy, id: tag.id }.to change{ Tag.count }.by(-1)
     end
   end
