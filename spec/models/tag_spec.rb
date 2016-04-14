@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Tag, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Tag, type: :model do
+  it "with a name is valid"
+  it "without a name is invalid"
+  it "with a duplicate name is invalid"
 end
