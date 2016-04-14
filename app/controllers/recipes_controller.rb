@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
 
   def index
+  	@recipes = Recipe.includes(:recipeingredients)
   end
 
   def new
@@ -32,6 +33,22 @@ class RecipesController < ApplicationController
         redirect_to new_recipe_path
       end
     end  
+  end  
+
+  def edit
+    @recipe  = Recipe.includes(:recipeingredients).find(params[:id])
+    #@recipeingredient = Recipeingredient.find_by_recipe_id(@recipe.id)
+  end  
+
+  def update
+  	@recipe  = Recipe.find(params[:id])
+    if @recipe.update(recipe_params)
+        flash[:success] = "#{@recipe} was updated successfully!"
+        #redirect_to recipe_path(@recipe)
+    else    
+      flash[:alert] = "Your update was NOT successfull!"
+      render :edit
+    end
   end  
 
   

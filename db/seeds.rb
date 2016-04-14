@@ -7,15 +7,28 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
+User.delete_all
 Recipe.delete_all
 Ingredient.delete_all
 Unit.delete_all
 Recipeingredient.delete_all
 
+
+puts "Creating User"
+
+test_user = User.create(  email: "foo@bar.com",
+                          password: "foo1bar2" )
+
+10.times do |num|
+
+  User.create(email: "user#{num}@gmail.com",
+		      password: "foo1bar2")
+end
+
 puts "Creating Ingredients"
 
-ingredients = ["cauliflower", "sugar", "spinach", "salt", "pepper", "green chilly"]
+ingredients = ["cauliflower", "sugar", "spinach", "salt", "pepper", "green chilly",
+               "flour","baking powder","eggs"]
 ingredients.each do |element| 
   Ingredient.create(name: element)
 end
@@ -26,10 +39,8 @@ units = ["cup" ,"oz", "lbs", "grams", "tbsp", "tsp", "count"]
 units.each do |element| 
  Unit.create(unit_type: element)
 end
-=======
-test_user = User.create(  email: "foo@bar.com",
-                          password: "foo1bar2" )
 
+puts "Creating Tags"
 test_user.tags.create(  name: "footag" )
 test_user.tags.create(  name: "bartag" )
->>>>>>> 9093504d59901276a67f6b79be513a7f698bf52e
+
