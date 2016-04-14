@@ -23,14 +23,16 @@
     <li>
       <ul>
         Ingredient: 
-        <%= recipe_ingredients.number_field :ingredient_id %>
+        <%= recipe_ingredients.collection_select :ingredient_id, Ingredient.all, :id, :name %>
         Qty:
         <%= recipe_ingredients.number_field :quantity%>
-        <%= recipe_ingredients.number_field :unit_id%><br>
+        <%= recipe_ingredients.collection_select :unit_id, Unit.all, :id, :unit_type %>br>
       </ul>
     </li>    
   <% end %>
 
   <%= recipe_fields.submit "Create Recipe" %>
 <% end %>
+
+
 
