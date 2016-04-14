@@ -8,7 +8,11 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :city
       t.string :state
       t.integer :user_id, null: false
-      t.integer :photo_id
+
+      t.string :avatar_file_name, null: false
+      t.string :avatar_content_type, null: false
+      t.integer :avatar_file_size, null: false
+      t.timestamp :avatar_updated_at, null: false
 
       t.timestamps null: false
     end

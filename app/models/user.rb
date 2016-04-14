@@ -10,12 +10,4 @@ class User < ActiveRecord::Base
   has_one :profile, dependent: :destroy
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
-
-  after_create :create_profile
-
-  private
-
-  def create_profile
-    current_user.create_profile
-  end
 end
