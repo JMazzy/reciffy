@@ -2,7 +2,9 @@
 <h2><%= @profile.tagline %></h2>
 <p><%= @profile.bio %></p>
 <p><%= @profile.city %>, <%= @profile.state %></p>
-
+<% if @profile.avatar %>
+  <%= image_tag @profile.avatar.url(:medium) %>
+<% end %>
 <% if @profile.user_id == current_user.id %>
   <%= link_to 'Edit', edit_user_profile_path(current_user) %>
 <% end %>
