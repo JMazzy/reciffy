@@ -4,10 +4,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
   has_many :recipes
+  has_many :comments
 
   has_one :profile, dependent: :destroy
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
+
 end

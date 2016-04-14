@@ -7,4 +7,8 @@ class Profile < ActiveRecord::Base
   validates_with AttachmentSizeValidator, attributes: :photo, less_than: 5.megabytes
 
   validates :user_id, uniqueness: true
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
