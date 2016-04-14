@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe TagsController, type: :controller do
+  login_user
+
+  before do
+    DatabaseCleaner.clean
+  end
+
   let(:tag) { create :tag }
 
   describe "#index" do

@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 describe Tag, type: :model do
-  let(:tag) {build(:tag)}
+  before do
+    DatabaseCleaner.clean
+  end
+
+  let(:tag) { build(:tag) }
 
   it "with a name is valid" do
     expect(tag).to be_valid
