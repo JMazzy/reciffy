@@ -54,6 +54,7 @@ class RecipesController < ApplicationController
   def show
     @recipe = Recipe.find(params[:id])
     @comment = Comment.new
+    @rating = Rating.find_by(user_id: current_user.id, recipe_id: params[:id]) || Rating.new
   end
 
   def edit
