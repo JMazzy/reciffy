@@ -1,25 +1,37 @@
 class MadeRecipesController < ApplicationController
-  def new
+
+
+  def index
     @made_recipes = current_user.made_recipes
+    respond_to do |format|
+      format.html {redirect_to request.referrer)}
+      format.json {render :json => @made_recipes}
+    end 
   end
 
   def create
     @made_recipe = current_user.made_recipes.build(made_recipe_params)
-    if @made_recipe.save
-      redirect_to :back
-    else
-      render :new
+    respond_to do |format|
+      if @made_recipe.save
+        format.html { redirect_to request.referrer }
+        format.json { render json: @made_recipe.to_json() }
+      else
+        format.html { redirect_to request.referrer }
+        format.json { render json: render json: @made_recipe.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @made_recipe = MadeRecipe.find_by(user_id: params[:user_id], recipe_id: params[:id])
-    if @made_recipe.destroy
-      flash[:success] = 'Removed your made recipe'
-      redirect_to :back
-    else
-      flash[:error] = 'Failed to remove your made recipe'
-      redirect_to :back
+    respond_to do |format|
+      if @made_recipe.destroy
+        format.html { redirect_to request.referrer }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to request.referrer }
+        format.json { head :no_content }
+      end
     end
   end
 

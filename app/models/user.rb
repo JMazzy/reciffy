@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
            :class_name => "Subscription"
 
   has_many :users_subscribed_by,
-           :through => :received_subscribe_requests,
+           :through => :received_subscription_requests,
            :source => :subscribe_requestor
 
 
@@ -54,7 +54,31 @@ class User < ActiveRecord::Base
   #   # p self.profile
   # end
 
-  def get_user_subscriptions
-    User.subscriptions.as_json
+  def get_all_user_subscriptions
+    self.subscriptions.as_json
   end
+
+  def get_user_initiated_subscribe_requests
+    self.initiated_subscribe_requests.as_json
+  end
+
+  def get_user_received_subscribe_requests
+    self.received_subscription_requests.as_json
+  end
+
+  def get_user_subscription_count
+    self.subscriptions.count
+  end
+
+  def get_user_made_recipes
+    self.made_recipes.as_json
+  end
+
+  def get_user_made_recipes
+    self.made_recipes.as_json
+  end
+
+  def get_user_made_recipes_count
+    self.made_recipes.count.as_json
+  end 
 end
