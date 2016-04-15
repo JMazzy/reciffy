@@ -21,6 +21,13 @@ class RecipesController < ApplicationController
         @recipe.taggings.create( tag_id: tag.id )
       end
 
+      photo_uploads = params[:recipe][:photo][:photos]
+      if photo_uploads
+        photo_uploads.each do |photo|
+          @recipe.photos.create(photo: photo)
+        end
+      end
+
       flash[:success] = "Recipe was saved!"
 
       respond_to do |format|
@@ -44,6 +51,7 @@ class RecipesController < ApplicationController
   def show
     @recipe = Recipe.find(params[:id])
     @comment = Comment.new
+    @rating = Rating.find_by(user_id: current_user.id, recipe_id: params[:id]) || Rating.new
   end
 
   def edit

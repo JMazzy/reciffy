@@ -30,9 +30,11 @@
     </li>
   <% end %>
 
+  <div id="recipe_photo_preview"></div>
+
   <%= recipe_fields.fields_for :photo do |photo_field| %>
-    <%= photo_field.label "Upload Photos" %>
-    <%= photo_field.file_field :photo %>
+    <%= photo_field.label "Upload Photos (Can Select Multiple)" %>
+    <%= photo_field.file_field :photos, multiple: :true %>
   <% end %>
 
   <br>
@@ -46,3 +48,22 @@
 
   <%= recipe_fields.submit %>
 <% end %>
+
+<script>
+  $(function() {
+    $('#recipe_photo_photos').on('change', function(event) {
+      var files = event.target.files;
+      var image = files
+      for (var i in image) {
+        var reader = new FileReader();
+        reader.onload = function(file) {
+          console.log(file);
+          var img = new Image(500, 500);
+          img.src = file.target.result;
+          $('#recipe_photo_preview').append(img);
+        }
+        reader.readAsDataURL(image[i]);
+      }
+    });
+  });
+</script>

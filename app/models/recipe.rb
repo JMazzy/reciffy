@@ -8,6 +8,11 @@ class Recipe < ActiveRecord::Base
   has_many :tags, through: :taggings
   has_many :comments
   has_many :made_recipes
+  has_many :saved_recipes
+
+  has_many :ratings
+  has_many :users_rated, through: :ratings,
+                         source: :users
 
   accepts_nested_attributes_for :recipe_ingredients,
 	  :allow_destroy => true,

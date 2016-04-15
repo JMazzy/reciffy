@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :recipes do
     resources :comments
+    resources :ratings, only: [:create, :update]
   end
 
   resources :users do

@@ -1,20 +1,23 @@
+<div class="row">
+  <div class="col-md-12">
 
-  <div>
-  <table class="table table-bordered">
-    <thead>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Instructions</th>
-      <th>Cook Time</th>
-      <th>Prep Time</th>
-    </thead>
-    <tbody>
-     <%= render partial: @recipes %>
-    </tbody> 
-  </table>
-  </div>    
+    <table class="table table-bordered table-striped">
 
-<% @recipes.each do |recipe| %>
-  <%= link_to "#{recipe.name}", recipe_path(recipe) %>
-<% end %>
+      <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Instructions</th>
+        <th>Cook Time</th>
+        <th>Prep Time</th>
+      </thead>
 
+      <tbody>
+        <% @recipes.each do |recipe| %>
+          <%= render partial: "recipe", locals: { recipe: recipe } %>
+        <% end %>
+      </tbody>
+
+    </table>
+
+  </div>
+</div>

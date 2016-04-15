@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 describe ProfilesController do
-  before do
-    DatabaseCleaner.clean
-  end
 
   describe 'PUT #update' do
     context 'user signed in' do
