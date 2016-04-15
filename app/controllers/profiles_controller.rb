@@ -17,16 +17,23 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    @profile = Profile.find(params[:user_id])
+    @profile = Profile.find( params[:user_id] )
   end
 
   def edit
-    @profile = Profile.find(params[:user_id])
+    @profile = current_user.profile
+    @tag = current_user.profile.tags.build
   end
 
   def update
-    @profile = Profile.find(params[:user_id])
-    if @profile.update(profile_params)
+    @profile = current_user.profile
+
+    if !!params[:profile] && !!params[:profile][:tag]
+      tag = Tag.find_or_create_by( name: params[:profile][:tag][:name].downcase)
+      @profile.taggings.build( tag_id: tag.id )
+    end
+
+    if @profile.update( profile_params )
       flash[:success] = 'Profile updated'
       redirect_to user_profile_path(@profile)
     else
@@ -38,6 +45,12 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile).permit(:bio, :tagline, :first_name, :last_name, :city, :state, :avatar)
+    params.require(:profile).permit(  :bio,
+                                      :tagline,
+                                      :first_name,
+                                      :last_name,
+                                      :city,
+                                      :state,
+                                      :avatar )
   end
 end

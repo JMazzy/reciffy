@@ -23,6 +23,11 @@
   <%= profile_fields.label :avatar %>
   <%= profile_fields.file_field :avatar %>
   <br>
+  <%= profile_fields.fields_for :tag do |tag_fields| %>
+    <%= tag_fields.label "Add Tag" %>
+    <%= tag_fields.text_field :name %>
+  <% end %>
+  <br>
   <%= profile_fields.submit %>
 <% end %>
 

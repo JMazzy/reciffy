@@ -18,7 +18,6 @@
   <%= recipe_fields.label :instructions %>:
   <%= recipe_fields.text_area :instructions%><br><br>
 
-
   <%= recipe_fields.fields_for :recipe_ingredient do |recipe_ingredient| %>
     <li>
       <ul>
@@ -29,6 +28,7 @@
         <%= recipe_ingredient.collection_select :unit_id, Unit.all, :id, :unit_type %><br>
       </ul>
     </li>
+<<<<<<< HEAD
   <% end %>
 
   <%= recipe_fields.fields_for :photo do |photo_field| %>
@@ -36,5 +36,18 @@
     <%= photo_field.file_field :photo %>
   <% end %>
 
+=======
+  <% end %>
+
+  <br>
+
+  <%= recipe_fields.fields_for :tag do |tag_fields| %>
+    <%= tag_fields.label "Add Tag" %>
+    <%= tag_fields.text_field :name %>
+  <% end %>
+
+  <br>
+
+>>>>>>> e3fb77a04795d8c74c4d24ce58c8bdb4d0e8de97
   <%= recipe_fields.submit %>
 <% end %>
