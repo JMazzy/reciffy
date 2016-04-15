@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  # Rails.application.routes.draw do
-  #   mount_ember_app :frontend, to: "/"
-  # end
+  Rails.application.routes.draw do
+    mount_ember_app :frontend, to: "/", controller: "static_pages"
+  end
 
   resources :recipes do
     resources :comments
