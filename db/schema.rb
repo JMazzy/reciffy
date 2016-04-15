@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414192617) do
+ActiveRecord::Schema.define(version: 20160415035717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,14 +33,14 @@ ActiveRecord::Schema.define(version: 20160414192617) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "maderecipes", force: :cascade do |t|
+  create_table "made_recipes", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "recipe_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "maderecipes", ["user_id", "recipe_id"], name: "index_maderecipes_on_user_id_and_recipe_id", using: :btree
+  add_index "made_recipes", ["user_id", "recipe_id"], name: "index_made_recipes_on_user_id_and_recipe_id", using: :btree
 
   create_table "photos", force: :cascade do |t|
     t.string   "caption"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20160414192617) do
 
   add_index "ratings", ["user_id", "recipe_id"], name: "index_ratings_on_user_id_and_recipe_id", using: :btree
 
-  create_table "recipeingredients", force: :cascade do |t|
+  create_table "recipe_ingredients", force: :cascade do |t|
     t.integer  "recipe_id",     null: false
     t.integer  "ingredient_id", null: false
     t.integer  "unit_id",       null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20160414192617) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "recipeingredients", ["recipe_id", "ingredient_id", "unit_id"], name: "recipe_ingredient_unit_index", using: :btree
+  add_index "recipe_ingredients", ["recipe_id", "ingredient_id", "unit_id"], name: "recipe_ingredient_unit_index", using: :btree
 
   create_table "recipes", force: :cascade do |t|
     t.string   "name",         null: false
@@ -109,14 +109,14 @@ ActiveRecord::Schema.define(version: 20160414192617) do
   add_index "recipes", ["original_id"], name: "index_recipes_on_original_id", using: :btree
   add_index "recipes", ["user_id"], name: "index_recipes_on_user_id", using: :btree
 
-  create_table "savedrecipes", force: :cascade do |t|
+  create_table "saved_recipes", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "recipe_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "savedrecipes", ["user_id", "recipe_id"], name: "index_savedrecipes_on_user_id_and_recipe_id", using: :btree
+  add_index "saved_recipes", ["user_id", "recipe_id"], name: "index_saved_recipes_on_user_id_and_recipe_id", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "subscriber_id", null: false
