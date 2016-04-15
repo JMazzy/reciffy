@@ -8,7 +8,7 @@ class SavedRecipesController < ApplicationController
         # format.json { render json: @made_recipe.to_json() }
       else
         format.html { redirect_to request.referrer }
-        # format.json { render json: render json: @made_recipe.errors, status: :unprocessable_entity }
+        # format.json { render json: @made_recipe.errors, status: :unprocessable_entity }
       end
     end
   end

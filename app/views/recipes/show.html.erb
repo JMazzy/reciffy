@@ -20,12 +20,23 @@
 <% if @recipe.user_id = current_user.id %>
   <%= link_to 'Edit Recipe', edit_recipe_path(@recipe) %>
 <% end %>
+<br>
+<% if current_user.rated_recipes.include?(@recipe) %>
+  <p>Your Rating: <%= Rating.find_by(user_id: current_user.id, recipe_id: @recipe.id).rating %></p>
+<% end %>
+<%= form_for [@recipe, @rating] do |rating_fields| %>
+  <%= rating_fields.label :rating %>
+  <%= rating_fields.select :rating, 1..5 %>
+  <%= rating_fields.hidden_field :recipe_id, value: @recipe.id %>
+  <%= rating_fields.hidden_field :user_id, value: current_user.id %>
+  <%= rating_fields.submit class: 'btn btn-xs btn-default' %>
+<% end %>
 
 <%= form_for [@recipe, @comment] do |comment_fields| %>
   <%= comment_fields.label :comment_description %>
   <%= comment_fields.text_area :comment_description %>
   <br>
-  <%= comment_fields.submit %>
+  <%= comment_fields.submit class: 'btn btn-xs btn-default' %>
 <% end %>
 
 <% @recipe.comments.each do |comment| %>

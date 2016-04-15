@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
   has_many :recipes_saved, through: :saved_recipes,
                            source: :recipe
 
+  has_many :ratings
+  has_many :rated_recipes, through: :ratings,
+                           source: :recipe
+
   after_create :create_profile
 
   # private
