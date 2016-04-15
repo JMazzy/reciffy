@@ -4,9 +4,9 @@ class MadeRecipesController < ApplicationController
   def index
     @made_recipes = current_user.made_recipes
     respond_to do |format|
-      format.html {redirect_to request.referrer)}
+      format.html {redirect_to request.referrer}
       format.json {render :json => @made_recipes}
-    end 
+    end
   end
 
   def create
@@ -17,7 +17,7 @@ class MadeRecipesController < ApplicationController
         format.json { render json: @made_recipe.to_json() }
       else
         format.html { redirect_to request.referrer }
-        format.json { render json: render json: @made_recipe.errors, status: :unprocessable_entity }
+        format.json { render json: @made_recipe.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,5 +41,5 @@ class MadeRecipesController < ApplicationController
     params.permit(
       :recipe_id,
       :user_id)
-  end 
+  end
 end
