@@ -14,11 +14,6 @@ class RecipesController < ApplicationController
 
     @recipe = current_user.recipes.build(recipe_params)
 
-    @ri = @recipe.recipe_ingredients.build
-    @ri.ingredient_id = params["recipe"]["recipe_ingredient"]["ingredient_id"]
-    @ri.unit_id = params["recipe"]["recipe_ingredient"]["unit_id"]
-    @ri.quantity = params["recipe"]["recipe_ingredient"]["quantity"]
-
     if @recipe.save
 
       if !!params[:recipe] && !!params[:recipe][:tag]
@@ -99,11 +94,12 @@ class RecipesController < ApplicationController
       :instructions,
       :cook_time,
       :prep_time,
-      { :recipe_ingredients_attributes => [
+      :recipeingredients_attributes => [
         :recipe_id,
         :ingredient_id,
         :unit_id,
-        :quantity ] }
+        :quantity ],
+      :photo_attributes => [:photo]
     )
 
   end
