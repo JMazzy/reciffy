@@ -1,26 +1,43 @@
 <h1><%= @recipe.name %></h1>
-<h2><%= @recipe.description %>
-<h3>Prep Time: <%= @recipe.prep_time %></h3>
-<h3>Cook Time: <%= @recipe.cook_time %></h3>
-<p><%= @recipe.description %></p>
+
+<h4><%= @recipe.description %></h4>
+
+<h3>Ingredients</h3>
+<ul>
+  <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
+    <%= render partial: "recipe_ingredients/recipe_ingredient", locals: { recipe_ingredient: recipe_ingredient } %>
+  <% end %>
+</ul>
+
+<h3>Prep Time: <%= @recipe.prep_time %> minutes</h3>
+<h3>Cook Time: <%= @recipe.cook_time %> minutes</h3>
+
+<h3>Instructions</h3>
 <p><%= @recipe.instructions %></p>
 
+<h3>Tags</h3>
+<% @recipe.tags.each do |tag| %>
+  <%= render partial: "tags/tag", locals: { tag: tag } %>
+<% end %>
+
+<h3>Actions</h3>
 <% if current_user.recipes_saved.include?(@recipe) %>
-  <%= link_to 'Remove Saved Recipe', user_saved_recipe_path(current_user, @recipe), method: :delete %>
+  <%= link_to 'Remove Saved Recipe', user_saved_recipe_path(current_user, @recipe), method: :delete, class: "btn btn-danger" %>
 <% else %>
-  <%= link_to 'Save Recipe', user_saved_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post %>
+  <%= link_to 'Save Recipe', user_saved_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post, class: "btn btn-success" %>
 <% end %>
 
 <% if current_user.recipes_made.include?(@recipe) %>
-  <%= link_to 'Remove Made Recipe', user_made_recipe_path(current_user, @recipe), method: :delete %>
+  <%= link_to 'I Did Not Make This', user_made_recipe_path(current_user, @recipe), method: :delete, class: "btn btn-danger" %>
 <% else %>
-  <%= link_to 'Made Recipe', user_made_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post %>
+  <%= link_to 'I Made This', user_made_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post, class: "btn btn-primary" %>
 <% end %>
 
 <% if @recipe.user_id = current_user.id %>
-  <%= link_to 'Edit Recipe', edit_recipe_path(@recipe) %>
+  <%= link_to 'Edit Recipe', edit_recipe_path(@recipe), class: "btn btn-primary" %>
 <% end %>
 
+<h3>Leave a Comment</h3>
 <%= form_for [@recipe, @comment] do |comment_fields| %>
   <%= comment_fields.label :comment_description %>
   <%= comment_fields.text_area :comment_description %>
@@ -28,13 +45,13 @@
   <%= comment_fields.submit %>
 <% end %>
 
+<h3>All Comments</h3>
 <% @recipe.comments.each do |comment| %>
   <p><%= comment.comment_description %></p>
   <% if current_user.id == comment.user_id %>
     <%= link_to 'Delete', recipe_comment_path(@recipe, comment), method: :delete %>
   <% end %>
 <% end %>
-
 
 <% @recipe.photos.each do |photo| %>
   <%= image_tag photo.photo.url(:large) %>
