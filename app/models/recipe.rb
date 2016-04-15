@@ -26,7 +26,8 @@ class Recipe < ActiveRecord::Base
     tagged_recipes = Recipe.select("recipes.name AS recipe_name, recipes.id AS recipe_id, tags.name")
       .joins("JOIN taggings AS ta ON recipes.id = ta.taggable_id and ta.taggable_type = 'Recipe'")
       .joins("JOIN tags ON ta.tag_id = tags.id").where("tags.name IN (?)", tags)
-      .group("tags.name,recipes.id,recipes.name")
+      .group("tags.name,recipes.id,recipes.name").order("tags.name")
+    tagged_recipes.json  
   end
 
 end
