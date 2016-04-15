@@ -12,7 +12,11 @@ class Profile < ActiveRecord::Base
                       allow_blank: false,
                       allow_nil: false
 
+  accepts_nested_attributes_for :taggings
   accepts_nested_attributes_for :tags
+
+  has_many :taggings, as: :taggable
+  has_many :tags, through: :taggings
 
   def full_name
     "#{first_name} #{last_name}"

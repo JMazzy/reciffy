@@ -20,9 +20,9 @@
   <%= profile_fields.label :avatar %>
   <%= profile_fields.file_field :avatar %>
   <br>
-  <%= fields_for :tags do |tag_fields| %>
-    <%= tag_fields.label "Add Tag" %>
-    <%= tag_fields.text_field :name %>
+  <%= profile_fields.fields_for :taggings do |tagging_fields| %>
+    <%= tagging_fields.fields_for :tags do |tag_fields| %>
+    <% end %>
   <% end %>
   <br>
   <%= profile_fields.submit %>

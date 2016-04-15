@@ -8,9 +8,6 @@ class User < ActiveRecord::Base
   has_many :comments
 
   has_one :profile, dependent: :destroy
-  has_many :taggings, as: :taggable
-  has_many :tags, through: :taggings
-
 
   # When acting as the initiator of the subsription
   has_many :initiated_subscribe_requests,
