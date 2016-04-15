@@ -1,13 +1,13 @@
 class RecipesController < ApplicationController
 
   def index
-  	@recipes = Recipe.includes(:recipeingredients)
+    @recipes = Recipe.all
   end
 
   def new
     @recipe  = current_user.recipes.build
     @recipe.recipeingredients.build
-  end  
+  end
 
   def create
 
@@ -18,7 +18,7 @@ class RecipesController < ApplicationController
     @ri.quantity = params["recipe"]["recipeingredient"]["quantity"]
 
     if @recipe.save
-      
+
       flash[:success] = "Recipe was saved!"
 
       respond_to do |format|
@@ -26,13 +26,13 @@ class RecipesController < ApplicationController
         format.html {redirect_to recipe_path(@recipe)}
 
         format.js {render :none}
-      end  
+      end
     else
       respond_to do |format|
         flash[:alert] = "Recipe not saved!"
         redirect_to new_recipe_path
       end
-    end  
+    end
   end
 
   def show
@@ -42,20 +42,20 @@ class RecipesController < ApplicationController
 
   def edit
     @recipe  = Recipe.includes(:recipeingredients).find(params[:id])
-  end  
-
+  end
 
   def update
     @recipe  = Recipe.find(params[:id])
     if @recipe.update(recipe_params)
         flash[:success] = "#{@recipe} was updated successfully!"
-    else    
+    else
       flash[:alert] = "Your update was NOT successfull!"
     end
     redirect_to recipe_path(@recipe)
-  end  
-  
-  private 
+  end
+
+  private
+
   def recipe_params
 
     params.require(:recipe).permit(
@@ -75,4 +75,3 @@ class RecipesController < ApplicationController
   end
 
 end
-

@@ -32,4 +32,16 @@ class User < ActiveRecord::Base
 
 
   after_create :create_profile
+
+  # private
+  #
+  # def create_profile
+  #   p self
+  #self.create_profile
+  #   Profile.create(user_id: self.id)
+  #   # self.create_profile!
+  #   # newProfile.save
+  #   # p self.profile
+  # end
+
 end
