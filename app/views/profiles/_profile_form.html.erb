@@ -1,3 +1,4 @@
+
 <%= form_for @profile, url: user_profile_path(current_user) do |profile_fields| %>
   <%= profile_fields.label :tagline %>
   <%= profile_fields.text_field :tagline %>
@@ -16,7 +17,9 @@
   <br>
   <%= profile_fields.label :state %>
   <%= profile_fields.text_field :state %>
-
+  <br>
+  <div id="avatar_preview"></div>
+  <br>
   <%= profile_fields.label :avatar %>
   <%= profile_fields.file_field :avatar %>
   <br>
@@ -27,3 +30,20 @@
   <br>
   <%= profile_fields.submit %>
 <% end %>
+
+<script>
+  $(function() {
+    $('#profile_avatar').on('change', function(event) {
+      var files = event.target.files;
+      var image = files[0]
+      var reader = new FileReader();
+      reader.onload = function(file) {
+        var img = new Image(250, 250);
+        img.src = file.target.result;
+        $('#avatar_preview').html(img);
+      }
+      reader.readAsDataURL(image);
+      console.log(files);
+    });
+  });
+</script>
