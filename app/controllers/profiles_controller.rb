@@ -22,11 +22,13 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = current_user.profile
-    @tagging = current_user.taggings.build
+    @tag = current_user.profile.tags.build
   end
 
   def update
     @profile = current_user.profile
+    tag = Tag.find_or_create_by( name: params[:profile][:tag][:name].downcase)
+    @profile.taggings.build( tag_id: tag.id )
     if @profile.update( profile_params )
       flash[:success] = 'Profile updated'
       redirect_to user_profile_path(@profile)
@@ -45,11 +47,6 @@ class ProfilesController < ApplicationController
                                       :last_name,
                                       :city,
                                       :state,
-                                      :avatar,
-                                      { taggings_attributes: [
-                                        { tag_attributes: [
-                                          :name
-                                        ]}
-                                      ]})
+                                      :avatar )
   end
 end

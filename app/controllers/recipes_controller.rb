@@ -7,6 +7,7 @@ class RecipesController < ApplicationController
   def new
     @recipe  = current_user.recipes.build
     @recipe.recipe_ingredients.build
+    @tag = @recipe.tags.build
   end
 
   def create
@@ -16,6 +17,8 @@ class RecipesController < ApplicationController
     @ri.ingredient_id = params["recipe"]["recipe_ingredient"]["ingredient_id"]
     @ri.unit_id = params["recipe"]["recipe_ingredient"]["unit_id"]
     @ri.quantity = params["recipe"]["recipe_ingredient"]["quantity"]
+    tag = Tag.find_or_create_by( name: params[:recipe][:tag][:name].downcase)
+    @recipe.taggings.build( tag_id: tag.id )
 
     if @recipe.save
 
@@ -67,7 +70,7 @@ class RecipesController < ApplicationController
     else
       flash[:alert] = "Invalid recipe removal! - Unauthorized?"
       redirect_to :nack
-    end  
+    end
   end
 
   private
