@@ -81,4 +81,14 @@ class User < ActiveRecord::Base
   def get_user_made_recipes_count
     self.made_recipes.count.as_json
   end 
+
+  def self.get_tagged_users(tags)
+    tagged_users = User.select("p.first_name, p.last_name, users.id AS user_id, tags.name")
+      .joins("JOIN taggings AS ta ON users.id = ta.taggable_id and ta.taggable_type = 'User'")
+      .joins("JOIN profiles AS p ON users.id = p.user_id")
+      .joins("JOIN tags ON ta.tag_id = tags.id").where("tags.name IN (?)", tags)
+      .group("tags.name,users.id,p.first_name,p.last_name")
+      .order("tags.name")
+    tagged_users.as_json  
+  end
 end
