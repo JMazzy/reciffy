@@ -20,13 +20,16 @@ class RecipesController < ApplicationController
         tag = Tag.find_or_create_by( name: params[:recipe][:tag][:name].downcase)
         @recipe.taggings.create( tag_id: tag.id )
       end
-
-      photo_uploads = params[:recipe][:photo][:photos]
-      if photo_uploads
-        photo_uploads.each do |photo|
-          @recipe.photos.create(photo: photo)
+      
+      if params[:recipe][:photo]
+        photo_uploads = params[:recipe][:photo][:photos]
+        if photo_uploads && photo_uploads.length > 0
+          photo_uploads.each do |photo|
+            @recipe.photos.create(photo: photo)
+          end
         end
       end
+
 
       flash[:success] = "Recipe was saved!"
 
