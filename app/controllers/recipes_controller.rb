@@ -21,6 +21,13 @@ class RecipesController < ApplicationController
         @recipe.taggings.create( tag_id: tag.id )
       end
 
+      photo_uploads = params[:recipe][:photo][:photos]
+      if photo_uploads
+        photo_uploads.each do |photo|
+          @recipe.photos.create(photo: photo)
+        end
+      end
+
       flash[:success] = "Recipe was saved!"
 
       respond_to do |format|
