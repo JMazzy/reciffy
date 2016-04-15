@@ -7,17 +7,24 @@ class RecipesController < ApplicationController
   def new
     @recipe  = current_user.recipes.build
     @recipe.recipe_ingredients.build
+    @tag = @recipe.tags.build
   end
 
   def create
 
     @recipe = current_user.recipes.build(recipe_params)
+
     @ri = @recipe.recipe_ingredients.build
     @ri.ingredient_id = params["recipe"]["recipe_ingredient"]["ingredient_id"]
     @ri.unit_id = params["recipe"]["recipe_ingredient"]["unit_id"]
     @ri.quantity = params["recipe"]["recipe_ingredient"]["quantity"]
 
     if @recipe.save
+
+      if !!params[:recipe] && !!params[:recipe][:tag]
+        tag = Tag.find_or_create_by( name: params[:recipe][:tag][:name].downcase)
+        @recipe.taggings.create( tag_id: tag.id )
+      end
 
       flash[:success] = "Recipe was saved!"
 
@@ -29,8 +36,12 @@ class RecipesController < ApplicationController
       end
     else
       respond_to do |format|
-        flash[:alert] = "Recipe not saved!"
-        redirect_to new_recipe_path
+
+        format.html {
+          flash[:alert] = "Recipe not saved!"
+          redirect_to new_recipe_path
+        }
+
       end
     end
   end
@@ -42,12 +53,19 @@ class RecipesController < ApplicationController
 
   def edit
     @recipe  = Recipe.includes(:recipe_ingredients).find(params[:id])
+    @tag = @recipe.tags.build
   end
 
   def update
     @recipe  = Recipe.find(params[:id])
+
+    if !!params[:recipe] && !!params[:recipe][:tag]
+      tag = Tag.find_or_create_by( name: params[:recipe][:tag][:name].downcase)
+      @recipe.taggings.build( tag_id: tag.id )
+    end
+
     if @recipe.update(recipe_params)
-        flash[:success] = "#{@recipe} was updated successfully!"
+        flash[:success] = "#{@recipe.name} was updated successfully!"
     else
       flash[:alert] = "Your update was NOT successfull!"
     end
@@ -67,7 +85,7 @@ class RecipesController < ApplicationController
     else
       flash[:alert] = "Invalid recipe removal! - Unauthorized?"
       redirect_to :nack
-    end  
+    end
   end
 
   private

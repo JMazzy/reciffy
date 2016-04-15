@@ -24,23 +24,11 @@ class TagsController < ApplicationController
       if @tag.save
         format.html { render nothing: true }
         format.json { render json: @tag.to_json }
+        flash[:success] = "Tag created!"
       else
         format.html { render nothing: true }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-
-  def destroy
-    @tag = Tag.find(params[:id])
-    respond_to do |format|
-      if @tag.destroy
-        format.html { render nothing: true }
-        format.json { render json: @tag.to_json }
-      else
-        format.html { render nothing: true }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
+        flash[:danger] = "Tag could not be created."
       end
     end
   end

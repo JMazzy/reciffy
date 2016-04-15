@@ -8,31 +8,36 @@
 
   <%= recipe_fields.label :description %>:
   <%= recipe_fields.text_area :description%><br>
-  
+
   <%= recipe_fields.label :prep_time %>:
   <%= recipe_fields.number_field :prep_time%><br>
-  
+
   <%= recipe_fields.label :cook_time %>:
   <%= recipe_fields.number_field :cook_time%><br>
-  
+
   <%= recipe_fields.label :instructions %>:
   <%= recipe_fields.text_area :instructions%><br><br>
-
 
   <%= recipe_fields.fields_for :recipe_ingredient do |recipe_ingredient| %>
     <li>
       <ul>
-        Ingredient: 
+        Ingredient:
         <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.all, :id, :name %>
         Qty:
         <%= recipe_ingredient.number_field :quantity%>
         <%= recipe_ingredient.collection_select :unit_id, Unit.all, :id, :unit_type %><br>
       </ul>
-    </li>    
+    </li>
   <% end %>
+
+  <br>
+
+  <%= recipe_fields.fields_for :tag do |tag_fields| %>
+    <%= tag_fields.label "Add Tag" %>
+    <%= tag_fields.text_field :name %>
+  <% end %>
+
+  <br>
 
   <%= recipe_fields.submit %>
 <% end %>
-
-
-
