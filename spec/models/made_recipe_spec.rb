@@ -1,6 +1,39 @@
 require 'rails_helper'
 
-describe MadeRecipe do
+describe MadeRecipe, type: :model do
+  let(:made_recipe){ build(:made_recipe) }
+
+  describe 'attributes' do
+    it "is created when valid" do
+      expect(made_recipe).to be_valid
+    end
+
+    it "is not created without user" do
+      nouser = build(:made_recipe, user_id: nil)
+      expect(nouser).to_not be_valid
+    end
+
+    it 'is not created without recipe' do
+      norecipe = build(:made_recipe, recipe_id: nil)
+      expect(norecipe).to_not be_valid
+    end
+
+    it "is invalid when a duplicate" do
+      made_recipe.save!
+      second_made_recipe = build(:made_recipe, user_id: made_recipe.user_id, recipe_id: made_recipe.recipe_id)
+      expect(second_made_recipe).to_not be_valid
+    end
+  end
+
+  describe 'associations' do
+    it 'responds to recipe' do
+      expect(made_recipe).to respond_to(:recipe)
+    end
+
+    it 'responds to user' do
+      expect(made_recipe).to respond_to(:user)
+    end
+  end
 
   let(:user1){ build(:user) }
   let(:user2){ build(:user) }
@@ -10,7 +43,7 @@ describe MadeRecipe do
   let(:recipe3){ build(:recipe) }
   let(:recipe4){ build(:recipe) }
 
-  describe 'Mark recipe as made' do   
+  describe 'Mark recipe as made' do
 
     it " allows to mark a recipe as made by 1 user " do
       user1.save
@@ -53,7 +86,7 @@ describe MadeRecipe do
 
   end
 
-  describe 'Does not allow duplicate made recipe' do   
+  describe 'Does not allow duplicate made recipe' do
 
     it " does not allow the user to mark same recipe as made more than once" do
       user1.save
@@ -69,7 +102,7 @@ describe MadeRecipe do
 
   end
 
-  describe 'Does allows the remove of made recipe' do   
+  describe 'Does allows the remove of made recipe' do
     it " allows removal of 1 made recipe by 1 user  " do
       user1.save
       user2.save
@@ -138,5 +171,5 @@ describe MadeRecipe do
      #  expect(MadeRecipe.count).to eq(1)
     # end
   end
-  
+
 end

@@ -10,6 +10,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'ember-rails'
+gem 'ember-cli-rails'
 gem 'faker'
 gem 'figaro'
 gem 'paperclip'
@@ -42,3 +43,5 @@ group :production do
   gem 'rails_12factor'
   ruby '2.3.0'
 end
+
+gem 'rails_12factor', group: [:staging, :production]
