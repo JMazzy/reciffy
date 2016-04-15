@@ -1,6 +1,6 @@
-class CreateRecipeingredients < ActiveRecord::Migration
+class CreateRecipeIngredients < ActiveRecord::Migration
   def change
-    create_table :recipeingredients do |t|
+    create_table :recipe_ingredients do |t|
       t.integer :recipe_id, null: false
       t.integer :ingredient_id, null: false
       t.integer :unit_id, null: false
@@ -8,6 +8,6 @@ class CreateRecipeingredients < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :recipeingredients, [:recipe_id, :ingredient_id, :unit_id], name: 'recipe_ingredient_unit_index'
+    add_index :recipe_ingredients, [:recipe_id, :ingredient_id, :unit_id], name: 'recipe_ingredient_unit_index'
   end
 end

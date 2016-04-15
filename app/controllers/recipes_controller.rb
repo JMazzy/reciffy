@@ -81,7 +81,7 @@ class RecipesController < ApplicationController
       :instructions,
       :cook_time,
       :prep_time,
-      { :recipeingredients_attributes => [
+      { :recipe_ingredients_attributes => [
         :recipe_id,
         :ingredient_id,
         :unit_id,

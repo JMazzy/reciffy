@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :recipeingredient do
+  factory :recipe_ingredient do
     recipe_id 1
     ingredient_id 1
     unit_id 1

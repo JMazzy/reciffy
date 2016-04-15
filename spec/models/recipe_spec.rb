@@ -39,8 +39,8 @@ describe Recipe do
       expect(recipe).to respond_to(:user)
     end
 
-    it 'responds to recipeingredients' do
-      expect(recipe).to respond_to(:recipeingredients)
+    it 'responds to recipe_ingredients' do
+      expect(recipe).to respond_to(:recipe_ingredients)
     end
 
     it 'responds to photos' do

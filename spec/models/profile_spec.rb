@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 describe Profile do
-  let(:user){ build(:user) }
-  let(:profile){ build(:profile, user: user) }
+  before do
+    DatabaseCleaner.clean
+  end
+
+  let(:profile){ create(:profile) }
+
   describe 'attributes' do
 
     it 'is valid with default attributes' do
@@ -10,15 +14,13 @@ describe Profile do
     end
 
     it 'is valid with null attributes' do
-      new_profile = build(:profile, bio: nil, tagline: nil, first_name: nil, last_name: nil, city: nil, state: nil, user: user)
+      new_profile = build(:profile, bio: nil, tagline: nil, first_name: nil, last_name: nil, city: nil, state: nil)
       expect(new_profile).to be_valid
     end
 
     it "can't create two profiles for one user" do
-      profile = build(:profile, user: user)
-      profile.save!
-      second_profile = build(:profile, user: user)
-      expect{ second_profile.save! }.to raise_error(ActiveRecord::RecordInvalid)
+      second_profile = build(:profile, user_id: profile.user_id)
+      expect(second_profile).to_not be_valid
     end
   end
 

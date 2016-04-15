@@ -6,7 +6,10 @@ class Profile < ActiveRecord::Base
   validates_attachment_presence :avatar, presence: true, :unless => "avatar.blank?"
   validates_with AttachmentSizeValidator, attributes: :avatar, less_than: 5.megabytes, :unless => "avatar.blank?"
 
-  validates :user, presence: true
+  validates :user_id, presence: true,
+                      uniqueness: true,
+                      allow_blank: false,
+                      allow_nil: false
 
   def full_name
     "#{first_name} #{last_name}"
