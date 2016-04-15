@@ -1,19 +1,24 @@
 
 <tr>
-<td>
-  <%= recipe.name %>
-</td>	  
-<td>
-  <%= recipe.description %>
-</td>	 
-<td>
-  <%= recipe.instructions %>
-</td>	 
-<td>
-<%= recipe.cook_time %>
-</td>	 
-<td>
-<%= recipe.prep_time %>
-</td>
-</tr>
+  
+  <td>
+    <%= link_to "#{recipe.name}", recipe_path(recipe) %>
+  </td>
 
+  <td>
+    <%= recipe.description %>
+  </td>
+
+  <td>
+    <%= recipe.instructions %>
+  </td>
+
+  <td>
+  <%= recipe.cook_time %>
+  </td>
+
+  <td>
+  <%= recipe.prep_time %>
+  </td>
+
+</tr>
