@@ -34,3 +34,8 @@
     <%= link_to 'Delete', recipe_comment_path(@recipe, comment), method: :delete %>
   <% end %>
 <% end %>
+
+
+<% @recipe.photos.each do |photo| %>
+  <%= image_tag photo.photo.url(:large) %>
+<% end %>
