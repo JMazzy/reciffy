@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
            :source => :subscriberequestor  
 
 
+  has_many :made_recipes
+   
   after_create :create_profile
 
   # private
