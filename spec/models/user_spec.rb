@@ -10,6 +10,6 @@ describe User do
   it "doesn't allow identical emails" do
     user = build(:user, email: 'bar@foo.com')
     user.save
-    expect{ build(:user, email: 'bar@foo.com') }.to raise_error(ActiveRecord::RecordInvalid)
+    expect{ create(:user, email: 'bar@foo.com') }.to raise_error(ActiveRecord::RecordInvalid)
   end
 end

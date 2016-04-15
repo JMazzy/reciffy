@@ -29,7 +29,7 @@ class SubscriptionsController < ApplicationController
         flash[:alert] = "Could not Unsubscribe!"
       end
 
-      redirect_user_path(current_user.id)
+      redirect_to :back
     else
       flash[:alert] = "Invalid subscription removal! - Unauthorized?"
       redirect_to root_url

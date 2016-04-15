@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :tagging do
-    tag_id 1
-    taggable_id 1
+    sequence(:tag_id) { |n| n }
+    sequence(:taggable_id) { |n| n }
     taggable_type "Recipe"
   end
 end

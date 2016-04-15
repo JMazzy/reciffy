@@ -13,23 +13,25 @@ class User < ActiveRecord::Base
 
 
   # When acting as the initiator of the subsription
-  has_many :initiated_subscribe_requests, 
-           :foreign_key => :subsriber_id,
+  has_many :initiated_subscribe_requests,
+           :foreign_key => :subscriber_id,
            :class_name => "Subscription"
 
-  has_many :subscriptions, 
+  has_many :subscriptions,
            :through => :initiated_subscribe_requests,
            :source => :subscription_receiver
 
-  # When acting as the recipient of the friending
-  has_many :received_subscription_requests,  
+  # When acting as the recipient of the subscription
+  has_many :received_subscription_requests,
            :foreign_key => :subscribed_id,
            :class_name => "Subscription"
 
-  has_many :users_subscribed_by,         
+  has_many :users_subscribed_by,
            :through => :received_subscribe_requests,
-           :source => :subscriberequestor  
+           :source => :subscriberequestor
 
+
+  has_many :made_recipes
 
   after_create :create_profile
 
@@ -44,4 +46,7 @@ class User < ActiveRecord::Base
   #   # p self.profile
   # end
 
+  def get_user_subscriptions
+    User.subscriptions.as_json
+  end
 end

@@ -1,11 +1,11 @@
-class RecipeingredientsController < ApplicationController
+class RecipeIngredientsController < ApplicationController
 
   def new
-    @recipe_ingredient = Recipeingredient.new
+    @recipe_ingredient = RecipeIngredient.new
   end
 
   def create
-    @recipe_ingredient = Recipeingredient.new(recipe_ingredient_params)
+    @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
     @recipe_ingredient.recipe_id = params[:recipe_id]
     if @recipe_ingredient.save
       redirect_to recipe_path(@recipe_ingredient.recipe_id)
@@ -17,9 +17,9 @@ class RecipeingredientsController < ApplicationController
   private
 
   def recipe_ingredient_params
-    params.require(:recipeingredient).permit(
+    params.require(:recipe_ingredient).permit(
       :recipe_id,
       :ingredient_id,
       :unit_id)
-  end  
+  end
 end

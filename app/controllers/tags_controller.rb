@@ -22,10 +22,10 @@ class TagsController < ApplicationController
     @tag = Tag.new( tag_params )
     respond_to do |format|
       if @tag.save
-        format.html { redirect :back }
+        format.html { render nothing: true }
         format.json { render json: @tag.to_json }
       else
-        format.html { redirect :back }
+        format.html { render nothing: true }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
       end
     end
@@ -36,12 +36,18 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     respond_to do |format|
       if @tag.destroy
-        format.html { redirect :back }
+        format.html { render nothing: true }
         format.json { render json: @tag.to_json }
       else
-        format.html { redirect :back }
+        format.html { render nothing: true }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  private
+
+  def tag_params
+    params.require(:tag).permit(:name)
   end
 end

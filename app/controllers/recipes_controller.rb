@@ -1,12 +1,13 @@
 class RecipesController < ApplicationController
 
   def index
-  	@recipes = Recipe.includes(:recipeingredients)
+    @recipes = Recipe.all
   end
 
   def new
     @recipe  = current_user.recipes.build
-    @recipe.recipeingredients.build
+    @recipe.recipe_ingredients.build
+
   end
 
   def create
@@ -37,9 +38,8 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe  = Recipe.includes(:recipeingredients).find(params[:id])
+    @recipe  = Recipe.includes(:recipe_ingredients).find(params[:id])
   end
-
 
   def update
     @recipe  = Recipe.find(params[:id])
@@ -51,7 +51,24 @@ class RecipesController < ApplicationController
     redirect_to recipe_path(@recipe)
   end
 
+  def destroy
+    if @recipe = Recipe.find_by_id(params[:id])
+
+      if @recipe.destroy
+        flash[:success] = "Recipe Deleted"
+      else
+        flash[:alert] = "Could not delete recipe!"
+      end
+
+      redirect_to :back
+    else
+      flash[:alert] = "Invalid recipe removal! - Unauthorized?"
+      redirect_to :nack
+    end
+  end
+
   private
+
   def recipe_params
 
     params.require(:recipe).permit(

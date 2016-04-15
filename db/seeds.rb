@@ -1,7 +1,7 @@
 Recipe.delete_all
 Ingredient.delete_all
 Unit.delete_all
-Recipeingredient.delete_all
+RecipeIngredient.delete_all
 Tag.delete_all
 Tagging.delete_all
 User.delete_all
