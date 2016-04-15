@@ -31,9 +31,21 @@
   <% end %>
 
   <%= recipe_fields.fields_for :photo do |photo_field| %>
-    <%= photo_field.label "Upload Photos" %>
-    <%= photo_field.file_field :photo %>
+    <%= photo_field.label "Upload Photos (Can Select Multiple)" %>
+    <%= photo_field.file_field :photos, multiple: :true %>
   <% end %>
+<%
+=begin
+%>
+  <div class="control-group">
+    <%= f.label :photos, class: "control-label" %>
+    <div class="controls">
+      <%= file_field_tag "photos[]", type: :file, multiple: :true %>
+    </div>
+  </div>
+<%
+=end
+%>
 
   <br>
 
