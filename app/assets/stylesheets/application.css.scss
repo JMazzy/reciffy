@@ -14,5 +14,24 @@
  *= require_self
  */
 
- @import "bootstrap-sprockets";
- @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#error_explanation {
+  border: 1px solid rgb(235, 204, 209);
+  color: rgb(169, 68, 66);
+  background-color: rgb(242, 222, 222);
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+
+  li {
+    list-style: none;
+    list-style-type: none;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+}

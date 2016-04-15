@@ -20,7 +20,7 @@ class RecipesController < ApplicationController
         tag = Tag.find_or_create_by( name: params[:recipe][:tag][:name].downcase)
         @recipe.taggings.create( tag_id: tag.id )
       end
-      
+
       if params[:recipe][:photo]
         photo_uploads = params[:recipe][:photo][:photos]
         if photo_uploads && photo_uploads.length > 0
@@ -105,12 +105,13 @@ class RecipesController < ApplicationController
       :instructions,
       :cook_time,
       :prep_time,
-      :recipeingredients_attributes => [
+      :recipe_ingredients_attributes => [
         :recipe_id,
         :ingredient_id,
         :unit_id,
         :quantity ],
-      :photo_attributes => [:photo]
+      :photo_attributes => [:photo],
+      :tag_attributes => [:name]
     )
 
   end
