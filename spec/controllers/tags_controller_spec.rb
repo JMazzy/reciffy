@@ -43,4 +43,11 @@ describe TagsController, type: :controller do
       expect{ post :create, tag: { name: "RecipeTag" } }.to change{ Tag.count }.by(1)
     end
   end
+
+  describe "#destroy" do
+    it "destroys a tag" do
+      tag
+      expect{ delete :destroy, id: tag.id }.to change{ Tag.count }.by(-1)
+    end
+  end
 end
