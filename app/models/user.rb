@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   # When acting as the initiator of the subsription
   has_many :initiated_subscribe_requests,
-           :foreign_key => :subsriber_id,
+           :foreign_key => :subscriber_id,
            :class_name => "Subscription"
 
   has_many :subscriptions,
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
   has_many :users_subscribed_by,
            :through => :received_subscribe_requests,
-           :source => :subscriberequestor
+           :source => :subscribe_requestor
 
 
   has_many :made_recipes
