@@ -1,4 +1,4 @@
-class RecipeingredientsController < ApplicationController
+class RecipeIngredientsController < ApplicationController
 
   def new
     @recipe_ingredient = RecipeIngredient.new
@@ -21,5 +21,5 @@ class RecipeingredientsController < ApplicationController
       :recipe_id,
       :ingredient_id,
       :unit_id)
-  end  
+  end
 end

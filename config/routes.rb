@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     resource :profile, only: [:new, :create, :show, :edit, :update]
   end
 
-  resources :tags, only: [:index, :show, :create, :destroy]
+  resources :tags, only: [:index, :show, :create]
+  resources :taggings, only: [:create, :destroy]
 
   resources :static_pages, only: [:index]
   resources :photos

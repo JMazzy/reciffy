@@ -29,5 +29,5 @@ class MadeRecipesController < ApplicationController
     params.require(:made_recipe).permit(
       :recipe_id,
       :user_id)
-  end  
+  end 
 end

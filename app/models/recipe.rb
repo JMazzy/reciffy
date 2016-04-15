@@ -13,5 +13,7 @@ class Recipe < ActiveRecord::Base
 	  :allow_destroy => true,
     :reject_if     => :all_blank
 
+  accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
+
   validates :name, :description, :instructions, :prep_time, :cook_time, presence: true
 end
