@@ -5,6 +5,18 @@
 <p><%= @recipe.description %></p>
 <p><%= @recipe.instructions %></p>
 
+<% if current_user.recipes_saved.include?(@recipe) %>
+  <%= link_to 'Remove Saved Recipe', user_saved_recipe_path(current_user, @recipe), method: :delete %>
+<% else %>
+  <%= link_to 'Save Recipe', user_saved_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post %>
+<% end %>
+
+<% if current_user.recipes_made.include?(@recipe) %>
+  <%= link_to 'Remove Made Recipe', user_made_recipe_path(current_user, @recipe), method: :delete %>
+<% else %>
+  <%= link_to 'Made Recipe', user_made_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post %>
+<% end %>
+
 <% if @recipe.user_id = current_user.id %>
   <%= link_to 'Edit Recipe', edit_recipe_path(@recipe) %>
 <% end %>

@@ -13,7 +13,7 @@ class MadeRecipesController < ApplicationController
   end
 
   def destroy
-    @made_recipe = MadeRecipe.find(params[:id])
+    @made_recipe = MadeRecipe.find_by(user_id: params[:user_id], recipe_id: params[:id])
     if @made_recipe.destroy
       flash[:success] = 'Removed your made recipe'
       redirect_to :back
@@ -26,7 +26,7 @@ class MadeRecipesController < ApplicationController
   private
 
   def made_recipe_params
-    params.require(:made_recipe).permit(
+    params.permit(
       :recipe_id,
       :user_id)
   end  
