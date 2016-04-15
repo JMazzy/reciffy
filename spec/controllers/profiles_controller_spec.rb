@@ -10,7 +10,7 @@ describe ProfilesController do
   describe 'PUT #update' do
     context 'user signed in' do
       login_user
-
+      binding.pry
       before do
         user
         patch :update,

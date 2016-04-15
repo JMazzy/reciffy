@@ -27,8 +27,12 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = current_user.profile
-    tag = Tag.find_or_create_by( name: params[:profile][:tag][:name].downcase)
-    @profile.taggings.build( tag_id: tag.id )
+
+    if !!params[:profile] && !!params[:profile][:tag]
+      tag = Tag.find_or_create_by( name: params[:profile][:tag][:name].downcase)
+      @profile.taggings.build( tag_id: tag.id )
+    end
+
     if @profile.update( profile_params )
       flash[:success] = 'Profile updated'
       redirect_to user_profile_path(@profile)

@@ -18,11 +18,13 @@ class RecipesController < ApplicationController
     @ri.ingredient_id = params["recipe"]["recipe_ingredient"]["ingredient_id"]
     @ri.unit_id = params["recipe"]["recipe_ingredient"]["unit_id"]
     @ri.quantity = params["recipe"]["recipe_ingredient"]["quantity"]
-    tag = Tag.find_or_create_by( name: params[:recipe][:tag][:name].downcase)
 
     if @recipe.save
 
-      @recipe.taggings.create( tag_id: tag.id )
+      if !!params[:recipe] && !!params[:recipe][:tag]
+        tag = Tag.find_or_create_by( name: params[:recipe][:tag][:name].downcase)
+        @recipe.taggings.create( tag_id: tag.id )
+      end
 
       flash[:success] = "Recipe was saved!"
 
@@ -56,8 +58,12 @@ class RecipesController < ApplicationController
 
   def update
     @recipe  = Recipe.find(params[:id])
-    tag = Tag.find_or_create_by( name: params[:recipe][:tag][:name].downcase)
-    @recipe.taggings.build( tag_id: tag.id )
+
+    if !!params[:recipe] && !!params[:recipe][:tag]
+      tag = Tag.find_or_create_by( name: params[:recipe][:tag][:name].downcase)
+      @recipe.taggings.build( tag_id: tag.id )
+    end
+
     if @recipe.update(recipe_params)
         flash[:success] = "#{@recipe.name} was updated successfully!"
     else
