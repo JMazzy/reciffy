@@ -6,16 +6,16 @@ class RecipesController < ApplicationController
 
   def new
     @recipe  = current_user.recipes.build
-    @recipe.recipeingredients.build
+    @recipe.recipe_ingredients.build
   end
 
   def create
 
     @recipe = current_user.recipes.build(recipe_params)
-    @ri = @recipe.recipeingredients.build
-    @ri.ingredient_id = params["recipe"]["recipeingredient"]["ingredient_id"]
-    @ri.unit_id = params["recipe"]["recipeingredient"]["unit_id"]
-    @ri.quantity = params["recipe"]["recipeingredient"]["quantity"]
+    @ri = @recipe.recipe_ingredients.build
+    @ri.ingredient_id = params["recipe"]["recipe_ingredient"]["ingredient_id"]
+    @ri.unit_id = params["recipe"]["recipe_ingredient"]["unit_id"]
+    @ri.quantity = params["recipe"]["recipe_ingredient"]["quantity"]
 
     if @recipe.save
 
@@ -41,7 +41,7 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe  = Recipe.includes(:recipeingredients).find(params[:id])
+    @recipe  = Recipe.includes(:recipe_ingredients).find(params[:id])
   end
 
   def update
@@ -52,6 +52,22 @@ class RecipesController < ApplicationController
       flash[:alert] = "Your update was NOT successfull!"
     end
     redirect_to recipe_path(@recipe)
+  end
+
+  def destroy
+    if @recipe = Recipe.find_by_id(params[:id])
+
+      if @recipe.destroy
+        flash[:success] = "Recipe Deleted"
+      else
+        flash[:alert] = "Could not delete recipe!"
+      end
+
+      redirect_to :back
+    else
+      flash[:alert] = "Invalid recipe removal! - Unauthorized?"
+      redirect_to :nack
+    end  
   end
 
   private
@@ -65,7 +81,7 @@ class RecipesController < ApplicationController
       :instructions,
       :cook_time,
       :prep_time,
-      { :recipeingredients_attributes => [
+      { :recipe_ingredients_attributes => [
         :recipe_id,
         :ingredient_id,
         :unit_id,

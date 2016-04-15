@@ -1,4 +1,4 @@
-class CreateSavedrecipes < ActiveRecord::Migration
+class CreateSavedRecipes < ActiveRecord::Migration
   def change
     create_table :savedrecipes do |t|
       t.integer :user_id, null: false

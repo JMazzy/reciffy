@@ -1,6 +1,7 @@
 FactoryGirl.define do
+ 
   factory :subscription do
-    subscriber_id 1
-    subscribed_id 2
+    subscriber_id :user
+    subscribed_id :user
   end
 end
