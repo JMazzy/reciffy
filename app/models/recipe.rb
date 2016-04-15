@@ -21,4 +21,12 @@ class Recipe < ActiveRecord::Base
   accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
 
   validates :name, :description, :instructions, :prep_time, :cook_time, presence: true
+
+  def self.get_tagged_recipes(tags)
+    tagged_recipes = Recipe.select("recipes.name AS recipe_name, recipes.id AS recipe_id, tags.name")
+      .joins("JOIN taggings AS ta ON recipes.id = ta.taggable_id and ta.taggable_type = 'Recipe'")
+      .joins("JOIN tags ON ta.tag_id = tags.id").where("tags.name IN (?)", tags)
+      .group("tags.name,recipes.id,recipes.name")
+  end
+
 end
