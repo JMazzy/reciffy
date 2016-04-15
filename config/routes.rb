@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  Rails.application.routes.draw do
+    mount_ember_app :frontend, to: "/"
+  end
+
   resources :recipes do
     resources :comments
     resources :ratings, only: [:create, :update]
@@ -18,7 +22,6 @@ Rails.application.routes.draw do
   resources :static_pages, only: [:index]
   resources :photos
   resources :subscriptions
-  
 
   root to: "static_pages#index"
 end
