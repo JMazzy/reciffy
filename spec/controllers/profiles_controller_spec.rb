@@ -5,12 +5,12 @@ describe ProfilesController do
     DatabaseCleaner.clean
   end
 
-  let(:user){ create(:user) }
-
   describe 'PUT #update' do
     context 'user signed in' do
       login_user
-      binding.pry
+
+      let(:user){ User.first }
+
       before do
         user
         patch :update,
@@ -32,6 +32,9 @@ describe ProfilesController do
     end
 
     context 'user not signed in' do
+
+      let(:user){ create(:user) }
+
       before do
         user
         patch :update,
