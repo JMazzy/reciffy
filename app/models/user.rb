@@ -30,6 +30,12 @@ class User < ActiveRecord::Base
 
 
   has_many :made_recipes
+  has_many :recipes_made, through: :made_recipes,
+                          source: :recipe
+                          
+  has_many :saved_recipes
+  has_many :recipes_saved, through: :saved_recipes,
+                           source: :recipe
 
   after_create :create_profile
 
