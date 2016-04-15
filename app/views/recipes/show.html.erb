@@ -28,6 +28,11 @@
   <%= comment_fields.submit %>
 <% end %>
 
+<h3>Tags</h3>
+<% @recipe.tags.each do |tags| %>
+  <%= render partial: "tags/tag"
+<% end %>
+
 <% @recipe.comments.each do |comment| %>
   <p><%= comment.comment_description %></p>
   <% if current_user.id == comment.user_id %>
