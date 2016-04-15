@@ -1,10 +1,7 @@
 require 'rails_helper'
 
 describe TagsController, type: :controller do
-  before do
-    DatabaseCleaner.clean
-  end
-
+  
   let(:tag) { create :tag }
 
   context "user logged in" do

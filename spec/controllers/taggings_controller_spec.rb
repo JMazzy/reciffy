@@ -1,19 +1,22 @@
 require 'rails_helper'
 
 describe TaggingsController, type: :controller do
-  before do
-    DatabaseCleaner.clean
-  end
 
-  let(:tagging) { create :tagging }
+  let(:recipe) { create :recipe }
+  let(:tag) { create :tag }
 
   context "user logged in" do
 
     login_user
 
+    before do
+      recipe
+      tag
+    end
+
     describe "#create" do
-      xit "creates a tagging" do
-        expect{ post :create, tagging: attributes_for(:tagging) }.to change{ Tag.count }.by(1)
+      it "creates a tagging" do
+        expect{ post :create, tagging: {tag_id: tag.id, taggable_id: recipe.id, taggable_type: recipe.class } }.to change{ Tagging.count }.by(1)
       end
     end
   end
@@ -21,8 +24,8 @@ describe TaggingsController, type: :controller do
   context "user not logged in" do
 
     describe "#create" do
-      xit "does NOT create a tagging" do
-        expect{ post :create, tagging: attributes_for(:tagging) }.to change{ Tag.count }.by(0)
+      it "does NOT create a tagging" do
+        expect{ post :create, tagging: { tag_id: tag.id, taggable_id: recipe.id, taggable_type: recipe.class } }.to change{ Tagging.count }.by(0)
       end
     end
   end
