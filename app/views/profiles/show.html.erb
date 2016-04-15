@@ -5,6 +5,27 @@
 <% if @profile.avatar %>
   <%= image_tag @profile.avatar.url(:medium) %>
 <% end %>
+<h3>User's Saved Recipes</h3>
+<ul>
+  <% @profile.user.recipes_saved.each do |recipe| %>
+    <li><%= link_to "#{recipe.name}", recipe_path(recipe) %></li>
+  <% end %>
+</ul>
+
+<h3>User's Created Recipes</h3>
+<ul>
+  <% @profile.user.recipes.each do |recipe| %>
+    <li><%= link_to "#{recipe.name}", recipe_path(recipe) %></li>
+  <% end %>
+</ul>
+
+<h3>User's Made Recipes</h3>
+<ul>
+  <% @profile.user.recipes_made.each do |recipe| %>
+    <li><%= link_to "#{recipe.name}", recipe_path(recipe) %></li>
+  <% end %>
+</ul>
+
 <% if @profile.user_id == current_user.id %>
   <%= link_to 'Edit', edit_user_profile_path(current_user) %>
 <% end %>

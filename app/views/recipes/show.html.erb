@@ -37,6 +37,8 @@
   <%= link_to 'Edit Recipe', edit_recipe_path(@recipe), class: "btn btn-primary" %>
 <% end %>
 <br>
+<p>Number of ratings: <%= @recipe.ratings.count %></p>
+<br>
 <% if current_user.rated_recipes.include?(@recipe) %>
   <p>Your Rating: <%= Rating.find_by(user_id: current_user.id, recipe_id: @recipe.id).rating %></p>
 <% end %>
