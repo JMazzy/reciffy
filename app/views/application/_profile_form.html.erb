@@ -20,5 +20,12 @@
   <%= profile_fields.label :avatar %>
   <%= profile_fields.file_field :avatar %>
   <br>
+  <%= fields_for :taggings do |tagging_fields| %>
+    <%= "Add Tags" %>
+    <%= (@profile.user.taggings + 1).times do %>
+      <%= tagging_fields.text_field :name, value:  %>
+    <% end %>
+  <% end %>
+  <br>
   <%= profile_fields.submit %>
 <% end %>
