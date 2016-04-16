@@ -3,14 +3,9 @@ require 'rails_helper'
 describe SavedRecipesController, type: :controller do
 
   # let(:recipe){ create :recipe }
-  # let(:user){ create :user }
 
   # context 'user logged in' do
   #   login_user
-
-  #   before do
-  #     recipe
-  #   end
 
   #   describe '#create' do
   #     it 'creates a saved recipe' do
