@@ -1,3 +1,5 @@
+import Ember from 'ember';
+import Fraction from 'fractional';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
