@@ -6,7 +6,7 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('recipes' function() {
+  this.route('recipes', function() {
     this.route('owned');
     this.route('made');
     this.route('saved');
