@@ -235,5 +235,5 @@ describe Subscription do
       expect(user3.subscriptions.count).to eq(2)
     end
   end  
-
+      
 end
