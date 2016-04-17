@@ -1,13 +1,10 @@
 <div class="recipe-list-item">
   <div class="panel panel-default">
 
-    <h3><a href="#">{{name}}</a></h3>
+    <h3>{{#link-to "recipes.show" recipe_id}}{{name}}{{/link-to}}</h3>
     <p>
-
+      {{description}}
     </p>
 
-
-
-    {{yield}}
   </div>
 </div>
