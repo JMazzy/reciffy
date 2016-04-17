@@ -40,7 +40,7 @@ end
 puts "Creating Recipes"
 
 10.times do
-  Recipe.create(  name: Faker::Hipster.words,
+  Recipe.create(  name: Faker::Hipster.words.join(" ").titleize,
                   description: Faker::Hipster.sentence,
                   instructions: Faker::Hipster.sentences,
                   prep_time: Random.rand(60),
