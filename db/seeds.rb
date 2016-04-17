@@ -36,7 +36,7 @@ puts "Creating Recipes"
 10.times do
   Recipe.create(  name: Faker::Hipster.words.join(" ").titleize,
                   description: Faker::Hipster.sentence,
-                  instructions: Faker::Hipster.sentences,
+                  instructions: Faker::Hipster.paragraph,
                   prep_time: Random.rand(60),
                   cook_time: Random.rand(60),
                   user_id: User.all.sample.id )

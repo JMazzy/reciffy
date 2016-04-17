@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
     @user_recipes = current_user.recipes
     respond_to do |format|
       format.html
-      format.json { render json: @recipes }
+      format.json { render json: @recipes.as_json }
     end
   end
 
@@ -64,7 +64,7 @@ class RecipesController < ApplicationController
     respond_to do |format|
 
       format.html
-      format.json { render json: @recipe }
+      format.json { render json: @recipe.as_json }
 
     end
   end
