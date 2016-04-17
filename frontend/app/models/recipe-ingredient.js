@@ -3,10 +3,10 @@ import Fraction from 'fractional';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  recipe_id: DS.attr('integer'),
-  ingredient_id: DS.attr('integer'),
-  unit_id: DS.attr('integer'),
-  quantity: DS.attr('integer'),
+  recipe_id: DS.attr('number'),
+  ingredient_id: DS.attr('number'),
+  unit_id: DS.attr('number'),
+  quantity: DS.attr('number'),
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
 

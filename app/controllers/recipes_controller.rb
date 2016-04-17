@@ -3,6 +3,10 @@ class RecipesController < ApplicationController
   def index
     @recipes = Recipe.all
     @user_recipes = current_user.recipes
+    respond_to do |format|
+      format.html
+      format.json { render json: @recipes }
+    end
   end
 
   def new
