@@ -6,12 +6,6 @@ Tag.delete_all
 Tagging.delete_all
 User.delete_all
 
-test_user = User.create(  email: "foo@bar.com",
-                          password: "foo1bar2" )
-
-test_user.profile.tags.create( name: "footag" )
-test_user.profile.tags.create( name: "bartag" )
-
 puts "Creating Users"
 
 test_user = User.create(  email: "foo@bar.com",
@@ -55,5 +49,28 @@ Recipe.all.each do |r|
       unit_id: Unit.all.sample.id,
       quantity: Random.rand(4)
     )
+  end
+end
+
+puts "Creating Tags"
+10.times do
+  Tag.create( name: Faker::Hipster.word )
+end
+
+puts "Creating Taggings"
+
+User.all.each do |u|
+  2.times do
+    Tagging.create( tag_id: Tag.all.sample,
+                    taggable_id: u.profile.id,
+                    taggable_type: "Profile" )
+  end
+end
+
+Recipe.all.each do |r|
+  3.times do
+    Tagging.create( tag_id: Tag.all.sample,
+                    taggable_id: r.id,
+                    taggable_type: "Recipe" )
   end
 end
