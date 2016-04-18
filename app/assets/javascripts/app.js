@@ -65,7 +65,9 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     .state("users.show", {
       url: "/:id/profile"
     })
-
+    .state("subscriptions", {
+      url: "/subscriptions"
+    })
     $urlRouterProvider.otherwise('/');
 
   }]);
