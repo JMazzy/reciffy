@@ -18,6 +18,8 @@ gem 'aws-sdk'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
+gem 'angularjs-rails'
+gem 'angular_rails_csrf'
 
 group :development, :test do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
@@ -44,3 +46,7 @@ group :production do
 end
 
 gem 'rails_12factor', group: [:staging, :production]
+
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end
