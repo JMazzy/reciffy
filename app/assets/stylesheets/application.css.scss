@@ -35,3 +35,50 @@
     font-weight: bold;
   }
 }
+
+.navbar {
+  background-color: #587498;
+  border-radius: 0;
+  border-color: black;
+  box-shadow: 0 0 5px black;
+
+  a.navbar-brand {
+    color: white;
+    :hover {
+      color: white;
+    }
+    :visited {
+      color: white;
+    }
+  }
+}
+
+.panel {
+  border-color: black;
+  box-shadow: 0 0 5px black;
+}
+
+.panel > .panel-heading {
+  background-color: #587498;
+  color: white;
+
+  a {
+    color: white;
+    text-decoration: none;
+    :hover {
+      color: white;
+      text-decoration: none;
+    }
+    :visited {
+      color: white;
+    }
+  }
+}
+
+.recipe-preview {
+  height: 300px;
+}
+
+.recipe-card {
+
+}

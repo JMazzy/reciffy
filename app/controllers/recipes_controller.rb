@@ -3,6 +3,10 @@ class RecipesController < ApplicationController
   def index
     @recipes = Recipe.all
     @user_recipes = current_user.recipes
+    respond_to do |format|
+      format.html
+      format.json { render json: @recipes.as_json }
+    end
   end
 
   def new
@@ -56,6 +60,13 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @comment = Comment.new
     @rating = Rating.find_by(user_id: current_user.id, recipe_id: params[:id]) || Rating.new
+
+    respond_to do |format|
+
+      format.html
+      format.json { render json: @recipe.as_json }
+
+    end
   end
 
   def edit
