@@ -4,9 +4,9 @@ class MadeRecipesController < ApplicationController
   def index
     @made_recipes = current_user.made_recipes
     respond_to do |format|
-      format.html {redirect_to request.referrer}
-      format.json {render :json => @made_recipes}
-    end
+      format.html
+      format.json { render json: @made_recipes.as_json(include: [:profile, :subscriptions] ) }  
+    end 
   end
 
   def create
