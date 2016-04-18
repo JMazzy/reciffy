@@ -35,6 +35,36 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       template: "<div ui-view></div>",
       controller: "ReciffyCtrl"
     })
+    // Home Page / Dashboard / Recipes Index
+    .state("recipes", {
+      url: "/recipes"
+      template: ""
+    })
+    .state("recipes.my", {
+      url: "/my"
+    })
+    .state("recipes.saved", {
+      url: "/saved"
+    })
+    .state("recipes.liked", {
+      url: "/liked"
+    })
+    // Recipe Show Page
+    .state("recipes.show", {
+      url: "/:id",
+    })
+    // Create Recipe Page
+    .state("recipe.create", {
+      url: "/new"
+    })
+    // Subscription Page
+    .state("users", {
+      url: "/users"
+    })
+    // Profile Page for Users
+    .state("users.show", {
+      url: "/:id/profile"
+    })
 
     $urlRouterProvider.otherwise('/');
 
