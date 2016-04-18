@@ -8,41 +8,54 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">
-            Reciffy
-          </a>
-        </div>
-        <div class="navbar-right">
-          <% if user_signed_in? %>
-            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger navbar-btn" %>
-          <% else %>
-            <%= link_to "Sign In", new_user_session_path, class: "btn btn-success navbar-btn" %>
-            <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary navbar-btn" %>
-          <% end %>
+    <div class="pure-container" data-effect="pure-effect-reveal">
+      <input type="checkbox" id="pure-toggle-left" class="pure-toggle" data-toggle="left">
+      <label class="pure-toggle-label" for="pure-toggle-left" data-toggle-label="left">
+        <span class="pure-toggle-icon"></span>
+      </label>
+      <!-- Hidden Menu Content Goes Here -->
+      <div class="pure-drawer" data-position="left">
+        <div class="container">
+          <div class="row">
+          </div>
         </div>
       </div>
-    </nav>
+      <div class="pure-pusher-container">
+        <!-- Site Content Goes Here -->
+        <div class="pure-pusher">
 
-    <%= render partial: 'shared/flash' %>
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-right">
+                <% if user_signed_in? %>
+                  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger navbar-btn" %>
+                <% else %>
+                  <%= link_to "Sign In", new_user_session_path, class: "btn btn-success navbar-btn" %>
+                  <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary navbar-btn" %>
+                <% end %>
+              </div>
+            </div>
+          </nav>
 
-    <% if user_signed_in? %>
-      <%= render_ember_app :frontend do |head, body| %>
-        <% head.append do %>
-          <%= csrf_meta_tags %>
-        <% end %>
+          <div class="container">
+            <%= render partial: 'shared/flash' %>
+            <% if user_signed_in? %>
+              <%= render_ember_app :frontend do |head, body| %>
+                <% head.append do %>
+                  <%= csrf_meta_tags %>
+                <% end %>
+                <% body.append do %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= yield %>
+            <% end %>
 
-        <% body.append do %>
-
-        <% end %>
-      <% end %>
-    <% else %>
-      <main class="container">
-        <%= yield %>
-      </main>
-    <% end %>
+          </div>
+        </div>
+      </div>
+      <label class="pure-overlay" for="pure-toggle-left" data-overlay="left"></label>
+    </div>
 
   </body>
 </html>

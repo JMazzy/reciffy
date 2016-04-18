@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: reciffy_development
+
+test:
+  <<: *default
+  database: reciffy_test
+
+production:
+  <<: *default
+  database: reciffy_production
+  username: reciffy
+  password: <%= ENV['RECIFFY_DATABASE_PASSWORD'] %>
