@@ -11,5 +11,5 @@ export default DS.Model.extend({
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
 
-  recipe_ingredients: DS.hasMany('recipe-ingredient'),
+  recipe_ingredients: DS.hasMany('recipe_ingredient'),
 });

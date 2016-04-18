@@ -10,13 +10,21 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "pure-drawer";
 
+ /* Navbar */
+.navbar {
+  padding: 10px;
+  border-radius: 0;
+}
+
+
+/*
 #error_explanation {
   border: 1px solid rgb(235, 204, 209);
   color: rgb(169, 68, 66);
@@ -82,3 +90,4 @@
 .recipe-card {
 
 }
+*/

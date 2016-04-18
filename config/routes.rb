@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   resources :static_pages, only: [:index]
   resources :photos
   resources :subscriptions
+  resources :recipe_ingredients
+  resources :ingredients, only: [:index, :show]
+  resources :units, only: [:index, :show]
 
   root to: "static_pages#index"
 end

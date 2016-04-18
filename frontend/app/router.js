@@ -9,6 +9,9 @@ Router.map(function() {
   this.route('recipes', function() {
     this.route('show', { path: '/:recipe_id' });
   });
+  this.route('users', function() {
+    this.route('show', { path: '/:user_id' });
+  });
   this.route('subscriptions', function() {
     this.route('show', { path: '/:subscription_id' });
   });

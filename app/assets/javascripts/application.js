@@ -12,5 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+
+//= require underscore-min
+
+//= require angular
+//= require angular-ui-router.min
+
+//= require restangular.min
+
+//= require angular-devise
+
 //= require bootstrap-sprockets
 //= require_self
