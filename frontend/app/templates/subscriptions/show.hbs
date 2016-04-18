@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    {{#link-to "subscriptions.index"}}User Subscriptions{{/link-to}}
+
+    <div class="panel panel-default">
+    
+      <div class="panel-heading">
+        <h5>{{model.profile.first_name}} {{model.profile.last_name}}
+            - {{model.email}}</h5>
+        <h6>({{model.subscriptions.length}} subscriptions)</h6>
+      </div>
+
+      <div class="panel-body">
+         Put in profile pic here
+      </div>
+    
+    </div>
+
+  </div>
+</div>
+
+{{outlet}}

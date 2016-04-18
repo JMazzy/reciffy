@@ -5,6 +5,7 @@ RecipeIngredient.delete_all
 Tag.delete_all
 Tagging.delete_all
 User.delete_all
+Subscription.delete_all
 
 puts "Creating Users"
 
@@ -57,7 +58,7 @@ puts "Creating Tags"
   Tag.create( name: Faker::Hipster.word )
 end
 
-puts "Creating Taggings"
+puts "Creating User Taggings"
 
 User.all.each do |u|
   2.times do
@@ -67,6 +68,8 @@ User.all.each do |u|
   end
 end
 
+puts "Creating Recipe Taggings"
+
 Recipe.all.each do |r|
   3.times do
     Tagging.create( tag_id: Tag.all.sample,
@@ -74,3 +77,14 @@ Recipe.all.each do |r|
                     taggable_type: "Recipe" )
   end
 end
+
+puts "Creating Subscriptions"
+User.all.each do |u|
+  s_arr = User.where("id != ?",u.id)
+  3.times do
+    s = s_arr.sample
+    #s_arr.delete(s)
+    Subscription.create( subscriber_id: u.id,
+                    subscribed_id: s.id)
+  end
+end 
