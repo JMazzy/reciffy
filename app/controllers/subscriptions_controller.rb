@@ -1,10 +1,24 @@
 class SubscriptionsController < ApplicationController
 
   def index
-    @user = User.find(current_user)
-    @subscriptions = @user.subscriptions
+    #@user = User.find(current_user)
+    @subscriptions = current_user.subscriptions
+    respond_to do |format|
+      format.html
+      format.json { render json: @subscriptions.as_json(include: [:profile, :subscriptions, :recipes, :made_recipes] ) }  
+    end   
   end
-    
+ 
+   def show
+    @subscription = Subscription.find(params[:id])
+    respond_to do |format|
+
+      format.html
+      format.json { render json: @subscription.as_json }
+
+    end
+  end
+
   def create
 
     @subscription = current_user.initiated_subscribe_requests.build(subscribed_id: params["user_id"])
