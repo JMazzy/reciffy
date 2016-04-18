@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="reciffy">
   <head>
     <title>Reciffy</title>
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -15,10 +15,7 @@
       </label>
       <!-- Hidden Menu Content Goes Here -->
       <div class="pure-drawer" data-position="left">
-        <div class="container">
-          <div class="row">
-          </div>
-        </div>
+        <div>HELLO</div>
       </div>
       <div class="pure-pusher-container">
         <!-- Site Content Goes Here -->
@@ -36,22 +33,8 @@
               </div>
             </div>
           </nav>
-
-          <div class="container">
-            <%= render partial: 'shared/flash' %>
-            <% if user_signed_in? %>
-              <%= render_ember_app :frontend do |head, body| %>
-                <% head.append do %>
-                  <%= csrf_meta_tags %>
-                <% end %>
-                <% body.append do %>
-                <% end <%></%>
-              <% end %>
-            <% else %>
-              <%= yield %>
-            <% end %>
-
-          </div>
+          <%= render partial: 'shared/flash' %>
+          <%= yield %>
         </div>
       </div>
       <label class="pure-overlay" for="pure-toggle-left" data-overlay="left"></label>
