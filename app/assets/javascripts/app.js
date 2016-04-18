@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'restangular', 'Devise'])
+var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise'])
 
 config(function(AuthProvider) {
     // Configure Auth service with AuthProvider
@@ -7,12 +7,12 @@ controller('myCtrl', function(Auth) {
     // Use your configured Auth service.
 });
 
-app.factory('_', ['$window', function($window) {
+reciffy.factory('_', ['$window', function($window) {
   return $window._; // assumes underscore has already been loaded on the page
 }]);
 
 // Restangular Config
-app.config( ['RestangularProvider', function(RestangularProvider) {
+reciffy.config( ['RestangularProvider', function(RestangularProvider) {
 
   RestangularProvider.setBaseUrl('/api/v1');
   RestangularProvider.setRequestSuffix('.json');
@@ -25,22 +25,17 @@ app.config( ['RestangularProvider', function(RestangularProvider) {
 
 }]);
 
-app.config(['$urlRouterProvider', '$stateProvider',
+reciffy.config(['$urlRouterProvider', '$stateProvider',
   function($urlRouterProvider, $stateProvider){
 
     $stateProvider
 
-    .state("topstate", {
+    .state("main", {
       url: "/",
       template: "<div ui-view></div>",
-      controller: "OneCtrl"
-    })
-    .state("topstate.nestedstate", {
-      url: "nestedstateurl",
-      templateUrl: "templates/nested.html",
-      controller: "TwoCtrl"
+      controller: "ReciffyCtrl"
     })
 
-    $urlRouterProvider.otherwise('/default');
+    $urlRouterProvider.otherwise('/');
 
   }]);
