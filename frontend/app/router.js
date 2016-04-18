@@ -15,7 +15,7 @@ Router.map(function() {
   this.route('subscriptions', function() {
     this.route('show', { path: '/:subscription_id' });
   });
-  this.route('made_recipes');
+  this.route('madeRecipes',  { path: '/:madeRecipes' });
 });
 
 export default Router;
