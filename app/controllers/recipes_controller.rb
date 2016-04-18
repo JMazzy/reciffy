@@ -46,12 +46,10 @@ class RecipesController < ApplicationController
       end
     else
       respond_to do |format|
-
         format.html {
           flash[:alert] = "Recipe not saved!"
           redirect_to new_recipe_path
         }
-
       end
     end
   end
@@ -62,10 +60,8 @@ class RecipesController < ApplicationController
     @rating = Rating.find_by(user_id: current_user.id, recipe_id: params[:id]) || Rating.new
 
     respond_to do |format|
-
       format.html
-      format.json { render json: @recipe, include: [:recipe_ingredients, :ingredients, :units] }
-
+      format.json { render json: @recipe.as_json, include: [:recipe_ingredients, :ingredients, :units] }
     end
   end
 
