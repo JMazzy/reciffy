@@ -18,6 +18,10 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find( params[:user_id] )
+    respond_to do |format|
+      format.html
+      format.json { render json: @profile.as_json }
+    end
   end
 
   def edit
