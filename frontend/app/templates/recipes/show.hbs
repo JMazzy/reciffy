@@ -13,9 +13,14 @@
       <div class="panel-body">
 
         <h4>Ingredients</h4>
-        <p>
-          will go here...
-        </p>
+        <div class="ingredient-list">
+          {{model.recipe_ingredients}}
+          {{#each model.recipe_ingredients as ri}}
+            {{ri.quantity}}
+            {{ri.ingredient.name}}
+            {{ri.unit.unit_type}}
+          {{/each}}
+        </div>
 
         <h4>Instructions</h4>
         <p>
