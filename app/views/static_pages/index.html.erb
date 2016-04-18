@@ -1,1 +1,9 @@
-Welcome!
+<% unless user_signed_in? %>
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="text-center">Welcome to Reciffy!</h1>
+    </div>
+  </div>
+<% else %>
+  <ui-view></ui-view>
+<% end %>
