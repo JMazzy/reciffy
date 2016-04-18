@@ -1,6 +1,6 @@
 var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise'])
 
-config(function(AuthProvider) {
+.config(function(AuthProvider) {
     // Configure Auth service with AuthProvider
 }).
 controller('myCtrl', function(Auth) {
@@ -36,7 +36,9 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     })
     // Home Page / Dashboard / Recipes Index
     .state("recipes", {
-      url: "/recipes"
+      url: "/recipes",
+      templateUrl: "templates/recipes.html",
+      controller: "RecipeCtrl"
     })
     .state("recipes.my", {
       url: "/my"
