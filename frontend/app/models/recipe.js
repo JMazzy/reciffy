@@ -10,11 +10,6 @@ export default DS.Model.extend({
   original_id: DS.attr('number'),
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
-  recipe_ingredients: DS.attr(),
-  ingredients: DS.attr(),
-  units: DS.attr(),
 
   recipe_ingredients: DS.hasMany('recipe_ingredient'),
-  ingredients: DS.hasMany('ingredient'),
-  units: DS.hasMany('unit'),
 });

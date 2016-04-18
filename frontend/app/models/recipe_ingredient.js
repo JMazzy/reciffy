@@ -1,5 +1,3 @@
-import Ember from 'ember';
-// import Fraction from 'fractional';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -13,8 +11,4 @@ export default DS.Model.extend({
   recipe: DS.belongsTo('recipe', {inverse: true}),
   ingredient: DS.belongsTo('ingredient'),
   unit: DS.belongsTo('unit'),
-
-  fract_quant: Ember.computed('quantity', function() {
-    // return new Fraction( this.get('quantity') ).toString();
-  }),
 });
