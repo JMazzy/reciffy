@@ -28,25 +28,21 @@
 
     <%= render partial: 'shared/flash' %>
 
-    <main class="container">
-
-      <% if user_signed_in? %>
-        <%= render_ember_app :frontend do |head, body| %>
-          <% head.append do %>
-            <%= csrf_meta_tags %>
-          <% end %>
-
-          <% body.append do %>
-
-          <% end %>
+    <% if user_signed_in? %>
+      <%= render_ember_app :frontend do |head, body| %>
+        <% head.append do %>
+          <%= csrf_meta_tags %>
         <% end %>
-      <% else %>
 
-        <%= yield %>
+        <% body.append do %>
 
+        <% end %>
       <% end %>
-
-    </main>
+    <% else %>
+      <main class="container">
+        <%= yield %>
+      </main>
+    <% end %>
 
   </body>
 </html>
