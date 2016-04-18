@@ -1,6 +1,6 @@
 var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise'])
 
-config(function(AuthProvider) {
+.config(function(AuthProvider) {
     // Configure Auth service with AuthProvider
 }).
 controller('myCtrl', function(Auth) {

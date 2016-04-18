@@ -16,6 +16,9 @@
       <!-- Hidden Menu Content Goes Here -->
       <div class="pure-drawer" data-position="left">
         <div>HELLO</div>
+        <% if user_signed_in? %>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger navbar-btn" %>
+        <% end %>
       </div>
       <div class="pure-pusher-container">
         <!-- Site Content Goes Here -->
@@ -23,16 +26,33 @@
 
           <nav class="navbar navbar-default">
             <div class="container-fluid">
-              <div class="navbar-right">
-                <% if user_signed_in? %>
-                  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger navbar-btn" %>
-                <% else %>
-                  <%= link_to "Sign In", new_user_session_path, class: "btn btn-success navbar-btn" %>
-                  <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary navbar-btn" %>
-                <% end %>
+              <div class="row">
+                <div class="col-xs-4">
+                </div>
+                <div class="col-xs-4">
+                  <h1 class="text-center">Reciffy</h1>
+                </div>
+                <div class="col-xs-4">
+                  <% if user_signed_in? %>
+                    <form action="" class="form-inline search-form pull-right">
+                      <div class="input-group">
+                        <input type="text" class="form-control search-input" name="" id="" placeholder="Search">
+                        <span class="input-group-btn">
+                          <button type="submit" class="btn btn-success search-btn" data-target="#search-input">
+                            <div class="glyphicon glyphicon-search"></div>
+                          </button>
+                        </span>
+                      </div>
+                    </form>
+                  <% else %>
+                    <%= link_to "Sign In", new_user_session_path, class: "btn btn-success navbar-btn" %>
+                    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary navbar-btn" %>
+                  <% end %>
+                </div>
               </div>
             </div>
           </nav>
+
           <%= render partial: 'shared/flash' %>
           <%= yield %>
         </div>
