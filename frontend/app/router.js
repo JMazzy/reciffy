@@ -9,7 +9,7 @@ Router.map(function() {
   this.route('recipes', function() {
     this.route('show', { path: '/:recipe_id' });
   });
-  this.route('profiles', { path: '/users' }, function() {
+  this.route('users', { path: '/users' }, function() {
     this.route('show', { path: ':user_id/profile' });
   });
 });
