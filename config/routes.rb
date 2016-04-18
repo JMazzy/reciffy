@@ -13,9 +13,8 @@ Rails.application.routes.draw do
   resources :users do
     resource :profile, only: [:new, :create, :show, :edit, :update]
     resources :saved_recipes, only: [:create, :destroy]
-    resources :made_recipes, only: [:create, :destroy]
   end
-
+  resources :made_recipes, only: [:create, :index, :destroy]
   resources :tags, only: [:index, :show, :create]
   resources :taggings, only: [:create, :destroy]
 
