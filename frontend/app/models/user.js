@@ -11,6 +11,7 @@ export default DS.Model.extend({
   last_sign_in_at: DS.attr('date'),
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
+  profile: DS.attr()
 
-  profile: DS.belongsTo('profile'),
+  // profile: DS.belongsTo('profile'),
 });
