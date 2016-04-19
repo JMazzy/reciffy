@@ -27,7 +27,7 @@ class SubscriptionsController < ApplicationController
 
   def create
 
-    @subscription = current_user.initiated_subscribe_requests.build(subscribed_id: params["user_id"])
+    @subscription = current_user.initiated_subscribe_requests.build(subscription_params)
 
     if @subscription.save
        flash[:success] = "Subscribed!"
@@ -58,12 +58,10 @@ class SubscriptionsController < ApplicationController
 
 
   private
-  def redirect_user_path(user_id)
-    if user_id == current_user.id.to_s
-      redirect_to new_user_post_path(user_id)
-    else
-      redirect_to user_posts_path(user_id)
-    end 
+  def subscription_params
+    params.require(:subscription).permit(
+      :subscriber_id,
+      :subscribed_id)
   end
 
 end
