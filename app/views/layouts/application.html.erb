@@ -6,57 +6,61 @@
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
-  <body ng-app="reciffy">
 
+  <body ng-app="reciffy">
     <div class="pure-container" data-effect="pure-effect-reveal">
+      <!-- Toggle Hidden Menu Button -->
       <input type="checkbox" id="pure-toggle-left" class="pure-toggle" data-toggle="left">
       <label class="pure-toggle-label" for="pure-toggle-left" data-toggle-label="left">
         <span class="pure-toggle-icon"></span>
       </label>
       <!-- Hidden Menu Content Goes Here -->
-      <div class="pure-drawer" data-position="left">
-        <div>HELLO</div>
-        <% if user_signed_in? %>
-          <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger navbar-btn" %>
-        <% end %>
+      <div class="pure-drawer indie-flower-font" data-position="left">
+        <div class="hidden-menu-container">
+          <% if user_signed_in? %>
+            <!-- Signed in as ... -->
+            <a class="menu-item-container" href="#">
+              <img src="#" alt="">
+              <div class="menu-item-text">
+                <%= "#{current_user.email}" %>
+              </div>
+            </a>
+            <!-- My Recipes -->
+            <a class="menu-item-container" href="#">
+              <div class="menu-item-text">My Recipes</div>
+            </a>
+            <!-- Saved Recipes -->
+            <a class="menu-item-container" href="#">
+              <div class="menu-item-text">Saved</div>
+            </a>
+            <!-- Liked Recipes -->
+            <a class="menu-item-container" href="#">
+              <div class="menu-item-text">Liked</div>
+            </a>
+            <!-- Liked Recipes -->
+            <a class="menu-item-container" href="#">
+              <div class="menu-item-text">Subscriptions</div>
+            </a>
+            <!-- Sign Out Link -->
+            <a class="menu-item-container" rel="nofollow" data-method="delete" href="/users/sign_out">
+              <div class="menu-item-text">Sign Out</div>
+            </a>
+          <% else %>
+            <!-- Liked Recipes -->
+            <a class="menu-item-container" href="#">
+              <div class="menu-item-text">Subscriptions</div>
+            </a>
+          <% end %>
+        </div>
       </div>
       <div class="pure-pusher-container">
         <!-- Site Content Goes Here -->
         <div class="pure-pusher">
-
-          <nav class="navbar navbar-default">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-xs-4">
-                </div>
-                <div class="col-xs-4">
-                  <h1 class="text-center">Reciffy</h1>
-                </div>
-                <div class="col-xs-4">
-                  <% if user_signed_in? %>
-                    <form action="" class="form-inline search-form pull-right">
-                      <div class="input-group">
-                        <input type="text" class="form-control search-input" name="" id="" placeholder="Search">
-                        <span class="input-group-btn">
-                          <button type="submit" class="btn btn-success search-btn" data-target="#search-input">
-                            <div class="glyphicon glyphicon-search"></div>
-                          </button>
-                        </span>
-                      </div>
-                    </form>
-                  <% else %>
-                    <%= link_to "Sign In", new_user_session_path, class: "btn btn-success navbar-btn" %>
-                    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary navbar-btn" %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </nav>
-
+          <%= render partial: 'shared/navbar' %>
           <%= render partial: 'shared/flash' %>
 
           <%= yield %>
-
+          
         </div>
       </div>
       <label class="pure-overlay" for="pure-toggle-left" data-overlay="left"></label>
