@@ -1,6 +1,6 @@
 
 <h3 class="text-center">
-     {{ currenUser.email || empty}} 
+     Subscriptions!
 </h3>
 
 <div class="row">
@@ -9,13 +9,9 @@
       <div class="panel panel-default subscription-preview">
         <div class="panel-heading">
           <h5>{{subscription.profile.first_name}} {{subscription.profile.last_name}}
-             <button class="btn btn-xs btn-danger" ng-click="removeSubscription(subscription)">X</button> 
+             <button class="btn btn-xs btn-danger pull-right" ng-click="removeSubscription(subscription)">Unsubscribe</button> 
              <br>
               {{subscription.subscription_receiver.email}}
-             <br> 
-             ({{subscription.subscriptions_by_receivers.length}} subscriptions,
-              {{subscription.receipes_by_receivers.length}} contributed recipes,
-              {{subscription.made_recipes_by_receivers.length}} recipes made)
           </h5>
         </div>
 
@@ -23,6 +19,14 @@
           <p>
             {{subscription.subscriber_id}}
           </p>
+        </div>
+
+        <div class="panel-footer subscription-panel-footer">
+          <h5>
+             ({{subscription.subscriptions_by_receivers.length}} subscriptions,
+              {{subscription.receipes_by_receivers.length}} contributed recipes,
+              {{subscription.made_recipes_by_receivers.length}} recipes made)
+          </h5>
         </div>
 
       </div>

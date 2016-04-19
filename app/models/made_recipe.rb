@@ -2,7 +2,11 @@ class MadeRecipe < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :recipe
     has_one :profile, through: :user
+    has_one :original_user, through: :recipe, source: :user 
+    has_one :original_user_profile, through: :recipe, source: :profile
+
     has_many :subscriptions, through: :user
+    has_many :recipes_by_original_user, through: :user, source: :recipes
 
 	validates :user_id, 
 	          :uniqueness => { :scope => :recipe_id }
