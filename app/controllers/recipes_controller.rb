@@ -11,6 +11,7 @@ class RecipesController < ApplicationController
           :tags,
           :photos,
           :ratings,
+          :comments,
           recipe_ingredients: {
             include: [:ingredient, :unit]
           }
@@ -77,6 +78,7 @@ class RecipesController < ApplicationController
           :tags,
           :photos,
           :ratings,
+          :comments,
           recipe_ingredients: {
             include: [:ingredient, :unit]
           }
