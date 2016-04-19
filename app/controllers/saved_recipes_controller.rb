@@ -4,10 +4,7 @@ class SavedRecipesController < ApplicationController
     @saved_recipes = current_user.saved_recipes
     respond_to do |format|
       format.json { render json: @saved_recipes.to_json(
-        include: [
-          :user,
-          :recipe
-        ]
+        include: [:recipe]
       )}
     end
   end
@@ -17,23 +14,23 @@ class SavedRecipesController < ApplicationController
     respond_to do |format|
       if @saved_recipe.save
         format.html { redirect_to request.referrer }
-        # format.json { render json: @made_recipe.to_json() }
+        format.json { render json: @saved_recipe.to_json(include: [:recipe]) }
       else
         format.html { redirect_to request.referrer }
-        # format.json { render json: @made_recipe.errors, status: :unprocessable_entity }
+        format.json { render json: @saved_recipe.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @saved_recipe = SavedRecipe.find_by(user_id: params[:user_id], recipe_id: params[:id])
+    @saved_recipe = SavedRecipe.find_by_id(params[:id])
     respond_to do |format|
       if @saved_recipe.destroy
         format.html { redirect_to request.referrer }
-        format.json { head :no_content }
+        format.json { render json: @saved_recipe.to_json(include: [:recipe]) }
       else
         format.html { redirect_to request.referrer }
-        format.json { head :no_content }
+        format.json { render json: @saved_recipe.to_json(include: [:recipe]), status: :unprocessable_entity }
       end
     end
   end

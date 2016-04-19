@@ -52,7 +52,9 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       },
     })
     .state("reciffy.recipes.saved", {
-      url: "/saved"
+      url: "/saved",
+      controller: "savedRecipeCtrl",
+      templateUrl: "templates/saved.html"
     })
     .state("reciffy.recipes.liked", {
       url: "/liked"
@@ -81,7 +83,12 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     .state("reciffy.users.show", {
       url: "/:id/profile",
       templateUrl: "templates/user_profile.html",
-      controller: "UserShowCtrl"
+      controller: "UserShowCtrl",
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      },
     })
     .state("reciffy.subscriptions", {
       url: "/subscriptions",
