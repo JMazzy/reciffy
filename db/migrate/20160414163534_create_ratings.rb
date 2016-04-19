@@ -7,6 +7,6 @@ class CreateRatings < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :ratings, [:user_id, :recipe_id]
+    add_index :ratings, [:user_id, :recipe_id], unique: true
   end
 end

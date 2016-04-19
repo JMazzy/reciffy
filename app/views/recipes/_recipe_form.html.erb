@@ -53,7 +53,7 @@
   $(function() {
     $('#recipe_photo_photos').on('change', function(event) {
       var files = event.target.files;
-      var image = files
+      var image = files;
       for (var i in image) {
         var reader = new FileReader();
         reader.onload = function(file) {
