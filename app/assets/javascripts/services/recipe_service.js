@@ -3,11 +3,11 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
 
   var _recipeList = {
     list: Restangular.all('recipes').getList().$object,
-    current: nil,
+    current: {},
   }
 
   obj.getRecipeList = function() {
-    return _recipeList.list;
+    return _recipeList;
   };
 
   obj.blankRecipe = function() {

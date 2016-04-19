@@ -30,43 +30,43 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
 
     $stateProvider
 
-    .state("main", {
+    .state("reciffy", {
       url: "/",
       template: "<div ui-view></div>"
     })
     // Home Page / Dashboard / Recipes Index
-    .state("recipes", {
-      url: "/recipes",
+    .state("reciffy.recipes", {
+      url: "recipes",
       templateUrl: "templates/recipes.html",
       controller: "RecipeCtrl"
     })
-    .state("recipes.my", {
-      url: "/my"
+    .state("reciffy.recipes.my", {
+      url: "my"
     })
-    .state("recipes.saved", {
-      url: "/saved"
+    .state("reciffy.recipes.saved", {
+      url: "saved"
     })
-    .state("recipes.liked", {
-      url: "/liked"
+    .state("reciffy.recipes.liked", {
+      url: "liked"
     })
     // Recipe Show Page
-    .state("recipes.show", {
-      url: "/:id",
+    .state("reciffy.recipes.show", {
+      url: ":id",
     })
     // Create Recipe Page
-    .state("recipe.create", {
-      url: "/new"
+    .state("reciffy.recipe.create", {
+      url: "new"
     })
     // Subscription Page
-    .state("users", {
-      url: "/users"
+    .state("reciffy.users", {
+      url: "users"
     })
     // Profile Page for Users
-    .state("users.show", {
-      url: "/:id/profile"
+    .state("reciffy.users.show", {
+      url: ":id/profile"
     })
-    .state("subscriptions", {
-      url: "/subscriptions"
+    .state("reciffy.subscriptions", {
+      url: "subscriptions"
     })
     $urlRouterProvider.otherwise('/');
 
