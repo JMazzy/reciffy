@@ -19,9 +19,6 @@ reciffy.config( ['RestangularProvider', function(RestangularProvider) {
   RestangularProvider.setDefaultHttpFields({
     "content-type": "application/json"
   });
-  // RestangularProvider.setResponseExtractor( function( response, operation ) {
-  //   // Extractor code here
-  // });
 
 }]);
 
@@ -44,8 +41,15 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       templateUrl: "templates/recipes.html",
       controller: "RecipeIndexCtrl",
     })
-    .state("reciffy.recipes.my", {
-      url: "/my"
+    .state("reciffy.my", {
+      url: "/my",
+      templateUrl: '/templates/made_recipe_layout.html',
+      controller: 'MyCtrl',
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      },
     })
     .state("reciffy.recipes.saved", {
       url: "/saved"
@@ -72,8 +76,25 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       url: "/:id/profile"
     })
     .state("reciffy.subscriptions", {
-      url: "/subscriptions"
+      url: "/subscriptions",
+      templateUrl: '/templates/subscription_layout.html',
+      controller: 'SubscriptionCtrl',
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }],
+        allSubscriptions: ['Restangular', function(Restangular){
+          return Restangular.all("subscriptions").getList().then(function(data){
+              data;
+          });
+        }]
+      },
     })
     $urlRouterProvider.otherwise('/recipes');
 
   }]);
+
+
+reciffy.run(function($rootScope, $location, Auth){
+ $rootScope.$on("$stateChangeError", console.log.bind(console));
+  });
