@@ -1,5 +1,17 @@
 class SavedRecipesController < ApplicationController
 
+  def index
+    @saved_recipes = current_user.saved_recipes
+    respond_to do |format|
+      format.json { render json: @saved_recipes.to_json(
+        include: [
+          :user,
+          :recipe
+        ]
+      )}
+    end
+  end
+
   def create
     @saved_recipe = current_user.saved_recipes.build(saved_recipe_params)
     respond_to do |format|
