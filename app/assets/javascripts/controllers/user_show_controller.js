@@ -15,6 +15,8 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       tagline: $scope.profile.tagline,
       city: $scope.profile.city,
       state: $scope.profile.state
+    }).then(function(newProfile) {
+      console.log(newProfile);
     })
   };
 

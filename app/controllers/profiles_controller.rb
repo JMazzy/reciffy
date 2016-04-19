@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
     @profile.user_id = current_user.id
     if @profile.save
       flash[:success] = 'Profile created'
-      redirect_to user_profile_path(@profile)
+      redirect_to profile_path(@profile)
     else
       flash.now[:error] = 'Profile failed to create'
       render 'new'
@@ -37,12 +37,12 @@ class ProfilesController < ApplicationController
       @profile.taggings.build( tag_id: tag.id )
     end
 
-    if @profile.update( profile_params )
-      flash[:success] = 'Profile updated'
-      redirect_to user_profile_path(@profile)
-    else
-      flash.now[:error] = 'Profile failed to update'
-      render 'edit'
+    respond_to do |format|
+      if @profile.update( profile_params )
+        format.json { render json: @profile.as_json }
+      else
+        format.json { render json: @profile.as_json }
+      end
     end
   end
 
