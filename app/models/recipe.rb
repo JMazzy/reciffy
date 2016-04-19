@@ -1,6 +1,7 @@
 class Recipe < ActiveRecord::Base
 
   belongs_to :user
+  has_one :profile, through: :user
   has_many :recipe_ingredients
   has_many :ingredients, through: :recipe_ingredients
   has_many :units, through: :recipe_ingredients
