@@ -1,27 +1,26 @@
 var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise'])
+// reciffy.config(function(AuthProvider) {
+//     // Configure Auth service with AuthProvider
+// }).
+// reciffy.controller('myCtrl', function(Auth) {
+//     // Use your configured Auth service.
+// });
 
-config(function(AuthProvider) {
-    // Configure Auth service with AuthProvider
-}).
-controller('myCtrl', function(Auth) {
-    // Use your configured Auth service.
-});
-
-reciffy.factory('_', ['$window', function($window) {
-  return $window._; // assumes underscore has already been loaded on the page
-}]);
+// reciffy.factory('_', ['$window', function($window) {
+//   return $window._; // assumes underscore has already been loaded on the page
+// }]);
 
 // Restangular Config
-reciffy.config( ['RestangularProvider', function(RestangularProvider) {
+reciffy.config( ['$urlRouterProvider', '$stateProvider','RestangularProvider', 'AuthProvider', function($urlRouterProvider,$stateProvider,RestangularProvider,AuthProvider) {
 
   RestangularProvider.setBaseUrl('/api/v1');
   RestangularProvider.setRequestSuffix('.json');
   RestangularProvider.setDefaultHttpFields({
     "content-type": "application/json"
   });
-  RestangularProvider.setResponseExtractor( function( response, operation ) {
-    // Extractor code here
-  });
+  // RestangularProvider.setResponseExtractor( function( response, operation ) {
+  //   // Extractor code here
+  // });
 
 }]);
 
@@ -64,8 +63,25 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       url: "/:id/profile"
     })
     .state("subscriptions", {
-      url: "/subscriptions"
+      url: "/subscriptions",
+      templateUrl: '/templates/subscription_layout.html',
+      controller: 'SubscriptionCtrl',
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }],
+        allSubscriptions: ['Restangular', function(Restangular){
+          return Restangular.all("subscriptions").getList().then(function(data){
+              data;
+          });
+        }]
+      },
     })
     $urlRouterProvider.otherwise('/');
 
   }]);
+
+
+reciffy.run(function($rootScope, $location, Auth){
+ $rootScope.$on("$stateChangeError", console.log.bind(console));
+  });

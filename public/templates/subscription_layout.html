@@ -1,0 +1,32 @@
+HERE
+<h3 class="text-center">
+     {{ currenUser.email || empty}} 
+</h3>
+
+<div class="row">
+  <div ng-repeat="subscription in subscriptions">
+    <div class="col-xs-6 col-sm-4 col-md-3 subscription-holder">
+      <div class="panel panel-default subscription-preview">
+        <div class="panel-heading">
+          <h5>{{subscription.profile.first_name}} {{subscription.profile.last_name}}
+              - {{subscription.email}}
+             <br> 
+             ({{subscription.subscriptions.length}} subscriptions,
+             {{subscription.recipes.length}} contributed recipes,
+             {{subscription.made_recipes.length}} recipes made)
+          </h5>
+        </div>
+
+        <div class="panel-body">
+          <p>
+            {{subscription.subscriber_id}}
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+<div ui-view></div>
