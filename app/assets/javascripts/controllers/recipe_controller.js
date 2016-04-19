@@ -2,4 +2,6 @@ reciffy.controller('RecipeCtrl', ['$scope', '$state', 'Restangular', 'RecipeServ
 
   $scope.recipes = RecipeService.getRecipeList();
 
+  console.log($scope.recipes);
+
 }]);
