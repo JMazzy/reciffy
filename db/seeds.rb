@@ -97,8 +97,6 @@ User.all.each do |u|
     )
   end
 end
-<<<<<<< HEAD
-=======
 
 puts "Creating Saved Recipes"
 User.all.each do |u|
@@ -107,4 +105,3 @@ User.all.each do |u|
     SavedRecipe.create(user_id: u.id, recipe_id: all_recipes.pop)
   end
 end
->>>>>>> 6ecf7e2ecdd7da8a3a04701d9b8422ca2d11f7c9
