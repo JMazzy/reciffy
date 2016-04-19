@@ -43,9 +43,14 @@
       <div class="panel-footer">
         <button type="button" name="save" class="btn btn-primary">Save This Recipe</button>
         <button type="button" name="fork" class="btn btn-primary">Fork This Recipe</button>
-        <button type="button" name="made" class="btn btn-primary">I Made This</button>
+        <button type="button" name="made" ng-hide="show_recipe_made" 
+                class="btn btn-primary" ng-click="addMadeRecipe(recipe)">I Made This</button>
       </div>
 
+    </div>
+
+    <h4>Photos</h4>
+    <div ng-repeat="photo in photos">
     </div>
 
     <h4>Leave a Comment</h4>
