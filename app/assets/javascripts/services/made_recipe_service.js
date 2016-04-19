@@ -27,7 +27,6 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
        return made_recipes;
     }
 
-
     obj.getIndexOfMadeRecipe = function(madeRecipeObj) {
       return made_recipes.indexOf(madeRecipeObj);
     }
@@ -38,36 +37,23 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
 
     obj.create = function ( madeRecipeObj ) {
         return Restangular.all('made_recipes').post(madeRecipeObj).then(function(response)  {
-            subscription.unshift(response);
-            obj.refreshBoard(0);
+            made_recipes.unshift(response);
         },
         function(response)  {
-          alert("Could not add your board: " + madeRecipeObj.title);
+          alert("Could not mark recipe as made!");
        });
     };
 
-    obj.update = function ( madeRecipeObj,data ) {
-        return Restangular.one('made_recipes', madeRecipeObj.id).get().then(function(response)  {
-             response.title = data.title;
-             console.log(response);
-             response.put();
-        },
-        function(response)  {
-          alert("Could not update your board: " + boardObj.title);
-       });
-    };
-
-    obj.destroy = function (boardObj) {
-      return Restangular.one("boards/" + boardObj.id).remove().then(
+    obj.destroy = function (madeRecipeObj) {
+      return Restangular.one("made_recipes/" + madeRecipeObj.id).remove().then(
         function(res)  {
-          index = boards.indexOf(boardObj);
-          boards.splice(index, 1);
-          obj.refreshBoard(0);
+          index = made_recipes.indexOf(madeRecipeObj);
+          made_recipes.splice(index, 1);
         },
         function(res)  {
-          alert("Could not delete your board: " + boardObj.title);
-      }      
-    )
+          alert("Could not mark this recipe: " + madeRecipeObj.recipe.name);
+        }    
+      )
     };
 
     return obj;
