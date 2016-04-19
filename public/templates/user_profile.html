@@ -4,23 +4,23 @@
     <div class="panel panel-default">
 
       <div class="panel-heading">
-        <span editable-text='profile.first_name' onaftersave='updateUserProfile()'>{{profile.first_name}}</span>
-        <span editable-text='profile.last_' onaftersave='updateUserProfile()'>{{profile.last_name}}</span>
+        <span editable-text='profile.first_name' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.first_name}}</span>
+        <span editable-text='profile.last_' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.last_name}}</span>
       </div>
 
       <div class="panel-body">
         <h4>Tagline</h4>
-        <p editable-text='profile.tagline' onaftersave='updateUserProfile()'>{{profile.tagline}}</p>
+        <p editable-text='profile.tagline' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.tagline}}</p>
 
         <h4>Bio</h4>
-        <p editable-textarea='profile.bio' onaftersave='updateUserProfile()'>
+        <p editable-textarea='profile.bio' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>
           {{profile.bio}}
         </p>
 
         <h4>City</h4>
-          <p editable-text='profile.city' onaftersave='updateUserProfile()'>{{profile.city}}</p>
+          <p editable-text='profile.city' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.city}}</p>
         <h4>State</h4>
-        <p editable-text='profile.state' onaftersave='updateUserProfile()'>{{profile.state}}</p>
+        <p editable-text='profile.state' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.state}}</p>
       </div>
 
     </div>
