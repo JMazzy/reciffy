@@ -17,11 +17,89 @@
 @import "bootstrap";
 @import "pure-drawer";
 
- /* Navbar */
+/************************/
+/* Reciffy Color Scheme */
+/************************/
+
+$dark-green: #4b6314;
+$light-green: #aaa336;
+$tea-color: #ce8636;
+$table-color: #4c453e;
+$white: #fff;
+
+/*************************/
+/* Reciffy Font Families */
+/*************************/
+
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+// To use,
+// font-family: 'Indie Flower', cursive;
+
+.indie-flower-font {
+  font-family: 'Indie Flower', cursive;
+}
+
+/**********/
+/* Navbar */
+/**********/
+
 .navbar {
-  padding: 10px;
+  height: 75px;
   border-radius: 0;
 }
+
+/* Sign In, Sign Out Links */
+
+.nav-auth-cta {
+  margin-top: 10px;
+}
+
+/* Search Bar */
+
+.search-form {
+  margin-top: 20px;
+}
+
+.search-input {
+    border-radius: 30px 0px 0px 30px;
+    /*border-radius:Top-left, Top-right, Bottom-right, Bottom-left;*/
+}
+.search-btn {
+   border-radius: 0px 30px 30px 0px;
+   cursor:pointer;
+}
+
+/***************/
+/* Hidden Menu */
+/***************/
+
+.hidden-menu-container {
+  margin-top: 75px;
+}
+
+.menu-item-container {
+  margin-top: -1px;
+  padding: 0;
+  border-top: 1px solid $toggler-color;
+  border-bottom: 1px solid $toggler-color;
+  height: 75px;
+  color: #fff;
+  display: block;
+  &:hover, &:focus, &:active {
+    color: #fff;
+    background: rgba(0,0,0,0.4);
+    text-decoration: none;
+  }
+}
+
+.menu-item-text {
+  font-size: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 30px;
+}
+
 
 
 /*

@@ -1,17 +1,18 @@
 var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise'])
-// reciffy.config(function(AuthProvider) {
-//     // Configure Auth service with AuthProvider
-// }).
-// reciffy.controller('myCtrl', function(Auth) {
-//     // Use your configured Auth service.
-// });
 
-// reciffy.factory('_', ['$window', function($window) {
-//   return $window._; // assumes underscore has already been loaded on the page
-// }]);
+.config(function(AuthProvider) {
+    // Configure Auth service with AuthProvider
+}).
+controller('myCtrl', function(Auth) {
+    // Use your configured Auth service.
+});
+
+reciffy.factory('_', ['$window', function($window) {
+  return $window._; // assumes underscore has already been loaded on the page
+}]);
 
 // Restangular Config
-reciffy.config( ['$urlRouterProvider', '$stateProvider','RestangularProvider', 'AuthProvider', function($urlRouterProvider,$stateProvider,RestangularProvider,AuthProvider) {
+reciffy.config( ['RestangularProvider', function(RestangularProvider) {
 
   RestangularProvider.setBaseUrl('/api/v1');
   RestangularProvider.setRequestSuffix('.json');
@@ -35,7 +36,9 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     })
     // Home Page / Dashboard / Recipes Index
     .state("recipes", {
-      url: "/recipes"
+      url: "/recipes",
+      templateUrl: "templates/recipes.html",
+      controller: "RecipeCtrl"
     })
     .state("recipes.my", {
       url: "/my"
