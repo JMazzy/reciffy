@@ -51,13 +51,17 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
         }]
       },
     })
+    // Saved Recipes Page
     .state("reciffy.recipes.saved", {
       url: "/saved",
       controller: "savedRecipeCtrl",
       templateUrl: "templates/saved.html"
     })
-    .state("reciffy.recipes.liked", {
-      url: "/liked"
+    // Rated Recipes Page
+    .state("reciffy.recipes.rated", {
+      url: "/rated",
+      controller: "ratedRecipeCtrl",
+      templateUrl: "templates/rated.html"
     })
     // Recipe Show Page
     .state("reciffy.recipes.show", {
@@ -83,7 +87,12 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     .state("reciffy.users.show", {
       url: "/:id/profile",
       templateUrl: "templates/user_profile.html",
-      controller: "UserShowCtrl"
+      controller: "UserShowCtrl",
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      },
     })
     .state("reciffy.subscriptions", {
       url: "/subscriptions",
@@ -100,7 +109,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
         }]
       },
     })
-    $urlRouterProvider.otherwise('/recipes');
+    $urlRouterProvider.otherwise('/recipes/all');
 
   }]);
 
