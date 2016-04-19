@@ -5,7 +5,8 @@ class MadeRecipesController < ApplicationController
     @made_recipes = current_user.made_recipes
     respond_to do |format|
       format.html
-      format.json { render json: @made_recipes.to_json(include: [:user, :profile, :subscriptions] ) } 
+      format.json { render json: @made_recipes.to_json(include:
+       [:original_user, :recipe, :original_user_profile, :subscriptions, :recipes_by_original_user] ) } 
     end 
   end
 
@@ -23,7 +24,7 @@ class MadeRecipesController < ApplicationController
   end
 
   def destroy
-    @made_recipe = MadeRecipe.find_by(user_id: params[:user_id], recipe_id: params[:id])
+    @made_recipe = MadeRecipe.find_by_id(params[:id])
     respond_to do |format|
       if @made_recipe.destroy
         format.html { redirect_to request.referrer }

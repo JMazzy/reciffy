@@ -25,8 +25,16 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
     })
   }
 
-  $scope.deleteComment = function() {
-
+  $scope.deleteComment = function(comment_id) {
+    Restangular.one("recipes", $scope.recipe.id).one("comments", comment_id)
+    .remove()
+    .then(function(deletedComment) {
+      for ( var c = 0; c < $scope.comments.length; c++ ) {
+        if ( $scope.comments[c].id === deletedComment.id ) {
+          $scope.comments.splice(c, 1);
+        }
+      }
+    })
   }
 
   $scope.addTag = function() {
@@ -40,8 +48,17 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
     })
   }
 
+  // Actually only deletes that particular TAGGING, not the tag itself
   $scope.deleteTag = function(tag_id) {
-
+    Restangular.one("tags", tag_id)
+    .remove({ taggable_id: $scope.recipe.id, taggable_type: "Recipe"})
+    .then(function(deletedTag) {
+      for ( var t = 0; t < $scope.tags.length; t++ ) {
+        if ( $scope.tags[t].id === deletedTag.id ) {
+          $scope.tags.splice(t, 1);
+        }
+      }
+    })
   }
 
 }]);

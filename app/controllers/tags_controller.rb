@@ -40,6 +40,22 @@ class TagsController < ApplicationController
     @tag.taggings.create( tag_id: @tag.id, taggable_id: params[:taggable_id], taggable_type: params[:taggable_type])
   end
 
+  def destroy
+    @tag = Tag.find(params[:id])
+    @tagging = Tagging.find_by(tag_id: @tag.id, taggable_id: params[:taggable_id], taggable_type: params[:taggable_type])
+    respond_to do |format|
+      if @tagging.destroy
+        format.html { render nothing: true }
+        format.json { render json: @tag.to_json }
+        flash[:success] = "Tag destroyed!"
+      else
+        format.html { render nothing: true }
+        format.json { render json: @tag.errors, status: :unprocessable_entity }
+        flash[:danger] = "Tag could not be destroyed."
+      end
+    end
+  end
+
   private
 
   def tag_params
