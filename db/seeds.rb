@@ -72,7 +72,7 @@ puts "Creating Recipe Taggings"
 
 Recipe.all.each do |r|
   3.times do
-    Tagging.create( tag_id: Tag.all.sample,
+    Tagging.create( tag_id: Tag.all.sample.id,
                     taggable_id: r.id,
                     taggable_type: "Recipe" )
   end
