@@ -6,6 +6,7 @@ default: &default
 development:
   <<: *default
   database: reciffy_development
+
 test:
   <<: *default
   database: reciffy_test
