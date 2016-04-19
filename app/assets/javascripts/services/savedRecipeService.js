@@ -28,12 +28,33 @@ reciffy.factory('savedRecipeService', ['Restangular', function(Restangular) {
     return _saved;
   };
 
-  var createSavedRecipe = function() {
-
+  var createSavedRecipe = function(recipeId, userId) {
+    var savedRecipeParams = {
+      recipe_id: recipeId,
+      user_id: userId
+    };
+    Restangular.all('saved_recipes').post(savedRecipeParams)
+    .then(
+      function(response)  {
+        _saved[response.id] = response.recipe;
+      },
+      function(response)  {
+        alert("API call for saved recipes didn't work.");
+      }
+    );
   };
 
-  var deleteSavedRecipe = function() {
-
+  var deleteSavedRecipe = function(savedRecipeId) {
+    var savedRecipeParams = {id: savedRecipeId};
+    Restangular.one('saved_recipes', savedRecipeId).remove(savedRecipeParams)
+    .then(
+      function(response)  {
+        delete _saved[response.id];
+      },
+      function(response)  {
+        alert("API call for saved recipes didn't work.");
+      }
+    );
   };
 
   return {
