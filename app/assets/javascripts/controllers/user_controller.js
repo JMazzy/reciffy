@@ -1,4 +1,4 @@
-reciffy.controller('UserCtrl', ['$scope', '$state', 'Restangular', '_', function($scope, $state, Restangular, _) {
+reciffy.controller('UserCtrl', ['$scope', '$state', 'Restangular', function($scope, $state, Restangular) {
 
   $scope.users = Restangular.all('users').getList().$object;
 
