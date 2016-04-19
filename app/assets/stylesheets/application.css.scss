@@ -26,6 +26,9 @@ $light-green: #aaa336;
 $tea-color: #ce8636;
 $table-color: #4c453e;
 $white: #fff;
+$menu-grey: #4C453F;
+$menu-hover: #2E2A26;
+$menu-green: #238843;
 
 /*************************/
 /* Reciffy Font Families */
@@ -100,9 +103,42 @@ $white: #fff;
   margin-left: 30px;
 }
 
+/******************/
+/* Recipe Display */
+/******************/
+a, a:-webkit-any-link {
+  text-decoration: none;
+}
 
+div.panel {
+  border-color: $menu-green;
+  box-shadow: 1px 1px 1px $menu-hover;
+  color: $menu-grey;
 
-/*
+  div.panel-heading {
+    background-color: $menu-grey;
+    color: $white;
+    border: none;
+
+    color: $white;
+    div:hover {
+      color: $white;
+      background-color: $menu-hover;
+    }
+    div:visited {
+      color: $white;
+    }
+  }
+}
+
+.panel {
+
+}
+
+.recipe-preview {
+  height: 200px;
+}
+
 #error_explanation {
   border: 1px solid rgb(235, 204, 209);
   color: rgb(169, 68, 66);
@@ -121,51 +157,3 @@ $white: #fff;
     font-weight: bold;
   }
 }
-
-.navbar {
-  background-color: #587498;
-  border-radius: 0;
-  border-color: black;
-  box-shadow: 0 0 5px black;
-
-  a.navbar-brand {
-    color: white;
-    :hover {
-      color: white;
-    }
-    :visited {
-      color: white;
-    }
-  }
-}
-
-.panel {
-  border-color: black;
-  box-shadow: 0 0 5px black;
-}
-
-.panel > .panel-heading {
-  background-color: #587498;
-  color: white;
-
-  a {
-    color: white;
-    text-decoration: none;
-    :hover {
-      color: white;
-      text-decoration: none;
-    }
-    :visited {
-      color: white;
-    }
-  }
-}
-
-.recipe-preview {
-  height: 300px;
-}
-
-.recipe-card {
-
-}
-*/

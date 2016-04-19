@@ -2,27 +2,22 @@
 
   <div ng-repeat="recipe in recipes" class="recipe-holder">
     <div class="col-xs-6 col-sm-4 col-md-3">
-      <div class="panel panel-default recipe-preview">
+      <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+        <div class="panel panel-default recipe-preview">
 
-        <div class="panel-heading">
-          <h4>{{recipe.name}}</h4>
+          <div class="panel-heading">
+            <h4>{{recipe.name}}</h4>
+          </div>
+
+          <div class="panel-body">
+            <p>
+              {{recipe.description}}
+            </p>
+          </div>
+
         </div>
-
-        <div class="panel-body">
-          <p>
-            {{recipe.description}}
-          </p>
-        </div>
-
-      </div>
+      </a>
     </div>
   </div>
 
 </div>
-<table>
-  <tr ng-repeat="recipe in recipes">
-    <td>
-      {{recipe.name}}
-    </td>
-  </tr>
-</table>
