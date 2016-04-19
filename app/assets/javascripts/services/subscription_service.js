@@ -27,7 +27,7 @@ reciffy.factory('subscriptionService', ['Restangular', function(Restangular) {
 
 
     obj.getIndexOfSubscription = function(subscriptionObj) {
-      return boards.indexOf(boardObj);
+      return subscriptions.indexOf(boardObj);
     }
 
     obj.show = function( id ) {
@@ -37,7 +37,6 @@ reciffy.factory('subscriptionService', ['Restangular', function(Restangular) {
     obj.create = function ( subscriptionObj ) {
         return Restangular.all('subscriptions').post(subscriptionObj).then(function(response)  {
             subscription.unshift(response);
-            obj.refreshBoard(0);
         },
         function(response)  {
           alert("Could not add your board: " + subscriptionObj.title);
@@ -55,17 +54,16 @@ reciffy.factory('subscriptionService', ['Restangular', function(Restangular) {
        });
     };
 
-    obj.destroy = function (boardObj) {
-      return Restangular.one("boards/" + boardObj.id).remove().then(
+    obj.destroy = function (subscriptionObj) {
+      return Restangular.one("subscriptions/" + subscriptionObj.id).remove().then(
         function(res)  {
-          index = boards.indexOf(boardObj);
-          boards.splice(index, 1);
-          obj.refreshBoard(0);
+          index = subscriptions.indexOf(subscriptionObj);
+          subscriptions.splice(index, 1);
         },
         function(res)  {
-          alert("Could not delete your board: " + boardObj.title);
-      }      
-    )
+          alert("Could not Unsubscribe to: " + subscriptionObj.profile.first_name);
+        }    
+      )
     };
 
     return obj;
