@@ -132,3 +132,15 @@ User.all.each do |u|
     MadeRecipe.create(user_id: u.id, recipe_id: all_recipes.pop)
   end
 end
+
+puts "Creating Ratings for Recipes"
+User.all.each do |u|
+  all_recipes = Recipe.all.pluck(:id).shuffle
+  3.times do
+    Rating.create(
+      user_id: u.id,
+      recipe_id: all_recipes.pop,
+      rating: rand(1..5)
+    )
+  end
+end

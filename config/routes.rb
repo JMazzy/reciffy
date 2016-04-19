@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :recipes do
         resources :comments
-        resources :ratings, only: [:create, :update]
       end
 
       resources :users do
@@ -18,6 +17,7 @@ Rails.application.routes.draw do
       resources :photos
       resources :subscriptions
       resources :saved_recipes, only: [:index, :create, :destroy]
+      resources :ratings, only: [:index, :create, :update]
       resources :made_recipes, only: [:create, :index, :destroy]
       resources :recipe_ingredients
       resources :ingredients, only: [:index, :show]

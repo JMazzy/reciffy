@@ -1,18 +1,18 @@
-reciffy.controller('savedRecipeCtrl',
+reciffy.controller('ratedRecipeCtrl',
   [
-    'savedRecipeService',
+    'ratedRecipeService',
     '$scope',
     '$stateParams',
     '$state',
     function(
-      savedRecipeService,
+      ratedRecipeService,
       $scope,
       $stateParams,
       $state){
         // Use Service Method to make API call to get saved recipes
-        savedRecipeService.callAllSavedRecipes();
+        ratedRecipeService.callAllRatedRecipes();
 
         // Get Angular's version of all saved recipes
-        $scope.saved = savedRecipeService.getSavedRecipes();
+        $scope.rated = ratedRecipeService.getRatedRecipes();
 
 }]);
