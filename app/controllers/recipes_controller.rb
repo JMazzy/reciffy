@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
     @user_recipes = current_user.recipes
     respond_to do |format|
       format.html
-      format.json { render json: @recipes.as_json, include: [:recipe_ingredients, :ingredients, :units] }
+      format.json { render json: @recipes.to_json, include: [:recipe_ingredients, :ingredients, :units] }
     end
   end
 

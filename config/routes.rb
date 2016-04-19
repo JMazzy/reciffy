@@ -13,7 +13,6 @@ Rails.application.routes.draw do
         resources :saved_recipes, only: [:create, :destroy]
       end
 
-
       resources :tags, only: [:index, :show, :create]
       resources :taggings, only: [:create, :destroy]
 

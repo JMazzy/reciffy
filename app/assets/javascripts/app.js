@@ -27,17 +27,21 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
 
     $stateProvider
 
-    .state("main", {
-      url: "/",
-      template: "<div ui-view></div>"
+    .state("reciffy", {
+      url: "",
+      template: "<div ui-view></div>",
     })
     // Home Page / Dashboard / Recipes Index
-    .state("recipes", {
+    .state("reciffy.recipes", {
       url: "/recipes",
-      templateUrl: "templates/recipes.html",
-      controller: "RecipeCtrl"
+      template: "<div ui-view></div>",
     })
-    .state("my", {
+    .state("reciffy.recipes.all", {
+      url: "/all",
+      templateUrl: "templates/recipes.html",
+      controller: "RecipeIndexCtrl",
+    })
+    .state("reciffy.my", {
       url: "/my",
       templateUrl: '/templates/made_recipe_layout.html',
       controller: 'MyCtrl',
@@ -47,29 +51,31 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
         }]
       },
     })
-    .state("recipes.saved", {
+    .state("reciffy.recipes.saved", {
       url: "/saved"
     })
-    .state("recipes.liked", {
+    .state("reciffy.recipes.liked", {
       url: "/liked"
     })
     // Recipe Show Page
-    .state("recipes.show", {
+    .state("reciffy.recipes.show", {
       url: "/:id",
+      templateUrl: "templates/recipe.html",
+      controller: "RecipeShowCtrl"
     })
     // Create Recipe Page
-    .state("recipe.create", {
+    .state("reciffy.recipe.create", {
       url: "/new"
     })
     // Subscription Page
-    .state("users", {
+    .state("reciffy.users", {
       url: "/users"
     })
     // Profile Page for Users
-    .state("users.show", {
+    .state("reciffy.users.show", {
       url: "/:id/profile"
     })
-    .state("subscriptions", {
+    .state("reciffy.subscriptions", {
       url: "/subscriptions",
       templateUrl: '/templates/subscription_layout.html',
       controller: 'SubscriptionCtrl',
@@ -84,7 +90,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
         }]
       },
     })
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/recipes');
 
   }]);
 
