@@ -1,63 +1,35 @@
 <!DOCTYPE html>
-<html ng-app="reciffy">
+<html>
   <head>
     <title>Reciffy</title>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
+
+  <body ng-app="reciffy">
     <div class="pure-container" data-effect="pure-effect-reveal">
-      <!-- Toggle Hidden Menu Button -->
-      <input type="checkbox" id="pure-toggle-left" class="pure-toggle" data-toggle="left">
-      <label class="pure-toggle-label" for="pure-toggle-left" data-toggle-label="left">
-        <span class="pure-toggle-icon"></span>
-      </label>
-      <!-- Hidden Menu Content Goes Here -->
-      <div class="pure-drawer indie-flower-font" data-position="left">
-        <div class="hidden-menu-container">
-          <% if user_signed_in? %>
-            <!-- Signed in as ... -->
-            <a class="menu-item-container" href="#">
-              <img src="#" alt="">
-              <div class="menu-item-text">
-                <%= "#{current_user.email}" %>
-              </div>
-            </a>
-            <!-- My Recipes -->
-            <a class="menu-item-container" href="#">
-              <div class="menu-item-text">My Recipes</div>
-            </a>
-            <!-- Saved Recipes -->
-            <a class="menu-item-container" href="#">
-              <div class="menu-item-text">Saved</div>
-            </a>
-            <!-- Liked Recipes -->
-            <a class="menu-item-container" href="#">
-              <div class="menu-item-text">Liked</div>
-            </a>
-            <!-- Liked Recipes -->
-            <a class="menu-item-container" href="#">
-              <div class="menu-item-text">Subscriptions</div>
-            </a>
-            <!-- Sign Out Link -->
-            <a class="menu-item-container" rel="nofollow" data-method="delete" href="/users/sign_out">
-              <div class="menu-item-text">Sign Out</div>
-            </a>
-          <% else %>
-            <!-- Liked Recipes -->
-            <a class="menu-item-container" href="#">
-              <div class="menu-item-text">Subscriptions</div>
-            </a>
-          <% end %>
-        </div>
-      </div>
+
+      <%= render partial: 'shared/hidden_menu' %>
+
       <div class="pure-pusher-container">
         <!-- Site Content Goes Here -->
         <div class="pure-pusher">
+
           <%= render partial: 'shared/navbar' %>
-          <%= render partial: 'shared/flash' %>
-          <%= yield %>
+
+          <div class="container">
+
+            <div class="row">
+              <div class="col-xs-12">
+                <%= render partial: 'shared/flash' %>
+              </div>
+            </div>
+
+            <%= yield %>
+
+          </div>
+
         </div>
       </div>
       <label class="pure-overlay" for="pure-toggle-left" data-overlay="left"></label>
