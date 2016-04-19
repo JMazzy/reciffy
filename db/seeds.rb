@@ -62,7 +62,7 @@ puts "Creating User Taggings"
 
 User.all.each do |u|
   2.times do
-    Tagging.create( tag_id: Tag.all.sample,
+    Tagging.create( tag_id: Tag.all.sample.id,
                     taggable_id: u.profile.id,
                     taggable_type: "Profile" )
   end
@@ -87,4 +87,4 @@ User.all.each do |u|
     Subscription.create( subscriber_id: u.id,
                     subscribed_id: s.id)
   end
-end 
+end

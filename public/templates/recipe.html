@@ -5,6 +5,7 @@
 
       <div class="panel-heading">
         <h4>{{recipe.name}}</h4>
+        <span>{{rating.rating}}</span>
         <p>
           {{recipe.description}}
         </p>
@@ -12,18 +13,31 @@
 
       <div class="panel-body">
         <h4>Ingredients</h4>
+        <ul>
+          <li ng-repeat="ri in recipeIngredients">
+            {{ri.quantity}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
+          </li>
+        </ul>
 
         <h4>Instructions</h4>
+        <p>
           {{recipe.instructions}}
+        </p>
 
-        <h4>Rating</h4>
+        <h4>Tags</h4>
+        <span ng-repeat="tag in tags" class="label label-primary">
+          {{tag.name}}
+        </span>
+
+      </div>
+
+      <div class="panel-footer">
+        <button type="button" name="save" class="btn btn-primary">Save This Recipe</button>
+        <button type="button" name="fork" class="btn btn-primary">Fork This Recipe</button>
+        <button type="button" name="made" class="btn btn-primary">I Made This</button>
       </div>
 
     </div>
-
-    <button type="button" name="save" class="btn btn-primary">Save This Recipe</button>
-    <button type="button" name="fork" class="btn btn-primary">Fork This Recipe</button>
-    <button type="button" name="made" class="btn btn-primary">I Made This</button>
 
     <h4>Leave a Comment</h4>
     <form>
@@ -32,6 +46,11 @@
     </form>
 
     <h4>All Comments</h4>
+
+    <div class="comment" ng-repeat="comment in comments">
+      {{comment.user.profile.first_name}}{{comment.user.profile.last_name}}
+      {{comment.comment_description}}
+    </div>
 
   </div>
 </div>
