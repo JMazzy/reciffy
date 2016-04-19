@@ -2,7 +2,7 @@
 
   <div ng-repeat="user in users" class="user-holder">
     <div class="col-xs-6 col-sm-4 col-md-3">
-      <a ui-sref="reciffy.users.show({user_id: user.id})">
+      <a ui-sref="reciffy.users.show({id: user.id})">
         <div class="panel panel-default user-preview">
 
           <div class="panel-heading">
@@ -11,7 +11,7 @@
 
           <div class="panel-body">
             <p>
-              {{user.profile.bio}}
+              {{user.profile.tagline}}
             </p>
           </div>
 

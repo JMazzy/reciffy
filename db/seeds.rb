@@ -8,6 +8,7 @@ Tag.delete_all
 Tagging.delete_all
 User.delete_all
 Subscription.delete_all
+Profile.delete_all
 
 puts "Creating Users"
 
@@ -17,6 +18,18 @@ User.create(  email: "foo@bar.com", password: "foo1bar2" )
 
 10.times do |num|
   User.create(email: "user#{num}@gmail.com", password: "foo1bar2")
+end
+
+puts 'Creating Profiles'
+
+User.all.each do |user|
+  user.profile.first_name = Faker::Name.first_name
+  user.profile.last_name = Faker::Name.last_name
+  user.profile.bio = Faker::Hipster.paragraph
+  user.profile.tagline = Faker::Hipster.sentence
+  user.profile.city = Faker::Address.city
+  user.profile.state = Faker::Address.state
+  user.profile.save!
 end
 
 puts "Creating Ingredients"
@@ -97,8 +110,6 @@ User.all.each do |u|
     )
   end
 end
-<<<<<<< HEAD
-=======
 
 puts "Creating Saved Recipes"
 User.all.each do |u|
@@ -107,4 +118,3 @@ User.all.each do |u|
     SavedRecipe.create(user_id: u.id, recipe_id: all_recipes.pop)
   end
 end
->>>>>>> 6ecf7e2ecdd7da8a3a04701d9b8422ca2d11f7c9

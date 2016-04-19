@@ -6,7 +6,7 @@ reciffy.factory('UserService', ['Restangular', '$state', function(Restangular, $
   };
 
   obj.getUser = function(user_id) {
-    return Restangular.one('users', user_id).get();
+    return Restangular.one('users', user_id).get().$object;
   }
 
   return obj;
