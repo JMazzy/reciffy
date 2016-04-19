@@ -69,7 +69,6 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @comment = Comment.new
     @rating = Rating.find_by(user_id: current_user.id, recipe_id: params[:id]) || Rating.new
-
     respond_to do |format|
       format.html
       format.json { render json: @recipe.to_json(
@@ -79,9 +78,11 @@ class RecipesController < ApplicationController
           :photos,
           :ratings,
           :comments,
+          :made_recipes,
           recipe_ingredients: {
             include: [:ingredient, :unit]
           }
+
         ]
       )}
     end
