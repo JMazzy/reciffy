@@ -105,3 +105,9 @@ User.all.each do |u|
     SavedRecipe.create(user_id: u.id, recipe_id: all_recipes.pop)
   end
 end
+
+puts "Creating Comments"
+Recipe.all.each do |r|
+  r.comments.create(  user_id: User.all.sample.id,
+                      comment_description: Faker::Hipster.sentence )
+end

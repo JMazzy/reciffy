@@ -6,8 +6,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.recipe_id = @recipe.id
+    @comment = current_user.comments.create(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
       flash[:success] = 'Comment created'
@@ -32,7 +31,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:comment_description)
+    params.require(:comment).permit(:comment_description, :recipe_id)
   end
 
   def set_current_recipe
