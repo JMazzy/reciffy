@@ -34,7 +34,8 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
       return Restangular.one( "made_recipes", id).get();
     };
 
-    obj.create = function ( madeRecipeObj ) {
+    obj.create = function (recipe) {
+        var madeRecipeObj = {recipe_id: recipe.id}
         return Restangular.all('made_recipes').post(madeRecipeObj).then(function(response)  {
             made_recipes.unshift(response);
         },

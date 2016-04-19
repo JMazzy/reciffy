@@ -2,16 +2,16 @@ class SubscriptionsController < ApplicationController
 
   def index
 
-    # @subscriptions = current_user.subscriptions
-    # respond_to do |format|
-    #   format.html
-    #   format.json { render json: @subscriptions.to_json(include: [:profile, :subscriptions, :recipes, :made_recipes] ) }  
-    # end   
     @subscriptions = Subscription.where("subscriber_id = ?", current_user.id)
     respond_to do |format|
       format.html
-      format.json { render json: @subscriptions.to_json(include: 
-      [:profile, :subscription_receiver, :recipes_by_receivers, :made_recipes_by_receivers, :subscriptions_by_receivers]) }  
+      format.json { render json: @subscriptions.to_json(
+        include: [:profile, 
+                  :subscription_receiver, 
+                  :recipes_by_receivers, 
+                  :made_recipes_by_receivers, 
+                  :subscriptions_by_receivers
+        ])}  
     end   
   end
  
