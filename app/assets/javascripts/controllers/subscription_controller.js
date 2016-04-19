@@ -10,4 +10,7 @@ reciffy.controller('SubscriptionCtrl', ['Restangular', 'Auth', 'subscriptionServ
   //subscriptionService.populateSubscriptions(allSubscriptions);
   $scope.subscriptions = subscriptionService.getSubscriptions(); 
   
+  $scope.removeSubscription = function(subscriptionObj) {
+  	subscriptionService.destroy(subscriptionObj)
+  }
 }]);

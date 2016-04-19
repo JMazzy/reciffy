@@ -19,18 +19,25 @@ class TagsController < ApplicationController
 
 
   def create
-    @tag = Tag.new( tag_params )
-    respond_to do |format|
-      if @tag.save
-        format.html { render nothing: true }
-        format.json { render json: @tag.to_json }
-        flash[:success] = "Tag created!"
-      else
-        format.html { render nothing: true }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
-        flash[:danger] = "Tag could not be created."
+    if @tag = Tag.find_by_name( params[:tag][:name] )
+      render nothing: true
+    else
+      @tag = Tag.new( tag_params )
+
+      respond_to do |format|
+        if @tag.save
+          format.html { render nothing: true }
+          format.json { render json: @tag.to_json }
+          flash[:success] = "Tag created!"
+        else
+          format.html { render nothing: true }
+          format.json { render json: @tag.errors, status: :unprocessable_entity }
+          flash[:danger] = "Tag could not be created."
+        end
       end
     end
+
+    @tag.taggings.create( tag_id: @tag.id, taggable_id: params[:taggable_id], taggable_type: params[:taggable_type])
   end
 
   private
