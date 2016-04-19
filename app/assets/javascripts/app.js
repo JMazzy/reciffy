@@ -69,11 +69,19 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     })
     // Subscription Page
     .state("reciffy.users", {
-      url: "/users"
+      url: "/users",
+      template: "<div ui-view></div>"
+    })
+    .state("reciffy.users.all", {
+      url: '/all',
+      templateUrl: "templates/users.html",
+      controller: "UserIndexCtrl"
     })
     // Profile Page for Users
     .state("reciffy.users.show", {
-      url: "/:id/profile"
+      url: "/:id/profile",
+      templateUrl: "templates/user_profile.html",
+      controller: "UserShowCtrl"
     })
     .state("reciffy.subscriptions", {
       url: "/subscriptions",

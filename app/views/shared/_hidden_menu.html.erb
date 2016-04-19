@@ -19,7 +19,7 @@
         <div class="menu-item-text">My Recipes</div>
       </a>
       <!-- Saved Recipes -->
-      <a class="menu-item-container" href="#">
+      <a class="menu-item-container" ui-sref="reciffy.recipes.saved">
         <div class="menu-item-text">Saved</div>
       </a>
       <!-- Liked Recipes -->
@@ -36,8 +36,14 @@
       </a>
     <% else %>
       <!-- Subscriptions -->
-      <a class="menu-item-container" href="#">
-        <div class="menu-item-text">Subscriptions</div>
+      <a class="menu-item-container" href="<%= root_path %>">
+        <div class="menu-item-text">Home</div>
+      </a>
+      <a class="menu-item-container" href="<%= new_user_registration_path %>">
+        <div class="menu-item-text">Sign Up</div>
+      </a>
+      <a class="menu-item-container" href="<%= new_user_session_path %>">
+        <div class="menu-item-text">Sign In</div>
       </a>
     <% end %>
   </div>
