@@ -4,9 +4,8 @@ reciffy.controller('MyCtrl', ['Restangular', 'Auth', 'madeRecipeService', '$scop
                                                    $stateParams, $state, 
                                                    currentUser){
 
-  allMadeRecipes = madeRecipeService.getindex()
   $scope.currentUser = currentUser;
-  //subscriptionService.populateSubscriptions(allSubscriptions);
+  madeRecipeService.getAllMadeRecipes()
   $scope.made_recipes = madeRecipeService.getMadeRecipes(); 
   
   $scope.removeMadeRecipe = function(madeRecipeObj) {
