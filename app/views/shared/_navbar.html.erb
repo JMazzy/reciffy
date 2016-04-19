@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-4">
+      </div>
+      <div class="col-xs-4">
+        <h1 class="text-center indie-flower-font">Reciffy</h1>
+      </div>
+      <div class="col-xs-4">
+        <% if user_signed_in? %>
+          <form action="" class="form-inline search-form pull-right">
+            <div class="input-group">
+              <input type="text" class="form-control search-input" name="" id="" placeholder="Search">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-success search-btn" data-target="#search-input">
+                  <div class="glyphicon glyphicon-search"></div>
+                </button>
+              </span>
+            </div>
+          </form>
+        <% else %>
+        <div class="pull-right nav-auth-cta">
+          <%= link_to "Sign In", new_user_session_path, class: "btn btn-success navbar-btn" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary navbar-btn" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

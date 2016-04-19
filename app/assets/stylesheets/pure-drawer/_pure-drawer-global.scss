@@ -24,7 +24,7 @@ $toggler-color: lighten(#0E371B, 20%) !default;
 $toggler-checked-color: #1fc08e !default;
 $toggler-focus-color: #1fc08e !default;
 
-$drawer-bgcolor: #0E371B !default;
+$drawer-bgcolor: #4C453F !default;
 
 // For 'left' and 'right' positioned drawers.
 $drawer-width-small: 100% !default;
@@ -202,6 +202,7 @@ body {
 	height: 100%;
 	visibility: hidden;
 	background-color: $drawer-bgcolor;
+	color: $toggler-focus-color;
 
 	transition-property: all;
 	transition-duration: $pure-drawer-animation-duration;
