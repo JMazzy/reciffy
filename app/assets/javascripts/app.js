@@ -19,9 +19,9 @@ reciffy.config( ['RestangularProvider', function(RestangularProvider) {
   RestangularProvider.setDefaultHttpFields({
     "content-type": "application/json"
   });
-  RestangularProvider.setResponseExtractor( function( response, operation ) {
-    // Extractor code here
-  });
+  // RestangularProvider.setResponseExtractor( function( response, operation ) {
+  //   // Extractor code here
+  // });
 
 }]);
 
