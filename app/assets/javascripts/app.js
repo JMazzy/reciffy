@@ -52,7 +52,9 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       },
     })
     .state("reciffy.recipes.saved", {
-      url: "/saved"
+      url: "/saved",
+      controller: "savedRecipeCtrl",
+      templateUrl: "templates/saved.html"
     })
     .state("reciffy.recipes.liked", {
       url: "/liked"
