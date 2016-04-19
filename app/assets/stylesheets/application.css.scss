@@ -51,6 +51,11 @@ $menu-green: #238843;
   border-radius: 0;
 }
 
+.nav-brand {
+  display: block;
+  cursor: pointer;
+}
+
 /* Sign In, Sign Out Links */
 
 .nav-auth-cta {
@@ -106,6 +111,7 @@ $menu-green: #238843;
 /******************/
 /* Recipe Display */
 /******************/
+
 a, a:-webkit-any-link {
   text-decoration: none;
 }
