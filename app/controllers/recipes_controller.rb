@@ -5,7 +5,17 @@ class RecipesController < ApplicationController
     @user_recipes = current_user.recipes
     respond_to do |format|
       format.html
-      format.json { render json: @recipes.to_json, include: [:recipe_ingredients, :ingredients, :units] }
+      format.json { render json: @recipes.to_json(
+        include: [
+          :user,
+          :tags,
+          :photos,
+          :ratings,
+          recipe_ingredients: {
+            include: [:ingredient, :unit]
+          }
+        ]
+      )}
     end
   end
 
@@ -61,7 +71,17 @@ class RecipesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @recipe.as_json, include: [:recipe_ingredients, :ingredients, :units] }
+      format.json { render json: @recipe.to_json(
+        include: [
+          :user,
+          :tags,
+          :photos,
+          :ratings,
+          recipe_ingredients: {
+            include: [:ingredient, :unit]
+          }
+        ]
+      )}
     end
   end
 

@@ -5,7 +5,7 @@ class MadeRecipesController < ApplicationController
     @made_recipes = current_user.made_recipes
     respond_to do |format|
       format.html
-      format.json { render json: @made_recipes.as_json(include: [:profile, :subscriptions] ) }  
+      format.json { render json: @made_recipes.to_json(include: [:user, :profile, :subscriptions] ) } 
     end 
   end
 

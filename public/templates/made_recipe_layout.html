@@ -1,0 +1,34 @@
+
+<h3 class="text-center">
+     {{ currenUser.email}} 
+</h3>
+
+<div class="row">
+  <div class="col-xs-1 col-sm-1 col-md-1">
+  </div>
+  <div ng-repeat="made_recipe in made_recipes">
+    <div class="col-xs-6 col-sm-4 col-md-3 made-recipe-holder">
+      <div class="panel panel-default made-recipe-preview">
+        <div class="panel-heading">
+          <h5>{{made_recipe.profile.first_name}} {{made_recipe.profile.last_name}}
+              - {{made_recipe.user.email}}
+             <br> 
+
+          </h5>
+        </div>
+
+        <div class="panel-body">
+          <p>
+           ......
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+    <div class="col-xs-1 col-sm-1 col-md-1">
+  </div>  
+</div>
+
+
+<div ui-view></div>

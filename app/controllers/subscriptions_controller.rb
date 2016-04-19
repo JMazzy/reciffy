@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
     @subscriptions = current_user.subscriptions
     respond_to do |format|
       format.html
-      format.json { render json: @subscriptions.as_json(include: [:profile, :subscriptions, :recipes, :made_recipes] ) }  
+      format.json { render json: @subscriptions.to_json(include: [:profile, :subscriptions, :recipes, :made_recipes] ) }  
     end   
   end
  
