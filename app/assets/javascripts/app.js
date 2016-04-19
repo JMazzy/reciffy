@@ -49,7 +49,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     })
     .state("reciffy.recipes.saved", {
       url: "/saved"
-    }) pu
+    })
     .state("reciffy.recipes.liked", {
       url: "/liked"
     })
