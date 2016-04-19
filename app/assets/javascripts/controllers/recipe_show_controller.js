@@ -17,4 +17,12 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
 
   }
 
+  $scope.addTag = function() {
+
+  }
+
+  $scope.deleteTag = function(tag_id) {
+
+  }
+
 }]);

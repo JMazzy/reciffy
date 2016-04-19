@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-xs-12">
 
+    <a ui-sref="reciffy.recipes.all">All Recipes</a>
+
     <div class="panel panel-default">
 
       <div class="panel-heading">
@@ -25,9 +27,13 @@
         </p>
 
         <h4>Tags</h4>
-        <span ng-repeat="tag in tags" class="label label-primary">
-          {{tag.name}}
-        </span>
+        <div class="tag label label-info" ng-repeat="tag in tags" >
+          <span class="pull-left">{{tag.name}} | </span>
+          <a><i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" ng-click="deleteTag(tag.id)"></i></a>
+        </div>
+        <div class="tag">
+          <input type="text" ng-model="newTagName" class="form-control input-sm">
+        </div>
 
       </div>
 
