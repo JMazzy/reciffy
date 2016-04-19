@@ -68,19 +68,12 @@ Recipe.all.each do |r|
 end
 
 puts "Creating Tags"
-10.times do
-  Tag.create( name: Faker::Hipster.word )
-end
 
 puts "Creating User Taggings"
 
 User.all.each do |u|
   2.times do
-    Tagging.create(
-      tag_id: Tag.all.sample,
-      taggable_id: u.profile.id,
-      taggable_type: "Profile"
-    )
+    u.profile.tags.create( name: Faker::Hipster.word )
   end
 end
 
@@ -88,11 +81,7 @@ puts "Creating Recipe Taggings"
 
 Recipe.all.each do |r|
   3.times do
-    Tagging.create(
-      tag_id: Tag.all.sample,
-      taggable_id: r.id,
-      taggable_type: "Recipe"
-    )
+    r.tags.create( name: Faker::Hipster.word )
   end
 end
 
@@ -108,6 +97,8 @@ User.all.each do |u|
     )
   end
 end
+<<<<<<< HEAD
+=======
 
 puts "Creating Saved Recipes"
 User.all.each do |u|
@@ -116,3 +107,4 @@ User.all.each do |u|
     SavedRecipe.create(user_id: u.id, recipe_id: all_recipes.pop)
   end
 end
+>>>>>>> 6ecf7e2ecdd7da8a3a04701d9b8422ca2d11f7c9
