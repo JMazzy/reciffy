@@ -13,10 +13,10 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
-
+//= require underscore-min.js
 //= require angular
 
-//= require underscore-min.js
+
 //= require restangular.min.js
 //= require angular-ui-router.min.js
 //= require ui-bootstrap-tpls-1.2.5.min.js

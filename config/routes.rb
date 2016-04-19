@@ -13,12 +13,12 @@ Rails.application.routes.draw do
         resources :saved_recipes, only: [:create, :destroy]
       end
 
-      resources :made_recipes, only: [:create, :index, :destroy]
       resources :tags, only: [:index, :show, :create]
       resources :taggings, only: [:create, :destroy]
 
       resources :photos
       resources :subscriptions
+      resources :made_recipes, only: [:create, :index, :destroy]
       resources :recipe_ingredients
       resources :ingredients, only: [:index, :show]
       resources :units, only: [:index, :show]
