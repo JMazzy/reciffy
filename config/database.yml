@@ -6,8 +6,7 @@ default: &default
 development:
   <<: *default
   database: reciffy_development
-  username: kelsey
-  password: password
+
 test:
   <<: *default
   database: reciffy_test
