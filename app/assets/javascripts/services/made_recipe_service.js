@@ -5,7 +5,8 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
 
     obj.index = [];
 
-    obj.getindex = function(){
+    obj.getAllMadeRecipes= function(){
+      made_recipes.splice(0,made_recipes.length)
       Restangular.all('made_recipes').getList().then(function(result){
         obj.populateMadeRecipes(result);
       });
@@ -15,9 +16,7 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
     obj.populateMadeRecipes = function(allMadeRecipes) {
        console.log(allMadeRecipes.length)
        if (allMadeRecipes.length) {
-          console.log("REcipes")
           for (var i = 0; i < allMadeRecipes.length; i++) { 
-                      console.log(allMadeRecipes[i])
             made_recipes.push(allMadeRecipes[i]);
           }
        }

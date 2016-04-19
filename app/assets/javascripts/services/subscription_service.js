@@ -5,7 +5,8 @@ reciffy.factory('subscriptionService', ['Restangular', function(Restangular) {
 
     obj.index = [];
 
-    obj.getindex = function(){
+    obj.getAllSubscriptions = function(){
+      subscriptions.splice(0,subscriptions.length)
       Restangular.all('subscriptions').getList().then(function(result){
         obj.populateSubscriptions(result);
       });
