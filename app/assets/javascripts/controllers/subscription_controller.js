@@ -4,10 +4,8 @@ reciffy.controller('SubscriptionCtrl', ['Restangular', 'Auth', 'subscriptionServ
                                                    $stateParams, $state, 
                                                    currentUser){
 
-  allSubscriptions = subscriptionService.getindex()
   $scope.currentUser = currentUser;
-
-  //subscriptionService.populateSubscriptions(allSubscriptions);
+  subscriptionService.getAllSubscriptions()
   $scope.subscriptions = subscriptionService.getSubscriptions(); 
   
   $scope.removeSubscription = function(subscriptionObj) {
