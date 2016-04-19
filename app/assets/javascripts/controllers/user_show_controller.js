@@ -1,11 +1,13 @@
-reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', function($scope, $state, $stateParams, Restangular, UserService) {
+reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'currentUser', function($scope, $state, $stateParams, Restangular, UserService, currentUser) {
 
   Restangular.one('users', $stateParams.id).get()
   .then(function(user) {
     $scope.user = user;
     $scope.profile = user.profile;
     $scope.userRecipes = user.recipes;
+    $scope.disabledStatus = (currentUser.id != $stateParams.id)
   })
+
 
   $scope.updateUserProfile = function(user) {
     Restangular.one('profiles', $scope.profile.id).patch({
