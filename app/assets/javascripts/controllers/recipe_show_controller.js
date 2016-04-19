@@ -5,6 +5,7 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
     $scope.recipe = recipe;
     $scope.recipeIngredients = recipe.recipe_ingredients;
     $scope.tags = recipe.tags;
+    $scope.newTag = { name: "" };
     $scope.comments = recipe.comments;
     $scope.comment = {
       comment_description: "",
@@ -29,7 +30,14 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
   }
 
   $scope.addTag = function() {
-
+    Restangular.all('tags')
+    .post($scope.newTag, { taggable_id: $scope.recipe.id, taggable_type: "Recipe"})
+    .then( function(newTag) {
+      $scope.tags.unshift(newTag);
+      $scope.newTag = {
+        name: "",
+      };
+    })
   }
 
   $scope.deleteTag = function(tag_id) {
