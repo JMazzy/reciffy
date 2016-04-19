@@ -36,7 +36,9 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     })
     // Home Page / Dashboard / Recipes Index
     .state("recipes", {
-      url: "/recipes"
+      url: "/recipes",
+      templateUrl: "templates/recipes.html",
+      controller: "RecipeCtrl"
     })
     .state("recipes.my", {
       url: "/my"
