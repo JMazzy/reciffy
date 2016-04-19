@@ -25,16 +25,16 @@
 =begin
 %>
 <% if current_user.recipes_saved.include?(@recipe) %>
-  <%= link_to 'Remove Saved Recipe', user_saved_recipe_path(current_user, @recipe), method: :delete, class: "btn btn-danger" %>
+  <%= link_to 'Remove Saved Recipe', saved_recipe_path(current_user, @recipe), method: :delete, class: "btn btn-danger" %>
 <% else %>
-  <%= link_to 'Save Recipe', user_saved_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post, class: "btn btn-success" %>
+  <%= link_to 'Save Recipe', saved_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post, class: "btn btn-success" %>
 <% end %>
 
 
 <% if current_user.recipes_made.include?(@recipe) %>
-  <%= link_to 'I Did Not Make This', user_made_recipe_path(current_user, @recipe), method: :delete, class: "btn btn-danger" %>
+  <%= link_to 'I Did Not Make This', made_recipe_path(current_user, @recipe), method: :delete, class: "btn btn-danger" %>
 <% else %>
-  <%= link_to 'I Made This', user_made_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post, class: "btn btn-primary" %>
+  <%= link_to 'I Made This', made_recipes_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post, class: "btn btn-primary" %>
 <% end %>
 <%
 =end
