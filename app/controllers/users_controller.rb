@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @users = []
+    User.all.each do |user|
+      @users.push(show_user_json(user))
+    end
 
     respond_to do |format|
-      format.json { render json: @users.to_json( include: { profile: { include: :tags } } )}
+      format.json { render json: @users }
     end
   end
 

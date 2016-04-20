@@ -12,7 +12,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     $scope.disabledStatus = (currentUser.id != $stateParams.id);
     $scope.tags = user.profile.tags;
     $scope.newTag = { name: "" };
-    $scope.avatar = user.photo.url.large;
+    $scope.avatar = user.photo.url.medium;
   })
 
 
