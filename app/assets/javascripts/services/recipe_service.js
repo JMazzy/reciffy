@@ -60,7 +60,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
         _tags[_currents.recipe.tags[t].id] = _currents.recipe.tags[t];
         _currents.tag.recipe_id = recipe_id;
       }
-    }  
+    }
   }
 
   var setCurrentRecipe = function(recipe_id) {
@@ -79,6 +79,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
 
   var getCurrentRecipe = function() {
     return _currents.recipe;
+  };
+
+  var getCurrentStuff = function() {
+    return _currents;
   };
 
   var addComment = function() {
@@ -137,5 +141,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     getTag: getTag,
     getComments: getComments,
     getComment: getComment,
+    getCurrentStuff: getCurrentStuff
   };
 }])
