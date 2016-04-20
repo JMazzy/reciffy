@@ -6,6 +6,10 @@
       <div class="panel-heading">
         <span editable-text='profile.first_name' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.first_name}}</span>
         <span editable-text='profile.last_' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.last_name}}</span>
+        <button type="button" name="made" ng-hide="user_subscribed" 
+                class="btn btn-xs btn-success pull-right"
+                ng-click="addSubscriber(user)">Subscribe to me!
+        </button>
       </div>
 
       <div class="panel-body">
@@ -21,6 +25,17 @@
           <p editable-text='profile.city' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.city}}</p>
         <h4>State</h4>
         <p editable-text='profile.state' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.state}}</p>
+        <h4>Tags</h4>
+        <div class="tag label label-info" ng-repeat="tag in tags" >
+          <span class="pull-left">{{tag.name}} | </span>
+          <a><i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" ng-click="deleteTag(tag.id)"></i></a>
+        </div>
+        <div class="input-group">
+          <input type="text" ng-model="newTag.name" class="form-control input-sm" placeholder="Add a Tag...">
+          <span class="input-group-btn">
+            <button class="btn btn-info btn-sm" type="button" ng-click="addTag()">Tag It</button>
+          </span>
+        </div>
       </div>
 
     </div>

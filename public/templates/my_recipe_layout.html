@@ -1,0 +1,43 @@
+
+<h3 class="text-center font:avalon;">
+     My Recipes!
+</h3>
+
+<div class="row">
+  <div ng-repeat="made_recipe in made_recipes">
+    <div class="col-xs-6 col-sm-4 col-md-3 made-recipe-holder">
+      <div class="panel panel-default made-recipe-preview">
+        <div class="panel-heading">
+          <h5>
+            <a ui-sref="reciffy.recipes.show({id: made_recipe.recipe_id})">
+              {{made_recipe.recipe.name}}
+            </a>
+            <button class="btn btn-xs btn-danger pull-right" ng-click="removeMadeRecipe(made_recipe)">Remove</button> 
+            <br>
+            <a ui-sref="reciffy.users.show({id: made_recipe.original_user.id})">
+              by {{made_recipe.original_user.email}}
+            </a> 
+          </h5>
+        </div>
+        <a ui-sref="reciffy.recipes.show({id: made_recipe.recipe_id})">
+          <div class="panel-body">
+            <p>
+            .....
+          </p>
+         </div>
+        </a>
+        <div class="panel-footer subscription-panel-footer">
+          <h5>
+             ({{made_recipe.subscriptions.length}} subscriptions,
+              {{made_recipe.receipes_by_original_user.length}} contributed recipes
+          </h5>
+        </div>
+
+      </div>
+    </div>
+
+  </div>  
+</div>
+
+
+<div ui-view></div>

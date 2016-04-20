@@ -16,6 +16,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "pure-drawer";
+@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 
 /************************/
 /* Reciffy Color Scheme */
@@ -106,6 +107,7 @@ $menu-green: #238843;
   top: 50%;
   transform: translateY(-50%);
   margin-left: 30px;
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
 /******************/
@@ -137,8 +139,34 @@ div.panel {
   }
 }
 
-.recipe-preview {
-  height: 200px;
+.recipe {
+  max-width: 250px;
+}
+
+.recipe-heading {
+  height: 64px;
+  text-align: center;
+  h4 {
+    font-size: 14px;
+  }
+}
+
+.recipe-body {
+  height: 250px;
+  text-align: center;
+  padding: 0;
+  img {
+    max-width:100%;
+    max-height:100%;
+  }
+}
+
+.recipe-footer {
+  height: 64px;
+  text-align: center;
+  p {
+    font-size: 12px;
+  }
 }
 
 #error_explanation {
