@@ -34,7 +34,8 @@ reciffy.factory('subscriptionService', ['Restangular', function(Restangular) {
       return Restangular.one( "subscriptions", id).get();
     };
 
-    obj.create = function ( subscriptionObj ) {
+    obj.create = function ( user ) {
+        var subscriptionObj = {subscribed_id: user.id}
         return Restangular.all('subscriptions').post(subscriptionObj).then(function(response)  {
             subscriptions.unshift(response);
         },
