@@ -4,7 +4,7 @@ reciffy.controller( 'RecipeShowCtrl',
 
 
   $scope.show_recipe_made = false;
-  $scope.disabledStatus = true;
+  $scope.disabledStatus = true
 
   RecipeService.setCurrentRecipe($stateParams.id);
 
