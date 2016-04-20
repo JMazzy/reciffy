@@ -40,6 +40,11 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       url: "/all",
       templateUrl: "templates/recipes.html",
       controller: "RecipeIndexCtrl",
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      },
     })
     .state("reciffy.recipes.my", {
       url: "/my",
@@ -86,7 +91,9 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     })
     // Create Recipe Page
     .state("reciffy.recipes.create", {
-      url: "/new"
+      url: "/new",
+      templateUrl: "templates/recipe.html",
+      controller: "RecipeNewCtrl"
     })
     // Users
     .state("reciffy.users", {
