@@ -238,6 +238,19 @@ div.panel {
   height: 50px;
 }
 
+span.editable-click { 
+  
+}
+
+
+span.editable-click.editable-disabled {
+  color: black;  
+  border-bottom: none;
+}
+span.editable-empty {
+  color: gray;
+  font-style: italic;
+}
 .rating-label {
   position: absolute;
   top: 5px;

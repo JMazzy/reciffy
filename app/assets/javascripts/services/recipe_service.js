@@ -2,10 +2,12 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   var _recipes = {};
   var _comments = {};
   var _tags = {};
+
   var _currents = {
     recipe: {},
     tag: {name: "", recipe_id: null},
     comment: {comment_description: "", recipe_id: null},
+    disabledStatus: true,
     rating: {rating: undefined, recipe_id: null},
   }
 
@@ -63,7 +65,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     _currents.rating.recipe_id = recipe_id;
   }
 
-  var setCurrentRecipe = function(recipe_id) {
+  var setCurrentRecipe = function(recipe_id,currentUser) {
     if ( !!_recipes[recipe_id] ) {
       _setCurrents(recipe_id);
     } else {
@@ -71,6 +73,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
       .one('recipes', recipe_id)
       .get()
       .then( function(recipe) {
+        _currents.disabledStatus = (currentUser.id != recipe.user_id)
+        console.log("_currents.disabledStatus " +_currents.disabledStatus)
+        console.log(recipe.user_id)
+
         _recipes[recipe.id] = recipe;
         _setCurrents(recipe.id);
         console.log(recipe);
@@ -80,6 +86,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
 
   var getCurrentRecipe = function() {
     return _currents.recipe;
+  };
+
+  var getdisabledStatus = function() {
+    return _currents.disabledStatus;
   };
 
   var getCurrentStuff = function() {
@@ -153,6 +163,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     getComments: getComments,
     getComment: getComment,
     getCurrentStuff: getCurrentStuff,
+    getdisabledStatus: getdisabledStatus,
     rateRecipe: rateRecipe,
   };
 }])
