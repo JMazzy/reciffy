@@ -10,7 +10,7 @@ class RatingsController < ApplicationController
   end
 
   def create
-    @rating = Rating.new(rating_params)
+    @rating = current_user.ratings.build( rating_params )
     respond_to do |format|
       if @rating.save
         format.html { redirect_to request.referrer }
@@ -23,7 +23,7 @@ class RatingsController < ApplicationController
   end
 
   def update
-    @rating = Rating.find_by_id(params[:id])
+    @rating = current_user.ratings.find_by_recipe_id(params[:recipe_id])
     respond_to do |format|
       if @rating.update(rating_params)
         format.html { redirect_to request.referrer }

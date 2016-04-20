@@ -6,6 +6,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     recipe: {},
     tag: {name: "", recipe_id: null},
     comment: {comment_description: "", recipe_id: null},
+    rating: {rating: undefined, recipe_id: null},
   }
 
   var setRecipes = function() {
@@ -58,6 +59,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
         _currents.tag.recipe_id = recipe_id;
       }
     }
+
+    _currents.rating.recipe_id = recipe_id;
   }
 
   var setCurrentRecipe = function(recipe_id) {
@@ -126,6 +129,16 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     })
   };
 
+  var rateRecipe = function() {
+    var rating = _currents.rating;
+
+    rating
+    .save()
+    .then(function(response) {
+      console.log(response);
+    });
+  }
+
   return {
     setRecipes: setRecipes,
     getRecipes: getRecipes,
@@ -139,6 +152,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     getTag: getTag,
     getComments: getComments,
     getComment: getComment,
-    getCurrentStuff: getCurrentStuff
+    getCurrentStuff: getCurrentStuff,
+    rateRecipe: rateRecipe,
   };
 }])

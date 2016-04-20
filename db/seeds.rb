@@ -9,6 +9,7 @@ Tagging.delete_all
 User.delete_all
 Subscription.delete_all
 Profile.delete_all
+Rating.delete_all
 
 puts "Creating Users"
 

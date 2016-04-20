@@ -59,4 +59,8 @@ reciffy.controller( 'RecipeShowCtrl',
       console.log(newecipe);
     })
   };
+
+  $scope.submitRating = function() {
+    RecipeService.rateRecipe();
+  };
 }]);
