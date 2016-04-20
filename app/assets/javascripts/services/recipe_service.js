@@ -9,17 +9,14 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   }
 
   var setRecipes = function() {
-    if (Object.keys(_recipes).length === 0) {
-      Restangular
-      .all('recipes')
-      .getList()
-      .then( function(recipes) {
-        for( var r = 0; r < recipes.length; r++ ) {
-          _recipes[recipes[r].id] = recipes[r];
-        }
-        console.log(_recipes);
-      });
-    }
+    Restangular
+    .all('recipes')
+    .getList()
+    .then( function(recipes) {
+      for( var r = 0; r < recipes.length; r++ ) {
+        _recipes[recipes[r].id] = recipes[r];
+      }
+    });
   };
 
   var getRecipes = function() {
@@ -60,7 +57,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
         _tags[_currents.recipe.tags[t].id] = _currents.recipe.tags[t];
         _currents.tag.recipe_id = recipe_id;
       }
-    }  
+    }
   }
 
   var setCurrentRecipe = function(recipe_id) {
@@ -73,6 +70,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
       .then( function(recipe) {
         _recipes[recipe.id] = recipe;
         _setCurrents(recipe.id);
+        console.log(recipe);
       });
     }
   };
