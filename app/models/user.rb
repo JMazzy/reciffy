@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   has_many :made_recipes
   has_many :recipes_made, through: :made_recipes,
                           source: :recipe
-                          
+
   has_many :saved_recipes
   has_many :recipes_saved, through: :saved_recipes,
                            source: :recipe
@@ -41,18 +41,21 @@ class User < ActiveRecord::Base
   has_many :rated_recipes, through: :ratings,
                            source: :recipe
 
-  after_create :create_profile
+  after_create :create_new_profile
 
-  # private
-  #
-  # def create_profile
-  #   p self
-  #self.create_profile
-  #   Profile.create(user_id: self.id)
-  #   # self.create_profile!
-  #   # newProfile.save
-  #   # p self.profile
-  # end
+  private
+
+  def create_new_profile
+    new_profile = self.build_profile
+    new_profile.first_name = "First Name"
+    new_profile.last_name = "Last Name"
+    new_profile.bio = "Short Bio"
+    new_profile.tagline = "Me in 1 sentence"
+    new_profile.city = "City"
+    new_profile.state = "State"
+    new_profile.avatar = File.new("#{Rails.root}/public/images/avatar.jpeg")
+    new_profile.save
+  end
 
   def get_all_user_subscriptions
     self.subscriptions.as_json
@@ -80,7 +83,7 @@ class User < ActiveRecord::Base
 
   def get_user_made_recipes_count
     self.made_recipes.count.as_json
-  end 
+  end
 
   def self.get_tagged_users(tags)
     tagged_users = User.select("p.first_name, p.last_name, users.id AS user_id, tags.name")
@@ -89,6 +92,6 @@ class User < ActiveRecord::Base
       .joins("JOIN tags ON ta.tag_id = tags.id").where("tags.name IN (?)", tags)
       .group("tags.name,users.id,p.first_name,p.last_name")
       .order("tags.name")
-    tagged_users.as_json  
+    tagged_users.as_json
   end
 end
