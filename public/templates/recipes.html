@@ -10,7 +10,10 @@
 
               <div class="panel-heading recipe-heading">
                 <h4>{{recipe.name}}</h4>
+
               </div>
+
+              <span class="label label-warning rating-label">{{recipe.ratings | avgRating | number : 1}}</span>
 
               <div class="panel-body recipe-body">
                 <!-- Photo will go here -->
