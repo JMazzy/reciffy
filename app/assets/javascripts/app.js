@@ -137,4 +137,8 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
 
 reciffy.run(function($rootScope, $location, Auth){
  $rootScope.$on("$stateChangeError", console.log.bind(console));
-  });
+});
+
+reciffy.run(['editableOptions', function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+}]);
