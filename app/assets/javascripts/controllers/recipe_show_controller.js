@@ -1,12 +1,13 @@
-reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService', 
+reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService',
                     function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService ) {
 
-  
+
   $scope.show_recipe_made = false;
 
   Restangular.one('recipes', $stateParams.id).get()
   .then(function(recipe) {
     $scope.recipe = recipe;
+    console.log("1", recipe);
     $scope.recipeIngredients = recipe.recipe_ingredients;
     $scope.tags = recipe.tags;
     $scope.newTag = { name: "" };
@@ -16,7 +17,6 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
       comment_description: "",
       recipe_id: recipe.id,
     };
-    console.log(recipe.tags)
     $scope.checkMadeRecipeExists($scope.recipe)
   });
 
@@ -73,7 +73,7 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
     madeRecipeService.create(recipe)
     $scope.show_recipe_made = true
   }
- 
+
   $scope.checkMadeRecipeExists = function(recipe) {
     if ($scope.madeRecipes != null) {
       for (var i = 0; i < $scope.madeRecipes.length; i++) {
@@ -83,7 +83,8 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
       }
     } else {
        $scope.show_recipe_made = false
-    }   
+    }
   }
 
+  console.log("hello", $scope.recipe);
 }]);

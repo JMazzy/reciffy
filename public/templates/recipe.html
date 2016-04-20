@@ -26,6 +26,11 @@
           {{recipe.instructions}}
         </p>
 
+        <h4>Photo Gallery</h4>
+        <div ng-repeat="photo in recipe.photos">
+          <img ng-src="{{photo.url.large}}">
+        </div>
+
         <h4>Tags</h4>
         <div class="tag label label-info" ng-repeat="tag in tags" >
           <span class="pull-left">{{tag.name}} | </span>
@@ -43,7 +48,7 @@
       <div class="panel-footer">
         <button type="button" name="save" class="btn btn-primary">Save This Recipe</button>
         <button type="button" name="fork" class="btn btn-primary">Fork This Recipe</button>
-        <button type="button" name="made" ng-hide="show_recipe_made" 
+        <button type="button" name="made" ng-hide="show_recipe_made"
                 class="btn btn-primary" ng-click="addMadeRecipe(recipe)">I Made This</button>
       </div>
 
