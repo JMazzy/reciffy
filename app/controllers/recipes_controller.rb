@@ -2,21 +2,21 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.all
-    @user_recipes = current_user.recipes
     respond_to do |format|
       format.html
-      format.json { render json: @recipes.to_json(
-        include: [
-          :user,
-          :tags,
-          :photos,
-          :ratings,
-          :comments,
-          recipe_ingredients: {
-            include: [:ingredient, :unit]
-          }
-        ]
-      )}
+      format.json { render json: index_recipe_json(@recipes) }
+      # format.json { render json: @recipes.to_json(
+      #   include: [
+      #     :user,
+      #     :tags,
+      #     :photos,
+      #     :ratings,
+      #     :comments,
+      #     recipe_ingredients: {
+      #       include: [:ingredient, :unit]
+      #     }
+      #   ]
+      # )}
     end
   end
 
@@ -143,8 +143,15 @@ class RecipesController < ApplicationController
     )
   end
 
+  def index_recipe_json(recipes)
+    json_response = []
+    recipes.each do |recipe|
+      json_response.push(show_recipe_json(recipe))
+    end
+    return json_response.as_json
+  end
+
   def show_recipe_json(recipe)
-    options ||= {}
     json_response = {}
     recipe_json = recipe.as_json
 
