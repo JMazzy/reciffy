@@ -6,6 +6,10 @@
       <div class="panel-heading">
         <span editable-text='profile.first_name' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.first_name}}</span>
         <span editable-text='profile.last_' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.last_name}}</span>
+        <button type="button" name="made" ng-hide="user_subscribed" 
+                class="btn btn-xs btn-success pull-right"
+                ng-click="addSubscriber(user)">Subscribe to me!
+        </button>
       </div>
 
       <div class="panel-body">
