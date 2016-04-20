@@ -10,9 +10,16 @@
           </div>
 
           <div class="panel-body">
+            <img ng-src="avatar"></img>
+          </div>
+
+          <div class='panel-footer'>
             <p>
               {{user.profile.tagline}}
             </p>
+            <div class="tag label label-info" ng-repeat="tag in user.profile.tags" >
+              <span class="pull-left">{{tag.name}}</span>
+            </div>
           </div>
 
         </div>
