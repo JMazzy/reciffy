@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.find( params[:user_id] )
     respond_to do |format|
       format.html
-      format.json { render json: @profile.as_json }
+      format.json { render json: @profile.as_json(include: :tags) }
     end
   end
 
