@@ -7,9 +7,8 @@ Rails.application.routes.draw do
         resources :comments
       end
 
-      resources :users do
-        resource :profile, only: [:new, :create, :show, :edit, :update]
-      end
+      resources :users
+      resources :profiles, only: [:new, :create, :show, :edit, :update]
 
       resources :tags, only: [:index, :show, :create, :destroy]
       resources :taggings, only: [:create, :destroy]

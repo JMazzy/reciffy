@@ -15,6 +15,18 @@ GIT
       pry-stack_explorer (~> 0.4.9)
       railties (>= 3.0, < 5.0)
 
+GIT
+  remote: https://github.com/thoughtbot/paperclip
+  revision: 523bd46c768226893f23889079a7aa9c73b57d68
+  ref: 523bd46c768226893f23889079a7aa9c73b57d68
+  specs:
+    paperclip (4.3.1)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (= 0.3.0)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -38,10 +50,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active-model-adapter-source (2.1.1)
-      ember-data-source (>= 1.13, < 3.0)
-    active_model_serializers (0.9.5)
-      activemodel (>= 3.2)
     activejob (4.2.6)
       activesupport (= 4.2.6)
       globalid (>= 0.3.0)
@@ -72,13 +80,6 @@ GEM
       jmespath (~> 1.0)
     aws-sdk-resources (2.2.35)
       aws-sdk-core (= 2.2.35)
-    babel-source (5.8.35)
-    babel-transpiler (0.7.0)
-      babel-source (>= 4.0, < 6)
-      execjs (~> 2.0)
-    barber (0.11.1)
-      ember-source (>= 1.0, < 3)
-      execjs (>= 1.2, < 3)
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -128,32 +129,6 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     diffy (3.1.0)
-    ember-cli-assets (0.0.25)
-    ember-cli-rails (0.7.3)
-      cocaine (~> 0.5.8)
-      ember-cli-rails-assets (~> 0.6.2)
-      html_page (~> 0.1.0)
-      railties (>= 3.2, < 5)
-    ember-cli-rails-assets (0.6.2)
-    ember-data-source (2.5.2)
-      ember-source (>= 2, < 3.0)
-    ember-es6_template (0.4.4)
-      babel-transpiler (>= 0.6.0, < 0.8)
-      sprockets (>= 2.1, < 4)
-    ember-handlebars-template (0.7.3)
-      barber (>= 0.11.0)
-      sprockets (>= 3.3, < 4)
-    ember-rails (0.20.5)
-      active-model-adapter-source (>= 1.13.0)
-      active_model_serializers
-      ember-cli-assets (~> 0.0.1)
-      ember-data-source (>= 1.13.0)
-      ember-es6_template (~> 0.4.0)
-      ember-handlebars-template (>= 0.1.1, < 1.0)
-      ember-source (>= 1.8.0)
-      jquery-rails (>= 1.0.17)
-      railties (>= 3.1)
-    ember-source (2.5.0)
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.7.0)
@@ -188,7 +163,6 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hirb (0.7.3)
-    html_page (0.1.0)
     i18n (0.7.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -224,12 +198,6 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
-    paperclip (4.3.6)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      cocaine (~> 0.5.5)
-      mime-types
-      mimemagic (= 0.3.0)
     pg (0.18.4)
     posix-spawn (0.3.11)
     pry (0.9.12.6)
@@ -379,8 +347,6 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
-  ember-cli-rails
-  ember-rails
   factory_girl_rails
   faker
   figaro
@@ -390,7 +356,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
-  paperclip
+  paperclip!
   pg (~> 0.15)
   pry-byebug
   rails (= 4.2.6)

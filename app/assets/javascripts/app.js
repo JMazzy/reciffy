@@ -40,6 +40,11 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       url: "/all",
       templateUrl: "templates/recipes.html",
       controller: "RecipeIndexCtrl",
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      },
     })
     .state("reciffy.recipes.my", {
       url: "/my",
@@ -86,9 +91,11 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     })
     // Create Recipe Page
     .state("reciffy.recipes.create", {
-      url: "/new"
+      url: "/new",
+      templateUrl: "templates/recipe.html",
+      controller: "RecipeNewCtrl"
     })
-    // Subscription Page
+    // Users
     .state("reciffy.users", {
       url: "/users",
       template: "<div ui-view></div>"
@@ -109,6 +116,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
         }]
       },
     })
+    // Subscriptions
     .state("reciffy.subscriptions", {
       url: "/subscriptions",
       templateUrl: '/templates/subscription_layout.html',
@@ -125,9 +133,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       },
     })
     $urlRouterProvider.otherwise('/recipes/all');
-
   }]);
-
 
 reciffy.run(function($rootScope, $location, Auth){
  $rootScope.$on("$stateChangeError", console.log.bind(console));

@@ -5,19 +5,20 @@ reciffy.factory('myRecipeService', ['Restangular', function(Restangular) {
 
     obj.index = [];
 
-    obj.getAllMyRecipes= function(){
+    obj.getAllMyRecipes= function(user_id){
       my_recipes.splice(0,my_recipes.length)
-      Restangular.all('my_recipes').getList().then(function(result){
-        obj.populateMyRecipes(result);
+      Restangular.all('recipes').getList().then(function(result){
+        obj.populateMyRecipes(result, user_id);
       });
-
     };
 
-    obj.populateMyRecipes = function(allMyRecipes) {
-       console.log(allMyRecipes.length)
-       if (allMyRecipes.length) {
-          for (var i = 0; i < allMyRecipes.length; i++) {
-            my_recipes.push(allMyRecipes[i]);
+    obj.populateMyRecipes = function(allRecipes, user_id) {
+       console.log(allRecipes.length)
+       if (allRecipes.length) {
+          for (var i = 0; i < allRecipes.length; i++) {
+            if(allRecipes[i].user_id === user_id) {
+              my_recipes.push(allRecipes[i]);
+            }
           }
        }
     }

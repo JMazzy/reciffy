@@ -4,7 +4,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
 
   Restangular.one('users', $stateParams.id).get()
   .then(function(user) {
-    $scope.user = user;
+    $scope.user = user[user];
     $scope.profile = user.profile;
     $scope.userRecipes = user.recipes;
     $scope.received_subscriptions = user.received_subscription_requests
@@ -12,7 +12,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     $scope.disabledStatus = (currentUser.id != $stateParams.id);
     $scope.tags = user.profile.tags;
     $scope.newTag = { name: "" };
-    $scope.avatar = user.profile.avatar.as_json;
+    $scope.avatar =  'placeholder';
   })
 
 

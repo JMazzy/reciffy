@@ -8,8 +8,8 @@
   <div class="hidden-menu-container">
     <% if user_signed_in? %>
       <!-- Signed in as ... -->
-      <a class="menu-item-container" href="#">
-        <img src="#" alt="">
+      <a class="menu-item-container" ui-sref="reciffy.users.show">
+        <img src="#" alt="" class="menu-avatar pull-right">
         <div class="menu-item-text">
           <%= "#{current_user.email}" %>
         </div>

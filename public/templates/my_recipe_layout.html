@@ -4,22 +4,22 @@
 </h3>
 
 <div class="row">
-  <div ng-repeat="made_recipe in made_recipes">
+  <div ng-repeat="recipe in myRecipes">
     <div class="col-xs-6 col-sm-4 col-md-3 made-recipe-holder">
       <div class="panel panel-default made-recipe-preview">
         <div class="panel-heading">
           <h5>
-            <a ui-sref="reciffy.recipes.show({id: made_recipe.recipe_id})">
-              {{made_recipe.recipe.name}}
+            <a ui-sref="reciffy.recipes.show({id: recipe.recipe_id})">
+              {{recipe.name}}
             </a>
-            <button class="btn btn-xs btn-danger pull-right" ng-click="removeMadeRecipe(made_recipe)">Remove</button> 
+            <button class="btn btn-xs btn-danger pull-right" ng-click="removeMadeRecipe(recipe)">Remove</button>
             <br>
-            <a ui-sref="reciffy.users.show({id: made_recipe.original_user.id})">
-              by {{made_recipe.original_user.email}}
-            </a> 
+            <a ui-sref="reciffy.users.show({id: recipe.original_user.id})">
+              by {{recipe.original_user.email}}
+            </a>
           </h5>
         </div>
-        <a ui-sref="reciffy.recipes.show({id: made_recipe.recipe_id})">
+        <a ui-sref="reciffy.recipes.show({id: recipe.recipe_id})">
           <div class="panel-body">
             <p>
             .....
@@ -28,15 +28,15 @@
         </a>
         <div class="panel-footer subscription-panel-footer">
           <h5>
-             ({{made_recipe.subscriptions.length}} subscriptions,
-              {{made_recipe.receipes_by_original_user.length}} contributed recipes
+             ({{recipe.subscriptions.length}} subscriptions,
+              {{recipe.receipes_by_original_user.length}} contributed recipes
           </h5>
         </div>
 
       </div>
     </div>
 
-  </div>  
+  </div>
 </div>
 
 
