@@ -22,7 +22,7 @@
 
         <p>
           <span editable-text='currentStuff.recipe.description' onaftersave='updateMainRecipe()'
-                e-ng-disabled='disabledStatus'>
+                e-ng-disabled='disabledStatus'> {{disabledStatus}}
           {{currentStuff.recipe.description ? currentStuff.recipe.description : "Description"}}
           </span>
         </p>
