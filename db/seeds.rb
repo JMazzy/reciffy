@@ -29,6 +29,7 @@ User.all.each do |user|
   user.profile.tagline = Faker::Hipster.sentence
   user.profile.city = Faker::Address.city
   user.profile.state = Faker::Address.state
+  user.profile.avatar = File.new("#{Rails.root}/public/images/avatar.jpeg")
   user.profile.save!
 end
 
@@ -60,7 +61,7 @@ end
 puts "Creating Recipes"
 
 10.times do
-  Recipe.create(
+  newRecipe = Recipe.new(
     name: Faker::Hipster.words.join(" ").titleize,
     description: Faker::Hipster.sentence,
     instructions: Faker::Hipster.paragraph,
@@ -68,6 +69,12 @@ puts "Creating Recipes"
     cook_time: Random.rand(60),
     user_id: User.all.sample.id
   )
+  newRecipe.save!
+  Photo.create(
+    photo: File.new("#{Rails.root}/public/images/food-image.jpg"),
+    recipe_id: Recipe.last.id
+  )
+  newRecipe.photos << Photo.last
 end
 
 Recipe.all.each do |r|
