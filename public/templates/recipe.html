@@ -30,12 +30,12 @@
         </ul>
 
         <h4>Instructions</h4>
-        <p>
-          <span editable-text='recipe.instructions' onaftersave='updateMainRecipe()' 
-                e-ng-disabled='disabledStatus'>
+        <div>
+          <span editable-textarea='recipe.instructions' onaftersave='updateMainRecipe()' 
+                e-ng-disabled='disabledStatus' style="width:100%">
             {{recipe.instructions}}
           </span>  
-        </p>
+        </div>
 
         <h4>Tags</h4>
         <div class="tag label label-info" ng-repeat="tag in tags" >
