@@ -13,7 +13,6 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
     };
 
     obj.populateMadeRecipes = function(allMadeRecipes) {
-       console.log(allMadeRecipes.length)
        if (allMadeRecipes.length) {
           for (var i = 0; i < allMadeRecipes.length; i++) {
             made_recipes.push(allMadeRecipes[i]);
