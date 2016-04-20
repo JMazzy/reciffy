@@ -10,7 +10,8 @@ class RatingsController < ApplicationController
   end
 
   def create
-    @rating = current_user.ratings.build( rating_params )
+    ratingValue = params[:rating][:rating].to_i
+    @rating = current_user.ratings.build( rating: ratingValue, recipe_id: params[:rating][:recipe_id] )
     respond_to do |format|
       if @rating.save
         format.html { redirect_to request.referrer }

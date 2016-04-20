@@ -130,13 +130,13 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   };
 
   var rateRecipe = function() {
-    var rating = _currents.rating;
-
-    rating
-    .save()
-    .then(function(response) {
-      console.log(response);
-    });
+    // var rating = _currents.rating;
+    // Restangular
+    // .all("ratings", {rating: rating})
+    // .post()
+    // .then(function(response) {
+    //   console.log(response);
+    // });
   }
 
   return {
