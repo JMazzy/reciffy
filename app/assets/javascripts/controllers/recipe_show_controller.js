@@ -6,7 +6,7 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.show_recipe_made = false;
   $scope.disabledStatus = true
 
-  RecipeService.setCurrentRecipe($stateParams.id);
+  RecipeService.setCurrentRecipe($stateParams.id,currentUser);
 
   $scope.currentStuff = RecipeService.getCurrentStuff();
   $scope.recipe = RecipeService.getCurrentRecipe();
@@ -15,8 +15,7 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.newTag = RecipeService.getTag();
   $scope.comments = RecipeService.getComments();
   $scope.comment = RecipeService.getComment();
-  $scope.disabledStatus = $scope.recipe.id != currentUser.id
-  console.log($scope.disabledStatus)
+  $scope.disabledStatus = RecipeService.getdisabledStatus();
 
   $scope.createComment = function() {
     RecipeService.addComment();
