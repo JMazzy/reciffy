@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @users = []
+    User.all.each do |user|
+      @users.push(show_user_json(user))
+    end
 
     respond_to do |format|
-      format.json { render json: @users.to_json( include: { profile: { include: :tags } } )}
+      format.json { render json: @users.to_json }
     end
   end
 
@@ -48,6 +51,7 @@ class UsersController < ApplicationController
     end
 
     json_response["profile"] = user.profile.as_json
+    json_response["profile"]["tags"] = user.profile.tags.as_json
 
     photo_json = {}
     photo_json["url"] = {}
@@ -57,10 +61,20 @@ class UsersController < ApplicationController
     photo_json["url"]["thumb"] = user.profile.avatar.url(:thumb).gsub(/\?.*/,"")
     json_response["photo"] = photo_json
 
-    json_response["made_recipes"] = []
+    json_response["recipes_made"] = []
+    json_response["recipes_saved"] = []
+    json_response["recipes"] = []
 
-    user.made_recipes.each do |made_recipe|
-      json_response["made_recipes"].push(made_recipe.as_json)
+    user.recipes_made.each do |recipe_made|
+      json_response["recipes_made"].push(recipe_made.as_json)
+    end
+
+    user.recipes_saved.each do |recipe_saved|
+      json_response["recipes_saved"].push(recipe_saved.as_json)
+    end
+
+    user.recipes.each do |recipe|
+      json_response["recipes"].push(recipe.as_json)
     end
 
     json_response["ratings"] =[]
