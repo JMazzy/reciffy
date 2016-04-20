@@ -43,17 +43,17 @@ class SubscriptionsController < ApplicationController
 
     if @subscription = Subscription.find_by_id(params[:id])
 
-      if @subscription.destroy
-        flash[:success] = "UnSubscribed"
-      else
-        flash[:alert] = "Could not Unsubscribe!"
+      respond_to do |format|
+        if @subscription.destroy
+          format.html { redirect_to request.referrer }
+          format.json { head :no_content }
+         else
+          format.html { redirect_to request.referrer }
+          format.json { head :no_content }
+        end
       end
-
-      redirect_to :back
-    else
-      flash[:alert] = "Invalid subscription removal! - Unauthorized?"
-      redirect_to root_url
-    end  
+    end
+      
   end 
 
 

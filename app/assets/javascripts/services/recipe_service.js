@@ -49,15 +49,18 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   var _setCurrents = function(recipe_id) {
     _currents.recipe = _recipes[recipe_id];
 
-    for ( var c = 0; c < _currents.recipe.comments.length; c++) {
-      _comments[_currents.recipe.comments[c].id] = _currents.recipe.comments[c];
-      _currents.comment.recipe_id = recipe_id;
+    if (_currents.recipe.comments) {
+      for ( var c = 0; c < _currents.recipe.comments.length; c++) {
+        _comments[_currents.recipe.comments[c].id] = _currents.recipe.comments[c];
+        _currents.comment.recipe_id = recipe_id;
+      }
     }
-
-    for ( var t = 0; t < _currents.recipe.tags.length; t++) {
-      _tags[_currents.recipe.tags[t].id] = _currents.recipe.tags[t];
-      _currents.tag.recipe_id = recipe_id;
-    }
+    if (_currents.recipe.tags) {
+      for ( var t = 0; t < _currents.recipe.tags.length; t++) {
+        _tags[_currents.recipe.tags[t].id] = _currents.recipe.tags[t];
+        _currents.tag.recipe_id = recipe_id;
+      }
+    }  
   }
 
   var setCurrentRecipe = function(recipe_id) {
