@@ -1,0 +1,1 @@
+/Users/zeien/Documents/Viking/reciffy/frontend/tmp/broccoli_merge_trees-input_base_path-v35anync.tmp/2/frontend/tests/helpers/start-app.jshint.js

@@ -2,37 +2,8 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <h3>All</h3>
-      <div ng-repeat="recipe in recipes" class="recipe-holder">
-        <div class="col-xs-6 col-sm-4 col-md-3">
-          <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-            <div class="panel panel-default recipe">
-
-              <div class="panel-heading recipe-heading">
-                <h4>{{recipe.name}}</h4>
-              </div>
-
-              <div class="panel-body recipe-body">
-                <!-- Photo will go here -->
-              </div>
-
-              <div class="panel-footer recipe-footer">
-                <p>
-                  {{recipe.description}}
-                </p>
-              </div>
-
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-12">
       <h3>New</h3>
-      <div ng-repeat="recipe in recipes | orderBy : '-created_at' | limitTo : 3" class="recipe-holder">
+      <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | limitTo : 3" class="recipe-holder">
         <div class="col-xs-6 col-sm-4 col-md-3">
           <a ui-sref="reciffy.recipes.show({id: recipe.id})">
             <div class="panel panel-default recipe">
@@ -61,6 +32,29 @@
   <div class="row">
     <div class="col-xs-12">
       <h3>Saved for Later</h3>
+      <div ng-repeat="recipe in savedRecipes | orderObjectBy : '-created_at' | limitTo : 3" class="recipe-holder">
+        <div class="col-xs-6 col-sm-4 col-md-3">
+          <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+            <div class="panel panel-default recipe">
+
+              <div class="panel-heading recipe-heading">
+                <h4>{{recipe.name}}</h4>
+              </div>
+
+              <div class="panel-body recipe-body">
+                <!-- Photo will go here -->
+              </div>
+
+              <div class="panel-footer recipe-footer">
+                <p>
+                  {{recipe.description}}
+                </p>
+              </div>
+
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 

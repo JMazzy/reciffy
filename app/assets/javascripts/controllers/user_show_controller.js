@@ -8,6 +8,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     $scope.profile = user.profile;
     $scope.userRecipes = user.recipes;
     $scope.received_subscriptions = user.received_subscription_requests
+    $scope.checkSubscriberExists(user)
     $scope.disabledStatus = (currentUser.id != $stateParams.id);
     $scope.tags = user.profile.tags;
     $scope.newTag = { name: "" };
