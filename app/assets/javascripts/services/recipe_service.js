@@ -79,6 +79,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     return _currents.recipe;
   };
 
+  var getCurrentStuff = function() {
+    return _currents;
+  };
+
   var addComment = function() {
     Restangular
     .one("recipes", _currents.recipe.id)
@@ -135,5 +139,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     getTag: getTag,
     getComments: getComments,
     getComment: getComment,
+    getCurrentStuff: getCurrentStuff
   };
 }])

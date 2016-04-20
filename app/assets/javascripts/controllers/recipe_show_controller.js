@@ -8,8 +8,9 @@ reciffy.controller( 'RecipeShowCtrl',
 
   RecipeService.setCurrentRecipe($stateParams.id);
 
+  $scope.currentStuff = RecipeService.getCurrentStuff();
   $scope.recipe = RecipeService.getCurrentRecipe();
-  console.log($scope.recipe)
+
   $scope.tags = RecipeService.getTags();
   $scope.newTag = RecipeService.getTag();
   $scope.comments = RecipeService.getComments();
