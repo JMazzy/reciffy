@@ -1,1 +1,0 @@
-/Users/zeien/Documents/Viking/reciffy/frontend/node_modules/ember-cli-qunit/node_modules/qunitjs/README.md
