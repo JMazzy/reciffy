@@ -6,24 +6,35 @@
     <div class="panel panel-default">
 
       <div class="panel-heading">
-        <h4>{{recipe.name}}</h4>
+        <h4>
+        <span editable-text='recipe.name' onaftersave='updateMainRecipe()' 
+              e-ng-disabled='disabledStatus'>
+          {{recipe.name}}
+        </span>  
+        </h4>
         <span>{{rating.rating}}</span>
         <p>
+          <span editable-text='recipe.description' onaftersave='updateMainRecipe()' 
+                e-ng-disabled='disabledStatus'>
           {{recipe.description}}
+          </span>
         </p>
       </div>
 
       <div class="panel-body">
         <h4>Ingredients</h4>
         <ul>
-          <li ng-repeat="ri in recipeIngredients">
+          <li ng-repeat="ri in recipe.recipe_ingredients">
             {{ri.quantity}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
           </li>
         </ul>
 
         <h4>Instructions</h4>
         <p>
-          {{recipe.instructions}}
+          <span editable-text='recipe.instructions' onaftersave='updateMainRecipe()' 
+                e-ng-disabled='disabledStatus'>
+            {{recipe.instructions}}
+          </span>  
         </p>
 
         <h4>Photo Gallery</h4>
@@ -32,7 +43,7 @@
         </div>
 
         <h4>Tags</h4>
-        <div class="tag label label-info" ng-repeat="tag in tags" >
+        <div class="tag label label-info" ng-repeat="(id,tag) in tags" >
           <span class="pull-left">{{tag.name}} | </span>
           <a><i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" ng-click="deleteTag(tag.id)"></i></a>
         </div>
@@ -66,7 +77,7 @@
 
     <h4>All Comments</h4>
 
-    <div class="comment" ng-repeat="comment in comments | orderBy : '-created_at'">
+    <div class="comment" ng-repeat="comment in comments | orderObjectBy : '-created_at'">
       <p>
         <strong>User {{comment.user.profile.first_name}} {{comment.user.profile.last_name}}</strong> says:
       </p>

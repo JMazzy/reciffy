@@ -10,13 +10,11 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
       Restangular.all('made_recipes').getList().then(function(result){
         obj.populateMadeRecipes(result);
       });
-    
     };
 
     obj.populateMadeRecipes = function(allMadeRecipes) {
-       console.log(allMadeRecipes.length)
        if (allMadeRecipes.length) {
-          for (var i = 0; i < allMadeRecipes.length; i++) { 
+          for (var i = 0; i < allMadeRecipes.length; i++) {
             made_recipes.push(allMadeRecipes[i]);
           }
        }
@@ -52,7 +50,7 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
         },
         function(res)  {
           alert("Could not mark this recipe: " + madeRecipeObj.recipe.name);
-        }    
+        }
       )
     };
 
