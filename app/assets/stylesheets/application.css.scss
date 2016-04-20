@@ -150,6 +150,7 @@ div.panel {
 
 .recipe {
   max-width: 250px;
+  position: relative;
 }
 
 .recipe-heading {
@@ -235,4 +236,10 @@ div.panel {
   margin: 0;
   background-color: $menu-grey;
   height: 50px;
+}
+
+.rating-label {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
