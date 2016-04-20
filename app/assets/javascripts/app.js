@@ -1,11 +1,11 @@
 var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable'])
 
-.config(function(AuthProvider) {
+.config([ 'AuthProvider', function(AuthProvider) {
     // Configure Auth service with AuthProvider
-}).
-controller('myCtrl', function(Auth) {
+}]).
+controller('myCtrl', ['Auth', function(Auth) {
     // Use your configured Auth service.
-});
+}]);
 
 reciffy.factory('_', ['$window', function($window) {
   return $window._; // assumes underscore has already been loaded on the page
@@ -135,9 +135,9 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     $urlRouterProvider.otherwise('/recipes/all');
   }]);
 
-reciffy.run(function($rootScope, $location, Auth){
+reciffy.run([ '$rootScope', '$location', 'Auth', function($rootScope, $location, Auth){
  $rootScope.$on("$stateChangeError", console.log.bind(console));
-});
+}]);
 
 reciffy.run(['editableOptions', function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'

@@ -1,7 +1,7 @@
  /*
  *= require xeditable
  */
- 
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "pure-drawer";
@@ -244,4 +244,9 @@ span.editable-empty {
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.star-rating {
+  background-color: #F0AD4E;
+  color: white;
 }

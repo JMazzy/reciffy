@@ -12,7 +12,7 @@
           {{currentStuff.recipe.name ? currentStuff.recipe.name : "Name"}}
         </span>
         </h4>
-        <select ng-model="currentStuff.rating.rating" ng-change="submitRating()">
+        <select ng-model="currentStuff.rating.rating" ng-change="submitRating()" class="star-rating">
           <option>1</option>
           <option>2</option>
           <option>3</option>
