@@ -1,6 +1,6 @@
 reciffy.controller( 'RecipeShowCtrl',
-                    [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService',
-                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService) {
+                    [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService','currentUser',
+                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService,currentUser) {
 
 
   $scope.show_recipe_made = false;
@@ -13,6 +13,8 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.newTag = RecipeService.getTag();
   $scope.comments = RecipeService.getComments();
   $scope.comment = RecipeService.getComment();
+  $scope.disabledStatus = $scope.recipe.id != currentUser.id
+  console.log($scope.disabledStatus)
 
   $scope.createComment = function() {
     RecipeService.addComment();
@@ -54,7 +56,7 @@ reciffy.controller( 'RecipeShowCtrl',
       description: $scope.recipe.description,
       instructions: $scope.recipe.instructions,
     }).then(function(newRecipe) {
-      console.log(newecipe);
+      console.log(newRecipe);
     })
   };
 }]);
