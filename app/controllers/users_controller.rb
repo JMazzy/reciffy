@@ -9,8 +9,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     respond_to do |format|
-      format.json { render json: @user.to_json( 
-        include: [:profile, :recipes, :received_subscription_requests] ) }
+      format.json { render json: @user.to_json( include: [
+          :recipes,
+          :received_subscription_requests,
+          profile: { include: :tags } ] ) }
     end
   end
 
@@ -18,7 +20,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     respond_to do |format|
       if @user.update(user_params)
-        format.json { render json: @user.to_json(include: [:profile, :recipes] ) }
+        format.json { render json: @user.to_json( include: [
+          :recipes,
+          profile: { include: :tags } ] ) }
       end
     end
   end
