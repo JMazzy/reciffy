@@ -37,6 +37,11 @@
           </span>
         </p>
 
+        <h4>Photo Gallery</h4>
+        <div ng-repeat="photo in recipe.photos">
+          <img ng-src="{{photo.url.large}}">
+        </div>
+
         <h4>Tags</h4>
         <div class="tag label label-info" ng-repeat="(id,tag) in tags" >
           <span class="pull-left">{{tag.name}} | </span>

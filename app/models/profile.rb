@@ -3,7 +3,7 @@ class Profile < ActiveRecord::Base
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
 
-  has_attached_file :avatar, styles: { thumb: "100x100", medium: "250x250" }
+  has_attached_file :avatar, styles: { thumb: "100x100", medium: "250x250" }, :s3_host_name => "s3.amazonaws.com"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/, :unless => "avatar.blank?"
   validates_attachment_presence :avatar, presence: true, :unless => "avatar.blank?"
   validates_with AttachmentSizeValidator, attributes: :avatar, less_than: 5.megabytes, :unless => "avatar.blank?"
