@@ -41,10 +41,20 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       templateUrl: "templates/recipes.html",
       controller: "RecipeIndexCtrl",
     })
-    .state("reciffy.my", {
+    .state("reciffy.recipes.my", {
       url: "/my",
-      templateUrl: '/templates/made_recipe_layout.html',
+      templateUrl: '/templates/my_recipe_layout.html',
       controller: 'MyCtrl',
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      },
+    })
+    .state("reciffy.recipes.made", {
+      url: "/made",
+      templateUrl: '/templates/made_recipe_layout.html',
+      controller: 'MadeCtrl',
       resolve: {
         currentUser: ['Auth', function(Auth) {
           return Auth.currentUser();
@@ -70,7 +80,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       controller: "RecipeShowCtrl"
     })
     // Create Recipe Page
-    .state("reciffy.recipe.create", {
+    .state("reciffy.recipes.create", {
       url: "/new"
     })
     // Subscription Page
