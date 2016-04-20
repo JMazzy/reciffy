@@ -8,10 +8,10 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     $scope.profile = user.profile;
     $scope.userRecipes = user.recipes;
     $scope.received_subscriptions = user.received_subscription_requests
-    $scope.disabledStatus = (currentUser.id != $stateParams.id)
-    console.log("User is " + currentUser.id)
-    console.log($scope.received_subscriptions)
-    $scope.checkSubscriberExists(user)
+    $scope.disabledStatus = (currentUser.id != $stateParams.id);
+    $scope.tags = user.profile.tags;
+    $scope.newTag = { name: "" };
+    $scope.avatar = user.profile.avatar.as_json;
   })
 
 
@@ -44,7 +44,31 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       }
     } else {
        $scope.user_subscribed = false
-    }   
+    }
   }
+
+  $scope.addTag = function() {
+    Restangular.all('tags')
+    .post($scope.newTag, { taggable_id: $scope.profile.id, taggable_type: "Profile"})
+    .then( function(newTag) {
+      $scope.tags.unshift(newTag);
+      $scope.newTag = {
+        name: "",
+      };
+    })
+  };
+
+  // Actually only deletes that particular TAGGING, not the tag itself
+  $scope.deleteTag = function(tag_id) {
+    Restangular.one("tags", tag_id)
+    .remove({ taggable_id: $scope.profile.id, taggable_type: "Profile"})
+    .then(function(deletedTag) {
+      for ( var t = 0; t < $scope.tags.length; t++ ) {
+        if ( $scope.tags[t].id === deletedTag.id ) {
+          $scope.tags.splice(t, 1);
+        }
+      }
+    })
+  };
 
 }])

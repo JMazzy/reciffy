@@ -16,6 +16,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "pure-drawer";
+@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 
 /************************/
 /* Reciffy Color Scheme */
@@ -106,6 +107,7 @@ $menu-green: #238843;
   top: 50%;
   transform: translateY(-50%);
   margin-left: 30px;
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
 .menu-avatar {
