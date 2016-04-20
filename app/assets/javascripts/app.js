@@ -67,7 +67,12 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     .state("reciffy.recipes.show", {
       url: "/:id",
       templateUrl: "templates/recipe.html",
-      controller: "RecipeShowCtrl"
+      controller: "RecipeShowCtrl",
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      },
     })
     // Create Recipe Page
     .state("reciffy.recipe.create", {

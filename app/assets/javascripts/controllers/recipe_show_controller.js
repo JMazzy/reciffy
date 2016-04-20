@@ -1,8 +1,10 @@
-reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService', 
-                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService ) {
+reciffy.controller( 'RecipeShowCtrl', 
+                    [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService', 'currentUser',
+                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService, currentUser) {
 
   
   $scope.show_recipe_made = false;
+  $scope.disabledStatus = true;
 
   Restangular.one('recipes', $stateParams.id).get()
   .then(function(recipe) {
@@ -12,6 +14,9 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
     $scope.newTag = { name: "" };
     $scope.comments = recipe.comments;
     $scope.madeRecipes = recipe.made_recipes;
+    $scope.disabledStatus = ($scope.recipe.user_id != currentUser.id)
+    console.log("Recipe is " + $scope.recipe.user_id)
+    console.log("Disabled is " + $scope.disabledStatus)
     $scope.comment = {
       comment_description: "",
       recipe_id: recipe.id,
@@ -86,4 +91,13 @@ reciffy.controller( 'RecipeShowCtrl', [ '$scope', '$state', '$stateParams', 'Res
     }   
   }
 
+  $scope.updateMainRecipe = function() {
+    Restangular.one('recipes', $scope.recipe.id).patch({
+      name: $scope.recipe.name,
+      description: $scope.recipe.description,
+      instructions: $scope.recipe.instructions,
+    }).then(function(newRecipe) {
+      console.log(newecipe);
+    })
+  };
 }]);
