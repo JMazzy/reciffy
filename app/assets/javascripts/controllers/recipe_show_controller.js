@@ -1,6 +1,6 @@
 reciffy.controller( 'RecipeShowCtrl',
-                    [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService', 'currentUser',
-                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService, currentUser) {
+                    [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService',
+                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService) {
 
 
   $scope.show_recipe_made = false;
