@@ -16,7 +16,7 @@
       <div class="panel-body">
         <h4>Ingredients</h4>
         <ul>
-          <li ng-repeat="ri in recipeIngredients">
+          <li ng-repeat="ri in recipe.recipe_ingredients">
             {{ri.quantity}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
           </li>
         </ul>
@@ -27,7 +27,7 @@
         </p>
 
         <h4>Tags</h4>
-        <div class="tag label label-info" ng-repeat="tag in tags" >
+        <div class="tag label label-info" ng-repeat="(id,tag) in tags" >
           <span class="pull-left">{{tag.name}} | </span>
           <a><i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" ng-click="deleteTag(tag.id)"></i></a>
         </div>
@@ -43,7 +43,7 @@
       <div class="panel-footer">
         <button type="button" name="save" class="btn btn-primary">Save This Recipe</button>
         <button type="button" name="fork" class="btn btn-primary">Fork This Recipe</button>
-        <button type="button" name="made" ng-hide="show_recipe_made" 
+        <button type="button" name="made" ng-hide="show_recipe_made"
                 class="btn btn-primary" ng-click="addMadeRecipe(recipe)">I Made This</button>
       </div>
 
@@ -61,7 +61,7 @@
 
     <h4>All Comments</h4>
 
-    <div class="comment" ng-repeat="comment in comments | orderBy : '-created_at'">
+    <div class="comment" ng-repeat="comment in comments | orderObjectBy : '-created_at'">
       <p>
         <strong>User {{comment.user.profile.first_name}} {{comment.user.profile.last_name}}</strong> says:
       </p>

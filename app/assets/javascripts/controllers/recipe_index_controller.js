@@ -1,7 +1,9 @@
-reciffy.controller( 'RecipeIndexCtrl', [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', function($scope, $state, $stateParams, Restangular, RecipeService ) {
+reciffy.controller( 'RecipeIndexCtrl', [ 'Auth', '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'savedRecipeService', 'myRecipeService', 'madeRecipeService', 'currentUser', function( Auth, $scope, $state, $stateParams, Restangular, RecipeService, savedRecipeService, myRecipeService, madeRecipeService, currentUser ) {
 
-  var recipeData = RecipeService.getRecipeData();
-  recipeData.setRecipes();
-  $scope.recipes = recipeData.getRecipes();
+  RecipeService.setRecipes();
+  savedRecipeService.callAllSavedRecipes();
+
+  $scope.recipes = RecipeService.getRecipes();
+  $scope.savedRecipes = savedRecipeService.getSavedRecipes();
 
 }]);
