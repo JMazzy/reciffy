@@ -185,11 +185,12 @@ class RecipesController < ApplicationController
     json_response["recipe_ingredients"] = []
 
     recipe.recipe_ingredients.each do |recipe_ingredient|
-      ri_temp = recipe_ingredient.to_json
-      json_response["recipe_ingredients"].push(recipe_ingredient.as_json)
+      ri = recipe_ingredient.as_json
+      ri["ingredient"] = recipe_ingredient.ingredient
+      ri["unit"] = recipe_ingredient.unit
+      json_response["recipe_ingredients"].push(ri.as_json)
     end
 
     return json_response.as_json
   end
-
 end

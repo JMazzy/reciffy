@@ -8,20 +8,18 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     tag: {name: "", recipe_id: null},
     comment: {comment_description: "", recipe_id: null},
     disabledStatus: true
+    rating: {rating: undefined, recipe_id: null},
   }
 
   var setRecipes = function() {
-    if (Object.keys(_recipes).length === 0) {
-      Restangular
-      .all('recipes')
-      .getList()
-      .then( function(recipes) {
-        for( var r = 0; r < recipes.length; r++ ) {
-          _recipes[recipes[r].id] = recipes[r];
-        }
-        console.log(_recipes);
-      });
-    }
+    Restangular
+    .all('recipes')
+    .getList()
+    .then( function(recipes) {
+      for( var r = 0; r < recipes.length; r++ ) {
+        _recipes[recipes[r].id] = recipes[r];
+      }
+    });
   };
 
   var getRecipes = function() {
@@ -63,6 +61,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
         _currents.tag.recipe_id = recipe_id;
       }
     }
+
+    _currents.rating.recipe_id = recipe_id;
   }
 
   var setCurrentRecipe = function(recipe_id,currentUser) {
@@ -79,6 +79,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
 
         _recipes[recipe.id] = recipe;
         _setCurrents(recipe.id);
+        console.log(recipe);
       });
     }
   };
@@ -138,6 +139,16 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     })
   };
 
+  var rateRecipe = function() {
+    var rating = _currents.rating;
+
+    rating
+    .save()
+    .then(function(response) {
+      console.log(response);
+    });
+  }
+
   return {
     setRecipes: setRecipes,
     getRecipes: getRecipes,
@@ -152,6 +163,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     getComments: getComments,
     getComment: getComment,
     getCurrentStuff: getCurrentStuff,
+<<<<<<< HEAD
     getdisabledStatus: getdisabledStatus
+=======
+    rateRecipe: rateRecipe,
+>>>>>>> a654ed1fa36a8d62963d5551c28ab021d7c6f588
   };
 }])

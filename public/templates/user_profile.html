@@ -66,3 +66,47 @@
 
   </div>
 </div>
+
+<div class="row">
+  <div class="col-xs-12">
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h4>Made Recipes</h4>
+      </div>
+
+      <div class="panel-body">
+        <div ng-repeat='recipe in userMadeRecipes'>
+          <a ui-sref='reciffy.recipes.show({id: recipe.id})'>
+            {{recipe.name}}
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h4>Saved Recipes</h4>
+      </div>
+
+      <div class="panel-body">
+        <div ng-repeat='recipe in userSavedRecipes'>
+          <a ui-sref='reciffy.recipes.show({id: recipe.id})'>
+            {{recipe.name}}
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -10,7 +10,7 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.currentStuff = RecipeService.getCurrentStuff();
   $scope.recipe = RecipeService.getCurrentRecipe();
-  // $scope.recipe = $scope.currentStuff;
+
   $scope.tags = RecipeService.getTags();
   $scope.newTag = RecipeService.getTag();
   $scope.comments = RecipeService.getComments();
@@ -59,5 +59,9 @@ reciffy.controller( 'RecipeShowCtrl',
     }).then(function(newRecipe) {
       console.log(newRecipe);
     })
+  };
+
+  $scope.submitRating = function() {
+    RecipeService.rateRecipe();
   };
 }]);

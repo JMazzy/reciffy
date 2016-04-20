@@ -150,6 +150,7 @@ div.panel {
 
 .recipe {
   max-width: 250px;
+  position: relative;
 }
 
 .recipe-heading {
@@ -238,7 +239,7 @@ div.panel {
 }
 
 span.editable-click { 
-  color: green;
+  
 }
 
 
@@ -249,4 +250,9 @@ span.editable-click.editable-disabled {
 span.editable-empty {
   color: gray;
   font-style: italic;
+}
+.rating-label {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }

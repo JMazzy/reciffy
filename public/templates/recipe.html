@@ -12,7 +12,14 @@
           {{currentStuff.recipe.name ? currentStuff.recipe.name : "Name"}}
         </span>
         </h4>
-        <span>{{currentStuff.recipe.rating ? currentStuff.recipe.rating : "Rate this Recipe"}}</span>
+        <select ng-model="currentStuff.rating" ng-change="submitRating()">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+
         <p>
           <span editable-text='currentStuff.recipe.description' onaftersave='updateMainRecipe()'
                 e-ng-disabled='disabledStatus'> {{disabledStatus}}
