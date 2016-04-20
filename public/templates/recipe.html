@@ -7,16 +7,16 @@
 
       <div class="panel-heading">
         <h4>
-        <span editable-text='recipe.name' onaftersave='updateMainRecipe()' 
+        <span editable-text='recipe.name' onaftersave='updateMainRecipe()'
               e-ng-disabled='disabledStatus'>
-          {{recipe.name}}
-        </span>  
+          {{recipe.name ? recipe.name : "Name"}}
+        </span>
         </h4>
-        <span>{{rating.rating}}</span>
+        <span>{{recipe.rating ? recipe.rating : "Rate this Recipe"}}</span>
         <p>
-          <span editable-text='recipe.description' onaftersave='updateMainRecipe()' 
+          <span editable-text='recipe.description' onaftersave='updateMainRecipe()'
                 e-ng-disabled='disabledStatus'>
-          {{recipe.description}}
+          {{recipe.description ? recipe.description : "Description"}}
           </span>
         </p>
       </div>
@@ -30,11 +30,12 @@
         </ul>
 
         <h4>Instructions</h4>
+
         <p>
-          <span editable-text='recipe.instructions' onaftersave='updateMainRecipe()' 
+          <span editable-text='recipe.instructions' onaftersave='updateMainRecipe()'
                 e-ng-disabled='disabledStatus'>
-            {{recipe.instructions}}
-          </span>  
+            {{recipe.instructions ? recipe.instructions : "Instructions"}}
+          </span>
         </p>
 
         <h4>Photo Gallery</h4>
