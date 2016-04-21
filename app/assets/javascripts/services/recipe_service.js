@@ -109,13 +109,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
       .one('recipes', recipe_id)
       .get()
       .then( function(recipe) {
-        _currents.disabledStatus = (currentUser.id != recipe.user_id)
-        console.log("_currents.disabledStatus " +_currents.disabledStatus)
-        console.log(recipe.user_id)
-
+        _currents.disabledStatus = (currentUser.id != recipe.user_id);
         _recipes[recipe.id] = recipe;
         _setCurrents(recipe.id);
-        console.log(recipe);
       });
     }
   };
@@ -198,7 +194,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   };
 
   var makeRecipeIngredient = function() {
-     
+
   };
 
   var addRecipeIngredient = function(recipe_ingredient) {
