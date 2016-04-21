@@ -117,7 +117,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .one('recipes', recipe_id)
     .get()
     .then( function(recipe) {
-      _currents.disabledStatus = (currentUser.id != recipe.user_id);
       _recipes[recipe.id] = recipe;
       _setCurrents(recipe.id, currentUser);
     });
@@ -136,7 +135,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .all('recipes')
     .post(newRecipe)
     .then( function(recipe) {
-      _currents.disabledStatus = (currentUser.id != recipe.user_id);
+      console.log(recipe)
       _recipes[recipe.id] = recipe;
       _setCurrents(recipe.id, currentUser);
     });
