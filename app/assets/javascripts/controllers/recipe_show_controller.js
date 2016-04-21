@@ -4,7 +4,8 @@ reciffy.controller( 'RecipeShowCtrl',
 
 
   $scope.show_recipe_made = false;
-  $scope.disabledStatus = true
+  $scope.disabledStatus = true;
+  $scope.makeRecipe = false;
 
   RecipeService.setCurrentRecipe($stateParams.id,currentUser);
 
@@ -16,6 +17,19 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.comments = RecipeService.getComments();
   $scope.comment = RecipeService.getComment();
   $scope.disabledStatus = RecipeService.getdisabledStatus();
+
+  $scope.getDisabledStatus = function() {
+    return RecipeService.getdisabledStatus();
+  }
+
+  $scope.makeRecipeIngredient = function() {
+    $scope.makeRecipe = !$scope.makeRecipe;
+    console.log(!$scope.makeRecipe)
+  }
+
+  $scope.getMakeRecipeIngredient = function() {
+    return $scope.makeRecipe ;
+  }
 
   $scope.createComment = function() {
     RecipeService.addComment();
@@ -52,14 +66,17 @@ reciffy.controller( 'RecipeShowCtrl',
   }
 
   $scope.updateMainRecipe = function() {
-    Restangular.one('recipes', $scope.recipe.id).patch({
-      name: $scope.recipe.name,
-      description: $scope.recipe.description,
-      instructions: $scope.recipe.instructions,
-    }).then(function(newRecipe) {
-      console.log(newRecipe);
-    })
+    if (!RecipeService.getdisabledStatus()) {
+      RecipeService.updateRecipe();
+    }
   };
+
+  $scope.deleteRecipeIngredient = function(ri) {
+    if (!RecipeService.getdisabledStatus()) {
+       RecipeService.removeRecipeIngredient(ri);
+    }
+  };
+
 
   $scope.submitRating = function() {
     RecipeService.rateRecipe();
