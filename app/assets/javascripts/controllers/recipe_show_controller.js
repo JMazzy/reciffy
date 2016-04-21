@@ -15,10 +15,7 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.recipe = RecipeService.getCurrentRecipe();
 
   $scope.tags = RecipeService.getTags();
-  $scope.newTag = RecipeService.getTag();
   $scope.comments = RecipeService.getComments();
-  $scope.comment = RecipeService.getComment();
-  $scope.disabledStatus = RecipeService.getdisabledStatus();
   $scope.units = RecipeService.getUnits();
   $scope.ingredients = RecipeService.getIngredients();
 

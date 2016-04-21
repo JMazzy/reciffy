@@ -103,6 +103,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   };
 
   var setCurrentRecipe = function( recipe_id, currentUser ) {
+    _clearSubLists();
     if ( !!_recipes[recipe_id] ) {
       _setCurrents( recipe_id, currentUser );
     } else if (recipe_id === "new") {
@@ -112,12 +113,16 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     }
   };
 
+  var _clearSubLists = function() {
+    for (var tag in _tags) delete _tags[tag];
+    for (var comment in _comments) delete _comments[comment];
+  }
+
   var _requestSingleRecipe = function(recipe_id, currentUser) {
     Restangular
     .one('recipes', recipe_id)
     .get()
     .then( function(recipe) {
-      _currents.disabledStatus = (currentUser.id != recipe.user_id);
       _recipes[recipe.id] = recipe;
       _setCurrents(recipe.id, currentUser);
     });
@@ -136,7 +141,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .all('recipes')
     .post(newRecipe)
     .then( function(recipe) {
-      _currents.disabledStatus = (currentUser.id != recipe.user_id);
+      console.log(recipe)
       _recipes[recipe.id] = recipe;
       _setCurrents(recipe.id, currentUser);
     });
