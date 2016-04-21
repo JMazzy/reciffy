@@ -9,7 +9,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     comment: {comment_description: "", recipe_id: null},
     disabledStatus: false,
     rating: {rating: undefined, recipe_id: null},
-  }
+  };
 
   var setRecipes = function() {
     Restangular
@@ -67,7 +67,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     }
 
     _currents.rating.recipe_id = recipe_id;
-  }
+  };
 
   var setCurrentRecipe = function(recipe_id,currentUser) {
     if ( !!_recipes[recipe_id] ) {
@@ -108,7 +108,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .then( function(comment) {
       _comments[comment.id] = comment;
       _currents.comment.comment_description = "";
-    })
+    });
   };
 
   var removeComment = function(comment_id) {
@@ -118,7 +118,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .remove()
     .then(function(deletedComment) {
       delete _comments[deletedComment.id];
-    })
+    });
   };
 
   var addTag = function() {
@@ -129,7 +129,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .then( function(newTag) {
       _tags[newTag.id] = newTag;
       _currents.tag.name = "";
-    })
+    });
   };
 
   // Actually only deletes that particular TAGGING, not the tag itself, but goes through the tag controller
@@ -140,7 +140,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
               taggable_type: "Recipe"})
     .then(function(deletedTag) {
       delete _tags[deletedTag.id];
-    })
+    });
   };
 
   var rateRecipe = function(rating) {
@@ -153,6 +153,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     }, function(error) {
       console.log(error);
     });
+  }
 
   var updateRecipe = function() {
     recipe = getCurrentRecipe()
@@ -204,4 +205,4 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     removeRecipeIngredient: removeRecipeIngredient,
     makeRecipeIngredient: makeRecipeIngredient
   };
-}])
+}]);
