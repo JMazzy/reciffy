@@ -1,15 +1,15 @@
 reciffy.controller( 'RecipeShowCtrl',
                     [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService','currentUser',
-                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService,currentUser) {
+                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService, currentUser) {
 
 
-  $scope.show_recipe_made = false;  
+  $scope.show_recipe_made = false;
   $scope.disabledStatus   = true;
   $scope.makeRecipe       = false;
-  
+
   RecipeService.setUnits();
   RecipeService.setIngredients();
-  RecipeService.setCurrentRecipe($stateParams.id,currentUser);
+  RecipeService.setCurrentRecipe( $stateParams.id, currentUser );
 
   $scope.currentStuff = RecipeService.getCurrentStuff();
   $scope.recipe = RecipeService.getCurrentRecipe();
@@ -22,7 +22,7 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.units = RecipeService.getUnits();
   $scope.ingredients = RecipeService.getIngredients();
 
-  //Recipe Ingredients Added 
+  //Recipe Ingredients Added
   $scope.r_unit = ""
   $scope.r_quantity = ""
   $scope.r_ingredient = ""
