@@ -22,6 +22,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     });
   };
 
+  var newRecipe = function() {
+    _currents.recipe = {};
+  };
+
   var getRecipes = function() {
     return _recipes;
   };

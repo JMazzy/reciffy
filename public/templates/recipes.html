@@ -44,6 +44,8 @@
                 <h4>{{recipe.name}}</h4>
               </div>
 
+              <span class="label label-warning rating-label">{{recipe.ratings | avgRating | number : 1}}</span>
+
               <div class="panel-body recipe-body">
                 <img ng-src="{{recipe.photos[recipe.photos.length-1].url.medium}}">
               </div>
@@ -78,6 +80,8 @@
               <div class="panel-heading recipe-heading">
                 <h4>{{madeRecipe.recipe.name}}</h4>
               </div>
+
+              <span class="label label-warning rating-label">{{madeRecipe.recipe.ratings | avgRating | number : 1}}</span>
 
               <div class="panel-body recipe-body">
                 <img ng-src="{{madeRecipe.recipe.photos[recipe.photos.length-1].url.medium}}">

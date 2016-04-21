@@ -1,4 +1,4 @@
-reciffy.controller( 'RecipeShowCtrl',
+reciffy.controller( 'RecipeNewCtrl',
                     [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService',
                     function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService) {
 
