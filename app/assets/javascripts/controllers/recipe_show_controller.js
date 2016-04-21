@@ -17,7 +17,51 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.comments = RecipeService.getComments();
   $scope.comment = RecipeService.getComment();
   $scope.disabledStatus = RecipeService.getdisabledStatus();
-  $scope.rating = null;
+
+  // Star Ratings
+  $scope.max = 5;
+  $scope.isReadonly = false;
+
+  $scope.hoveringOver = function(value) {
+    $scope.overStar = value;
+    $scope.percent = 100 * (value / $scope.max);
+  };
+
+  $scope.ratingStates = [{
+    stateOn: 'glyphicon-ok-sign',
+    stateOff: 'glyphicon-ok-circle'
+  }, {
+    stateOn: 'glyphicon-star',
+    stateOff: 'glyphicon-star-empty'
+  }, {
+    stateOn: 'glyphicon-heart',
+    stateOff: 'glyphicon-ban-circle'
+  }, {
+    stateOn: 'glyphicon-heart'
+  }, {
+    stateOff: 'glyphicon-off'
+  }];
+
+  $scope.$watch('rate', function(val) {
+    function success(data) {
+      console.log(data);
+    };
+
+    function error(response) {
+      console.log(response)
+      alert("Can't post " + response.data + " Error:" + response.status);
+    }
+
+    if (val) {
+      var data = {
+        rating: val,
+        user: "userId" // I'm not sure where is your userId
+
+      }
+
+      $http.post("yourUrl", data).then(success, error);
+    }
+  })
 
   $scope.getDisabledStatus = function() {
     return RecipeService.getdisabledStatus();

@@ -2,16 +2,13 @@ reciffy.controller( 'RecipeIndexCtrl', [ 'Auth', '$scope', '$state', '$statePara
 
   $scope.currentUser = currentUser;
 
+  console.log(currentUser.id);
+
   RecipeService.setRecipes();
   savedRecipeService.callAllSavedRecipes();
+  madeRecipeService.getAllMadeRecipes();
 
   $scope.recipes = RecipeService.getRecipes();
   $scope.savedRecipes = savedRecipeService.getSavedRecipes();
-
-  madeRecipeService.getAllMadeRecipes();
   $scope.madeRecipes = madeRecipeService.getMadeRecipes();
-
-  myRecipeService.getAllMyRecipes($scope.currentUser.id);
-  $scope.myRecipes = myRecipeService.getMyRecipes();
-
 }]);
