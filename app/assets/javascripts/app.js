@@ -49,7 +49,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     .state("reciffy.recipes.my", {
       url: "/my",
       templateUrl: '/templates/my_recipe_layout.html',
-      controller: 'MyCtrl',
+      controller: 'RecipeIndexCtrl',
       resolve: {
         currentUser: ['Auth', function(Auth) {
           return Auth.currentUser();
