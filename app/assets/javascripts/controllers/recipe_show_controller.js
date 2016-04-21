@@ -125,11 +125,11 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.deleteRecipeIngredient = function(ri) {
     if (!RecipeService.getdisabledStatus()) {
       RecipeService.removeRecipeIngredient(ri);
-    }
 
-    $scope.r_unit = "";
-    $scope.r_quantity = "";
-    $scope.r_ingredient = "";
+      $scope.r_unit = "";
+      $scope.r_quantity = "";
+      $scope.r_ingredient = "";
+    }
   };
 
   $scope.addRecipeIngredient = function() {
@@ -139,8 +139,12 @@ reciffy.controller( 'RecipeShowCtrl',
                 quantity: $scope.r_quantity
       }
       RecipeService.addRecipeIngredient(ri);
+
+      $scope.r_unit = "";
+      $scope.r_quantity = "";
+      $scope.r_ingredient = "";
     }
-  }
+  };
 
   $scope.submitRating = function() {
     RecipeService.rateRecipe();
