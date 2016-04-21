@@ -248,12 +248,14 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .one("recipe_ingredients", ri.id)
     .remove()
     .then(function(deletedRecipeIngredient) {
-      recipe = getCurrentRecipe()
-      var ind = recipe.recipe_ingredients.indexOf(ri);
-      if (ind > 0) {
-        recipe.recipe_ingredients.splice(ind,1);
+      var length = _currents.recipe.recipe_ingredients.length
+      for ( var i = 0; i < length; i++ ) {
+        if ( _currents.recipe.recipe_ingredients[i]
+          && deletedRecipeIngredient
+          && _currents.recipe.recipe_ingredients[i].id === deletedRecipeIngredient.id ) {
+          _currents.recipe.recipe_ingredients.splice(i, 1);
+        }
       }
-      console.log("Removed Recipe Ingreient");
     })
   };
 
