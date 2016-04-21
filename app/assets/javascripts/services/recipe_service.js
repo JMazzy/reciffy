@@ -82,8 +82,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     _recipes.push(recipe);
   };
 
-  var _setCurrents = function(recipe_id) {
+  var _setCurrents = function(recipe_id, currentUser) {
     _currents.recipe = _recipes[recipe_id];
+    _currents.disabledStatus = ( currentUser.id != _recipes[recipe_id].user_id );
 
     if (_currents.recipe.comments) {
       for ( var c = 0; c < _currents.recipe.comments.length; c++) {
@@ -103,19 +104,23 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
 
   var setCurrentRecipe = function( recipe_id, currentUser ) {
     if ( !!_recipes[recipe_id] ) {
-      _setCurrents(recipe_id);
+      _setCurrents( recipe_id, currentUser );
     } else if (recipe_id === "new") {
       _createEmptyRecipe( recipe_id, currentUser )
     } else {
-      Restangular
-      .one('recipes', recipe_id)
-      .get()
-      .then( function(recipe) {
-        _currents.disabledStatus = (currentUser.id != recipe.user_id);
-        _recipes[recipe.id] = recipe;
-        _setCurrents(recipe.id);
-      });
+      _requestSingleRecipe( recipe_id, currentUser )
     }
+  };
+
+  var _requestSingleRecipe = function(recipe_id, currentUser) {
+    Restangular
+    .one('recipes', recipe_id)
+    .get()
+    .then( function(recipe) {
+      _currents.disabledStatus = (currentUser.id != recipe.user_id);
+      _recipes[recipe.id] = recipe;
+      _setCurrents(recipe.id, currentUser);
+    });
   };
 
   var _createEmptyRecipe = function( recipe_id, currentUser ) {
@@ -133,7 +138,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .then( function(recipe) {
       _currents.disabledStatus = (currentUser.id != recipe.user_id);
       _recipes[recipe.id] = recipe;
-      _setCurrents(recipe.id);
+      _setCurrents(recipe.id, currentUser);
     });
   }
 
