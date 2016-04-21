@@ -76,7 +76,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
 
   // Uploader
   $scope.uploader = new FileUploader({
-    url: '/api/v1/profiles/' + currentUser.id
+    url: '/api/v1/photos'
   });
 
   // $scope.uploadFile = function(fileItem) {
