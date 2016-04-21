@@ -37,6 +37,9 @@ class ProfilesController < ApplicationController
       @profile.taggings.build( tag_id: tag.id )
     end
 
+    @profile.avatar = params[:file] || @profile.avatar
+    p params[:file]
+
     respond_to do |format|
       if @profile.update( profile_params )
         format.json { render json: @profile.as_json }

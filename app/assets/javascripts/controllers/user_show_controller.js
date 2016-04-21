@@ -1,4 +1,4 @@
-reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser) {
+reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', 'FileUploader', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser, FileUploader) {
 
   $scope.user_subscribed = false
 
@@ -73,5 +73,23 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       }
     })
   };
+
+  // Uploader
+  $scope.uploader = new FileUploader({
+    url: '/api/v1/profiles/' + currentUser.id
+  });
+
+  // $scope.uploadFile = function(fileItem) {
+  //   console.log(fileItem);
+  //   $scope.fileItem = fileItem;
+  //   var fd = new FormData();
+  //   fd.append('file', fileItem);
+  //   Restangular.one('profiles', $scope.profile.id)
+  //   .withHttpConfig({transformRequest: angular.identity})
+  //   .customPost(fd, '', undefined, {'Content-Type': undefined})
+  //   .then(function(newProfile) {
+  //     console.log(newProfile);
+  //   })
+  // };
 
 }])
