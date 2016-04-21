@@ -2,6 +2,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   var _recipes = {};
   var _comments = {};
   var _tags = {};
+  var _units = {};
+  var _ingredients = {};
 
   var _currents = {
     recipe: {},
@@ -22,6 +24,28 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     });
   };
 
+  var setIngredients = function() {
+    Restangular
+    .all('ingredients')
+    .getList()
+    .then( function(ingredients) {
+      for( var i = 0; i < ingredients.length; i++ ) {
+        _ingredients[ingredients[i].id] = ingredients[i];
+      }
+    });
+  };
+
+  var setUnits = function() {
+    Restangular
+    .all('units')
+    .getList()
+    .then( function(units) {
+      for( var u = 0; u < units.length; u++ ) {
+        _units[units[u].id] = units[u];
+      }
+    });
+  };
+
   var newRecipe = function() {
     _currents.recipe = {};
   };
@@ -32,6 +56,14 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
 
   var getTags = function() {
     return _tags;
+  };
+
+  var getUnits = function() {
+    return _units;
+  };
+
+  var getIngredients = function() {
+    return _ingredients;
   };
 
   var getTag = function() {
@@ -166,10 +198,23 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   };
 
   var makeRecipeIngredient = function() {
-    recipe = getCurrentRecipe()
-    recipe.recipe_ingredients << {ingredient_id: 0, unit_id: 0, quantity: 0}
-    console.log(recipe.recipe_ingredients)
+     
   };
+
+  var addRecipeIngredient = function(recipe_ingredient) {
+    recipe = getCurrentRecipe()
+    recipe_ingredient["recipe_id"] = recipe.id
+
+    return Restangular.all('recipe_ingredients')
+          .post(recipe_ingredient)
+          .then(
+             function(response)  {
+               recipe.recipe_ingredients.unshift(response);
+             },
+             function(response)  {
+               alert("Could not add recipe ingredient!");
+             });
+    }
 
   var removeRecipeIngredient = function(ri) {
     Restangular
@@ -188,6 +233,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   return {
     setRecipes: setRecipes,
     getRecipes: getRecipes,
+    setUnits:   setUnits,
+    getUnits:   getUnits,
+    setIngredients: setIngredients,
+    getIngredients: getIngredients,
     setCurrentRecipe: setCurrentRecipe,
     getCurrentRecipe: getCurrentRecipe,
     addComment: addComment,
@@ -203,6 +252,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     rateRecipe: rateRecipe,
     updateRecipe: updateRecipe,
     removeRecipeIngredient: removeRecipeIngredient,
-    makeRecipeIngredient: makeRecipeIngredient
+    makeRecipeIngredient: makeRecipeIngredient,
+    addRecipeIngredient: addRecipeIngredient
   };
 }]);
