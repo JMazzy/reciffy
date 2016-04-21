@@ -24,6 +24,8 @@
 //= require angular-devise
 //= require xeditable.min.js
 //= require angular-modal-service.min.js
-//= require angularjs-file-upload
+
+//= require ng-file-upload-shim
+//= require ng-file-upload
 
 //= require_tree .

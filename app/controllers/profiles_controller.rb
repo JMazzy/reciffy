@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  before_action :process_params, only: :update
 
   def new
     @profile = Profile.new
@@ -59,5 +60,13 @@ class ProfilesController < ApplicationController
                                       :city,
                                       :state,
                                       :avatar )
+  end
+
+  def process_params
+    params[:profile] = JSON.parse(params[:profile])
+                               .with_indifferent_access
+    if params[:file]
+      params[:profile][:avatar] = params[:file]
+    end
   end
 end

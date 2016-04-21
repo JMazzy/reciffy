@@ -1,4 +1,4 @@
-reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', 'FileUploader', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser, FileUploader) {
+reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', 'Upload', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser, Upload) {
 
   $scope.user_subscribed = false
 
@@ -15,6 +15,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     $scope.tags = user.profile.tags;
     $scope.newTag = { name: "" };
     $scope.avatar = user.photo.url.medium;
+    $scope.uploadedPhoto;
   })
 
 
@@ -75,21 +76,13 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
   };
 
   // Uploader
-  $scope.uploader = new FileUploader({
-    url: '/api/v1/photos'
-  });
-
-  // $scope.uploadFile = function(fileItem) {
-  //   console.log(fileItem);
-  //   $scope.fileItem = fileItem;
-  //   var fd = new FormData();
-  //   fd.append('file', fileItem);
-  //   Restangular.one('profiles', $scope.profile.id)
-  //   .withHttpConfig({transformRequest: angular.identity})
-  //   .customPost(fd, '', undefined, {'Content-Type': undefined})
-  //   .then(function(newProfile) {
-  //     console.log(newProfile);
-  //   })
-  // };
+  $scope.upload = Upload.upload({
+    url: 'http://localhost:3000/api/v1/profiles/' + currentUser.id,
+    method: 'PUT',
+    file: $scope.avatar,
+    fields: {
+      profile: $scope.profile
+    }
+  })
 
 }])

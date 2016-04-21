@@ -15,13 +15,11 @@
       <div class="panel-body">
         <h4>Avatar</h4>
         <img ng-src="{{avatar}}"></img>
-        <form>
-          <input type="hidden" name="_method" value="PUT">
-          <input type='file' nv-file-select='' uploader='uploader'>
-
-          <button type="button" class="btn btn-success btn-xs" ng-click="uploader.queue[0].upload()">
-            <span class="glyphicon glyphicon-upload">Upload</span>
-          </button>
+        <form role="form" name="resourceForm" ng-submit="save()">
+          <div class="form-group">
+            <label>Upload Photo</label>
+            <input type="file" ngf-select ng-model="avatar" />
+          </div>
         </form>
 
         <h4>Tagline</h4>

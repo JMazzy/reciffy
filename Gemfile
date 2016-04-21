@@ -20,7 +20,6 @@ gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 gem 'angular-ui-bootstrap-rails'
 gem 'sprockets'
-gem 'angularjs-file-upload-rails', '~> 2.2.0'
 
 group :development, :test do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'

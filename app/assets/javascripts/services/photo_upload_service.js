@@ -9,7 +9,11 @@
 //     Upload.upload(options);
 //   };
 
+//   var createWithAttachment = function(formData) {
+//     sendPayload(formData, 'POST', 'photo-upload-placeholder-url');
+//   };
+
 //   var editWithAttachment = function(formData, recordId) {
-//     sendPayload(formData, 'PUT', 'http://localhost:3000/#/users/' + recordId + '/profile')
+//     sendPayload(formData, 'PUT', 'http://localhost:3000/api/v1/profiles/' + recordId);
 //   };
 // }])
