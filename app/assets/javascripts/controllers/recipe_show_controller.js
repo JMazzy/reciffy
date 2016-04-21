@@ -3,10 +3,12 @@ reciffy.controller( 'RecipeShowCtrl',
                     function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService,currentUser) {
 
 
-  $scope.show_recipe_made = false;
-  $scope.disabledStatus = true;
-  $scope.makeRecipe = false;
-
+  $scope.show_recipe_made = false;  
+  $scope.disabledStatus   = true;
+  $scope.makeRecipe       = false;
+  
+  RecipeService.setUnits();
+  RecipeService.setIngredients();
   RecipeService.setCurrentRecipe($stateParams.id,currentUser);
 
   $scope.currentStuff = RecipeService.getCurrentStuff();
@@ -17,6 +19,13 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.comments = RecipeService.getComments();
   $scope.comment = RecipeService.getComment();
   $scope.disabledStatus = RecipeService.getdisabledStatus();
+  $scope.units = RecipeService.getUnits();
+  $scope.ingredients = RecipeService.getIngredients();
+
+  //Recipe Ingredients Added 
+  $scope.r_unit = ""
+  $scope.r_quantity = ""
+  $scope.r_ingredient = ""
 
   // Star Ratings
   $scope.max = 5;
@@ -122,7 +131,18 @@ reciffy.controller( 'RecipeShowCtrl',
     }
   };
 
+  $scope.addRecipeIngredient = function() {
+    if (!RecipeService.getdisabledStatus()) {
+      var ri = {unit_id: $scope.r_unit,
+                ingredient_id: $scope.r_ingredient,
+                quantity: $scope.r_quantity
+      }
+      RecipeService.addRecipeIngredient(ri);
+    }
+  }
+
   $scope.submitRating = function() {
     RecipeService.rateRecipe();
   };
+
 }]);
