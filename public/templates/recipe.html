@@ -14,7 +14,7 @@
         </h4>
 
         <rating ng-model="rating" class="star-rating" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-        
+
         <p>
           <span editable-text='currentStuff.recipe.description' onaftersave='updateMainRecipe()'
                 e-ng-disabled='getDisabledStatus()'>
@@ -25,10 +25,10 @@
 
       <div class="panel-body">
         <h6 class="pull-right">
-          <em>Cooking Time: 
+          <em>Cooking Time:
             <span editable-text='currentStuff.recipe.cook_time' onaftersave='updateMainRecipe()'
                   e-ng-disabled='getDisabledStatus()'>
-            {{currentStuff.recipe.cook_time ? currentStuff.recipe.cook_time : "0"}} 
+            {{currentStuff.recipe.cook_time ? currentStuff.recipe.cook_time : "0"}}
             </span>
             mins, Prep Time:
             <span editable-text='currentStuff.recipe.prep_time' onaftersave='updateMainRecipe()'
@@ -57,7 +57,7 @@
                 </span>
               </div>
 
-              <div class="form-group col-sm-2">  
+              <div class="form-group col-sm-2">
                 <span class="title">Unit
                 <select class="selectpicker form-control" data-style="btn-primary"
                         ng-model="r_unit">
@@ -68,27 +68,27 @@
                 </span>
               </div>
 
-              <div class="form-group col-sm-2">  
+              <div class="form-group col-sm-2">
                 <span class="title">Ingredient
-                <select class="selectpicker form-control" data-style="btn-primary" 
+                <select class="selectpicker form-control" data-style="btn-primary"
                         name="r_ingredient" ng-model="r_ingredient">
                   <option ng-repeat="ingredient in ingredients" value=" {{ingredient.id}}">
                    {{ingredient.name}}
                   </option>
-                </select>  
+                </select>
                 </span>
-              </div>  
-              <div class="form-group col-sm-2">  
+              </div>
+              <div class="form-group col-sm-2">
                 <span class="title"> <br>
                 <a>
-                  <i class="check glyphicon glyphicon-check glyphicon-white" 
+                  <i class="check glyphicon glyphicon-check glyphicon-white"
                       ng-click="addRecipeIngredient()">
                   </i>
                 </a>
                 </span>
-              </div> 
-            </div> 
-          </form>  
+              </div>
+            </div>
+          </form>
 
         </div>
 
@@ -125,7 +125,7 @@
           <a><i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" ng-click="deleteTag(tag.id)"></i></a>
         </div>
         <div class="input-group">
-          <input type="text" ng-model="newTag.name" class="form-control input-sm" placeholder="Add a Tag...">
+          <input type="text" ng-model="currentStuff.tag.name" class="form-control input-sm" placeholder="Add a Tag...">
           <span class="input-group-btn">
             <button class="btn btn-info btn-sm" type="button" ng-click="addTag()">Tag It</button>
           </span>
@@ -143,7 +143,7 @@
 
     <h4>Leave a Comment</h4>
     <form>
-      <textarea ng-model="comment.comment_description" rows="8" cols="40" placeholder="What do you think?" class="form-control"></textarea>
+      <textarea ng-model="currentStuff.comment.comment_description" rows="8" cols="40" placeholder="What do you think?" class="form-control"></textarea>
       <input type="submit" value="Comment" ng-click="createComment()" class="btn btn-success">
     </form>
 
