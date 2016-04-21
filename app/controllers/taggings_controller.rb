@@ -1,7 +1,7 @@
 class TaggingsController < ApplicationController
 
   def index
-    @taggings = Tagging.all
+    @taggings = Tagging.all.where(taggable_type: "Recipe")
     respond_to do |format|
       format.html { render nothing: true }
       format.json { render json: @taggings.to_json( include: :tag )}
