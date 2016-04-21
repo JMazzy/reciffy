@@ -15,12 +15,11 @@
       <div class="panel-body">
         <h4>Avatar</h4>
         <img ng-src="{{avatar}}"></img>
-        <form role="form" name="resourceForm" ng-submit="save()">
-          <div class="form-group">
-            <label>Upload Photo</label>
-            <input type="file" ngf-select ng-model="avatar" />
-          </div>
-        </form>
+        <input type="file" id="fileUpload" ng-show="false" upload-image />
+        <img ng-src="{{userImageLink}}" ng-click="openFileWindow()" ng-class="{ hidden: !userImageLink}" >
+        <div class="drop-box" ng-click="openFileWindow()" ng-class=" {hidden: userImageLink}">
+            Click to add an image.
+        </div>
 
         <h4>Tagline</h4>
         <p editable-text='profile.tagline' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.tagline}}</p>

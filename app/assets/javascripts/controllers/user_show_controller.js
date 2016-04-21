@@ -26,9 +26,11 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       bio: $scope.profile.bio,
       tagline: $scope.profile.tagline,
       city: $scope.profile.city,
-      state: $scope.profile.state
+      state: $scope.profile.state,
+      avatar: $scope.uploadedPhoto || $scope.avatar
     }).then(function(newProfile) {
       console.log(newProfile);
+      console.log($scope.avatar);
     })
   };
 
@@ -75,14 +77,9 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     })
   };
 
-  // Uploader
-  $scope.upload = Upload.upload({
-    url: 'http://localhost:3000/api/v1/profiles/' + currentUser.id,
-    method: 'PUT',
-    file: $scope.avatar,
-    fields: {
-      profile: $scope.profile
-    }
-  })
+  $scope.openFileWindow = function () {
+    angular.element( document.querySelector( '#fileUpload' ) ).trigger('click');
+    console.log('triggering click');
+  };
 
 }])

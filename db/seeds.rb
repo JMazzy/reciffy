@@ -90,11 +90,15 @@ end
 
 puts "Creating Tags"
 
+10.times do
+  Tag.create( name: Faker::Hipster.word );
+end
+
 puts "Creating User Taggings"
 
 User.all.each do |u|
   2.times do
-    u.profile.tags.create( name: Faker::Hipster.word )
+    u.profile.taggings.create( tag_id: Tag.all.sample.id, taggable_id: u.profile.id, taggable_type: "Profile" )
   end
 end
 
@@ -102,7 +106,7 @@ puts "Creating Recipe Taggings"
 
 Recipe.all.each do |r|
   3.times do
-    r.tags.create( name: Faker::Hipster.word )
+    r.taggings.create( tag_id: Tag.all.sample.id, taggable_id: r.id, taggable_type: "Recipe" )
   end
 end
 

@@ -1,4 +1,4 @@
-var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable', 'ngFileUpload', 'ui.bootstrap'])
+var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable', 'ui.bootstrap', 'angular.filter', 'ngFileUpload'])
 
 .config([ 'AuthProvider', function(AuthProvider) {
     // Configure Auth service with AuthProvider
@@ -35,6 +35,11 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     .state("reciffy.recipes", {
       url: "/recipes",
       template: "<div ui-view></div>",
+      resolve: {
+        currentUser: ['Auth', function(Auth) {
+          return Auth.currentUser();
+        }]
+      },
     })
     .state("reciffy.recipes.all", {
       url: "/all",
