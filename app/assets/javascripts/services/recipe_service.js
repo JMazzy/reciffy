@@ -101,9 +101,11 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     _currents.rating.recipe_id = recipe_id;
   };
 
-  var setCurrentRecipe = function(recipe_id,currentUser) {
+  var setCurrentRecipe = function( recipe_id, currentUser ) {
     if ( !!_recipes[recipe_id] ) {
       _setCurrents(recipe_id);
+    } else if (recipe_id === "new") {
+      _createEmptyRecipe( recipe_id, currentUser )
     } else {
       Restangular
       .one('recipes', recipe_id)
@@ -115,6 +117,25 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
       });
     }
   };
+
+  var _createEmptyRecipe = function( recipe_id, currentUser ) {
+    var newRecipe = {
+      name: "Untitled Recipe",
+      description: "Describe your recipe...",
+      instructions: "How do you make it?",
+      prep_time: 0,
+      cook_time: 0,
+    };
+
+    Restangular
+    .all('recipes')
+    .post(newRecipe)
+    .then( function(recipe) {
+      _currents.disabledStatus = (currentUser.id != recipe.user_id);
+      _recipes[recipe.id] = recipe;
+      _setCurrents(recipe.id);
+    });
+  }
 
   var getCurrentRecipe = function() {
     return _currents.recipe;
