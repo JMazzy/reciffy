@@ -28,11 +28,9 @@ reciffy.directive('uploadImage', function() {
        // if updating profile
         if ($scope.profile.id) {
           // do put request
-          Restangular.one('profiles', $scope.profile.id).put({
-            avatar: $scope.
-          }).then( function (result) {
+          $scope.profile.put().then( function (result) {
             // create image link (rails returns the url location of the file; depending on your application config, you may not need baseurl)
-            $scope.userImageLink = 'http://localhost:3000/' + result.image_url;
+            $scope.userImageLink = 'http://localhost:3000' + result.image_url;
           }, function (error) {
             console.log('errors', JSON.stringify(errors));
           });
