@@ -1,5 +1,7 @@
 <div class="row">
+
   <div ng-repeat="savedRecipe in savedRecipes | orderObjectBy : '-created_at'" class="recipe-holder">
+
     <div class="col-xs-6 col-sm-4 col-md-3">
 
       <a ui-sref="reciffy.recipes.show({id: savedRecipe.recipe_id})">
@@ -7,5 +9,7 @@
       </a>
 
     </div>
+
   </div>
+
 </div>

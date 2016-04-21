@@ -1,58 +1,78 @@
 <!-- Toggle Hidden Menu Button -->
 <input type="checkbox" id="pure-toggle-left" class="pure-toggle" data-toggle="left">
+
 <label class="pure-toggle-label" for="pure-toggle-left" data-toggle-label="left">
+
   <span class="pure-toggle-icon"></span>
+
 </label>
+
 <!-- Hidden Menu Content Goes Here -->
 <div class="pure-drawer" data-position="left">
   <div class="hidden-menu-container">
+
     <% if user_signed_in? %>
+
       <!-- Signed in as ... -->
-      <a class="menu-item-container" ui-sref="reciffy.users.show">
+      <a class="menu-item-container" ui-sref="reciffy.users.show({id: <%= current_user.id %>})">
         <img src="#" alt="" class="menu-avatar pull-right">
         <div class="menu-item-text">
           <%= "#{current_user.email}" %>
         </div>
       </a>
+
       <!-- New -->
       <a class="menu-item-container" ui-sref="reciffy.recipes.create">
         <div class="menu-item-text">New Recipe</div>
       </a>
+
       <!-- My Recipes -->
       <a class="menu-item-container" ui-sref="reciffy.recipes.my">
         <div class="menu-item-text">My Recipes</div>
       </a>
+
       <!-- Saved Recipes -->
       <a class="menu-item-container" ui-sref="reciffy.recipes.saved">
         <div class="menu-item-text">Saved Recipes</div>
       </a>
+
       <!-- Made Recipes -->
       <a class="menu-item-container" ui-sref="reciffy.recipes.made">
         <div class="menu-item-text">Made Recipes</div>
       </a>
+
       <!-- Liked Recipes -->
       <a class="menu-item-container" ui-sref="reciffy.recipes.rated">
         <div class="menu-item-text">Rated Recipes</div>
       </a>
+
       <!-- Subscriptions -->
       <a class="menu-item-container" ui-sref="reciffy.subscriptions">
         <div class="menu-item-text">Subscriptions</div>
       </a>
+
       <!-- Sign Out Link -->
       <a class="menu-item-container" rel="nofollow" data-method="delete" href="/users/sign_out">
         <div class="menu-item-text">Sign Out</div>
       </a>
+
     <% else %>
-      <!-- Subscriptions -->
+
+      <!-- Home/Welcome Screen Link -->
       <a class="menu-item-container" href="<%= root_path %>">
         <div class="menu-item-text">Home</div>
       </a>
+
+      <!-- Sign Up Link -->
       <a class="menu-item-container" href="<%= new_user_registration_path %>">
         <div class="menu-item-text">Sign Up</div>
       </a>
+
+      <!-- Sign In Link -->
       <a class="menu-item-container" href="<%= new_user_session_path %>">
         <div class="menu-item-text">Sign In</div>
       </a>
+
     <% end %>
   </div>
 </div>
