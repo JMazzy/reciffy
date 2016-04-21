@@ -1,5 +1,13 @@
 class TaggingsController < ApplicationController
 
+  def index
+    @taggings = Tagging.all
+    respond_to do |format|
+      format.html { render nothing: true }
+      format.json { render json: @taggings.to_json( include: :tag )}
+    end
+  end
+
   def create
     @tagging = Tagging.new( tagging_params )
     respond_to do |format|
