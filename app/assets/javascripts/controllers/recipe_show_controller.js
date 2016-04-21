@@ -4,7 +4,7 @@ reciffy.controller( 'RecipeShowCtrl',
 
 
   $scope.show_recipe_made = false;
-  $scope.disabledStatus = true
+  $scope.disabledStatus = true;
 
   RecipeService.setCurrentRecipe($stateParams.id,currentUser);
 
@@ -16,6 +16,7 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.comments = RecipeService.getComments();
   $scope.comment = RecipeService.getComment();
   $scope.disabledStatus = RecipeService.getdisabledStatus();
+  $scope.rating = null;
 
   $scope.createComment = function() {
     RecipeService.addComment();
@@ -61,7 +62,8 @@ reciffy.controller( 'RecipeShowCtrl',
     })
   };
 
-  $scope.submitRating = function() {
-    RecipeService.rateRecipe();
+  $scope.submitRating = function(rating) {
+    console.log("Rating: " + rating)
+    RecipeService.rateRecipe(rating);
   };
 }]);
