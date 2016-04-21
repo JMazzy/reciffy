@@ -20,7 +20,7 @@ reciffy.factory('ratedRecipeService', ['Restangular', function(Restangular) {
   var populateRated = function(rawData) {
     console.log(rawData);
     rawData.forEach(function(recipeJson) {
-      _rated[recipeJson.id] = recipeJson.recipe;
+      _rated[recipeJson.id] = recipeJson;
     });
   };
 
@@ -36,7 +36,7 @@ reciffy.factory('ratedRecipeService', ['Restangular', function(Restangular) {
     Restangular.all('ratings').post(ratedRecipeParams)
     .then(
       function(response)  {
-        _rated[response.id] = response.recipe;
+        _rated[response.id] = response;
       },
       function(response)  {
         alert("API call for rated recipes didn't work.");
