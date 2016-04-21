@@ -17,9 +17,9 @@
 //= require underscore-min.js
 //= require angular
 
-
 //= require restangular.min.js
 //= require angular-ui-router.min.js
+//= require angular-ui-bootstrap
 //= require ui-bootstrap-tpls-1.2.5.min.js
 //= require angular-devise
 //= require xeditable.min.js

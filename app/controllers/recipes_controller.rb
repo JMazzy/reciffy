@@ -1,29 +1,21 @@
 class RecipesController < ApplicationController
+  include RecipeJsonConverter
 
   def index
     @recipes = Recipe.all
     respond_to do |format|
       format.html
       format.json { render json: index_recipe_json(@recipes) }
-      # format.json { render json: @recipes.to_json(
-      #   include: [
-      #     :user,
-      #     :tags,
-      #     :photos,
-      #     :ratings,
-      #     :comments,
-      #     recipe_ingredients: {
-      #       include: [:ingredient, :unit]
-      #     }
-      #   ]
-      # )}
     end
   end
 
   def new
     @recipe  = current_user.recipes.build
-    @recipe.recipe_ingredients.build
-    @tag = @recipe.tags.build
+
+    respond_to do |format|
+      format.html
+      format.json { render json: show_recipe_json(@recipe) }
+    end
   end
 
   def create
@@ -103,7 +95,7 @@ class RecipesController < ApplicationController
         format.html { redirect_to request.referrer }
         format.json { render json: @recipe.as_json }
       end
-    end  
+    end
   end
 
   def destroy
@@ -141,63 +133,5 @@ class RecipesController < ApplicationController
       :photo_attributes => [:photo],
       :tag_attributes => [:name]
     )
-  end
-
-  def index_recipe_json(recipes)
-    json_response = []
-    recipes.each do |recipe|
-      json_response.push(show_recipe_json(recipe))
-    end
-    return json_response.as_json
-  end
-
-  def show_recipe_json(recipe)
-    json_response = {}
-    recipe_json = recipe.as_json
-
-    recipe_json.each do |key, value|
-      json_response[key] = value
-    end
-
-    json_response["user"] = recipe.user.as_json
-    json_response["tags"] = recipe.tags.as_json
-    json_response["photos"] = []
-    recipe.photos.each do |photo|
-      photo_json = photo.as_json
-      photo_json["url"] = {}
-      photo_json["url"]["large"] = photo.photo.url(:large).gsub(/\?.*/,"")
-      photo_json["url"]["medium"] = photo.photo.url(:medium).gsub(/\?.*/,"")
-      photo_json["url"]["original"] = photo.photo.url(:original).gsub(/\?.*/,"")
-      photo_json["url"]["thumb"] = photo.photo.url(:thumb).gsub(/\?.*/,"")
-      json_response["photos"].push( photo_json )
-    end
-    json_response["comments"] = []
-
-    recipe.comments.each do |comment|
-      json_response["comments"].push(comment.as_json)
-    end
-
-    json_response["made_recipes"] =[]
-
-    recipe.made_recipes.each do |made_recipe|
-      json_response["made_recipes"].push(made_recipe.as_json)
-    end
-
-    json_response["ratings"] =[]
-
-    recipe.ratings.each do |rating|
-      json_response["ratings"].push(rating.as_json)
-    end
-
-    json_response["recipe_ingredients"] = []
-
-    recipe.recipe_ingredients.each do |recipe_ingredient|
-      ri = recipe_ingredient.as_json
-      ri["ingredient"] = recipe_ingredient.ingredient
-      ri["unit"] = recipe_ingredient.unit
-      json_response["recipe_ingredients"].push(ri.as_json)
-    end
-
-    return json_response.as_json
   end
 end

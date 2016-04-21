@@ -20,12 +20,15 @@ class RecipeIngredientsController < ApplicationController
 
   def create
     @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
-    @recipe_ingredient.recipe_id = params[:recipe_id]
-    if @recipe_ingredient.save
-      redirect_to recipe_path(@recipe_ingredient.recipe_id)
-    else
-      render :new
-    end
+    respond_to do |format|
+      if @recipe_ingredient.save
+         format.html { redirect_to request.referrer }
+         format.json { render json: added_recipe_ingredient_json(@recipe_ingredient) }
+      else
+        format.html { redirect_to request.referrer }
+        format.json { render json: @recipe_ingredient }
+      end
+    end  
   end
 
   def destroy
@@ -44,12 +47,23 @@ class RecipeIngredientsController < ApplicationController
     end
       
   end 
+  
   private
 
   def recipe_ingredient_params
     params.require(:recipe_ingredient).permit(
       :recipe_id,
       :ingredient_id,
+      :quantity,
       :unit_id)
   end
+
+  def added_recipe_ingredient_json(recipe_ingredient)
+    ri = recipe_ingredient.as_json
+    ri["ingredient"] = recipe_ingredient.ingredient.as_json
+    ri["unit"] = recipe_ingredient.unit.as_json
+    ri = ri.as_json
+    return ri
+  end
+
 end

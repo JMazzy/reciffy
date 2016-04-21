@@ -1,4 +1,4 @@
-var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable', 'angularFileUpload'])
+var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable', 'angularFileUpload', 'ui.bootstrap'])
 
 .config([ 'AuthProvider', function(AuthProvider) {
     // Configure Auth service with AuthProvider
@@ -49,7 +49,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     .state("reciffy.recipes.my", {
       url: "/my",
       templateUrl: '/templates/my_recipe_layout.html',
-      controller: 'MyCtrl',
+      controller: 'RecipeIndexCtrl',
       resolve: {
         currentUser: ['Auth', function(Auth) {
           return Auth.currentUser();
@@ -90,10 +90,10 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       },
     })
     // Create Recipe Page
-    .state("reciffy.recipes.create", {
+    .state("reciffy.recipes.new", {
       url: "/new",
       templateUrl: "templates/recipe.html",
-      controller: "RecipeNewCtrl"
+      controller: "RecipeShowCtrl"
     })
     // Users
     .state("reciffy.users", {

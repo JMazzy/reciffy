@@ -13,6 +13,8 @@
         </span>
         </h4>
 
+        <rating ng-model="rating" class="star-rating" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+        
         <p>
           <span editable-text='currentStuff.recipe.description' onaftersave='updateMainRecipe()'
                 e-ng-disabled='getDisabledStatus()'>
@@ -22,41 +24,81 @@
       </div>
 
       <div class="panel-body">
+        <h6 class="pull-right">
+          <em>Cooking Time: 
+            <span editable-text='currentStuff.recipe.cook_time' onaftersave='updateMainRecipe()'
+                  e-ng-disabled='getDisabledStatus()'>
+            {{currentStuff.recipe.cook_time ? currentStuff.recipe.cook_time : "0"}} 
+            </span>
+            mins, Prep Time:
+            <span editable-text='currentStuff.recipe.prep_time' onaftersave='updateMainRecipe()'
+                  e-ng-disabled='getDisabledStatus()'>
+            {{currentStuff.recipe.prep_time ? currentStuff.recipe.prep_time : "0"}}
+            </span>
+            mins
+          </em>
+        </h6>
         <h4>Ingredients
             <a>
-            <i class="plus glyphicon glyphicon-plus glyphicon-white" 
+            <i class="plus glyphicon glyphicon-plus glyphicon-white"
                ng-click="makeRecipeIngredient()" ng-hide='getDisabledStatus()'>
             </i>
             </a>
         </h4>
 
         <div ng-show='getMakeRecipeIngredient()'>
-          <form editable-form name="RIForm" onaftersave="addRecipeIngredient()">
-            <div>
-              <!-- editable username (text with validation) -->
-              <span class="title">Quantity: </span>
-              <span editable-text="r_name" e-name="name" e-required>{{ r_name || 'empty' }}</span>
-     
-              <!-- editable status (select-local) -->
-              <span class="title">Ingredient: </span>
-              <span editable-select="r_ingredient" e-name="ingredient" 
-                    e-ng-options="r.value as r.text for r in currentStuff.recipe.recipe_ingredients">
-              </span>
-            </div>  
-              <!-- buttons to submit / cancel form -->
-            </div>
+
+          <form editable-form name="RIForm" role="form" maxonaftersave="addRecipeIngredient()">
+            <div class="row">
+              <div class="form-group col-sm-2">
+                <span class="title">Quantity
+                <input type="number" min="0" max="999" maxlength="6" step="0.1"
+                         name="r_quantity" class="form-control" ng-model="r_quantity">
+                </span>
+              </div>
+
+              <div class="form-group col-sm-2">  
+                <span class="title">Unit
+                <select class="selectpicker form-control" data-style="btn-primary"
+                        ng-model="r_unit">
+                  <option ng-repeat="unit in units" value="{{unit.id}}">
+                   {{unit.unit_type}}
+                  </option>
+                </select>
+                </span>
+              </div>
+
+              <div class="form-group col-sm-2">  
+                <span class="title">Ingredient
+                <select class="selectpicker form-control" data-style="btn-primary" 
+                        name="r_ingredient" ng-model="r_ingredient">
+                  <option ng-repeat="ingredient in ingredients" value=" {{ingredient.id}}">
+                   {{ingredient.name}}
+                  </option>
+                </select>  
+                </span>
+              </div>  
+              <div class="form-group col-sm-2">  
+                <span class="title"> <br>
+                <a>
+                  <i class="check glyphicon glyphicon-check glyphicon-white" 
+                      ng-click="addRecipeIngredient()">
+                  </i>
+                </a>
+                </span>
+              </div> 
+            </div> 
           </form>  
+
         </div>
-
-
 
         <ul>
           <li ng-repeat="ri in currentStuff.recipe.recipe_ingredients">
-            {{ri.quantity}} 
-            {{ri.unit.unit_type}} 
-            {{ri.ingredient.name}} 
+            {{ri.quantity}}
+            {{ri.unit.unit_type}}
+            {{ri.ingredient.name}}
             <a ng-hide='getDisabledStatus()'>
-              <i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" 
+              <i class="remove glyphicon glyphicon-remove glyphicon-white pull-right"
                   ng-click="deleteRecipeIngredient(ri)">
               </i>
             </a>
@@ -88,7 +130,6 @@
             <button class="btn btn-info btn-sm" type="button" ng-click="addTag()">Tag It</button>
           </span>
         </div>
-
       </div>
 
       <div class="panel-footer">
@@ -98,10 +139,6 @@
                 class="btn btn-primary" ng-click="addMadeRecipe(recipe)">I Made This</button>
       </div>
 
-    </div>
-
-    <h4>Photos</h4>
-    <div ng-repeat="photo in photos">
     </div>
 
     <h4>Leave a Comment</h4>

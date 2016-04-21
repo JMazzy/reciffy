@@ -1,43 +1,11 @@
-
-<h3 class="text-center font:avalon;">
-     My Recipes!
-</h3>
-
 <div class="row">
-  <div ng-repeat="recipe in myRecipes">
+  <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | filter : { user_id: currentUser.id }">
     <div class="col-xs-6 col-sm-4 col-md-3 made-recipe-holder">
-      <div class="panel panel-default made-recipe-preview">
-        <div class="panel-heading">
-          <h5>
-            <a ui-sref="reciffy.recipes.show({id: recipe.recipe_id})">
-              {{recipe.name}}
-            </a>
-            <button class="btn btn-xs btn-danger pull-right" ng-click="removeMadeRecipe(recipe)">Remove</button>
-            <br>
-            <a ui-sref="reciffy.users.show({id: recipe.original_user.id})">
-              by {{recipe.original_user.email}}
-            </a>
-          </h5>
-        </div>
-        <a ui-sref="reciffy.recipes.show({id: recipe.recipe_id})">
-          <div class="panel-body">
-            <p>
-            .....
-          </p>
-         </div>
-        </a>
-        <div class="panel-footer subscription-panel-footer">
-          <h5>
-             ({{recipe.subscriptions.length}} subscriptions,
-              {{recipe.receipes_by_original_user.length}} contributed recipes
-          </h5>
-        </div>
 
-      </div>
+      <a ui-sref="reciffy.recipes.show({id: recipe.recipe_id})">
+        <recipe-directive recipe="recipe"></recipe-directive>
+      </a>
+
     </div>
-
   </div>
 </div>
-
-
-<div ui-view></div>

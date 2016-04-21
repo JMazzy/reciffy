@@ -1,4 +1,5 @@
 class SavedRecipesController < ApplicationController
+  include RecipeJsonConverter
 
   def index
     @saved_recipes = current_user.saved_recipes

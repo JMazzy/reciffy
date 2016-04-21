@@ -2,12 +2,14 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   var _recipes = {};
   var _comments = {};
   var _tags = {};
+  var _units = {};
+  var _ingredients = {};
 
   var _currents = {
     recipe: {},
     tag: {name: "", recipe_id: null},
     comment: {comment_description: "", recipe_id: null},
-    disabledStatus: false,
+    disabledStatus: true,
     rating: {rating: undefined, recipe_id: null},
   };
 
@@ -22,6 +24,28 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     });
   };
 
+  var setIngredients = function() {
+    Restangular
+    .all('ingredients')
+    .getList()
+    .then( function(ingredients) {
+      for( var i = 0; i < ingredients.length; i++ ) {
+        _ingredients[ingredients[i].id] = ingredients[i];
+      }
+    });
+  };
+
+  var setUnits = function() {
+    Restangular
+    .all('units')
+    .getList()
+    .then( function(units) {
+      for( var u = 0; u < units.length; u++ ) {
+        _units[units[u].id] = units[u];
+      }
+    });
+  };
+
   var newRecipe = function() {
     _currents.recipe = {};
   };
@@ -32,6 +56,14 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
 
   var getTags = function() {
     return _tags;
+  };
+
+  var getUnits = function() {
+    return _units;
+  };
+
+  var getIngredients = function() {
+    return _ingredients;
   };
 
   var getTag = function() {
@@ -50,8 +82,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     _recipes.push(recipe);
   };
 
-  var _setCurrents = function(recipe_id) {
+  var _setCurrents = function(recipe_id, currentUser) {
     _currents.recipe = _recipes[recipe_id];
+    _currents.disabledStatus = ( currentUser.id != _recipes[recipe_id].user_id );
 
     if (_currents.recipe.comments) {
       for ( var c = 0; c < _currents.recipe.comments.length; c++) {
@@ -69,24 +102,45 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     _currents.rating.recipe_id = recipe_id;
   };
 
-  var setCurrentRecipe = function(recipe_id,currentUser) {
+  var setCurrentRecipe = function( recipe_id, currentUser ) {
     if ( !!_recipes[recipe_id] ) {
-      _setCurrents(recipe_id);
+      _setCurrents( recipe_id, currentUser );
+    } else if (recipe_id === "new") {
+      _createEmptyRecipe( recipe_id, currentUser )
     } else {
-      Restangular
-      .one('recipes', recipe_id)
-      .get()
-      .then( function(recipe) {
-        _currents.disabledStatus = (currentUser.id != recipe.user_id)
-        console.log("_currents.disabledStatus " +_currents.disabledStatus)
-        console.log(recipe.user_id)
-
-        _recipes[recipe.id] = recipe;
-        _setCurrents(recipe.id);
-        console.log(recipe);
-      });
+      _requestSingleRecipe( recipe_id, currentUser )
     }
   };
+
+  var _requestSingleRecipe = function(recipe_id, currentUser) {
+    Restangular
+    .one('recipes', recipe_id)
+    .get()
+    .then( function(recipe) {
+      _currents.disabledStatus = (currentUser.id != recipe.user_id);
+      _recipes[recipe.id] = recipe;
+      _setCurrents(recipe.id, currentUser);
+    });
+  };
+
+  var _createEmptyRecipe = function( recipe_id, currentUser ) {
+    var newRecipe = {
+      name: "Untitled Recipe",
+      description: "Describe your recipe...",
+      instructions: "How do you make it?",
+      prep_time: 0,
+      cook_time: 0,
+    };
+
+    Restangular
+    .all('recipes')
+    .post(newRecipe)
+    .then( function(recipe) {
+      _currents.disabledStatus = (currentUser.id != recipe.user_id);
+      _recipes[recipe.id] = recipe;
+      _setCurrents(recipe.id, currentUser);
+    });
+  }
 
   var getCurrentRecipe = function() {
     return _currents.recipe;
@@ -166,10 +220,23 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   };
 
   var makeRecipeIngredient = function() {
-    recipe = getCurrentRecipe()
-    recipe.recipe_ingredients << {ingredient_id: 0, unit_id: 0, quantity: 0}
-    console.log(recipe.recipe_ingredients)
+
   };
+
+  var addRecipeIngredient = function(recipe_ingredient) {
+    recipe = getCurrentRecipe()
+    recipe_ingredient["recipe_id"] = recipe.id
+
+    return Restangular.all('recipe_ingredients')
+          .post(recipe_ingredient)
+          .then(
+             function(response)  {
+               recipe.recipe_ingredients.unshift(response);
+             },
+             function(response)  {
+               alert("Could not add recipe ingredient!");
+             });
+    }
 
   var removeRecipeIngredient = function(ri) {
     Restangular
@@ -188,6 +255,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
   return {
     setRecipes: setRecipes,
     getRecipes: getRecipes,
+    setUnits:   setUnits,
+    getUnits:   getUnits,
+    setIngredients: setIngredients,
+    getIngredients: getIngredients,
     setCurrentRecipe: setCurrentRecipe,
     getCurrentRecipe: getCurrentRecipe,
     addComment: addComment,
@@ -203,6 +274,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     rateRecipe: rateRecipe,
     updateRecipe: updateRecipe,
     removeRecipeIngredient: removeRecipeIngredient,
-    makeRecipeIngredient: makeRecipeIngredient
+    makeRecipeIngredient: makeRecipeIngredient,
+    addRecipeIngredient: addRecipeIngredient
   };
 }]);
