@@ -19,7 +19,6 @@ class RecipesController < ApplicationController
   end
 
   def create
-
     @recipe = current_user.recipes.build(recipe_params)
 
     if @recipe.save
@@ -38,14 +37,13 @@ class RecipesController < ApplicationController
         end
       end
 
-
       flash[:success] = "Recipe was saved!"
 
       respond_to do |format|
 
         format.html {redirect_to recipe_path(@recipe)}
 
-        format.js {render :none}
+        format.json { render json: @recipe.to_json }
       end
     else
       respond_to do |format|
