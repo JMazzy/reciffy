@@ -3,11 +3,10 @@ class MadeRecipesController < ApplicationController
 
   def index
     @made_recipes = current_user.made_recipes
+    @made_recipes_json = made_recipes_index_json(@made_recipes)
     respond_to do |format|
-      format.html
-      format.json { render json: @made_recipes.to_json(include:
-       [:original_user, :recipe, :original_user_profile, :subscriptions, :recipes_by_original_user] ) } 
-    end 
+      format.json { render json: @made_recipes_json.to_json}
+    end
   end
 
   def create
@@ -43,4 +42,31 @@ class MadeRecipesController < ApplicationController
       :recipe_id,
       :user_id)
   end
+
+  def made_recipes_index_json(made_recipes)
+
+    arr = []
+
+    made_recipes.each do |made_recipe|
+      json_response = {}
+      made_recipe_json = made_recipe.as_json
+
+      made_recipe_json.each do |key,value|
+        json_response[key] = made_recipe_json[key]
+      end
+
+      json_response["recipe"]                = made_recipe.recipe.as_json
+      json_response["original_user"]         = made_recipe.original_user.as_json, 
+      json_response["subscriptions"]         =  made_recipe.subscriptions.as_json, 
+      json_response["recipes_by_original_user"] = made_recipe.recipes_by_original_user.as_json, 
+      json_response["recipe"]["photo_url"]   =  made_recipe.photos[0].photo.url(:thumb).gsub(/\?.*/,"")
+      
+      arr.push(json_response)
+
+    end
+
+    return arr
+  end
+
+
 end
