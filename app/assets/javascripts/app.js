@@ -90,10 +90,10 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       },
     })
     // Create Recipe Page
-    .state("reciffy.recipes.create", {
+    .state("reciffy.recipes.new", {
       url: "/new",
       templateUrl: "templates/recipe.html",
-      controller: "RecipeNewCtrl"
+      controller: "RecipeShowCtrl"
     })
     // Users
     .state("reciffy.users", {

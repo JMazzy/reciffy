@@ -11,8 +11,11 @@ class RecipesController < ApplicationController
 
   def new
     @recipe  = current_user.recipes.build
-    @recipe.recipe_ingredients.build
-    @tag = @recipe.tags.build
+
+    respond_to do |format|
+      format.html
+      format.json { render json: show_recipe_json(@recipe) }
+    end
   end
 
   def create
