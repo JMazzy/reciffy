@@ -3,11 +3,7 @@ reciffy.directive('recipeDirective', function(){
     templateUrl: "templates/directives/recipe_directive.html",
     restrict: "E",
     scope: {
-      recipe: "=",
-      // name: "=",
-      // description: "=",
-      // photos: "=",
-      // ratings: "=",
+      recipe: "="
     },
   };
 });

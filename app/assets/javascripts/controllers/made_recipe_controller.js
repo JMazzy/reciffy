@@ -1,8 +1,11 @@
-reciffy.controller('MadeCtrl', ['Restangular', 'Auth', 'madeRecipeService', '$scope', '$stateParams', '$state', 'currentUser', function( Restangular, Auth, madeRecipeService, $scope, $stateParams, $state, currentUser){
+reciffy.controller('MadeCtrl', ['Restangular', 'Auth', 'madeRecipeService', 'RecipeService', '$scope', '$stateParams', '$state', 'currentUser', function( Restangular, Auth, madeRecipeService, RecipeService, $scope, $stateParams, $state, currentUser){
+
+  RecipeService.setRecipes();
+  $scope.recipes = RecipeService.getRecipes();
 
   $scope.currentUser = currentUser;
   madeRecipeService.getAllMadeRecipes()
-  $scope.made_recipes = madeRecipeService.getMadeRecipes();
+  $scope.madeRecipes = madeRecipeService.getMadeRecipes();
 
   $scope.removeMadeRecipe = function(madeRecipeObj) {
   	madeRecipeService.destroy(madeRecipeObj)
