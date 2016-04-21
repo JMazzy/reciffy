@@ -1,4 +1,4 @@
-reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular, $state) {
+reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', function(Restangular, $state, $stateParams) {
   var _recipes = {};
   var _comments = {};
   var _tags = {};
@@ -143,7 +143,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .then( function(recipe) {
       console.log(recipe)
       _recipes[recipe.id] = recipe;
-      _setCurrents(recipe.id, currentUser);
+      $state.go('reciffy.recipes.show', {id: recipe.id});
     });
   }
 
