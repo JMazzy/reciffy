@@ -28,6 +28,22 @@ class RecipeIngredientsController < ApplicationController
     end
   end
 
+  def destroy
+
+    if @recipe_ingredient = RecipeIngredient.find_by_id(params[:id])
+
+      respond_to do |format|
+        if @recipe_ingredient.destroy
+          format.html { redirect_to request.referrer }
+          format.json { head :no_content }
+         else
+          format.html { redirect_to request.referrer }
+          format.json { head :no_content }
+        end
+      end
+    end
+      
+  end 
   private
 
   def recipe_ingredient_params

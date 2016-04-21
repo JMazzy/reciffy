@@ -8,32 +8,66 @@
       <div class="panel-heading">
         <h4>
         <span editable-text='currentStuff.recipe.name' onaftersave='updateMainRecipe()'
-              e-ng-disabled='disabledStatus'>
+              e-ng-disabled='getDisabledStatus()'>
           {{currentStuff.recipe.name ? currentStuff.recipe.name : "Name"}}
         </span>
         </h4>
 
         <p>
           <span editable-text='currentStuff.recipe.description' onaftersave='updateMainRecipe()'
-                e-ng-disabled='disabledStatus'> {{disabledStatus}}
+                e-ng-disabled='getDisabledStatus()'>
           {{currentStuff.recipe.description ? currentStuff.recipe.description : "Description"}}
           </span>
         </p>
       </div>
 
       <div class="panel-body">
-        <h4>Ingredients</h4>
+        <h4>Ingredients
+            <a>
+            <i class="plus glyphicon glyphicon-plus glyphicon-white" 
+               ng-click="makeRecipeIngredient()" ng-hide='getDisabledStatus()'>
+            </i>
+            </a>
+        </h4>
+
+        <div ng-show='getMakeRecipeIngredient()'>
+          <form editable-form name="RIForm" onaftersave="addRecipeIngredient()">
+            <div>
+              <!-- editable username (text with validation) -->
+              <span class="title">Quantity: </span>
+              <span editable-text="r_name" e-name="name" e-required>{{ r_name || 'empty' }}</span>
+     
+              <!-- editable status (select-local) -->
+              <span class="title">Ingredient: </span>
+              <span editable-select="r_ingredient" e-name="ingredient" 
+                    e-ng-options="r.value as r.text for r in currentStuff.recipe.recipe_ingredients">
+              </span>
+            </div>  
+              <!-- buttons to submit / cancel form -->
+            </div>
+          </form>  
+        </div>
+
+
+
         <ul>
           <li ng-repeat="ri in currentStuff.recipe.recipe_ingredients">
-            {{ri.quantity}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
+            {{ri.quantity}} 
+            {{ri.unit.unit_type}} 
+            {{ri.ingredient.name}} 
+            <a ng-hide='getDisabledStatus()'>
+              <i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" 
+                  ng-click="deleteRecipeIngredient(ri)">
+              </i>
+            </a>
           </li>
         </ul>
 
         <h4>Instructions</h4>
 
         <p>
-          <span editable-text='currentStuff.recipe.instructions' onaftersave='updateMainRecipe()'
-                e-ng-disabled='disabledStatus'>
+          <span editable-textarea='currentStuff.recipe.instructions' onaftersave='updateMainRecipe()'
+                e-ng-disabled='getDisabledStatus()' e-cols='75'>
             {{currentStuff.recipe.instructions ? currentStuff.recipe.instructions : "Instructions"}}
           </span>
         </p>

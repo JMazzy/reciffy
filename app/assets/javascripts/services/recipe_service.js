@@ -153,7 +153,36 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     }, function(error) {
       console.log(error);
     });
-  }
+
+  var updateRecipe = function() {
+    recipe = getCurrentRecipe()
+    Restangular
+     .one('recipes', recipe.id)
+     .patch({recipe})
+     .then(function(newRecipe) {
+        console.log(newRecipe);
+    })
+  };
+
+  var makeRecipeIngredient = function() {
+    recipe = getCurrentRecipe()
+    recipe.recipe_ingredients << {ingredient_id: 0, unit_id: 0, quantity: 0}
+    console.log(recipe.recipe_ingredients)
+  };
+
+  var removeRecipeIngredient = function(ri) {
+    Restangular
+    .one("recipe_ingredients", ri.id)
+    .remove()
+    .then(function(deletedRecipeIngredient) {
+      recipe = getCurrentRecipe()
+      var ind = recipe.recipe_ingredients.indexOf(ri);
+      if (ind > 0) {
+        recipe.recipe_ingredients.splice(ind,1);
+      }
+      console.log("Removed Recipe Ingreient");
+    })
+  };
 
   return {
     setRecipes: setRecipes,
@@ -171,5 +200,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     getCurrentStuff: getCurrentStuff,
     getdisabledStatus: getdisabledStatus,
     rateRecipe: rateRecipe,
+    updateRecipe: updateRecipe,
+    removeRecipeIngredient: removeRecipeIngredient,
+    makeRecipeIngredient: makeRecipeIngredient
   };
 }])
