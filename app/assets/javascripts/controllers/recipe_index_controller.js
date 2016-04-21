@@ -9,4 +9,6 @@ reciffy.controller( 'RecipeIndexCtrl', [ 'Auth', '$scope', '$state', '$statePara
   $scope.recipes = RecipeService.getRecipes();
   $scope.savedRecipes = savedRecipeService.getSavedRecipes();
   $scope.madeRecipes = madeRecipeService.getMadeRecipes();
+
+  $scope.allTaggings = Restangular.all('taggings').getList().$object;
 }]);
