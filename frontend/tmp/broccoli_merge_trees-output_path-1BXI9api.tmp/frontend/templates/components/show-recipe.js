@@ -1,0 +1,1 @@
+/Users/deepakackar/final_projects/reciffy/frontend/tmp/broccoli_merge_trees-input_base_path-zs1jWPW4.tmp/1/frontend/templates/components/show-recipe.js

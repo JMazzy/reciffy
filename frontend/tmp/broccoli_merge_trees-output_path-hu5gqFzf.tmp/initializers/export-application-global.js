@@ -1,0 +1,1 @@
+/Users/deepakackar/final_projects/reciffy/frontend/tmp/broccoli_merge_trees-input_base_path-i2CDlvNY.tmp/12/initializers/export-application-global.js
