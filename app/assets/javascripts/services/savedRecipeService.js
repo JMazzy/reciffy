@@ -20,7 +20,7 @@ reciffy.factory('savedRecipeService', ['Restangular', function(Restangular) {
   var populateSaved = function(rawData) {
     console.log(rawData);
     rawData.forEach(function(recipeJson) {
-      _saved[recipeJson.id] = recipeJson.recipe;
+      _saved[recipeJson.id] = recipeJson;
     });
   };
 
@@ -36,7 +36,7 @@ reciffy.factory('savedRecipeService', ['Restangular', function(Restangular) {
     Restangular.all('saved_recipes').post(savedRecipeParams)
     .then(
       function(response)  {
-        _saved[response.id] = response.recipe;
+        _saved[response.id] = response;
       },
       function(response)  {
         alert("API call for saved recipes didn't work.");

@@ -9,9 +9,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     recipe: {},
     tag: {name: "", recipe_id: null},
     comment: {comment_description: "", recipe_id: null},
-    disabledStatus: false,
+    disabledStatus: true,
     rating: {rating: undefined, recipe_id: null},
-  }
+  };
 
   var setRecipes = function() {
     Restangular
@@ -99,7 +99,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     }
 
     _currents.rating.recipe_id = recipe_id;
-  }
+  };
 
   var setCurrentRecipe = function(recipe_id,currentUser) {
     if ( !!_recipes[recipe_id] ) {
@@ -140,7 +140,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .then( function(comment) {
       _comments[comment.id] = comment;
       _currents.comment.comment_description = "";
-    })
+    });
   };
 
   var removeComment = function(comment_id) {
@@ -150,7 +150,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .remove()
     .then(function(deletedComment) {
       delete _comments[deletedComment.id];
-    })
+    });
   };
 
   var addTag = function() {
@@ -161,7 +161,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .then( function(newTag) {
       _tags[newTag.id] = newTag;
       _currents.tag.name = "";
-    })
+    });
   };
 
   // Actually only deletes that particular TAGGING, not the tag itself, but goes through the tag controller
@@ -172,8 +172,20 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
               taggable_type: "Recipe"})
     .then(function(deletedTag) {
       delete _tags[deletedTag.id];
-    })
+    });
   };
+
+  var rateRecipe = function(rating) {
+    console.log(rating);
+    Restangular
+    .all("ratings")
+    .save({rating: {rating: rating}})
+    .then(function(response) {
+      console.log(response);
+    }, function(error) {
+      console.log(error);
+    });
+  }
 
   var updateRecipe = function() {
     recipe = getCurrentRecipe()
@@ -218,16 +230,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     })
   };
 
-  var rateRecipe = function() {
-    // var rating = _currents.rating;
-    // Restangular
-    // .all("ratings", {rating: rating})
-    // .post()
-    // .then(function(response) {
-    //   console.log(response);
-    // });
-  }
-
   return {
     setRecipes: setRecipes,
     getRecipes: getRecipes,
@@ -253,4 +255,4 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     makeRecipeIngredient: makeRecipeIngredient,
     addRecipeIngredient: addRecipeIngredient
   };
-}])
+}]);

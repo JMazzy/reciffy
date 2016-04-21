@@ -12,14 +12,9 @@
           {{currentStuff.recipe.name ? currentStuff.recipe.name : "Name"}}
         </span>
         </h4>
-        <select ng-model="currentStuff.rating.rating" ng-change="submitRating()" class="star-rating">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
 
+        <rating ng-model="rating" class="star-rating" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+        
         <p>
           <span editable-text='currentStuff.recipe.description' onaftersave='updateMainRecipe()'
                 e-ng-disabled='getDisabledStatus()'>
@@ -45,13 +40,14 @@
         </h6>
         <h4>Ingredients
             <a>
-            <i class="plus glyphicon glyphicon-plus glyphicon-white" 
+            <i class="plus glyphicon glyphicon-plus glyphicon-white"
                ng-click="makeRecipeIngredient()" ng-hide='getDisabledStatus()'>
             </i>
             </a>
         </h4>
 
         <div ng-show='getMakeRecipeIngredient()'>
+
           <form editable-form name="RIForm" role="form" maxonaftersave="addRecipeIngredient()">
             <div class="row">
               <div class="form-group col-sm-2">
@@ -93,15 +89,16 @@
               </div> 
             </div> 
           </form>  
+
         </div>
 
         <ul>
           <li ng-repeat="ri in currentStuff.recipe.recipe_ingredients">
-            {{ri.quantity}} 
-            {{ri.unit.unit_type}} 
-            {{ri.ingredient.name}} 
+            {{ri.quantity}}
+            {{ri.unit.unit_type}}
+            {{ri.ingredient.name}}
             <a ng-hide='getDisabledStatus()'>
-              <i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" 
+              <i class="remove glyphicon glyphicon-remove glyphicon-white pull-right"
                   ng-click="deleteRecipeIngredient(ri)">
               </i>
             </a>
@@ -133,7 +130,6 @@
             <button class="btn btn-info btn-sm" type="button" ng-click="addTag()">Tag It</button>
           </span>
         </div>
-
       </div>
 
       <div class="panel-footer">
@@ -143,10 +139,6 @@
                 class="btn btn-primary" ng-click="addMadeRecipe(recipe)">I Made This</button>
       </div>
 
-    </div>
-
-    <h4>Photos</h4>
-    <div ng-repeat="photo in photos">
     </div>
 
     <h4>Leave a Comment</h4>
