@@ -1,1 +1,0 @@
-/Users/deepakackar/final_projects/reciffy/frontend/app/components/show-recipe.js
