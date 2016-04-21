@@ -7,7 +7,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     recipe: {},
     tag: {name: "", recipe_id: null},
     comment: {comment_description: "", recipe_id: null},
-    disabledStatus: true,
+    disabledStatus: false,
     rating: {rating: undefined, recipe_id: null},
   }
 

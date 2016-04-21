@@ -8,7 +8,7 @@
       <div class="panel-heading">
         <h4>
         <span editable-text='currentStuff.recipe.name' onaftersave='updateMainRecipe()'
-              e-ng-disabled='disabledStatus'>
+              e-ng-disabled='getDisabledStatus()'>
           {{currentStuff.recipe.name ? currentStuff.recipe.name : "Name"}}
         </span>
         </h4>
@@ -22,7 +22,7 @@
 
         <p>
           <span editable-text='currentStuff.recipe.description' onaftersave='updateMainRecipe()'
-                e-ng-disabled='disabledStatus'> {{disabledStatus}}
+                e-ng-disabled='getDisabledStatus()'>
           {{currentStuff.recipe.description ? currentStuff.recipe.description : "Description"}}
           </span>
         </p>
@@ -39,8 +39,8 @@
         <h4>Instructions</h4>
 
         <p>
-          <span editable-text='currentStuff.recipe.instructions' onaftersave='updateMainRecipe()'
-                e-ng-disabled='disabledStatus'>
+          <span editable-textarea='currentStuff.recipe.instructions' onaftersave='updateMainRecipe()'
+                e-ng-disabled='getDisabledStatus()' e-cols='75'>
             {{currentStuff.recipe.instructions ? currentStuff.recipe.instructions : "Instructions"}}
           </span>
         </p>

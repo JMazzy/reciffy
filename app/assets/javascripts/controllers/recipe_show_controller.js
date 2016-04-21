@@ -17,6 +17,11 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.comment = RecipeService.getComment();
   $scope.disabledStatus = RecipeService.getdisabledStatus();
 
+  $scope.getDisabledStatus = function() {
+    return RecipeService.getdisabledStatus();
+  }
+
+
   $scope.createComment = function() {
     RecipeService.addComment();
   }
