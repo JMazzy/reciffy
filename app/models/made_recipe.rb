@@ -4,7 +4,8 @@ class MadeRecipe < ActiveRecord::Base
     has_one :profile, through: :user
     has_one :original_user, through: :recipe, source: :user 
     has_one :original_user_profile, through: :recipe, source: :profile
-
+    
+    has_many :photos, through: :recipe
     has_many :subscriptions, through: :user
     has_many :recipes_by_original_user, through: :user, source: :recipes
 
