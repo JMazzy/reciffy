@@ -5,28 +5,15 @@
       <h3>New</h3>
       <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | limitTo : 8" class="recipe-holder">
         <div class="col-xs-6 col-sm-4 col-md-3">
+
+          <!-- <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+            <recipe-directive name="recipe.name" description="recipe.description" photos="recipe.photos" ratings="recipe.ratings"></recipe-directive>
+          </a> -->
+
           <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-            <div class="panel panel-default recipe">
-
-              <div class="panel-heading recipe-heading">
-                <h4>{{recipe.name}}</h4>
-
-              </div>
-
-              <span class="label label-warning rating-label">{{recipe.ratings | avgRating | number : 1}}</span>
-
-              <div class="panel-body recipe-body">
-                <img ng-src="{{recipe.photos[recipe.photos.length-1].url.medium}}">
-              </div>
-
-              <div class="panel-footer recipe-footer">
-                <p>
-                  {{recipe.description}}
-                </p>
-              </div>
-
-            </div>
+            <recipe-directive recipe="recipe"></recipe-directive>
           </a>
+
         </div>
       </div>
     </div>
@@ -37,27 +24,11 @@
       <h3>Saved for Later</h3>
       <div ng-repeat="savedRecipe in savedRecipes | orderObjectBy : '-created_at' | limitTo : 8" class="recipe-holder">
         <div class="col-xs-6 col-sm-4 col-md-3">
+
           <a ui-sref="reciffy.recipes.show({id: savedRecipe.recipe_id})">
-            <div class="panel panel-default recipe">
-
-              <div class="panel-heading recipe-heading">
-                <h4>{{recipes[savedRecipe.recipe_id].name}}</h4>
-              </div>
-
-              <span class="label label-warning rating-label">{{recipes[savedRecipe.recipe_id].ratings | avgRating | number : 1}}</span>
-
-              <div class="panel-body recipe-body">
-                <img ng-src="{{savedRecipe.recipe.photos[recipe.photos.length-1].url.medium}}">
-              </div>
-
-              <div class="panel-footer recipe-footer">
-                <p>
-                  {{recipes[savedRecipe.recipe_id].description}}
-                </p>
-              </div>
-
-            </div>
+            <recipe-directive recipe="recipes[savedRecipe.recipe_id]"></recipe-directive>
           </a>
+
         </div>
       </div>
     </div>
@@ -68,27 +39,11 @@
       <h3>Make Again</h3>
       <div ng-repeat="madeRecipe in madeRecipes | orderBy : '-created_at' | limitTo : 8" class="recipe-holder">
         <div class="col-xs-6 col-sm-4 col-md-3">
+
           <a ui-sref="reciffy.recipes.show({id: madeRecipe.recipe_id})">
-            <div class="panel panel-default recipe">
-
-              <div class="panel-heading recipe-heading">
-                <h4>{{recipes[madeRecipe.recipe_id].name}}</h4>
-              </div>
-
-              <span class="label label-warning rating-label">{{recipes[madeRecipe.recipe_id].ratings | avgRating | number : 1}}</span>
-
-              <div class="panel-body recipe-body">
-                <img ng-src="{{madeRecipe.recipe.photos[recipe.photos.length-1].url.medium}}">
-              </div>
-
-              <div class="panel-footer recipe-footer">
-                <p>
-                  {{recipes[madeRecipe.recipe_id].description}}
-                </p>
-              </div>
-
-            </div>
+            <recipe-directive recipe="recipes[madeRecipe.recipe_id]"></recipe-directive>
           </a>
+
         </div>
       </div>
     </div>
@@ -99,28 +54,13 @@
       <h3>My Recipes</h3>
       <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | filter : { user_id: currentUser.id } | limitTo : 8" class="recipe-holder">
         <div class="col-xs-6 col-sm-4 col-md-3">
+
           <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-            <div class="panel panel-default recipe">
-
-              <div class="panel-heading recipe-heading">
-                <h4>{{recipe.name}}</h4>
-
-              </div>
-
-              <span class="label label-warning rating-label">{{recipe.ratings | avgRating | number : 1}}</span>
-
-              <div class="panel-body recipe-body">
-                <img ng-src="{{recipe.photos[recipe.photos.length-1].url.medium}}">
-              </div>
-
-              <div class="panel-footer recipe-footer">
-                <p>
-                  {{recipe.description}}
-                </p>
-              </div>
-
-            </div>
+            <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+              <recipe-directive recipe="recipe"></recipe-directive>
+            </a>
           </a>
+
         </div>
       </div>
     </div>
