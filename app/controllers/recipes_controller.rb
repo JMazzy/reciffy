@@ -9,6 +9,13 @@ class RecipesController < ApplicationController
     end
   end
 
+  def top
+    @recipes = Recipe.get_top_recipes
+    respond_to do |format|
+      format.json { render json: index_recipe_json(@recipes) }
+    end
+  end
+
   def new
     @recipe  = current_user.recipes.build
 

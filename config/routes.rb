@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       resources :recipes do
         resources :comments
       end
+      get '/top_recipes', to: 'recipes#top'
+
 
       resources :users
       resources :profiles, only: [:new, :create, :show, :edit, :update]
