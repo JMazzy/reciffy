@@ -26,4 +26,7 @@
 //= require angular-modal-service.min.js
 //= require angular-filter.min.js
 
+//= require ng-file-upload-shim
+//= require ng-file-upload
+
 //= require_tree .
