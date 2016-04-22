@@ -99,19 +99,16 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-12">
-      <h3>Trending Recipes</h3>
-      <div ng-repeat="recipe in trendingRecipes | limitTo : 8" class="recipe-holder">
-        <div class="col-xs-6 col-sm-4 col-md-3">
+    <h3>Trending Recipes</h3>
+    <div ng-repeat="recipe in trendingRecipes | limitTo : 8" class="recipe-holder">
+      <div class="col-xs-6 col-sm-4 col-md-3">
 
-          <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-            <recipe-directive recipe="recipe"></recipe-directive>
-          </a>
+        <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+          <recipe-directive recipe="recipe"></recipe-directive>
+        </a>
 
-        </div>
       </div>
     </div>
   </div>
-
 
 </div>
