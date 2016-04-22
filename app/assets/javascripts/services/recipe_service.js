@@ -10,7 +10,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     tag: {name: "", recipe_id: null},
     comment: {comment_description: "", recipe_id: null},
     disabledStatus: true,
-    rating: {rating: undefined, recipe_id: null},
+    rating: {rating: 0, recipe_id: null},
   };
 
   var setRecipes = function() {
@@ -202,13 +202,12 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     });
   };
 
-  var rateRecipe = function(rating) {
-    console.log(rating);
+  var rateRecipe = function() {
     Restangular
     .all("ratings")
-    .save({rating: {rating: rating}})
+    .post({rating: _currents.rating})
     .then(function(response) {
-      console.log(response);
+      _currents.rating = response;
     }, function(error) {
       console.log(error);
     });

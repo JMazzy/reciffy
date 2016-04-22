@@ -102,6 +102,7 @@ reciffy.controller( 'RecipeShowCtrl',
   };
 
   $scope.submitRating = function() {
+    console.log($scope.currentStuff.rating)
     RecipeService.rateRecipe();
   };
 
