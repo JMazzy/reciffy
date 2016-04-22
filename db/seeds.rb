@@ -1,3 +1,42 @@
+
+def quick_ingredients
+  ingredients = [
+    "cauliflower",
+    "sugar",
+    "spinach",
+    "salt",
+    "pepper",
+    "green chilly",
+    "flour",
+    "baking powder",
+    "eggs"
+  ]
+
+  ingredients.each do |ingredientName|
+    Ingredient.create(name: ingredientName)
+  end
+end
+
+def usda_ingredients
+  ingredients = []
+  offset = 0
+  max = 500
+
+  loop do
+    responseList = JSON.parse(USDA_API.getList("food", offset, max).body)['list']['item']
+    ingredients += responseList
+    puts "got #{responseList.length} items"
+    break if responseList.length == 0
+    offset += max
+    sleep(0.5)
+  end
+
+  ingredients.each do |i|
+    Ingredient.create(name: i['name'])
+  end
+end
+
+
 puts "Deleting everything in Database"
 
 Recipe.delete_all
@@ -36,21 +75,7 @@ end
 
 puts "Creating Ingredients"
 
-ingredients = [
-  "cauliflower",
-  "sugar",
-  "spinach",
-  "salt",
-  "pepper",
-  "green chilly",
-  "flour",
-  "baking powder",
-  "eggs"
-]
-
-ingredients.each do |element|
-  Ingredient.create(name: element)
-end
+usda_ingredients
 
 puts "Creating Units"
 

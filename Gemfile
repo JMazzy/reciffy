@@ -21,6 +21,7 @@ gem 'angular_rails_csrf'
 gem 'angular-ui-bootstrap-rails'
 gem 'sprockets'
 gem 'font-awesome-sass'
+gem 'httparty'
 
 group :development, :test do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
