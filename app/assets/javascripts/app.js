@@ -103,6 +103,16 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       templateUrl: "templates/recipe.html",
       controller: "RecipeShowCtrl"
     })
+    // Tags top level route
+    .state("reciffy.tags", {
+      url: "/tags",
+      template: "<div ui-view></div>",
+    })
+    .state("reciffy.tags.show", {
+      url: "/:id",
+      templateUrl: "templates/tag.html",
+      controller: "TagCtrl",
+    })
     // Users
     .state("reciffy.users", {
       url: "/users",

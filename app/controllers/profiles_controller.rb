@@ -75,8 +75,8 @@ class ProfilesController < ApplicationController
     end
 
     # set file properties
-    data.content_type = 'image/jpg' # params[:imageContent] # json parameter set in directive scope
-    data.original_filename = 'newavatar' # params[:imagePath] # json parameter set in directive scope
+    data.content_type = 'image/jpeg' # params[:imageContent] # json parameter set in directive scope
+    data.original_filename = 'avatar.jpeg' # params[:imagePath] # json parameter set in directive scope
 
     params[:profile][:avatar] = data
     p data
