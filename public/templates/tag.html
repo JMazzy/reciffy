@@ -1,0 +1,11 @@
+<h2 class="text-center">{{ tagHolder.tag.name }}</h2>
+
+<h3>Users</h3>
+<div ng-repeat="userId in tagHolder.userIds">
+  {{ userId }}
+</div>
+
+<h3>Recipes</h3>
+<div ng-repeat="recipeId in tagHolder.recipeIds">
+  {{ recipeId }}
+</div>
