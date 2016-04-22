@@ -24,7 +24,7 @@ class RatingsController < ApplicationController
   end
 
   def update
-    @rating = current_user.ratings.find_by_recipe_id(params[:recipe_id])
+    @rating = current_user.ratings.find(params[:id])
     respond_to do |format|
       if @rating.update(rating_params)
         format.html { redirect_to request.referrer }
