@@ -5,7 +5,7 @@
 
       <div class="panel-heading">
         <span editable-text='profile.first_name' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.first_name}}</span>
-        <span editable-text='profile.last_' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.last_name}}</span>
+        <span editable-text='profile.last_name' onaftersave='updateUserProfile()' e-ng-disabled='disabledStatus'>{{profile.last_name}}</span>
         <button type="button" name="made" ng-hide="user_subscribed"
                 class="btn btn-xs btn-success pull-right"
                 ng-click="addSubscriber(user)">Subscribe to me!
@@ -16,7 +16,6 @@
         <h4>Avatar</h4>
         <img ng-src="{{avatar}}"></img>
         <input type="file" id="fileUpload" ng-show="false" upload-image />
-        <img ng-src="{{userImageLink}}" ng-click="openFileWindow()" ng-class="{ hidden: !userImageLink}" >
         <div class="drop-box" ng-click="openFileWindow()" ng-class=" {hidden: userImageLink}">
             Click to choose a new avatar.
         </div>

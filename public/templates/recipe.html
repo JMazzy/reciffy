@@ -123,6 +123,11 @@
           <img ng-src="{{photo.url.large}}">
         </div>
 
+        <input type="file" id="fileUpload" ng-show="false" upload-recipe-image />
+        <div class="drop-box" ng-click="openFileWindow()">
+            Click to upload another recipe image.
+        </div>
+
         <h4>Tags</h4>
         <div class="tag label label-info" ng-repeat="(id,tag) in tags" >
           <span class="pull-left">{{tag.name}} | </span>

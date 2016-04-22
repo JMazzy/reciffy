@@ -24,12 +24,20 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(photo_params)
-    if @photo.save
-      flash[:success] = "Successfully uploaded image!"
-      redirect_to photos_path(id: current_user)
-    else
-      flash[:danger] = "Couldn't upload image!"
-      redirect_to new_photo_path
+
+    if params[:photo]
+      p 'decoding image'
+      decode_image
+    end
+
+    respond_to do |format|
+      if @photo.save
+        flash[:success] = "Successfully uploaded image!"
+        format.json { render json: @photo.as_json }
+      else
+        flash[:danger] = "Couldn't upload image!"
+        redirect_to new_photo_path
+      end
     end
   end
 
@@ -64,6 +72,24 @@ class PhotosController < ApplicationController
 
   def photo_params
     params.require(:photo).permit(:photo)
+  end
+
+  def decode_image
+    # decode base64 string
+    Rails.logger.info 'decoding now'
+    decoded_data = Base64.decode64(params[:photo]) # json parameter set in directive scope
+    # create 'file' understandable by Paperclip
+    data = StringIO.new(decoded_data)
+    data.class_eval do
+      attr_accessor :content_type, :original_filename
+    end
+
+    # set file properties
+    data.content_type = 'image/jpeg'
+    data.original_filename = 'newImage.jpeg'
+
+    params[:photo] = data
+    p data
   end
 
   def require_photo_author
