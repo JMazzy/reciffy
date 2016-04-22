@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       resources :profiles, only: [:new, :create, :show, :edit, :update]
 
       resources :tags, only: [:index, :show, :create, :destroy]
-      resources :taggings, only: [:create, :destroy]
+      resources :taggings, only: [:index, :create, :destroy]
 
       resources :photos
       resources :subscriptions

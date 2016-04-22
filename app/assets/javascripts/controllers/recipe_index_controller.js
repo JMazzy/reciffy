@@ -33,4 +33,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.savedRecipes = savedRecipeService.getSavedRecipes();
   $scope.madeRecipes = madeRecipeService.getMadeRecipes();
   $scope.topRecipes =  topRecipeService.getTopRecipes();
+
+
+  $scope.allTaggings = Restangular.all('taggings').getList().$object;
 }]);

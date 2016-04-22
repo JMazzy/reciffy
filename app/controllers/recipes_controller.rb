@@ -26,7 +26,6 @@ class RecipesController < ApplicationController
   end
 
   def create
-
     @recipe = current_user.recipes.build(recipe_params)
 
     if @recipe.save
@@ -45,14 +44,13 @@ class RecipesController < ApplicationController
         end
       end
 
-
       flash[:success] = "Recipe was saved!"
 
       respond_to do |format|
 
         format.html {redirect_to recipe_path(@recipe)}
 
-        format.js {render :none}
+        format.json { render json: @recipe.to_json }
       end
     else
       respond_to do |format|
@@ -107,17 +105,21 @@ class RecipesController < ApplicationController
 
   def destroy
     if @recipe = Recipe.find_by_id(params[:id])
-
-      if @recipe.destroy
-        flash[:success] = "Recipe Deleted"
-      else
-        flash[:alert] = "Could not delete recipe!"
+      respond_to do |format|
+        if @recipe.destroy
+          flash[:success] = "Recipe Deleted"
+        else
+          flash[:danger] = "Could not delete recipe!"
+        end
+        format.json { render json: @recipe.as_json }
+        format.html { redirect_to :back }
       end
-
-      redirect_to :back
     else
-      flash[:alert] = "Invalid recipe removal! - Unauthorized?"
-      redirect_to :nack
+      flash[:danger] = "Invalid recipe removal! - Unauthorized?"
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.json { render nothing: true }
+      end
     end
   end
 
@@ -132,6 +134,7 @@ class RecipesController < ApplicationController
       :instructions,
       :cook_time,
       :prep_time,
+      :original_id,
       :recipe_ingredients_attributes => [
         :recipe_id,
         :ingredient_id,

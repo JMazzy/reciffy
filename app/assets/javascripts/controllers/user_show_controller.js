@@ -1,6 +1,6 @@
-reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser) {
+reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', 'Upload', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser, Upload) {
 
-  $scope.user_subscribed = false
+  $scope.user_subscribed = false;
 
   Restangular.one('users', $stateParams.id).get()
   .then(function(user) {
@@ -9,12 +9,14 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     $scope.userRecipes = user.recipes;
     $scope.userMadeRecipes = user.recipes_made;
     $scope.userSavedRecipes = user.recipes_saved;
-    $scope.received_subscriptions = user.received_subscription_requests
-    $scope.checkSubscriberExists(user)
+    $scope.received_subscriptions = user.received_subscription_requests;
+    console.log($scope.received_subscriptions);
+    $scope.checkSubscriberExists(user);
     $scope.disabledStatus = (currentUser.id != $stateParams.id);
     $scope.tags = user.profile.tags;
     $scope.newTag = { name: "" };
     $scope.avatar = user.photo.url.medium;
+    $scope.uploadedPhoto;
   })
 
 
@@ -25,24 +27,28 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       bio: $scope.profile.bio,
       tagline: $scope.profile.tagline,
       city: $scope.profile.city,
-      state: $scope.profile.state
+      state: $scope.profile.state,
+      avatar: $scope.uploadedPhoto || $scope.avatar
     }).then(function(newProfile) {
       console.log(newProfile);
+      console.log($scope.avatar);
     })
   };
 
   $scope.addSubscriber = function(user) {
-    subscriptionService.create(user)
-    $scope.user_subscribed = true
+    subscriptionService.create(user);
+    $scope.user_subscribed = true;
   }
 
   $scope.checkSubscriberExists = function(user) {
     if (currentUser.id == user.id ) {
-       $scope.user_subscribed = true
+       $scope.user_subscribed = true;
     } else if ($scope.received_subscriptions != null) {
+      console.log("In here!")
       for (var i = 0; i < $scope.received_subscriptions.length; i++) {
         if ($scope.received_subscriptions[i].subscriber_id == currentUser.id) {
-           $scope.user_subscribed = true
+          console.log("In here!!!")
+           $scope.user_subscribed = true;
         }
       }
     } else {
@@ -72,6 +78,11 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
         }
       }
     })
+  };
+
+  $scope.openFileWindow = function () {
+    angular.element( document.querySelector( '#fileUpload' ) ).trigger('click');
+    console.log('triggering click');
   };
 
 }])

@@ -13,7 +13,7 @@
         </span>
         </h4>
 
-        <rating ng-model="rating" class="star-rating" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+        <input-stars ng-model="currentStuff.rating.rating" max="5" ng-change="submitRating()"></input-stars>
 
         <p>
           <span editable-text='currentStuff.recipe.description' onaftersave='updateMainRecipe()'
@@ -92,18 +92,21 @@
 
         </div>
 
-        <ul>
-          <li ng-repeat="ri in currentStuff.recipe.recipe_ingredients">
-            {{ri.quantity}}
-            {{ri.unit.unit_type}}
-            {{ri.ingredient.name}}
-            <a ng-hide='getDisabledStatus()'>
-              <i class="remove glyphicon glyphicon-remove glyphicon-white pull-right"
-                  ng-click="deleteRecipeIngredient(ri)">
-              </i>
-            </a>
-          </li>
-        </ul>
+        <table class="table table-striped">
+          <tbody>
+            <tr ng-repeat="ri in currentStuff.recipe.recipe_ingredients">
+              <td class="col-md-4"> {{ri.quantity}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
+              </td>
+              <td ng-hide='getDisabledStatus()'>
+                <a>
+                  <i class="remove glyphicon glyphicon-remove glyphicon-white pull-left"
+                     ng-click="deleteRecipeIngredient(ri)">
+                  </i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         <h4>Instructions</h4>
 
@@ -133,29 +136,57 @@
       </div>
 
       <div class="panel-footer">
-        <button type="button" name="save" class="btn btn-primary">Save This Recipe</button>
-        <button type="button" name="fork" class="btn btn-primary">Fork This Recipe</button>
-        <button type="button" name="made" ng-hide="show_recipe_made"
-                class="btn btn-primary" ng-click="addMadeRecipe(recipe)">I Made This</button>
+
+        <button type="button" name="save"
+                class="btn btn-primary">
+          Save This Recipe
+        </button>
+
+        <button type="button" name="fork"
+                class="btn btn-primary"
+                ng-click="forkRecipe(currentStuff.recipe)">
+          Fork This Recipe
+        </button>
+
+        <button type="button" name="made"
+                class="btn btn-primary" ng-click="addMadeRecipe(currentStuff.recipe)"
+                ng-hide="currentStuff.show_recipe_made">
+          I Made This
+        </button>
+
+        <button type="button" name="delete"
+                class="btn btn-danger pull-right"
+                ng-click="deleteRecipe()"
+                ng-hide="currentStuff.disabledStatus">
+          Delete
+        </button>
+
       </div>
 
     </div>
 
     <h4>Leave a Comment</h4>
+
     <form>
+
       <textarea ng-model="currentStuff.comment.comment_description" rows="8" cols="40" placeholder="What do you think?" class="form-control"></textarea>
+
       <input type="submit" value="Comment" ng-click="createComment()" class="btn btn-success">
+
     </form>
 
     <h4>All Comments</h4>
 
     <div class="comment" ng-repeat="comment in comments | orderObjectBy : '-created_at'">
+
       <p>
         <strong>User {{comment.user.profile.first_name}} {{comment.user.profile.last_name}}</strong> says:
       </p>
+
       <p>
         {{comment.comment_description}}
       </p>
+
       <button type="button" ng-click="deleteComment(comment.id)" class="btn btn-danger btn-xs">Delete</button>
     </div>
 

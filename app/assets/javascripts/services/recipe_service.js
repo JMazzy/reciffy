@@ -1,17 +1,26 @@
-reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular, $state) {
+reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', function(Restangular, $state, $stateParams) {
   var _recipes = {};
   var _comments = {};
   var _tags = {};
   var _units = {};
   var _ingredients = {};
+  var _made_recipes = {};
 
   var _currents = {
     recipe: {},
     tag: {name: "", recipe_id: null},
     comment: {comment_description: "", recipe_id: null},
     disabledStatus: true,
-    rating: {rating: undefined, recipe_id: null},
+    show_recipe_made: false,
+    rating: {rating: 0, recipe_id: null},
   };
+
+  var checkRecipeMade = function(recipe) {
+    _currents.show_recipe_made = false;
+    if (_made_recipes[recipe.id]) {
+        _currents.show_recipe_made = true;
+    }
+  }
 
   var setRecipes = function() {
     Restangular
@@ -22,6 +31,12 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
         _recipes[recipes[r].id] = recipes[r];
       }
     });
+  };
+
+  var setMadeRecipes = function(allMadeRecipes) {
+    for( var i = 0; i < allMadeRecipes.length; i++ ) {
+      _made_recipes[allMadeRecipes[i].recipe_id] = allMadeRecipes[i].user_id
+    }
   };
 
   var setIngredients = function() {
@@ -66,6 +81,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     return _ingredients;
   };
 
+  var getMadeRecipes = function() {
+    return _made_recipes;
+  };
+
   var getTag = function() {
     return _currents.tag;
   };
@@ -84,7 +103,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
 
   var _setCurrents = function(recipe_id, currentUser) {
     _currents.recipe = _recipes[recipe_id];
+
     _currents.disabledStatus = ( currentUser.id != _recipes[recipe_id].user_id );
+     checkRecipeMade(_recipes[recipe_id])
 
     if (_currents.recipe.comments) {
       for ( var c = 0; c < _currents.recipe.comments.length; c++) {
@@ -125,6 +146,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .then( function(recipe) {
       _recipes[recipe.id] = recipe;
       _setCurrents(recipe.id, currentUser);
+      setMadeRecipes(currentUser);
     });
   };
 
@@ -143,9 +165,23 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .then( function(recipe) {
       console.log(recipe)
       _recipes[recipe.id] = recipe;
-      _setCurrents(recipe.id, currentUser);
+      $state.go('reciffy.recipes.show', {id: recipe.id});
     });
-  }
+  };
+
+  var deleteRecipe = function() {
+    if ( !_currents.disabledStatus ) {
+      Restangular
+      .one( 'recipes', _currents.recipe.id )
+      .remove()
+      .then( function(recipe) {
+        delete _recipes[ recipe.id ];
+        $state.go('reciffy.recipes.all');
+      }, function(error) {
+        console.log(error);
+      })
+    }
+  };
 
   var getCurrentRecipe = function() {
     return _currents.recipe;
@@ -202,13 +238,12 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     });
   };
 
-  var rateRecipe = function(rating) {
-    console.log(rating);
+  var rateRecipe = function() {
     Restangular
     .all("ratings")
-    .save({rating: {rating: rating}})
+    .post({rating: _currents.rating})
     .then(function(response) {
-      console.log(response);
+      _currents.rating = response;
     }, function(error) {
       console.log(error);
     });
@@ -240,7 +275,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
              },
              function(response)  {
                alert("Could not add recipe ingredient!");
-             });
+             }
+          );
     }
 
   var removeRecipeIngredient = function(ri) {
@@ -248,20 +284,58 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .one("recipe_ingredients", ri.id)
     .remove()
     .then(function(deletedRecipeIngredient) {
-      recipe = getCurrentRecipe()
-      var ind = recipe.recipe_ingredients.indexOf(ri);
-      if (ind > 0) {
-        recipe.recipe_ingredients.splice(ind,1);
+      var length = _currents.recipe.recipe_ingredients.length
+      for ( var i = 0; i < length; i++ ) {
+        if ( _currents.recipe.recipe_ingredients[i]
+          && deletedRecipeIngredient
+          && _currents.recipe.recipe_ingredients[i].id === deletedRecipeIngredient.id ) {
+          _currents.recipe.recipe_ingredients.splice(i, 1);
+        }
       }
-      console.log("Removed Recipe Ingreient");
     })
   };
+
+  var forkRecipe = function(recipe, currentUser) {
+    var newRecipe = {
+      name: recipe.name,
+      description:  recipe.description,
+      instructions: recipe.instructions,
+      prep_time:    recipe.prep_time,
+      cook_time:    recipe.cook_time,
+      original_id:  recipe.user_id,
+      user_id: currentUser.id
+    };
+
+    ingredients = recipe.recipe_ingredients;
+
+    Restangular
+    .all('recipes')
+    .post(newRecipe)
+    .then( function(forkedRecipe) {
+
+      _recipes[forkedRecipe.id] = forkedRecipe;
+      _setCurrents(forkedRecipe.id, currentUser );
+      _recipes[forkedRecipe.id].recipe_ingredients = [];
+
+      for(var i = 0;i < ingredients.length; i++) {
+        var ri = {unit_id: ingredients[i].unit_id,
+                  ingredient_id: ingredients[i].ingredient_id,
+                  quantity: ingredients[i].quantity,
+        }
+        addRecipeIngredient(ri)
+      }
+
+       $state.go('reciffy.recipes.show', {id: forkedRecipe.id});
+    });
+  }
 
   return {
     setRecipes: setRecipes,
     getRecipes: getRecipes,
     setUnits:   setUnits,
+    setMadeRecipes: setMadeRecipes,
     getUnits:   getUnits,
+    getMadeRecipes: getMadeRecipes,
     setIngredients: setIngredients,
     getIngredients: getIngredients,
     setCurrentRecipe: setCurrentRecipe,
@@ -280,6 +354,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     updateRecipe: updateRecipe,
     removeRecipeIngredient: removeRecipeIngredient,
     makeRecipeIngredient: makeRecipeIngredient,
-    addRecipeIngredient: addRecipeIngredient
+    addRecipeIngredient: addRecipeIngredient,
+    forkRecipe: forkRecipe,
+    deleteRecipe: deleteRecipe,
   };
 }]);
