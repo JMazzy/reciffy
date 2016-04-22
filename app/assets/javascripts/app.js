@@ -1,4 +1,4 @@
-var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable', 'ui.bootstrap', 'angular.filter'])
+var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable', 'ui.bootstrap', 'angular.filter', 'ngFileUpload'])
 
 .config([ 'AuthProvider', function(AuthProvider) {
     // Configure Auth service with AuthProvider

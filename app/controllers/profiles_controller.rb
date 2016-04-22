@@ -37,6 +37,10 @@ class ProfilesController < ApplicationController
       @profile.taggings.build( tag_id: tag.id )
     end
 
+    if params[:imageData]
+      decode_image
+    end
+
     respond_to do |format|
       if @profile.update( profile_params )
         format.json { render json: @profile.as_json }
@@ -56,5 +60,24 @@ class ProfilesController < ApplicationController
                                       :city,
                                       :state,
                                       :avatar )
+  end
+
+  def decode_image
+    # decode base64 string
+    Rails.logger.info 'decoding now'
+    decoded_data = Base64.decode64(params[:imageData]) # json parameter set in directive scope
+    # create 'file' understandable by Paperclip
+    data = StringIO.new(decoded_data)
+    data.class_eval do
+      attr_accessor :content_type, :original_filename
+    end
+
+    # set file properties
+    data.content_type = params[:imageContent] # json parameter set in directive scope
+    data.original_filename = params[:imagePath] # json parameter set in directive scope
+
+    # update hash, I had to set @up to persist the hash so I can pass it for saving
+    # since set_params returns a new hash everytime it is called (and must be used to explicitly list which params are allowed otherwise it throws an exception)
+    @profile[:avatar] = data # user Icon is the model attribute that i defined as an attachment using paperclip generator
   end
 end
