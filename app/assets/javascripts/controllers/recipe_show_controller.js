@@ -1,14 +1,15 @@
 reciffy.controller( 'RecipeShowCtrl',
-                    [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService','currentUser',
-                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService, currentUser) {
+                    [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService','currentUser', 'allMadeRecipes',
+                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService, currentUser,allMadeRecipes) {
 
 
-  $scope.show_recipe_made = false;
   $scope.disabledStatus   = true;
   $scope.makeRecipe       = false;
 
   RecipeService.setUnits();
   RecipeService.setIngredients();
+  RecipeService.setMadeRecipes(allMadeRecipes);
+
   RecipeService.setCurrentRecipe( $stateParams.id, currentUser );
 
   $scope.currentStuff = RecipeService.getCurrentStuff();
@@ -20,6 +21,7 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.ingredients = RecipeService.getIngredients();
 
   //Recipe Ingredients Added
+
   $scope.r_unit = ""
   $scope.r_quantity = ""
   $scope.r_ingredient = ""
@@ -101,19 +103,12 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.addMadeRecipe = function(recipe) {
     madeRecipeService.create(recipe)
-    $scope.show_recipe_made = true
+    $scope.currentStuff.show_recipe_made = true
   }
 
   $scope.checkMadeRecipeExists = function(recipe) {
-    if ($scope.madeRecipes != null) {
-      for (var i = 0; i < $scope.madeRecipes.length; i++) {
-        if ($scope.madeRecipes[i].user_id == 2) {
-           $scope.show_recipe_made = true
-        }
-      }
-    } else {
-       $scope.show_recipe_made = false
-    }
+    console.log("In here " + RecipeService.getRecipeMadeStatus(recipe,currentUser))
+    return RecipeService.getRecipeMadeStatus(recipe,currentUser)  
   }
 
   $scope.updateMainRecipe = function() {
@@ -137,6 +132,10 @@ reciffy.controller( 'RecipeShowCtrl',
       RecipeService.addRecipeIngredient(ri);
     }
   }
+
+  $scope.forkRecipe = function(recipe) {
+    RecipeService.forkRecipe(recipe);
+  };
 
   $scope.submitRating = function() {
     RecipeService.rateRecipe();
