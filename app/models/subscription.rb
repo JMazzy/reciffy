@@ -24,9 +24,5 @@ class Subscription < ActiveRecord::Base
     return false if (User.find(self.subscribed_id).nil? ||
                      User.find(self.subscriber_id).nil?)
   end
-
-  def self.get_subscribed_recipes(subscriber_id)
-    Recipe.all.joins('JOIN subscriptions ON (subscribed_id = user_id)').where("subscriber_id = #{subscriber_id}").order("recipes.created_at DESC").select("id")
-  end
-
+  
 end
