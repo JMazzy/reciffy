@@ -11,8 +11,9 @@ Rails.application.routes.draw do
 
       get '/top_users', to: 'users#top'
       get '/top_cooks', to: 'users#top_cooks'
+
       get '/best_cooks', to: 'users#best_cooks'
-      
+
       resources :users
       resources :profiles, only: [:new, :create, :show, :edit, :update]
 
