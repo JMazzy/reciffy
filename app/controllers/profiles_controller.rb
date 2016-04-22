@@ -76,8 +76,6 @@ class ProfilesController < ApplicationController
     data.content_type = params[:imageContent] # json parameter set in directive scope
     data.original_filename = params[:imagePath] # json parameter set in directive scope
 
-    # update hash, I had to set @up to persist the hash so I can pass it for saving
-    # since set_params returns a new hash everytime it is called (and must be used to explicitly list which params are allowed otherwise it throws an exception)
-    @profile[:avatar] = data # user Icon is the model attribute that i defined as an attachment using paperclip generator
+    @profile[:avatar] = data
   end
 end
