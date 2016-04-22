@@ -1,10 +1,10 @@
 class TagsController < ApplicationController
 
   def index
-    @tags = Tag.all
+    @tags = Tag.all.includes(:taggings)
     respond_to do |format|
       format.html
-      format.json { render json: @tags.to_json }
+      format.json { render json: @tags.to_json(include: :taggings) }
     end
   end
 
@@ -13,7 +13,7 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     respond_to do |format|
       format.html
-      format.json { render json: @tag.to_json }
+      format.json { render json: @tag.to_json(include: :taggings) }
     end
   end
 
