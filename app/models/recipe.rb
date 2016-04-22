@@ -17,6 +17,9 @@ class Recipe < ActiveRecord::Base
   has_many :users_rated, through: :ratings,
                          source: :users
 
+  has_many  :forked_recipes, class_name: "Recipe", foreign_key: "original_id"
+  belongs_to :original_recipe, class_name: "Recipe"
+
   accepts_nested_attributes_for :recipe_ingredients,
 	  :allow_destroy => true,
     :reject_if     => :all_blank
@@ -26,15 +29,14 @@ class Recipe < ActiveRecord::Base
   validates :name, :description, :instructions, :prep_time, :cook_time, presence: true
 
   def self.get_tagged_recipes(tags)
-    tagged_recipes = Recipe.select("recipes.name AS recipe_name, recipes.id AS recipe_id, tags.name")
+    tagged_recipes = Recipe.select("recipes.*")
       .joins("JOIN taggings AS ta ON recipes.id = ta.taggable_id and ta.taggable_type = 'Recipe'")
       .joins("JOIN tags ON ta.tag_id = tags.id").where("tags.name IN (?)", tags)
-      .group("tags.name,recipes.id,recipes.name").order("tags.name")
-    tagged_recipes.json
+    tagged_recipes
   end
 
   def self.get_top_recipes(n = 10)
-    top_recipes = Recipe.includes(:ratings)
+    top_recipes = Recipe.includes(:ratings, :made_recipes)
     .group("recipes.id")
     .average("COALESCE(ratings.rating, 0)")
     .sort_by { |id, avg_rating| -avg_rating }
@@ -47,6 +49,33 @@ class Recipe < ActiveRecord::Base
     end
 
     return top_recipe_list
+  end
+
+
+  def self.get_trending_recipes(user,n = 10)
+    puts "Finds all user tags and gets recipes for that tag"
+    puts "Recipes include average highest ratings for ratings in past 7 days"
+    
+    # What happens when no tags are created for the user?
+    #   >> user all tags?
+
+    tags = user.profile.get_user_tags
+    recipes = Recipe.get_tagged_recipes(tags)
+      .includes(:ratings, :made_recipes, :forked_recipes)
+      .where(
+        "ratings.created_at >= :start OR made_recipes.created_at >= :start OR recipes.created_at >= :start", 
+         :start => 1.week.ago.to_date)
+      .group("recipes.id")
+      .order('recipes.id asc').count('recipes.id')
+    
+    trending_recipe_list = []
+
+    recipes.each_with_index do |val, index|
+      trending_recipe_list.push(Recipe.find_by_id(val[0]))
+      break if index >= n
+    end
+
+    return trending_recipe_list
   end
 
   def self.personal_top_ten(rater_id)
@@ -74,6 +103,7 @@ class Recipe < ActiveRecord::Base
     subscribed_recipes = Recipe.all.joins('JOIN subscriptions ON (subscribed_id = user_id)').where("subscriber_id = #{subscriber_id}").order("recipes.created_at DESC").select("id").limit(10)
 
     subscribed_recipes.map{ |s| s.id }.uniq
+
   end
 
 end
