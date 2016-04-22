@@ -29,13 +29,16 @@ reciffy.controller( 'RecipeIndexCtrl',
   RecipeService.setRecipes();
   savedRecipeService.callAllSavedRecipes();
   madeRecipeService.getAllMadeRecipes();
-  topRecipeService.callTopRecipes();
+  topRecipeService.callTopRecipes().then(
+    function() {
+      $scope.topRecipes = topRecipeService.getTopRecipes();
+    }
+  );
   RecommendationService.populateRecommendations();
 
   $scope.recipes = RecipeService.getRecipes();
   $scope.savedRecipes = savedRecipeService.getSavedRecipes();
   $scope.madeRecipes = madeRecipeService.getMadeRecipes();
-  $scope.topRecipes =  topRecipeService.getTopRecipes();
   $scope.recs = RecommendationService.getRecommendations();
 
   $scope.allTaggings = Restangular.all('taggings').getList().$object;
