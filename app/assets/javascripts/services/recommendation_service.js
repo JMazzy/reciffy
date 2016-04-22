@@ -16,7 +16,7 @@ reciffy.factory('RecommendationService', ['Restangular', '$state', '$stateParams
     .then(function(response) {
       console.log(response);
       for ( var r = 0; r < response.length; r++ ) {
-        _recommendations[r] = response[r].id;
+        _recommendations[r] = response[r];
       }
     })
   }
