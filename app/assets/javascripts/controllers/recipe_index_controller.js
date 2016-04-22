@@ -33,11 +33,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   madeRecipeService.getAllMadeRecipes();
   topRecipeService.callTopRecipes();
   trendingRecipeService.callTrendingRecipes();
-  topRecipeService.callTopRecipes().then(
-    function() {
-      $scope.topRecipes = topRecipeService.getTopRecipes();
-    }
-  );
+  topRecipeService.callTopRecipes();
   RecommendationService.populateRecommendations();
 
   $scope.recipes = RecipeService.getRecipes();

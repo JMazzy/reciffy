@@ -9,6 +9,7 @@ reciffy.factory('topRecipeService', ['Restangular', function(Restangular) {
       .then(
         function(data) {
           populateTopRecipes(data);
+          return getTopRecipes();
         },
         function(error) {
           console.log("API call for rated recipes didn't work.");
