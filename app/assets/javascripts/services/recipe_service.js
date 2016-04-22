@@ -261,7 +261,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
              },
              function(response)  {
                alert("Could not add recipe ingredient!");
-             });
+             }
+          );
     }
 
   var removeRecipeIngredient = function(ri) {
@@ -305,7 +306,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
       for(var i = 0;i < ingredients.length; i++) {
         var ri = {unit_id: ingredients[i].unit_id,
                   ingredient_id: ingredients[i].ingredient_id,
-                  quantity: ingredients[i].quantity
+                  quantity: ingredients[i].quantity,
         }          
         addRecipeIngredient(ri)    
       }

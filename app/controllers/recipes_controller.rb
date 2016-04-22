@@ -123,6 +123,7 @@ class RecipesController < ApplicationController
       :instructions,
       :cook_time,
       :prep_time,
+      :original_id,
       :recipe_ingredients_attributes => [
         :recipe_id,
         :ingredient_id,

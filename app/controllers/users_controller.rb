@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       :tagline,
       :bio,
       :city,
-      :state
+      :state,
       ])
   end
 
