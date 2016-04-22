@@ -38,7 +38,7 @@ class MadeRecipesController < ApplicationController
   private
 
   def made_recipe_params
-    params.permit(
+    params.require(:made_recipe).permit(
       :recipe_id,
       :user_id)
   end
