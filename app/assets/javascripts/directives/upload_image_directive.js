@@ -21,6 +21,6 @@ reciffy.directive('uploadImage', function() {
 
     },
 
-    controller: "UserShowCtrl"
+    scope: true
   }
 })

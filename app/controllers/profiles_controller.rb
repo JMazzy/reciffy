@@ -31,13 +31,15 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = current_user.profile
+    p params
 
     if !!params[:profile] && !!params[:profile][:tag]
       tag = Tag.find_or_create_by( name: params[:profile][:tag][:name].downcase)
       @profile.taggings.build( tag_id: tag.id )
     end
 
-    if params[:imageData]
+    if params[:profile][:avatar]
+      p 'decoding image'
       decode_image
     end
 
@@ -59,13 +61,13 @@ class ProfilesController < ApplicationController
                                       :last_name,
                                       :city,
                                       :state,
-                                      :avatar )
+                                      :avatar)
   end
 
   def decode_image
     # decode base64 string
     Rails.logger.info 'decoding now'
-    decoded_data = Base64.decode64(params[:imageData]) # json parameter set in directive scope
+    decoded_data = Base64.decode64(params[:profile][:avatar]) # json parameter set in directive scope
     # create 'file' understandable by Paperclip
     data = StringIO.new(decoded_data)
     data.class_eval do
@@ -73,9 +75,10 @@ class ProfilesController < ApplicationController
     end
 
     # set file properties
-    data.content_type = params[:imageContent] # json parameter set in directive scope
-    data.original_filename = params[:imagePath] # json parameter set in directive scope
+    data.content_type = 'image/jpg' # params[:imageContent] # json parameter set in directive scope
+    data.original_filename = 'newavatar' # params[:imagePath] # json parameter set in directive scope
 
-    @profile[:avatar] = data
+    params[:profile][:avatar] = data
+    p data
   end
 end
