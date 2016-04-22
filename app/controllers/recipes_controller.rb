@@ -16,6 +16,13 @@ class RecipesController < ApplicationController
     end
   end
 
+  def trending
+    @recipes = Recipe.get_trending_recipes(current_user)
+    respond_to do |format|
+      format.json { render json: index_recipe_json(@recipes) }
+    end
+  end
+
   def new
     @recipe  = current_user.recipes.build
 

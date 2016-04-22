@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         resources :comments
       end
       get '/top_recipes', to: 'recipes#top'
-
+      get '/trending_recipes', to: 'recipes#trending'
 
       resources :users
       resources :profiles, only: [:new, :create, :show, :edit, :update]
