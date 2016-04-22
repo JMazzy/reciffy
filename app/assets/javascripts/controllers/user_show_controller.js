@@ -1,6 +1,6 @@
 reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', 'Upload', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser, Upload) {
 
-  $scope.user_subscribed = false
+  $scope.user_subscribed = false;
 
   Restangular.one('users', $stateParams.id).get()
   .then(function(user) {
@@ -9,8 +9,9 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     $scope.userRecipes = user.recipes;
     $scope.userMadeRecipes = user.recipes_made;
     $scope.userSavedRecipes = user.recipes_saved;
-    $scope.received_subscriptions = user.received_subscription_requests
-    $scope.checkSubscriberExists(user)
+    $scope.received_subscriptions = user.received_subscription_requests;
+    console.log($scope.received_subscriptions);
+    $scope.checkSubscriberExists(user);
     $scope.disabledStatus = (currentUser.id != $stateParams.id);
     $scope.tags = user.profile.tags;
     $scope.newTag = { name: "" };
@@ -35,17 +36,19 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
   };
 
   $scope.addSubscriber = function(user) {
-    subscriptionService.create(user)
-    $scope.user_subscribed = true
+    subscriptionService.create(user);
+    $scope.user_subscribed = true;
   }
 
   $scope.checkSubscriberExists = function(user) {
     if (currentUser.id == user.id ) {
-       $scope.user_subscribed = true
+       $scope.user_subscribed = true;
     } else if ($scope.received_subscriptions != null) {
+      console.log("In here!")
       for (var i = 0; i < $scope.received_subscriptions.length; i++) {
         if ($scope.received_subscriptions[i].subscriber_id == currentUser.id) {
-           $scope.user_subscribed = true
+          console.log("In here!!!")
+           $scope.user_subscribed = true;
         }
       }
     } else {
