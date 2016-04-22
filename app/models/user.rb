@@ -96,9 +96,10 @@ class User < ActiveRecord::Base
   end
 
   def self.get_top_users(n = 10)
-    top_users = User.includes(:received_subscription_requests)
-    .group("users.id")
-    .order('users.id desc').count('users.id')
+    top_users = Subscription.select("subscribed_id")
+                .group("subscribed_id")
+                .order("count_subscribed_id DESC")
+                .count("subscribed_id")
 
     top_users_list = []
 
@@ -111,9 +112,10 @@ class User < ActiveRecord::Base
   end 
 
   def self.get_top_users_who_cook(n = 10)
-    users = User.includes(:made_recipes)
-    .group("users.id")
-    .order('users.id desc').count('users.id')
+    users = MadeRecipe.select("user_id")
+            .group("user_id")
+            .order("count_user_id DESC")
+            .count("user_id")
 
     users_list = []
 
@@ -126,19 +128,20 @@ class User < ActiveRecord::Base
   end 
 
 
-  def self.get_top_rated_users(n = 10)
-    top_users = User.includes(:ratings)
-    .group("users.id")
-    .order('users.id desc').count('users.id')
+  def self.get_best_cooks(n = 10)
+    users = Recipe.select("user_id")
+            .joins("JOIN ratings AS r ON r.recipe_id = recipes.id")
+            .group("recipes.user_id")
+            .order("average_coalesce_r_rating_0 DESC")
+            .average("COALESCE(r.rating, 0)")
+    users_list = []
 
-    top_users_list = []
-
-    top_users.each_with_index do |val, index|
-      top_users_list.push(User.find_by_id(val[0]))
+    users.each_with_index do |val, index|
+      users_list.push(User.find_by_id(val[0]))
       break if index >= n
     end
 
-    return top_users_list
+    return users_list
   end 
 
 end

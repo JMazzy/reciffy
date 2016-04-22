@@ -47,7 +47,7 @@
   <!-- Top Subscribed Users -->
   <div class="row">
     <h4><em>Great Cooks!<em></h4>
-    <div ng-repeat="user in topRatedUsers | limitTo : 8" class="user-holder">
+    <div ng-repeat="user in bestCooks | limitTo : 8" class="user-holder">
       <div class="col-xs-3 col-sm-3 col-md-3">
 
         <a ui-sref="reciffy.users.show({id: user.id})">
