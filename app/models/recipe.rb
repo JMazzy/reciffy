@@ -2,18 +2,18 @@ class Recipe < ActiveRecord::Base
 
   belongs_to :user
   has_one :profile, through: :user
-  has_many :recipe_ingredients
+  has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients
   has_many :units, through: :recipe_ingredients
 
   has_many :photos, dependent: :destroy
-  has_many :taggings, as: :taggable
+  has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
-  has_many :comments
-  has_many :made_recipes
-  has_many :saved_recipes
+  has_many :comments, dependent: :destroy
+  has_many :made_recipes, dependent: :destroy
+  has_many :saved_recipes, dependent: :destroy
 
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
   has_many :users_rated, through: :ratings,
                          source: :users
 

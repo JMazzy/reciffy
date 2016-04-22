@@ -63,7 +63,7 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.checkMadeRecipeExists = function(recipe) {
     console.log("In here " + RecipeService.getRecipeMadeStatus(recipe,currentUser))
-    return RecipeService.getRecipeMadeStatus(recipe,currentUser)  
+    return RecipeService.getRecipeMadeStatus(recipe,currentUser)
   }
 
   $scope.updateMainRecipe = function() {
@@ -94,6 +94,10 @@ reciffy.controller( 'RecipeShowCtrl',
       $scope.r_quantity = "";
       $scope.r_ingredient = "";
     }
+  };
+
+  $scope.deleteRecipe = function() {
+    RecipeService.deleteRecipe();
   };
 
   $scope.forkRecipe = function(recipe) {

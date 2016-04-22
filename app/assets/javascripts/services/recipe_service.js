@@ -167,7 +167,21 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
       _recipes[recipe.id] = recipe;
       $state.go('reciffy.recipes.show', {id: recipe.id});
     });
-  }
+  };
+
+  var deleteRecipe = function() {
+    if ( !_currents.disabledStatus ) {
+      Restangular
+      .one( 'recipes', _currents.recipe.id )
+      .remove()
+      .then( function(recipe) {
+        delete _recipes[ recipe.id ];
+        $state.go('reciffy.recipes.all');
+      }, function(error) {
+        console.log(error);
+      })
+    }
+  };
 
   var getCurrentRecipe = function() {
     return _currents.recipe;
@@ -293,7 +307,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     };
 
     ingredients = recipe.recipe_ingredients;
-      
+
     Restangular
     .all('recipes')
     .post(newRecipe)
@@ -302,13 +316,13 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
       _recipes[forkedRecipe.id] = forkedRecipe;
       _setCurrents(forkedRecipe.id, currentUser );
       _recipes[forkedRecipe.id].recipe_ingredients = [];
-      
+
       for(var i = 0;i < ingredients.length; i++) {
         var ri = {unit_id: ingredients[i].unit_id,
                   ingredient_id: ingredients[i].ingredient_id,
                   quantity: ingredients[i].quantity,
-        }          
-        addRecipeIngredient(ri)    
+        }
+        addRecipeIngredient(ri)
       }
 
        $state.go('reciffy.recipes.show', {id: forkedRecipe.id});
@@ -342,5 +356,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     makeRecipeIngredient: makeRecipeIngredient,
     addRecipeIngredient: addRecipeIngredient,
     forkRecipe: forkRecipe,
+    deleteRecipe: deleteRecipe,
   };
 }]);
