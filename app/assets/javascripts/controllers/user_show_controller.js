@@ -16,7 +16,6 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     $scope.tags = user.profile.tags;
     $scope.newTag = { name: "" };
     $scope.avatar = user.photo.url.medium;
-    $scope.uploadedPhoto;
   })
 
 
@@ -83,6 +82,25 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
   $scope.openFileWindow = function () {
     angular.element( document.querySelector( '#fileUpload' ) ).trigger('click');
     console.log('triggering click');
+  };
+
+  $scope.uploadImage = function (path) {
+   // if updating profile
+    if ($scope.profile.id) {
+      // do put request
+      Restangular.one('profiles', $scope.profile.id).customPUT({
+        profile: {
+          avatar: $scope.profile.imageData
+        }
+      }).then( function (result) {
+        // create image link (rails returns the url location of the file; depending on your application config, you may not need baseurl)
+        $scope.profileImageLink = 'http://localhost:3000' + result.image_url;
+        console.log('Uploaded image');
+        console.log(result);
+      }, function (error) {
+        console.log('errors', JSON.stringify(errors));
+      });
+    };
   };
 
 }])
