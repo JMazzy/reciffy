@@ -26,6 +26,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def top
+     
+    @users = []
+    User.get_top_users.each do |user|
+      @users.push(show_user_json(user))
+    end
+
+    respond_to do |format|
+      format.json { render json: @users.to_json }
+    end
+  end
+
+  def top_cooks
+     
+    @users = []
+    User.get_top_users_who_cook.each do |user|
+      @users.push(show_user_json(user))
+    end
+
+    respond_to do |format|
+      format.json { render json: @users.to_json }
+    end
+  end
+
   private
 
   def user_params

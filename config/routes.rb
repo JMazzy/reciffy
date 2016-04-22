@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       end
       get '/top_recipes', to: 'recipes#top'
       get '/trending_recipes', to: 'recipes#trending'
-
+      get '/top_users', to: 'users#top'
+      get '/top_cooks', to: 'users#top_cooks'
+      
       resources :users
       resources :profiles, only: [:new, :create, :show, :edit, :update]
 

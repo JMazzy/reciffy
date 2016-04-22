@@ -1,0 +1,21 @@
+<div class="panel panel-default user-preview">
+
+  <div class="panel-heading">
+    <h4 style="font-size:small;">
+      {{user.profile.first_name}} {{user.profile.last_name}}</h4>
+  </div>
+
+  <div class="panel-body">
+    <img ng-src="{{user.photo.url.thumb}}">
+  </div>
+
+  <div class='panel-footer'>
+    <p style="font-size:x-small">
+      {{user.profile.tagline | limitTo : 20 : 0}}...
+    </p>
+    <div class="tag label label-info" ng-repeat="tag in user.profile.tags" style="font-size:x-small;">
+      <span class="pull-left">{{tag.name}}</span>
+    </div>
+  </div>
+
+</div>

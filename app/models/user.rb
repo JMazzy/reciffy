@@ -94,4 +94,51 @@ class User < ActiveRecord::Base
       .order("tags.name")
     tagged_users.as_json
   end
+
+  def self.get_top_users(n = 10)
+    top_users = User.includes(:received_subscription_requests)
+    .group("users.id")
+    .order('users.id desc').count('users.id')
+
+    top_users_list = []
+
+    top_users.each_with_index do |val, index|
+      top_users_list.push(User.find_by_id(val[0]))
+      break if index >= n
+    end
+
+    return top_users_list
+  end 
+
+  def self.get_top_users_who_cook(n = 10)
+    users = User.includes(:made_recipes)
+    .group("users.id")
+    .order('users.id desc').count('users.id')
+
+    users_list = []
+
+    users.each_with_index do |val, index|
+      users_list.push(User.find_by_id(val[0]))
+      break if index >= n
+    end
+
+    return users_list
+  end 
+
+
+  def self.get_top_rated_users(n = 10)
+    top_users = User.includes(:ratings)
+    .group("users.id")
+    .order('users.id desc').count('users.id')
+
+    top_users_list = []
+
+    top_users.each_with_index do |val, index|
+      top_users_list.push(User.find_by_id(val[0]))
+      break if index >= n
+    end
+
+    return top_users_list
+  end 
+
 end
