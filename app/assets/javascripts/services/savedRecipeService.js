@@ -18,7 +18,6 @@ reciffy.factory('savedRecipeService', ['Restangular', function(Restangular) {
   };
 
   var populateSaved = function(rawData) {
-    console.log(rawData);
     rawData.forEach(function(recipeJson) {
       _saved[recipeJson.id] = recipeJson;
     });
