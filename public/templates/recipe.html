@@ -13,8 +13,8 @@
         </span>
         </h4>
 
-        <rating ng-model="rating" class="star-rating" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-
+        <input-stars ng-model="currentStuff.rating.rating" max="5" ng-change="submitRating()"></input-stars>
+        
         <p>
           <span editable-text='currentStuff.recipe.description' onaftersave='updateMainRecipe()'
                 e-ng-disabled='getDisabledStatus()'>

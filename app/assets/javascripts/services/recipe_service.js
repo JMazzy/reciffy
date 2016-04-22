@@ -1,4 +1,4 @@
-reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular, $state) {
+reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', function(Restangular, $state, $stateParams) {
   var _recipes = {};
   var _comments = {};
   var _tags = {};
@@ -12,7 +12,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     comment: {comment_description: "", recipe_id: null},
     disabledStatus: true,
     show_recipe_made: false,
-    rating: {rating: undefined, recipe_id: null},
+    rating: {rating: 0, recipe_id: null},
   };
 
   var checkRecipeMade = function(recipe) {
@@ -164,7 +164,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .then( function(recipe) {
       console.log(recipe)
       _recipes[recipe.id] = recipe;
-      _setCurrents(recipe.id, currentUser);
+      $state.go('reciffy.recipes.show', {id: recipe.id});
     });
   }
 
@@ -223,13 +223,12 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     });
   };
 
-  var rateRecipe = function(rating) {
-    console.log(rating);
+  var rateRecipe = function() {
     Restangular
     .all("ratings")
-    .save({rating: {rating: rating}})
+    .post({rating: _currents.rating})
     .then(function(response) {
-      console.log(response);
+      _currents.rating = response;
     }, function(error) {
       console.log(error);
     });
@@ -269,12 +268,14 @@ reciffy.factory('RecipeService', ['Restangular', '$state', function(Restangular,
     .one("recipe_ingredients", ri.id)
     .remove()
     .then(function(deletedRecipeIngredient) {
-      recipe = getCurrentRecipe()
-      var ind = recipe.recipe_ingredients.indexOf(ri);
-      if (ind > 0) {
-        recipe.recipe_ingredients.splice(ind,1);
+      var length = _currents.recipe.recipe_ingredients.length
+      for ( var i = 0; i < length; i++ ) {
+        if ( _currents.recipe.recipe_ingredients[i]
+          && deletedRecipeIngredient
+          && _currents.recipe.recipe_ingredients[i].id === deletedRecipeIngredient.id ) {
+          _currents.recipe.recipe_ingredients.splice(i, 1);
+        }
       }
-      console.log("Removed Recipe Ingreient");
     })
   };
 

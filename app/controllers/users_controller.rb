@@ -21,9 +21,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     respond_to do |format|
       if @user.update(user_params)
-        format.json { render json: @user.to_json( include: [
-          :recipes,
-          profile: { include: :tags } ] ) }
+        format.json { render json: show_user_json(@user) }
       end
     end
   end

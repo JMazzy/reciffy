@@ -28,7 +28,7 @@ class RecipeIngredientsController < ApplicationController
         format.html { redirect_to request.referrer }
         format.json { render json: @recipe_ingredient }
       end
-    end  
+    end
   end
 
   def destroy
@@ -38,16 +38,16 @@ class RecipeIngredientsController < ApplicationController
       respond_to do |format|
         if @recipe_ingredient.destroy
           format.html { redirect_to request.referrer }
-          format.json { head :no_content }
+          format.json { render json: @recipe_ingredient }
          else
           format.html { redirect_to request.referrer }
-          format.json { head :no_content }
+          format.json { render json: @recipe_ingredient }
         end
       end
     end
-      
-  end 
-  
+
+  end
+
   private
 
   def recipe_ingredient_params

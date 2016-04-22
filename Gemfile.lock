@@ -75,12 +75,12 @@ GEM
     autoprefixer-rails (6.3.6)
       execjs
     awesome_print (1.6.1)
-    aws-sdk (2.2.35)
-      aws-sdk-resources (= 2.2.35)
-    aws-sdk-core (2.2.35)
+    aws-sdk (2.2.36)
+      aws-sdk-resources (= 2.2.36)
+    aws-sdk-core (2.2.36)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.2.35)
-      aws-sdk-core (= 2.2.35)
+    aws-sdk-resources (2.2.36)
+      aws-sdk-core (= 2.2.36)
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -142,6 +142,8 @@ GEM
     ffi (1.9.10)
     figaro (1.1.1)
       thor (~> 0.14)
+    font-awesome-sass (4.5.0)
+      sass (>= 3.2)
     formatador (0.2.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -352,6 +354,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   figaro
+  font-awesome-sass
   guard-rspec
   hirb
   jazz_hands!

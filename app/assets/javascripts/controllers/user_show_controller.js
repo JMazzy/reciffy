@@ -1,4 +1,4 @@
-reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser) {
+reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', 'Upload', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser, Upload) {
 
   $scope.user_subscribed = false
 
@@ -15,6 +15,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     $scope.tags = user.profile.tags;
     $scope.newTag = { name: "" };
     $scope.avatar = user.photo.url.medium;
+    $scope.uploadedPhoto;
   })
 
 
@@ -25,9 +26,11 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       bio: $scope.profile.bio,
       tagline: $scope.profile.tagline,
       city: $scope.profile.city,
-      state: $scope.profile.state
+      state: $scope.profile.state,
+      avatar: $scope.uploadedPhoto || $scope.avatar
     }).then(function(newProfile) {
       console.log(newProfile);
+      console.log($scope.avatar);
     })
   };
 
@@ -72,6 +75,11 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
         }
       }
     })
+  };
+
+  $scope.openFileWindow = function () {
+    angular.element( document.querySelector( '#fileUpload' ) ).trigger('click');
+    console.log('triggering click');
   };
 
 }])

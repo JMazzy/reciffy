@@ -26,51 +26,6 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.r_quantity = ""
   $scope.r_ingredient = ""
 
-  // Star Ratings
-  $scope.max = 5;
-  $scope.isReadonly = false;
-
-  $scope.hoveringOver = function(value) {
-    $scope.overStar = value;
-    $scope.percent = 100 * (value / $scope.max);
-  };
-
-  $scope.ratingStates = [{
-    stateOn: 'glyphicon-ok-sign',
-    stateOff: 'glyphicon-ok-circle'
-  }, {
-    stateOn: 'glyphicon-star',
-    stateOff: 'glyphicon-star-empty'
-  }, {
-    stateOn: 'glyphicon-heart',
-    stateOff: 'glyphicon-ban-circle'
-  }, {
-    stateOn: 'glyphicon-heart'
-  }, {
-    stateOff: 'glyphicon-off'
-  }];
-
-  $scope.$watch('rate', function(val) {
-    function success(data) {
-      console.log(data);
-    };
-
-    function error(response) {
-      console.log(response)
-      alert("Can't post " + response.data + " Error:" + response.status);
-    }
-
-    if (val) {
-      var data = {
-        rating: val,
-        user: "userId" // I'm not sure where is your userId
-
-      }
-
-      $http.post("yourUrl", data).then(success, error);
-    }
-  })
-
   $scope.getDisabledStatus = function() {
     return RecipeService.getdisabledStatus();
   }
@@ -119,7 +74,11 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.deleteRecipeIngredient = function(ri) {
     if (!RecipeService.getdisabledStatus()) {
-       RecipeService.removeRecipeIngredient(ri);
+      RecipeService.removeRecipeIngredient(ri);
+
+      $scope.r_unit = "";
+      $scope.r_quantity = "";
+      $scope.r_ingredient = "";
     }
   };
 
@@ -130,14 +89,19 @@ reciffy.controller( 'RecipeShowCtrl',
                 quantity: $scope.r_quantity
       }
       RecipeService.addRecipeIngredient(ri);
+
+      $scope.r_unit = "";
+      $scope.r_quantity = "";
+      $scope.r_ingredient = "";
     }
-  }
+  };
 
   $scope.forkRecipe = function(recipe) {
     RecipeService.forkRecipe(recipe);
   };
 
   $scope.submitRating = function() {
+    console.log($scope.currentStuff.rating)
     RecipeService.rateRecipe();
   };
 

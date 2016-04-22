@@ -6,6 +6,8 @@
 @import "bootstrap";
 @import "pure-drawer";
 @import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 /************************/
 /* Reciffy Color Scheme */
@@ -231,7 +233,6 @@ span.editable-click {
 
 }
 
-
 span.editable-click.editable-disabled {
   color: black;
   border-bottom: none;
@@ -241,32 +242,27 @@ span.editable-empty {
   font-style: italic;
 }
 
-.rating-label {
-  position: absolute;
-  top: 5px;
-  right: 5px;
+/* <input-star></input-star> directive */
+.angular-input-stars {
+	display: inline-block;
+	padding: 0;
+	padding-left: -5px;
+	list-style: none;
 }
 
-.star-rating {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
+.angular-input-stars > li {
+	font-size: 17px;
+	display: inline-block;
+	padding-right: 5px;
+	padding-left: 5px;
+	cursor: pointer;
+}
 
-  .star {
-    padding: 1px;
-    color: #ddd;
-    font-size: 20px;
-    // text-shadow: .05em .05em #aaa;
-    list-style-type: none;
-    display: inline-block;
-    cursor: pointer;
+.angular-input-stars > li .active {
+		color: #FDE35E;
+		text-shadow: black 0 0 1px, 0 0 1px ;
+}
 
-    &.filled {
-      color: #fd0;
-    }
-  }
-
-  &.readonly .star.filled {
-    color: #666;
-  }
+.angular-input-stars > li .active.angular-input-stars-hover {
+	text-shadow: black 0 0 3px;
 }
