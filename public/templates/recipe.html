@@ -92,18 +92,21 @@
 
         </div>
 
-        <ul>
-          <li ng-repeat="ri in currentStuff.recipe.recipe_ingredients">
-            {{ri.quantity}}
-            {{ri.unit.unit_type}}
-            {{ri.ingredient.name}}
-            <a ng-hide='getDisabledStatus()'>
-              <i class="remove glyphicon glyphicon-remove glyphicon-white pull-right"
-                  ng-click="deleteRecipeIngredient(ri)">
-              </i>
-            </a>
-          </li>
-        </ul>
+        <table class="table table-striped">
+          <tbody>
+            <tr ng-repeat="ri in currentStuff.recipe.recipe_ingredients">
+              <td class="col-md-4"> {{ri.quantity}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
+              </td>
+              <td ng-hide='getDisabledStatus()'>
+                <a>
+                  <i class="remove glyphicon glyphicon-remove glyphicon-white pull-left"
+                     ng-click="deleteRecipeIngredient(ri)">
+                  </i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>  
 
         <h4>Instructions</h4>
 
