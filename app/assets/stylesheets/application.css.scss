@@ -190,6 +190,7 @@ div.panel {
 }
 
 .tag {
+  color: #eee;
   font-size: 14px;
   padding: 2px, 1px;
   margin: 0.1em;
@@ -197,13 +198,17 @@ div.panel {
   line-height: 16px;
 }
 .tag a {
-  color: #bbb;
+  color: #eee;
   cursor: pointer;
   opacity: 0.6;
   vertical-align: bottom;
 }
 .tag a:hover {
+  color: #eee;
   opacity: 1.0
+}
+.tag a:visited {
+  color: #eee;
 }
 .tag .remove {
   vertical-align: bottom;

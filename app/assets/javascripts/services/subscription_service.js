@@ -10,13 +10,13 @@ reciffy.factory('subscriptionService', ['Restangular', function(Restangular) {
       Restangular.all('subscriptions').getList().then(function(result){
         obj.populateSubscriptions(result);
       });
-    
+
     };
 
     obj.populateSubscriptions = function(allSubscriptions) {
        console.log(allSubscriptions.length)
        if (allSubscriptions.length) {
-          for (var i = 0; i < allSubscriptions.length; i++) { 
+          for (var i = 0; i < allSubscriptions.length; i++) {
             subscriptions.push(allSubscriptions[i]);
           }
        }
@@ -53,7 +53,7 @@ reciffy.factory('subscriptionService', ['Restangular', function(Restangular) {
         },
         function(res)  {
           alert("Could not Unsubscribe to: " + subscriptionObj.profile.first_name);
-        }    
+        }
       )
     };
 
