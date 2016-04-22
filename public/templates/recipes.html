@@ -4,7 +4,7 @@
   <div class="row">
     <h3>Top Rated</h3>
     <div ng-repeat="recipe in topRecipes | limitTo : 8" class="recipe-holder">
-      <div class="col-xs-6 col-sm-4 col-md-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
         <a ui-sref="reciffy.recipes.show({id: recipe.id})">
           <recipe-directive recipe="recipe"></recipe-directive>
@@ -18,7 +18,7 @@
   <div class="row">
     <h3>New</h3>
     <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | limitTo : 8" class="recipe-holder">
-      <div class="col-xs-6 col-sm-4 col-md-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
         <a ui-sref="reciffy.recipes.show({id: recipe.id})">
           <recipe-directive recipe="recipe"></recipe-directive>
@@ -31,7 +31,7 @@
   <div class="row">
     <h3>Saved for Later</h3>
     <div ng-repeat="savedRecipe in savedRecipes | orderObjectBy : '-created_at' | limitTo : 8" class="recipe-holder">
-      <div class="col-xs-6 col-sm-4 col-md-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
         <a ui-sref="reciffy.recipes.show({id: savedRecipe.recipe_id})">
           <recipe-directive recipe="recipes[savedRecipe.recipe_id]"></recipe-directive>
@@ -44,7 +44,7 @@
   <div class="row">
     <h3>Make Again</h3>
     <div ng-repeat="madeRecipe in madeRecipes | orderBy : '-created_at' | limitTo : 8" class="recipe-holder">
-      <div class="col-xs-6 col-sm-4 col-md-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
         <a ui-sref="reciffy.recipes.show({id: madeRecipe.recipe_id})">
           <recipe-directive recipe="recipes[madeRecipe.recipe_id]"></recipe-directive>
@@ -57,7 +57,7 @@
   <div class="row">
     <h3>My Recipes</h3>
     <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | filter : { user_id: currentUser.id } | limitTo : 8" class="recipe-holder">
-      <div class="col-xs-6 col-sm-4 col-md-3">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
           <a ui-sref="reciffy.recipes.show({id: recipe.id})">
             <recipe-directive recipe="recipe"></recipe-directive>
@@ -69,8 +69,8 @@
 
   <div class="row">
     <h3>Recommended</h3>
-    <div ng-repeat="rec in recs">
-      <div class="col-xs-6 col-sm-4 col-md-3">
+    <div ng-repeat="rec in recs | limitTo : 8">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
         <a ui-sref="reciffy.recipes.show({id: rec})">
           <recipe-directive recipe="recipes[rec]"></recipe-directive>
@@ -86,8 +86,8 @@
   <div ng-repeat="(tagName, tagGroup) in allTaggings | groupBy : 'tag.name' | limitTo : 10">
     <h4>{{ tagName }}</h4>
     <div class="row">
-      <div ng-repeat="tagging in tagGroup | orderBy : '-created_at' | limitTo : 3">
-        <div class="col-xs-6 col-sm-4 col-md-3">
+      <div ng-repeat="tagging in tagGroup | orderBy : '-created_at' | limitTo : 8">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
           <a ui-sref="reciffy.recipes.show({id: tagging.taggable_id})">
             <recipe-directive recipe="recipes[tagging.taggable_id]"></recipe-directive>
