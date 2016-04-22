@@ -2,7 +2,7 @@
 
   <div class="panel-heading">
     <h4 style="font-size:small;">
-      {{user.profile.first_name}} {{user.profile.last_name}}</h4>
+      {{user.profile.first_name + " " + user.profile.last_name | limitTo : 20 : 0}}</h4>
   </div>
 
   <div class="panel-body">
