@@ -1,7 +1,7 @@
 class RecipeIngredientsController < ApplicationController
 
   def index
-    @recipe_ingredients = RecipeIngredient.all
+    @recipe_ingredients = RecipeIngredient.all.includes(:recipe, :unit, :ingredient)
     respond_to do |format|
       format.json { render json: @recipe_ingredients }
     end
