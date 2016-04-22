@@ -130,7 +130,7 @@
 
         <h4>Tags</h4>
         <div class="tag label label-info" ng-repeat="(id,tag) in tags" >
-          <span class="pull-left">{{tag.name}} | </span>
+          <span class="pull-left"><a ui-sref="reciffy.tags.show({id: id})">{{tag.name}}</a> | </span>
           <a><i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" ng-click="deleteTag(tag.id)"></i></a>
         </div>
         <div class="input-group">

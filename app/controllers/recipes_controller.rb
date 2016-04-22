@@ -2,7 +2,7 @@ class RecipesController < ApplicationController
   include RecipeJsonConverter
 
   def index
-    @recipes = Recipe.all.includes(:recipe_ingredients, :units, :ingredients, :photos)
+    @recipes = Recipe.all.includes(:recipe_ingredients, :units, :ingredients, :photos, :profile)
     respond_to do |format|
       format.html
       format.json { render json: index_recipe_json(@recipes) }

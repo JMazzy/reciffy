@@ -83,10 +83,10 @@ $menu-green: #238843;
   border-top: 1px solid $toggler-color;
   border-bottom: 1px solid $toggler-color;
   height: 75px;
-  color: #fff;
+  color: $white;
   display: block;
   &:hover, &:focus, &:active {
-    color: #fff;
+    color: $white;
     background: rgba(0,0,0,0.4);
     text-decoration: none;
   }
@@ -153,7 +153,8 @@ div.panel {
 }
 
 .recipe-body {
-  height: 250px;
+  background-color: $menu-grey;
+  height: 150px;
   text-align: center;
   padding: 0;
   img {
@@ -190,6 +191,7 @@ div.panel {
 }
 
 .tag {
+  color: #eee;
   font-size: 14px;
   padding: 2px, 1px;
   margin: 0.1em;
@@ -197,13 +199,17 @@ div.panel {
   line-height: 16px;
 }
 .tag a {
-  color: #bbb;
+  color: #eee;
   cursor: pointer;
   opacity: 0.6;
   vertical-align: bottom;
 }
 .tag a:hover {
+  color: #eee;
   opacity: 1.0
+}
+.tag a:visited {
+  color: #eee;
 }
 .tag .remove {
   vertical-align: bottom;
@@ -212,7 +218,7 @@ div.panel {
   margin: 1px 0 0 1px;
 }
 .tag a .glyphicon-white {
-  color: #fff;
+  color: $white;
   margin-bottom: 2px;
 }
 
@@ -242,12 +248,17 @@ span.editable-empty {
   font-style: italic;
 }
 
+/******************/
+/*     Ratings    */
+/******************/
+
 /* <input-star></input-star> directive */
 .angular-input-stars {
 	display: inline-block;
 	padding: 0;
 	padding-left: -5px;
 	list-style: none;
+  color: #666;
 }
 
 .angular-input-stars > li {
@@ -259,7 +270,7 @@ span.editable-empty {
 }
 
 .angular-input-stars > li .active {
-		color: #FDE35E;
+		color: #F0AD4E;
 		text-shadow: black 0 0 1px, 0 0 1px ;
 }
 
@@ -267,8 +278,10 @@ span.editable-empty {
 	text-shadow: black 0 0 3px;
 }
 
+// The small label in the upper right corner of the previews
 .rating-label {
   position: absolute;
+  color: #333;
   top: 5px;
   right: 5px;
 }
