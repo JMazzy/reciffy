@@ -75,7 +75,7 @@ end
 
 puts "Creating Ingredients"
 
-usda_ingredients
+quick_ingredients
 
 puts "Creating Units"
 
