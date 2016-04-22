@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def index
     @users = []
-    User.all.each do |user|
+    User.all.includes(:made_recipes, :saved_recipes).each do |user|
       @users.push(show_user_json(user))
     end
 

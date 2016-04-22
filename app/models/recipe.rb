@@ -50,10 +50,13 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.tags_personal_highest_rated(rater_id)
+    # Top Ten personally highest rated recipes with rating > 3
     top_ten = User.find(rater_id).ratings.joins("JOIN recipes ON (recipe_id = recipes.id)").order("ratings.rating DESC").where("ratings.rating > 3").limit(10)
 
+    # All tags associated with those recipes
     tags = top_ten.joins("JOIN taggings ON (taggable_id = recipes.id)").where("taggable_type = 'Recipe'").joins("JOIN tags on (tag_id = tags.id)").select("tags.*")
 
+    # All other recipes associated with those tags
     recipes = tags.joins("JOIN recipes ON (recipe_id = recipes.id)").select("recipe_id").limit(10)
 
     recipes.map{ |s| s.id }.uniq
