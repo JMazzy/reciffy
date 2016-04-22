@@ -33,4 +33,20 @@ class Recipe < ActiveRecord::Base
     tagged_recipes.json
   end
 
+  def self.get_top_recipes(n = 10)
+    top_recipes = Recipe.includes(:ratings)
+    .group("recipes.id")
+    .average("COALESCE(ratings.rating, 0)")
+    .sort_by { |id, avg_rating| -avg_rating }
+
+    top_recipe_list = []
+
+    top_recipes.each_with_index do |val, index|
+      top_recipe_list.push(Recipe.find_by_id(val[0]))
+      break if index >= n
+    end
+
+    return top_recipe_list
+  end
+
 end
