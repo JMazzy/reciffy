@@ -20,4 +20,8 @@ class Profile < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def get_user_tags
+    self.tags.pluck(:name)
+  end  
 end
