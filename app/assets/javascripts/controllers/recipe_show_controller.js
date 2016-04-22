@@ -97,7 +97,7 @@ reciffy.controller( 'RecipeShowCtrl',
   };
 
   $scope.forkRecipe = function(recipe) {
-    RecipeService.forkRecipe(recipe);
+    RecipeService.forkRecipe(recipe,currentUser);
   };
 
   $scope.submitRating = function() {

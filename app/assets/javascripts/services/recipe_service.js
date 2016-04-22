@@ -103,6 +103,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
 
   var _setCurrents = function(recipe_id, currentUser) {
     _currents.recipe = _recipes[recipe_id];
+
     _currents.disabledStatus = ( currentUser.id != _recipes[recipe_id].user_id );
      checkRecipeMade(_recipes[recipe_id])
 
@@ -279,23 +280,37 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     })
   };
 
-  var forkRecipe = function( recipe, currentUser ) {
+  var forkRecipe = function(recipe, currentUser) {
     var newRecipe = {
       name: recipe.name,
-      description: recipe.description,
+      description:  recipe.description,
       instructions: recipe.instructions,
-      prep_time: recipe.prep_time,
-      cook_time: recipe.cook_time,
-      original_id: currentUser.id
+      prep_time:    recipe.prep_time,
+      cook_time:    recipe.cook_time,
+      original_id:  recipe.user_id,
+      user_id: currentUser.id
     };
 
+    ingredients = recipe.recipe_ingredients;
+      
     Restangular
     .all('recipes')
     .post(newRecipe)
-    .then( function(recipe) {
-      console.log(recipe)
-      _recipes[recipe.id] = recipe;
-      _setCurrents(recipe.id, currentUser);
+    .then( function(forkedRecipe) {
+
+      _recipes[forkedRecipe.id] = forkedRecipe;
+      _setCurrents(forkedRecipe.id, currentUser );
+      _recipes[forkedRecipe.id].recipe_ingredients = [];
+      
+      for(var i = 0;i < ingredients.length; i++) {
+        var ri = {unit_id: ingredients[i].unit_id,
+                  ingredient_id: ingredients[i].ingredient_id,
+                  quantity: ingredients[i].quantity
+        }          
+        addRecipeIngredient(ri)    
+      }
+
+       $state.go('reciffy.recipes.show', {id: forkedRecipe.id});
     });
   }
 
