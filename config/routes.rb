@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       resources :recipe_ingredients
       resources :ingredients, only: [:index, :show]
       resources :units, only: [:index, :show]
+      resources :recommendations, only: [:index]
     end
   end
 

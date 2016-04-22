@@ -10,6 +10,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   'madeRecipeService',
   'topRecipeService',
   'trendingRecipeService',
+  'RecommendationService',
   'currentUser',
   function(
     Auth,
@@ -22,6 +23,7 @@ reciffy.controller( 'RecipeIndexCtrl',
     madeRecipeService,
     topRecipeService,
     trendingRecipeService,
+    RecommendationService,
     currentUser ) {
 
   $scope.currentUser = currentUser;
@@ -31,11 +33,20 @@ reciffy.controller( 'RecipeIndexCtrl',
   madeRecipeService.getAllMadeRecipes();
   topRecipeService.callTopRecipes();
   trendingRecipeService.callTrendingRecipes();
+  topRecipeService.callTopRecipes().then(
+    function() {
+      $scope.topRecipes = topRecipeService.getTopRecipes();
+    }
+  );
+  RecommendationService.populateRecommendations();
 
   $scope.recipes = RecipeService.getRecipes();
   $scope.savedRecipes = savedRecipeService.getSavedRecipes();
   $scope.madeRecipes = madeRecipeService.getMadeRecipes();
   $scope.topRecipes =  topRecipeService.getTopRecipes();
   $scope.trendingRecipes =  trendingRecipeService.getTrendingRecipes();
+
+  $scope.recs = RecommendationService.getRecommendations();
+
   $scope.allTaggings = Restangular.all('taggings').getList().$object;
 }]);

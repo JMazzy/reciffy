@@ -1,11 +1,11 @@
 reciffy.factory('topRecipeService', ['Restangular', function(Restangular) {
 
-  var _top = {};
+  var _top = [];
 
   var callTopRecipes = function() {
     // Don't make another API call if we already have the data
     if (Object.keys(_top).length === 0) {
-      Restangular.all('top_recipes').getList()
+      return Restangular.all('top_recipes').getList()
       .then(
         function(data) {
           populateTopRecipes(data);
@@ -19,7 +19,7 @@ reciffy.factory('topRecipeService', ['Restangular', function(Restangular) {
 
   var populateTopRecipes = function(rawData) {
     rawData.forEach(function(recipeJson) {
-      top[recipeJson.id] = recipeJson;
+      _top.push(recipeJson);
     });
   };
 

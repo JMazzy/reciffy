@@ -68,8 +68,6 @@ class Recipe < ActiveRecord::Base
       .group("recipes.id")
       .order('recipes.id asc').count('recipes.id')
     
-    #puts "XXXXXXXXXXX"
-    #puts "#{recipes}"
     trending_recipe_list = []
 
     recipes.each_with_index do |val, index|
@@ -77,9 +75,35 @@ class Recipe < ActiveRecord::Base
       break if index >= n
     end
 
-    puts "Got here #{trending_recipe_list}"
-
     return trending_recipe_list
+  end
+
+  def self.personal_top_ten(rater_id)
+    # Top Ten personally highest rated recipes with rating > 3
+    User.find(rater_id).ratings.joins("JOIN recipes ON (recipe_id = recipes.id)").order("ratings.rating DESC").where("ratings.rating > 3").select("recipes.*").limit(10)
+  end
+
+  def self.personal_top_tags(user_id)
+    top_ten = Recipe.personal_top_ten(user_id)
+
+    # All tags associated with those recipes
+    top_ten.joins("JOIN taggings ON (taggable_id = recipes.id)").where("taggable_type = 'Recipe'").joins("JOIN tags on (tag_id = tags.id)").select("tags.*")
+  end
+
+  def self.recs_tags(user_id)
+    tags = Recipe.personal_top_tags(user_id)
+
+    # All other recipes associated with those tags
+    recipes = tags.joins("JOIN recipes ON (recipe_id = recipes.id)").select("recipe_id").limit(10)
+
+    recipes.map{ |s| s.id }.uniq
+  end
+
+  def self.recs_subscribed(subscriber_id)
+    subscribed_recipes = Recipe.all.joins('JOIN subscriptions ON (subscribed_id = user_id)').where("subscriber_id = #{subscriber_id}").order("recipes.created_at DESC").select("id").limit(10)
+
+    subscribed_recipes.map{ |s| s.id }.uniq
+
   end
 
 end
