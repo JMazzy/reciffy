@@ -50,6 +50,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def best_cooks
+     
+    @users = []
+    User.get_best_cooks.each do |user|
+      @users.push(show_user_json(user))
+    end
+
+    respond_to do |format|
+      format.json { render json: @users.to_json }
+    end
+  end
+
   private
 
   def user_params

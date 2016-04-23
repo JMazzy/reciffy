@@ -123,10 +123,12 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     for ( var r = 0; r < _currents.recipe.ratings.length; r++) {
       if ( _currents.recipe.ratings[r].user_id === currentUser.id ) {
         _currents.rating.rating = _currents.recipe.ratings[r].rating;
+        _currents.rating.id = _currents.recipe.ratings[r].id;
         break;
       }
     }
     _currents.rating.recipe_id = recipe_id;
+
   };
 
   var setCurrentRecipe = function( recipe_id, currentUser ) {
@@ -145,6 +147,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     for (var comment in _comments) delete _comments[comment];
     _currents.rating.rating = 0;
     _currents.rating.recipe_id = null;
+    _currents.rating.id = null;
   }
 
   var _requestSingleRecipe = function(recipe_id, currentUser) {
@@ -247,14 +250,24 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var rateRecipe = function() {
-    Restangular
-    .all("ratings")
-    .post({rating: _currents.rating})
-    .then(function(response) {
-      _currents.rating = response;
-    }, function(error) {
-      console.log(error);
-    });
+    if ( _currents.rating.id ) {
+      Restangular.one("ratings", _currents.rating.id)
+      .patch({rating: _currents.rating})
+      .then(function(response) {
+        _currents.rating = response;
+      }, function(error) {
+        console.log(error);
+      });
+    } else {
+      Restangular.all("ratings")
+      .post({rating: _currents.rating})
+      .then(function(response) {
+        _currents.rating = response;
+      }, function(error) {
+        console.log(error);
+      });
+    }
+
   }
 
   var updateRecipe = function() {

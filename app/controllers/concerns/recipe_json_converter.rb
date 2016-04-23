@@ -59,6 +59,8 @@ module RecipeJsonConverter extend ActiveSupport::Concern
       json_response["recipe_ingredients"].push(ri.as_json)
     end
 
+    json_response["profile"] = recipe.profile.as_json
+
     return json_response.as_json
   end
 end

@@ -55,7 +55,7 @@ class Recipe < ActiveRecord::Base
   def self.get_trending_recipes(user,n = 10)
     puts "Finds all user tags and gets recipes for that tag"
     puts "Recipes include average highest ratings for ratings in past 7 days"
-    
+
     # What happens when no tags are created for the user?
     #   >> user all tags?
 
@@ -63,11 +63,11 @@ class Recipe < ActiveRecord::Base
     recipes = Recipe.get_tagged_recipes(tags)
       .includes(:ratings, :made_recipes, :forked_recipes)
       .where(
-        "ratings.created_at >= :start OR made_recipes.created_at >= :start OR recipes.created_at >= :start", 
+        "ratings.created_at >= :start OR made_recipes.created_at >= :start OR recipes.created_at >= :start",
          :start => 1.week.ago.to_date)
       .group("recipes.id")
       .order('recipes.id asc').count('recipes.id')
-    
+
     trending_recipe_list = []
 
     recipes.each_with_index do |val, index|
