@@ -125,6 +125,25 @@ reciffy.controller( 'RecipeShowCtrl',
     RecipeService.rateRecipe();
   };
 
+  $scope.openFileWindow = function () {
+    angular.element( document.querySelector( '#fileUpload' ) ).trigger('click');
+    console.log('triggering click');
+  };
+
+  $scope.uploadImage = function (path) {
+    if ($scope.recipe.id) {
+      // do put request
+      Restangular.all('photos').post({
+        photo: $scope.imageData,
+        recipe_id: $scope.recipe.id
+      }).then( function (result) {
+        console.log('Uploaded image');
+      }, function (error) {
+        console.log('errors', JSON.stringify(errors));
+      });
+    };
+  };
+
   $scope.createSavedRecipe = function(recipeId, userId) {
     
   }

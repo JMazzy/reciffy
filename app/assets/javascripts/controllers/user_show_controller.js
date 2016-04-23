@@ -26,7 +26,6 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       tagline: $scope.profile.tagline,
       city: $scope.profile.city,
       state: $scope.profile.state,
-      avatar: $scope.uploadedPhoto || $scope.avatar
     }).then(function(newProfile) {
       console.log(newProfile);
       console.log($scope.avatar);
@@ -93,9 +92,9 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
         }
       }).then( function (result) {
         // create image link (rails returns the url location of the file; depending on your application config, you may not need baseurl)
-        $scope.profileImageLink = 'http://localhost:3000' + result.image_url;
         console.log('Uploaded image');
-        console.log(result);
+        // $scope.avatar = $scope.user.photo.url.medium;
+        console.log($scope.avatar);
       }, function (error) {
         console.log('errors', JSON.stringify(errors));
       });
