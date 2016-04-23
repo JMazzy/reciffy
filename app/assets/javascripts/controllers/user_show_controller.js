@@ -93,7 +93,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       }).then( function (result) {
         // create image link (rails returns the url location of the file; depending on your application config, you may not need baseurl)
         console.log('Uploaded image');
-        $scope.avatar = $scope.user.photo.url.medium;
+        // $scope.avatar = $scope.user.photo.url.medium;
         console.log($scope.avatar);
       }, function (error) {
         console.log('errors', JSON.stringify(errors));
