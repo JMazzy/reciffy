@@ -65,7 +65,17 @@
                    {{unit.unit_type}}
                   </option>
                 </select> -->
-                  <input type="text" ng-model="r_unit" class="form-control">
+                <angucomplete-alt
+                placeholder="Start typing an unit type..."
+                pause="100"
+                selected-object="r_unit"
+                local-data="units"
+                search-fields="unit_type"
+                title-field="unit_type"
+                minlength="1"
+                override-suggestions="true"
+                input-class="form-control"/>
+
                 </span>
               </div>
 
@@ -86,6 +96,7 @@
                 search-fields="name"
                 title-field="name"
                 minlength="1"
+                override-suggestions="true"
                 input-class="form-control"/>
 
                 </span>

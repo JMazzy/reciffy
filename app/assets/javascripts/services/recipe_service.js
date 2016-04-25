@@ -2,7 +2,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   var _recipes = {};
   var _comments = {};
   var _tags = {};
-  var _units = {};
+  var _units = [];
   var _ingredients = [];
   var _made_recipes = {};
 
@@ -60,7 +60,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .getList()
     .then( function(units) {
       for( var u = 0; u < units.length; u++ ) {
-        _units[units[u].id] = units[u];
+         _units.push(units[u]);
+        //_units[units[u].id] = units[u];
       }
     });
   };
