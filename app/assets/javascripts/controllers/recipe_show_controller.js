@@ -23,6 +23,7 @@ reciffy.controller( 'RecipeShowCtrl',
 
   RecipeService.setUnits();
   RecipeService.setIngredients();
+  RecipeService.setMadeRecipes(allMadeRecipes);
 
   RecipeService.setCurrentRecipe( $stateParams.id, currentUser );
 
