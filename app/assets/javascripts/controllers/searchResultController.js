@@ -13,15 +13,21 @@ reciffy.controller('searchResultCtrl',
       $scope,
       $stateParams,
       $state){
-        $scope.searchTag = TagService.findTagByName($stateParams.searchString);
-        console.log($scope.searchTag);
-        if ($scope.searchTag) {
-          TagService.callOneTag($scope.searchTag.id);
-          $scope.tagHolder = TagService.getTagHolder();
-          $scope.recipes = RecipeService.getRecipes();
-          $scope.users = UserService.getUsers();
+        // if the user refreshes page, redirect to recipes all route to reload
+        // data for angular services
+        if (Object.keys(RecipeService.getRecipes()).length === 0) {
+          $state.go('reciffy.recipes.all');
         } else {
-          $scope.noResults = "Sorry! No recipes or users by that tag!"
+          $scope.searchTag = TagService.findTagByName($stateParams.searchString);
+          if ($scope.searchTag) {
+            TagService.callOneTag($scope.searchTag.id);
+            $scope.tagHolder = TagService.getTagHolder();
+            $scope.recipes = RecipeService.getRecipes();
+            $scope.users = UserService.getUsers();
+            $scope.noResultsMsg = undefined;
+          } else {
+            $scope.noResultsMsg = "Sorry! No recipes or users by that tag!"
+          }
         }
 
 }]);

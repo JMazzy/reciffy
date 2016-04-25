@@ -8,8 +8,6 @@ reciffy.factory('TagService', ['Restangular', function(Restangular) {
   }
 
   var setTags = function() {
-    _tags = {};
-
     Restangular
     .all('tags')
     .getList()
@@ -27,7 +25,7 @@ reciffy.factory('TagService', ['Restangular', function(Restangular) {
       if (temp) {
         if (tagName == temp.name) {
           return temp;
-        }  
+        }
       }
     }
   };
