@@ -2,6 +2,7 @@ reciffy.controller('TagCtrl', [ '$scope', '$state', '$stateParams', 'Restangular
 
   TagService.callOneTag($stateParams.id);
   RecipeService.setRecipes();
+  UserService.setUsers();
 
   $scope.tagHolder = TagService.getTagHolder();
   $scope.recipes = RecipeService.getRecipes();
