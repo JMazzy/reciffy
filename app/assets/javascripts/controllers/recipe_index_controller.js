@@ -27,10 +27,10 @@ reciffy.controller( 'RecipeIndexCtrl',
     topRecipeService,
     trendingRecipeService,
     RecommendationService,
-    currentUser,
-    RecentRecipeService,
     TagService,
-    UserService, ) {
+    UserService,
+    currentUser,
+    RecentRecipeService ) {
 
   $scope.currentUser = currentUser;
 
@@ -54,4 +54,14 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.recs = RecommendationService.getRecommendations();
 
   $scope.allTaggings = Restangular.all('taggings').getList().$object;
+
+  // $scope.page = 1;
+  // $scope.items = [];
+  // $scope.loadNewItems = function () {
+  //   itemsFactory.getAll({ page: $scope.page }).then(function (items) {
+  //     $scope.items = $scope.items.concat(items);
+  //     $scope.page += 1;
+  //   });
+  // };
+
 }]);
