@@ -150,6 +150,13 @@
             <button class="btn btn-info btn-sm" type="button" ng-click="addTag()">Tag It</button>
           </span>
         </div>
+
+        <p>
+          Source: <a href="{{currentStuff.recipe.link}}">
+            {{currentStuff.recipe.link || "link"}}
+          </a>
+        </p>
+
       </div>
 
       <div class="panel-footer">
