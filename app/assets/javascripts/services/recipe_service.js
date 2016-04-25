@@ -284,10 +284,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     })
   };
 
-  var makeRecipeIngredient = function() {
-
-  };
-
   var addRecipeIngredient = function(recipe_ingredient) {
     recipe = getCurrentRecipe()
     recipe_ingredient["recipe_id"] = recipe.id
@@ -296,7 +292,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     recipe_ingredient["quantity"] = fractQuant.n / fractQuant.d;
 
     return Restangular.all('recipe_ingredients')
-          .post(scrubbedRI)
+          .post(recipe_ingredient)
           .then(
              function(response)  {
                recipe.recipe_ingredients.unshift(response);
