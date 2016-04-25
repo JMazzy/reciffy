@@ -2,7 +2,7 @@
   <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | filter : { user_id: currentUser.id }">
     <div class="col-xs-6 col-sm-4 col-md-3 made-recipe-holder">
 
-      <a ui-sref="reciffy.recipes.show({id: recipe.recipe_id})">
+      <a ui-sref="reciffy.recipes.show({id: recipe.id})">
         <recipe-directive recipe="recipe"></recipe-directive>
       </a>
 
