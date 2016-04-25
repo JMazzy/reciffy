@@ -91,7 +91,10 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
       resolve: {
         currentUser: ['Auth', function(Auth) {
           return Auth.currentUser();
-        }]
+        }],
+        allMadeRecipes: ['Restangular', function(Restangular){
+          return Restangular.all("made_recipes").getList();
+        }],
       },
     })
     // Create Recipe Page
