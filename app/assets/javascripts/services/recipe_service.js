@@ -275,7 +275,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
      .one('recipes', recipe.id)
      .patch({recipe})
      .then(function(newRecipe) {
-        console.log(newRecipe);
+        // Success
     })
   };
 
