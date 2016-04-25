@@ -19,10 +19,11 @@ class RecipeIngredientsController < ApplicationController
   end
 
   def create
-    p params
     @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
     ingredient = Ingredient.find_or_create_by(name: params[:ingredient_name].downcase)
+    unit = Unit.find_or_create_by(unit_type: params[:unit_type].downcase)
     @recipe_ingredient[:ingredient_id] = ingredient.id
+    @recipe_ingredient[:unit_id] = unit.id
     respond_to do |format|
       if @recipe_ingredient.save
          format.html { redirect_to request.referrer }

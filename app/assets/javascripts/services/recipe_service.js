@@ -2,7 +2,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   var _recipes = {};
   var _comments = {};
   var _tags = {};
-  var _units = {};
+  var _units = [];
   var _ingredients = [];
   var _made_recipes = {};
 
@@ -60,7 +60,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .getList()
     .then( function(units) {
       for( var u = 0; u < units.length; u++ ) {
-        _units[units[u].id] = units[u];
+         _units.push(units[u]);
+        //_units[units[u].id] = units[u];
       }
     });
   };
@@ -292,6 +293,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   var addRecipeIngredient = function(recipe_ingredient) {
     recipe = getCurrentRecipe()
     recipe_ingredient["recipe_id"] = recipe.id
+
+    var fractQuant = new Fraction( recipe_ingredient['quantity'] );
+    recipe_ingredient["quantity"] = fractQuant.n / fractQuant.d;
 
     return Restangular.all('recipe_ingredients')
           .post(recipe_ingredient)
