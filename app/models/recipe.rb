@@ -64,6 +64,21 @@ class Recipe < ActiveRecord::Base
     #   >> user all tags?
 
     tags = user.profile.get_user_tags
+    
+    # recipes = Recipe.get_tagged_recipes(tags)
+    #     .joins("JOIN ratings as r ON r.recipe_id = recipes.id")
+    #     .joins("JOIN made_recipes as m ON m.recipe_id = recipes.id")
+    #     .joins("JOIN recipes as f ON f.original_id = recipes.id")
+    #      .where(
+    #       "r.created_at >= :start OR m.created_at >= :start OR f.created_at >= :start", 
+    #          :start => 1.week.ago.to_date)
+
+    tagged_recipes = Recipe.select("recipes.*")
+      .joins("JOIN taggings AS ta ON recipes.id = ta.taggable_id and ta.taggable_type = 'Recipe'")
+      .joins("JOIN tags ON ta.tag_id = tags.id").where("tags.name IN (?)", tags)
+    tagged_recipes
+
+
     recipes = Recipe.get_tagged_recipes(tags)
       .includes(:ratings, :made_recipes, :forked_recipes)
       .where(
