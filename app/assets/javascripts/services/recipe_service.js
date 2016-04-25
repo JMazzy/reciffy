@@ -46,7 +46,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all('ingredients')
     .getList()
     .then( function(ingredients) {
-      console.log(ingredients)
       _ingredients.length = 0;
       for( var i = 0; i < ingredients.length; i++ ) {
         _ingredients.push(ingredients[i]);
@@ -291,10 +290,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var addRecipeIngredient = function(recipe_ingredient) {
-    console.log(recipe_ingredient)
     recipe = getCurrentRecipe()
     recipe_ingredient["recipe_id"] = recipe.id
-    recipe_ingredient["ingredient_name"] = recipe_ingredient["ingredient_name"]["title"]
 
     return Restangular.all('recipe_ingredients')
           .post(recipe_ingredient)
