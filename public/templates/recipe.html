@@ -149,6 +149,11 @@
             <button class="btn btn-info btn-sm" type="button" ng-click="addTag()">Tag It</button>
           </span>
         </div>
+
+        <span editable-text='currentStuff.recipe.link' onaftersave='updateMainRecipe()'
+              e-ng-disabled='getDisabledStatus()'>
+
+        </span>
       </div>
 
       <div class="panel-footer">
