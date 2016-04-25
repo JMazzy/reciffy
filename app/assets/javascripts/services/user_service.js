@@ -1,13 +1,22 @@
 reciffy.factory('UserService', ['Restangular', '$state', function(Restangular, $state) {
 
-  var obj = {};
-  obj.getUsers = function() {
-    return Restangular.all('users').getList().$object;
+  var _users = {};
+
+  var setUsers = function() {
+    Restangular.all('users').getList()
+    .then(function(users) {
+      for (var u = 0; u < users.length; u++ ) {
+        _users[users[u].id] = users[u];
+      }
+    })
   };
 
-  obj.getUser = function(user_id) {
-    return Restangular.one('users', user_id).get().$object;
-  }
+  var getUsers = function() {
+    return _users;
+  };
 
-  return obj;
+  return {
+    getUsers: getUsers,
+    setUsers: setUsers
+  };
 }])

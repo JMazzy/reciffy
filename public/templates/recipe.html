@@ -52,33 +52,44 @@
             <div class="row">
               <div class="form-group col-sm-2">
                 <span class="title">Quantity
-                <input type="number" min="0" max="999" maxlength="6" step="0.1"
+                <input type="text" maxlength="6"
                          name="r_quantity" class="form-control" ng-model="r_quantity">
                 </span>
               </div>
 
               <div class="form-group col-sm-2">
                 <span class="title">Unit
-                <select class="selectpicker form-control" data-style="btn-primary"
-                        ng-model="r_unit">
-                  <option ng-repeat="unit in units" value="{{unit.id}}">
-                   {{unit.unit_type}}
-                  </option>
-                </select>
+                <angucomplete-alt
+                placeholder="Start typing an unit type..."
+                pause="100"
+                selected-object="r_unit"
+                local-data="units"
+                search-fields="unit_type"
+                title-field="unit_type"
+                minlength="1"
+                override-suggestions="true"
+                input-class="form-control"/>
+
                 </span>
               </div>
 
               <div class="form-group col-sm-2">
                 <span class="title">Ingredient
-                <!-- <select class="selectpicker form-control" data-style="btn-primary"
-                        name="r_ingredient" ng-model="r_ingredient">
-                  <option ng-repeat="ingredient in ingredients" value=" {{ingredient.id}}">
-                   {{ingredient.name}}
-                  </option>
-                </select> -->
-                <input type="text" ng-model="r_ingredient" class="form-control">
+
+                <angucomplete-alt
+                placeholder="Start typing an ingredient name..."
+                pause="100"
+                selected-object="r_ingredient"
+                local-data="ingredients"
+                search-fields="name"
+                title-field="name"
+                minlength="1"
+                override-suggestions="true"
+                input-class="form-control"/>
+
                 </span>
               </div>
+
               <div class="form-group col-sm-2">
                 <span class="title"> <br>
                 <a>
@@ -96,7 +107,7 @@
         <table class="table table-striped">
           <tbody>
             <tr ng-repeat="ri in currentStuff.recipe.recipe_ingredients">
-              <td class="col-md-4"> {{ri.quantity}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
+              <td class="col-md-4"> {{ri.quantity | displayFraction}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
               </td>
               <td ng-hide='getDisabledStatus()'>
                 <a>
@@ -139,6 +150,13 @@
             <button class="btn btn-info btn-sm" type="button" ng-click="addTag()">Tag It</button>
           </span>
         </div>
+
+        <p>
+          Source: <a href="{{currentStuff.recipe.link}}">
+            {{currentStuff.recipe.link || "link"}}
+          </a>
+        </p>
+
       </div>
 
       <div class="panel-footer">

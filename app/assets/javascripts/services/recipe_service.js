@@ -2,8 +2,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   var _recipes = {};
   var _comments = {};
   var _tags = {};
-  var _units = {};
-  var _ingredients = {};
+  var _units = [];
+  var _ingredients = [];
   var _made_recipes = {};
 
   var _currents = {
@@ -23,14 +23,16 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var setRecipes = function() {
-    Restangular
-    .all('recipes')
-    .getList()
-    .then( function(recipes) {
-      for( var r = 0; r < recipes.length; r++ ) {
-        _recipes[recipes[r].id] = recipes[r];
-      }
-    });
+    if ( Object.keys(_recipes).length < 1 ) {
+      Restangular
+      .all('recipes')
+      .getList()
+      .then( function(recipes) {
+        for( var r = 0; r < recipes.length; r++ ) {
+          _recipes[recipes[r].id] = recipes[r];
+        }
+      });
+    }
   };
 
   var setMadeRecipes = function(allMadeRecipes) {
@@ -44,8 +46,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all('ingredients')
     .getList()
     .then( function(ingredients) {
+      _ingredients.length = 0;
       for( var i = 0; i < ingredients.length; i++ ) {
-        _ingredients[ingredients[i].id] = ingredients[i];
+        _ingredients.push(ingredients[i]);
+        // _ingredients[ingredients[i].id] = ingredients[i];
       }
     });
   };
@@ -56,7 +60,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .getList()
     .then( function(units) {
       for( var u = 0; u < units.length; u++ ) {
-        _units[units[u].id] = units[u];
+         _units.push(units[u]);
+        //_units[units[u].id] = units[u];
       }
     });
   };
@@ -174,6 +179,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all('recipes')
     .post(newRecipe)
     .then( function(recipe) {
+      console.log(recipe)
       _recipes[recipe.id] = recipe;
       $state.go('reciffy.recipes.show', {id: recipe.id});
     });
@@ -287,6 +293,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   var addRecipeIngredient = function(recipe_ingredient) {
     recipe = getCurrentRecipe()
     recipe_ingredient["recipe_id"] = recipe.id
+
+    var fractQuant = new Fraction( recipe_ingredient['quantity'] );
+    recipe_ingredient["quantity"] = fractQuant.n / fractQuant.d;
 
     return Restangular.all('recipe_ingredients')
           .post(recipe_ingredient)

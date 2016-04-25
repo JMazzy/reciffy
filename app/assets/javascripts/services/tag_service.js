@@ -56,7 +56,7 @@ reciffy.factory('TagService', ['Restangular', function(Restangular) {
             _tagHolder.userIds.push(tagging.taggable_id);
           }
         } else if ( tagging.taggable_type === "Recipe" ) {
-          if ( _tagHolder.userIds.indexOf(tagging.taggable_id) === -1 ) {
+          if ( _tagHolder.recipeIds.indexOf(tagging.taggable_id) === -1 ) {
             _tagHolder.recipeIds.push(tagging.taggable_id);
           }
         }

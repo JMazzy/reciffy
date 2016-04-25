@@ -2,20 +2,26 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
 
   $scope.user_subscribed = false;
 
-  Restangular.one('users', $stateParams.id).get()
-  .then(function(user) {
-    $scope.user = user;
-    $scope.profile = user.profile;
-    $scope.userRecipes = user.recipes;
-    $scope.userMadeRecipes = user.recipes_made;
-    $scope.userSavedRecipes = user.recipes_saved;
-    $scope.received_subscriptions = user.received_subscription_requests;
-    $scope.checkSubscriberExists(user);
-    $scope.disabledStatus = (currentUser.id != $stateParams.id);
-    $scope.tags = user.profile.tags;
-    $scope.newTag = { name: "" };
-    $scope.avatar = user.photo.url.medium;
-  })
+  $scope.getProfileData = function() {
+    Restangular.one('users', $stateParams.id).get()
+    .then(function(user) {
+      $scope.user = user;
+      $scope.profile = user.profile;
+      $scope.userRecipes = user.recipes;
+      $scope.userMadeRecipes = user.recipes_made;
+      $scope.userSavedRecipes = user.recipes_saved;
+      $scope.received_subscriptions = user.received_subscription_requests;
+      $scope.checkSubscriberExists(user);
+      $scope.disabledStatus = (currentUser.id != $stateParams.id);
+      $scope.tags = user.profile.tags;
+      $scope.newTag = { name: "" };
+      $scope.avatar = user.photo.url.thumb;
+
+      console.log($scope.tags);
+    })
+  };
+
+  $scope.getProfileData();
 
 
   $scope.updateUserProfile = function(user) {
@@ -87,8 +93,10 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
           avatar: $scope.profile.imageData
         }
       }).then( function (result) {
-        // create image link (rails returns the url location of the file; depending on your application config, you may not need baseurl)
-        // $scope.avatar = $scope.user.photo.url.medium;
+        setTimeout($scope.getProfileData(), 1000);
+        console.log('changed profile photo');
+        console.log($scope.avatar);
+        $scope.getProfileData();
       }, function (error) {
         console.error('errors', JSON.stringify(errors));
       });

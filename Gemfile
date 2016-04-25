@@ -51,4 +51,5 @@ gem 'rails_12factor', group: [:staging, :production]
 
 source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"
+  gem "rails-assets-angucomplete-alt"
 end
