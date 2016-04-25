@@ -12,6 +12,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   'trendingRecipeService',
   'RecommendationService',
   'currentUser',
+  'RecentRecipeService',
   function(
     Auth,
     $scope,
@@ -24,7 +25,8 @@ reciffy.controller( 'RecipeIndexCtrl',
     topRecipeService,
     trendingRecipeService,
     RecommendationService,
-    currentUser ) {
+    currentUser,
+    RecentRecipeService ) {
 
   $scope.currentUser = currentUser;
 
@@ -41,6 +43,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.madeRecipes = madeRecipeService.getMadeRecipes();
   $scope.topRecipes =  topRecipeService.getTopRecipes();
   $scope.trendingRecipes =  trendingRecipeService.getTrendingRecipes();
+  $scope.recentRecipes = RecentRecipeService.getRecipes();
 
   $scope.recs = RecommendationService.getRecommendations();
 
