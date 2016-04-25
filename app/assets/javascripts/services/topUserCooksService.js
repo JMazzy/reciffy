@@ -9,10 +9,9 @@ reciffy.factory('topUserCooksService', ['Restangular', function(Restangular) {
       .then(
         function(data) {
           populateTopUserCooks(data);
-          console.log(_top);
         },
         function(error) {
-          console.log("API call for top user cooks didn't work.");
+          console.error("API call for top user cooks didn't work.");
         }
       );
     }

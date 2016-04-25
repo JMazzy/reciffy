@@ -123,6 +123,11 @@
           <img ng-src="{{photo.url.large}}">
         </div>
 
+        <input type="file" id="fileUpload" ng-show="false" upload-recipe-image />
+        <div class="drop-box" ng-click="openFileWindow()">
+            Click to upload another recipe image.
+        </div>
+
         <h4>Tags</h4>
         <div class="tag label label-info" ng-repeat="(id,tag) in tags" >
           <span class="pull-left"><a ui-sref="reciffy.tags.show({id: id})">{{tag.name}}</a> | </span>
@@ -139,7 +144,8 @@
       <div class="panel-footer">
 
         <button type="button" name="save"
-                class="btn btn-primary">
+                class="btn btn-primary"
+                ng-click="createSavedRecipe(currentStuff.recipe.id, currentUser.id)">
           Save This Recipe
         </button>
 
@@ -181,14 +187,16 @@
     <div class="comment" ng-repeat="comment in comments | orderObjectBy : '-created_at'">
 
       <p>
-        <strong>User {{comment.user.profile.first_name}} {{comment.user.profile.last_name}}</strong> says:
+        <strong>{{comment.profile.first_name}} {{comment.profile.last_name}}</strong> says:
       </p>
 
       <p>
         {{comment.comment_description}}
       </p>
 
-      <button type="button" ng-click="deleteComment(comment.id)" class="btn btn-danger btn-xs">Delete</button>
+      <button type="button" ng-click="deleteComment(comment)" class="btn btn-danger btn-xs" ng-if="commentDeletable(comment)">
+        Delete
+      </button>
     </div>
 
   </div>

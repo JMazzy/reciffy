@@ -123,10 +123,12 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     for ( var r = 0; r < _currents.recipe.ratings.length; r++) {
       if ( _currents.recipe.ratings[r].user_id === currentUser.id ) {
         _currents.rating.rating = _currents.recipe.ratings[r].rating;
+        _currents.rating.id = _currents.recipe.ratings[r].id;
         break;
       }
     }
     _currents.rating.recipe_id = recipe_id;
+
   };
 
   var setCurrentRecipe = function( recipe_id, currentUser ) {
@@ -145,6 +147,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     for (var comment in _comments) delete _comments[comment];
     _currents.rating.rating = 0;
     _currents.rating.recipe_id = null;
+    _currents.rating.id = null;
   }
 
   var _requestSingleRecipe = function(recipe_id, currentUser) {
@@ -171,7 +174,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all('recipes')
     .post(newRecipe)
     .then( function(recipe) {
-      console.log(recipe)
       _recipes[recipe.id] = recipe;
       $state.go('reciffy.recipes.show', {id: recipe.id});
     });
@@ -186,7 +188,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
         delete _recipes[ recipe.id ];
         $state.go('reciffy.recipes.all');
       }, function(error) {
-        console.log(error);
+        console.error(error);
       })
     }
   };
@@ -209,15 +211,16 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all("comments")
     .post(_currents.comment)
     .then( function(comment) {
+      console.log(comment)
       _comments[comment.id] = comment;
       _currents.comment.comment_description = "";
     });
   };
 
-  var removeComment = function(comment_id) {
+  var removeComment = function(comment) {
     Restangular
     .one("recipes", _currents.recipe.id)
-    .one("comments", comment_id)
+    .one("comments", comment.id)
     .remove()
     .then(function(deletedComment) {
       delete _comments[deletedComment.id];
@@ -247,14 +250,24 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var rateRecipe = function() {
-    Restangular
-    .all("ratings")
-    .post({rating: _currents.rating})
-    .then(function(response) {
-      _currents.rating = response;
-    }, function(error) {
-      console.log(error);
-    });
+    if ( _currents.rating.id ) {
+      Restangular.one("ratings", _currents.rating.id)
+      .patch({rating: _currents.rating})
+      .then(function(response) {
+        _currents.rating = response;
+      }, function(error) {
+        console.error(error);
+      });
+    } else {
+      Restangular.all("ratings")
+      .post({rating: _currents.rating})
+      .then(function(response) {
+        _currents.rating = response;
+      }, function(error) {
+        console.error(error);
+      });
+    }
+
   }
 
   var updateRecipe = function() {
@@ -263,7 +276,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
      .one('recipes', recipe.id)
      .patch({recipe})
      .then(function(newRecipe) {
-        console.log(newRecipe);
+        // Success
     })
   };
 

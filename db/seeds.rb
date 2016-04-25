@@ -36,7 +36,6 @@ def usda_ingredients
   end
 end
 
-
 puts "Deleting everything in Database"
 
 Recipe.delete_all
@@ -136,6 +135,7 @@ Recipe.all.each do |r|
 end
 
 puts "Creating Subscriptions"
+
 User.all.each do |u|
   s_arr = User.where("id != ?",u.id)
   3.times do
@@ -149,6 +149,7 @@ User.all.each do |u|
 end
 
 puts "Creating Saved Recipes"
+
 User.all.each do |u|
   all_recipes = Recipe.all.pluck(:id).shuffle
   3.times do
@@ -157,12 +158,14 @@ User.all.each do |u|
 end
 
 puts "Creating Comments"
+
 Recipe.all.each do |r|
   r.comments.create(  user_id: User.all.sample.id,
                       comment_description: Faker::Hipster.sentence )
 end
 
 puts "Creating Made Recipes"
+
 User.all.each do |u|
   all_recipes = Recipe.all.pluck(:id).shuffle
   3.times do
@@ -171,6 +174,7 @@ User.all.each do |u|
 end
 
 puts "Creating Ratings for Recipes"
+
 User.all.each do |u|
   all_recipes = Recipe.all.pluck(:id).shuffle
   3.times do

@@ -9,11 +9,9 @@ reciffy.factory('topUserService', ['Restangular', function(Restangular) {
       .then(
         function(data) {
           populateTopUsers(data);
-          console.log("HERE")
-          console.log(_top);
         },
         function(error) {
-          console.log("API call for top subscribed users didn't work.");
+          console.error("API call for top subscribed users didn't work.");
         }
       );
     }

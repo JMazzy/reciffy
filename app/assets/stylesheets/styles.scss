@@ -1,0 +1,301 @@
+/************************/
+/* Reciffy Color Scheme */
+/************************/
+
+$dark-green: #4b6314;
+$light-green: #aaa336;
+$tea-color: #ce8636;
+$table-color: #4c453e;
+$white: #fff;
+$menu-grey: #4C453F;
+$menu-hover: #2E2A26;
+$menu-green: #238843;
+$toggler-color: lighten(#0E371B, 20%) !default;
+
+/*************************/
+/* Reciffy Font Families */
+/*************************/
+
+@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+* {
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.indie-flower-font {
+  font-family: 'Indie Flower', cursive;
+}
+
+/**********/
+/* Navbar */
+/**********/
+
+.navbar {
+  height: 75px;
+  border-radius: 0;
+}
+
+.nav-brand {
+  display: block;
+  cursor: pointer;
+}
+
+.footer {
+  padding-top: 50px;
+
+  nav.navbar.navbar-default.navbar-fixed-bottom, div.container-fluid.text-center {
+    border: none;
+    margin: 0;
+    background-color: $menu-grey;
+    max-height: 25px;
+  }
+}
+
+/* Sign In, Sign Out Links */
+
+.nav-auth-cta {
+  margin-top: 10px;
+}
+
+/* Search Bar */
+
+.search-form {
+  margin-top: 20px;
+}
+
+.search-input {
+    border-radius: 30px 0px 0px 30px;
+    /*border-radius:Top-left, Top-right, Bottom-right, Bottom-left;*/
+}
+.search-btn {
+   border-radius: 0px 30px 30px 0px;
+   cursor:pointer;
+}
+
+/***************/
+/* Hidden Menu */
+/***************/
+
+.hidden-menu-container {
+  margin-top: 75px;
+}
+
+.menu-item-container {
+  margin-top: -1px;
+  padding: 0;
+  border-top: 1px solid $toggler-color;
+  border-bottom: 1px solid $toggler-color;
+  height: 75px;
+  color: $white;
+  display: block;
+  &:hover, &:focus, &:active {
+    color: $white;
+    background: rgba(0,0,0,0.4);
+    text-decoration: none;
+  }
+}
+
+.menu-item-text {
+  font-size: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 30px;
+}
+
+.menu-avatar {
+  height: 100%;
+  text-align: left;
+}
+
+.menu-email {
+  text-align: right;
+}
+
+/******************/
+/* Recipe Display */
+/******************/
+
+a, a:-webkit-any-link {
+  text-decoration: none;
+}
+
+div.panel {
+  border-color: $menu-green;
+  box-shadow: 1px 1px 1px $menu-hover;
+  color: $menu-grey;
+
+  div.panel-heading, .panel-footer {
+    background-color: $menu-grey;
+    color: $white;
+    border: none;
+
+    color: $white;
+    div:hover {
+      color: $white;
+      background-color: $menu-hover;
+    }
+    div:visited {
+      color: $white;
+    }
+  }
+}
+
+
+/******************/
+/* Recipe Preview */
+/******************/
+
+.recipe {
+  max-width: 250px;
+  position: relative;
+}
+
+.recipe-heading {
+  height: 64px;
+  text-align: center;
+  h4 {
+    font-size: 14px;
+  }
+}
+
+.recipe-body {
+  background-color: $menu-grey;
+  height: 150px;
+  text-align: center;
+  padding: 0;
+  img {
+    max-width:100%;
+    max-height:100%;
+  }
+}
+
+.recipe-footer {
+  height: 64px;
+  text-align: center;
+  p {
+    font-size: 12px;
+  }
+}
+
+/*****************/
+/* Devise Errors */
+/*****************/
+
+#error_explanation {
+  border: 1px solid rgb(235, 204, 209);
+  color: rgb(169, 68, 66);
+  background-color: rgb(242, 222, 222);
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+
+  li {
+    list-style: none;
+    list-style-type: none;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+/********/
+/* Tags */
+/********/
+
+.tag {
+  color: #eee;
+  font-size: 14px;
+  padding: 2px, 1px;
+  margin: 0.1em;
+  display: inline-block;
+  line-height: 16px;
+}
+.tag a {
+  color: #eee;
+  cursor: pointer;
+  opacity: 0.6;
+  vertical-align: bottom;
+}
+.tag a:hover {
+  color: #eee;
+  opacity: 1.0
+}
+.tag a:visited {
+  color: #eee;
+}
+.tag .remove {
+  vertical-align: bottom;
+}
+.tag a {
+  margin: 1px 0 0 1px;
+}
+.tag a .glyphicon-white {
+  color: $white;
+  margin-bottom: 2px;
+}
+
+.comment {
+  border: 1px solid $menu-grey;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+}
+
+/**************/
+/* X-Editable */
+/**************/
+
+span.editable-click {
+
+}
+
+span.editable-click.editable-disabled {
+  color: black;
+  border-bottom: none;
+}
+span.editable-empty {
+  color: gray;
+  font-style: italic;
+}
+
+/******************/
+/*     Ratings    */
+/******************/
+
+/* <input-star></input-star> directive */
+.angular-input-stars {
+	display: inline-block;
+	padding: 0;
+	padding-left: -5px;
+	list-style: none;
+  color: #666;
+}
+
+.angular-input-stars > li {
+	font-size: 17px;
+	display: inline-block;
+	padding-right: 5px;
+	padding-left: 5px;
+	cursor: pointer;
+}
+
+.angular-input-stars > li .active {
+		color: #F0AD4E;
+		text-shadow: black 0 0 1px, 0 0 1px ;
+}
+
+.angular-input-stars > li .active.angular-input-stars-hover {
+	text-shadow: black 0 0 3px;
+}
+
+// The small label in the upper right corner of the previews
+.rating-label {
+  position: absolute;
+  color: #333;
+  top: 5px;
+  right: 5px;
+}

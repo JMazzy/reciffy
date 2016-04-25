@@ -1,6 +1,22 @@
 reciffy.controller( 'RecipeShowCtrl',
-                    [ '$scope', '$state', '$stateParams', 'Restangular', 'RecipeService', 'madeRecipeService','currentUser', 'allMadeRecipes',
-                    function($scope, $state, $stateParams, Restangular, RecipeService, madeRecipeService, currentUser,allMadeRecipes) {
+  [
+    '$scope',
+    '$state',
+    '$stateParams',
+    'Restangular',
+    'RecipeService',
+    'madeRecipeService',
+    'currentUser',
+    'allMadeRecipes',
+    function(
+      $scope,
+      $state,
+      $stateParams,
+      Restangular,
+      RecipeService,
+      madeRecipeService,
+      currentUser,
+      allMadeRecipes) {
 
 
   $scope.disabledStatus   = true;
@@ -32,7 +48,6 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.makeRecipeIngredient = function() {
     $scope.makeRecipe = !$scope.makeRecipe;
-    console.log(!$scope.makeRecipe)
   }
 
   $scope.getMakeRecipeIngredient = function() {
@@ -43,8 +58,14 @@ reciffy.controller( 'RecipeShowCtrl',
     RecipeService.addComment();
   }
 
-  $scope.deleteComment = function(comment_id) {
-    RecipeService.removeComment(comment_id);
+  $scope.commentDeletable = function(comment) {
+    return comment.user_id == currentUser.id;
+  }
+
+  $scope.deleteComment = function(comment) {
+    if ( $scope.commentDeletable(comment) ) {
+      RecipeService.removeComment(comment);
+    }
   }
 
   $scope.addTag = function() {
@@ -62,7 +83,6 @@ reciffy.controller( 'RecipeShowCtrl',
   }
 
   $scope.checkMadeRecipeExists = function(recipe) {
-    console.log("In here " + RecipeService.getRecipeMadeStatus(recipe,currentUser))
     return RecipeService.getRecipeMadeStatus(recipe,currentUser)
   }
 
@@ -105,8 +125,30 @@ reciffy.controller( 'RecipeShowCtrl',
   };
 
   $scope.submitRating = function() {
-    console.log($scope.currentStuff.rating)
     RecipeService.rateRecipe();
   };
+
+  $scope.openFileWindow = function () {
+    angular.element( document.querySelector( '#fileUpload' ) ).trigger('click');
+  };
+
+  $scope.uploadImage = function (path) {
+    if ($scope.recipe.id) {
+      // do put request
+      Restangular.all('photos').post({
+        photo: $scope.imageData,
+        recipe_id: $scope.recipe.id
+      }).then( function (result) {
+        // Success
+      }, function (error) {
+        // Error
+        console.error(error);
+      });
+    };
+  };
+
+  $scope.createSavedRecipe = function(recipeId, userId) {
+
+  }
 
 }]);

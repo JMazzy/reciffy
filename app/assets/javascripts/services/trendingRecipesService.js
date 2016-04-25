@@ -11,7 +11,7 @@ reciffy.factory('trendingRecipeService', ['Restangular', function(Restangular) {
           populateTrendingRecipes(data);
         },
         function(error) {
-          console.log("API call for trending recipes didn't work.");
+          console.error("API call for trending recipes didn't work.");
         }
       );
     }

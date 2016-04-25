@@ -33,8 +33,8 @@
     <div ng-repeat="savedRecipe in savedRecipes | orderObjectBy : '-created_at' | limitTo : 8" class="recipe-holder">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
-        <a ui-sref="reciffy.recipes.show({id: savedRecipe.recipe_id})">
-          <recipe-directive recipe="recipes[savedRecipe.recipe_id]"></recipe-directive>
+        <a ui-sref="reciffy.recipes.show({id: savedRecipe.id})">
+          <recipe-directive recipe="recipes[savedRecipe.id]"></recipe-directive>
         </a>
 
       </div>
@@ -99,19 +99,16 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-12">
-      <h3>Trending Recipes</h3>
-      <div ng-repeat="recipe in trendingRecipes | limitTo : 8" class="recipe-holder">
-        <div class="col-xs-6 col-sm-4 col-md-3">
+    <h3>Trending Recipes</h3>
+    <div ng-repeat="recipe in trendingRecipes | limitTo : 8" class="recipe-holder">
+      <div class="col-xs-6 col-sm-4 col-md-3">
 
-          <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-            <recipe-directive recipe="recipe"></recipe-directive>
-          </a>
+        <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+          <recipe-directive recipe="recipe"></recipe-directive>
+        </a>
 
-        </div>
       </div>
     </div>
   </div>
-
 
 </div>

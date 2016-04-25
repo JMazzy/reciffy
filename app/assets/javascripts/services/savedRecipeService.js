@@ -5,13 +5,14 @@ reciffy.factory('savedRecipeService', ['Restangular', function(Restangular) {
   var callAllSavedRecipes = function() {
     // Don't make another API call if we already have the data
     if (Object.keys(_saved).length === 0) {
-      Restangular.all('saved_recipes').getList()
+      return Restangular.all('saved_recipes').getList()
       .then(
         function(data) {
           populateSaved(data);
+          return getSavedRecipes();
         },
         function(error) {
-          console.log("API call for saved recipes didn't work.");
+          console.error("API call for saved recipes didn't work.");
         }
       );
     }

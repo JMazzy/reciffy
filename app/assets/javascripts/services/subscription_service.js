@@ -8,13 +8,13 @@ reciffy.factory('subscriptionService', ['Restangular', function(Restangular) {
     obj.getAllSubscriptions = function(){
       subscriptions.splice(0,subscriptions.length)
       Restangular.all('subscriptions').getList().then(function(result){
+        console.log(result)
         obj.populateSubscriptions(result);
       });
 
     };
 
     obj.populateSubscriptions = function(allSubscriptions) {
-       console.log(allSubscriptions.length)
        if (allSubscriptions.length) {
           for (var i = 0; i < allSubscriptions.length; i++) {
             subscriptions.push(allSubscriptions[i]);
