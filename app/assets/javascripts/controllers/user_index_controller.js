@@ -17,12 +17,6 @@ topUserService,
 topUserCooksService,
 bestCooksService) {
 
-// Restangular.all('users').getList()
-// .then(function(users) {
-//    console.log(users);
-//    $scope.users = users;
-//  })
-
   topUserService.callTopUsers();
   topUserCooksService.callTopUserCooks();
   bestCooksService.callBestCooks();

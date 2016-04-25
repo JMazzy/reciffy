@@ -1,33 +1,4 @@
-<!-- <div class="row">
 
-  <div ng-repeat="user in users" class="user-holder">
-    <div class="col-xs-6 col-sm-4 col-md-3">
-      <a ui-sref="reciffy.users.show({id: user.id})">
-        <div class="panel panel-default user-preview">
-
-          <div class="panel-heading">
-            <h4>{{user.profile.first_name}} {{user.profile.last_name}}</h4>
-          </div>
-
-          <div class="panel-body">
-            <img ng-src="{{user.photo.url.medium}}">
-          </div>
-
-          <div class='panel-footer'>
-            <p>
-              {{user.profile.tagline}}
-            </p>
-            <div class="tag label label-info" ng-repeat="tag in user.profile.tags" >
-              <span class="pull-left">{{tag.name}}</span>
-            </div>
-          </div>
-
-        </div>
-      </a>
-    </div>
-  </div>
-
-</div> -->
 <div class="row">
 
   <!-- Top Subscribed Users -->
@@ -60,7 +31,7 @@
 </div>
 
   <div class="row">
-    <h4><em>Most Recipes Tested By...<em></h4>
+    <h4><em>Reciffiers who cook a lot...<em></h4>
     <div ng-repeat="user in topCooks | limitTo : 8" class="user-holder">
       <div class="col-xs-3 col-sm-3 col-md-3">
 

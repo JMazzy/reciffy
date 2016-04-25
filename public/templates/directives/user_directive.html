@@ -13,7 +13,8 @@
     <p style="font-size:x-small">
       {{user.profile.tagline | limitTo : 20 : 0}}...
     </p>
-    <div class="tag label label-info" ng-repeat="tag in user.profile.tags" style="font-size:x-small;">
+    <div class="tag label label-info" ng-repeat="tag in user.profile.tags | limitTo : 2 : 0" 
+         style="font-size:x-small;">
       <span class="pull-left">{{tag.name}}</span>
     </div>
   </div>
