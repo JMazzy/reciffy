@@ -19,7 +19,6 @@ class RecipeIngredientsController < ApplicationController
   end
 
   def create
-    p params
     @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
     ingredient = Ingredient.find_or_create_by(name: params[:ingredient_name].downcase)
     unit = Unit.find_or_create_by(unit_type: params[:unit_type].downcase)

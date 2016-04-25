@@ -295,10 +295,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     recipe_ingredient["recipe_id"] = recipe.id
 
     var fractQuant = new Fraction( recipe_ingredient['quantity'] );
-
-    var ingredient = recipe_ingredient['ingredient_name']['title'];
-    var quantity = fractQuant.n / fractQuant.d;
-    var unit = recipe_ingredient['unit'];
+    recipe_ingredient["quantity"] = fractQuant.n / fractQuant.d;
 
     return Restangular.all('recipe_ingredients')
           .post(recipe_ingredient)
