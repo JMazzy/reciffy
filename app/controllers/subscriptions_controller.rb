@@ -8,16 +8,7 @@ class SubscriptionsController < ApplicationController
       format.json { render json: @subscriptions_json.to_json}
     end
   end
- 
-  #  def show
-  #   @subscription = Subscription.find(params[:id])
-  #   respond_to do |format|
 
-  #     format.html
-  #     format.json { render json: @subscription.as_json }
-
-  #   end
-  # end
 
   def create
 
@@ -25,13 +16,14 @@ class SubscriptionsController < ApplicationController
 
     if @subscription.save
        flash[:success] = "Subscribed!"
-    else 
+    else
       flash[:alert] = "Could not subscribe! "
     end
 
     redirect_to :back
 
-  end 
+  end
+
 
   def destroy
 
@@ -47,16 +39,17 @@ class SubscriptionsController < ApplicationController
         end
       end
     end
-      
-  end 
+  end
 
 
   private
+
   def subscription_params
     params.require(:subscription).permit(
       :subscriber_id,
       :subscribed_id)
   end
+
 
   def subscriptions_index_json(subscriptions)
 
@@ -71,12 +64,12 @@ class SubscriptionsController < ApplicationController
       end
 
       json_response["profile"] = subscription.profile.as_json
-      json_response["subscription_receiver"]     =  subscription.subscription_receiver.as_json, 
-      json_response["recipes_by_receivers"]      =  subscription.recipes_by_receivers.as_json, 
+      json_response["subscription_receiver"]     =  subscription.subscription_receiver.as_json,
+      json_response["recipes_by_receivers"]      =  subscription.recipes_by_receivers.as_json,
       json_response["made_recipes_by_receivers"] =  subscription.made_recipes_by_receivers.as_json,
       json_response["subscriptions_by_receivers"] =  subscription.subscriptions_by_receivers.as_json
       json_response["profile"]["avatar_url"]     =  subscription.profile.avatar.url(:thumb).gsub(/\?.*/,"")
-      
+
       arr.push(json_response)
 
     end

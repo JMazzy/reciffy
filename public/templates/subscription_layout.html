@@ -9,17 +9,17 @@
       <div class="panel panel-default subscription-preview">
         <div class="panel-heading">
           <h5>
-            <a ui-sref="reciffy.users.show({id: subscription.subscription_receiver.id})">
+            <a ui-sref="reciffy.users.show({id: subscription.subscribed_id})">
              {{subscription.profile.first_name}} {{subscription.profile.last_name}}
-            </a> 
-            <button class="btn btn-xs btn-danger pull-right" ng-click="removeSubscription(subscription)">Unsubscribe</button> 
+            </a>
+            <button class="btn btn-xs btn-danger pull-right" ng-click="removeSubscription(subscription)">Unsubscribe</button>
             <br>
             <a ui-sref="reciffy.users.show({id: subscription.subscription_receiver.id})">
               {{subscription.subscription_receiver.email}}
-            </a>  
+            </a>
           </h5>
         </div>
-        
+
         <a ui-sref="reciffy.users.show({id: subscription.subscription_receiver.id})">
         <div class="panel-body">
           <p>
@@ -36,7 +36,7 @@
         </a>
       </div>
     </div>
-  </div>  
+  </div>
 </div>
 
 
