@@ -27,8 +27,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       city: $scope.profile.city,
       state: $scope.profile.state,
     }).then(function(newProfile) {
-      console.log(newProfile);
-      console.log($scope.avatar);
+      // Success
     })
   };
 
@@ -41,11 +40,9 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
     if (currentUser.id == user.id ) {
        $scope.user_subscribed = true;
     } else if ($scope.received_subscriptions != null) {
-      console.log("In here!")
       for (var i = 0; i < $scope.received_subscriptions.length; i++) {
         if ($scope.received_subscriptions[i].subscriber_id == currentUser.id) {
-          console.log("In here!!!")
-           $scope.user_subscribed = true;
+          $scope.user_subscribed = true;
         }
       }
     } else {
@@ -79,7 +76,6 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
 
   $scope.openFileWindow = function () {
     angular.element( document.querySelector( '#fileUpload' ) ).trigger('click');
-    console.log('triggering click');
   };
 
   $scope.uploadImage = function (path) {
@@ -92,11 +88,9 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
         }
       }).then( function (result) {
         // create image link (rails returns the url location of the file; depending on your application config, you may not need baseurl)
-        console.log('Uploaded image');
         // $scope.avatar = $scope.user.photo.url.medium;
-        console.log($scope.avatar);
       }, function (error) {
-        console.log('errors', JSON.stringify(errors));
+        console.error('errors', JSON.stringify(errors));
       });
     };
   };

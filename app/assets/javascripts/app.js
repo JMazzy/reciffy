@@ -154,7 +154,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
   }]);
 
 reciffy.run([ '$rootScope', '$location', 'Auth', function($rootScope, $location, Auth){
- $rootScope.$on("$stateChangeError", console.log.bind(console));
+ $rootScope.$on("$stateChangeError", console.error.bind(console));
 }]);
 
 reciffy.run(['editableOptions', function(editableOptions) {

@@ -174,7 +174,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all('recipes')
     .post(newRecipe)
     .then( function(recipe) {
-      console.log(recipe)
       _recipes[recipe.id] = recipe;
       $state.go('reciffy.recipes.show', {id: recipe.id});
     });
@@ -189,7 +188,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
         delete _recipes[ recipe.id ];
         $state.go('reciffy.recipes.all');
       }, function(error) {
-        console.log(error);
+        console.error(error);
       })
     }
   };
@@ -256,7 +255,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
       .then(function(response) {
         _currents.rating = response;
       }, function(error) {
-        console.log(error);
+        console.error(error);
       });
     } else {
       Restangular.all("ratings")
@@ -264,7 +263,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
       .then(function(response) {
         _currents.rating = response;
       }, function(error) {
-        console.log(error);
+        console.error(error);
       });
     }
 

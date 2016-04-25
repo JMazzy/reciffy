@@ -48,7 +48,6 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.makeRecipeIngredient = function() {
     $scope.makeRecipe = !$scope.makeRecipe;
-    console.log(!$scope.makeRecipe)
   }
 
   $scope.getMakeRecipeIngredient = function() {
@@ -78,7 +77,6 @@ reciffy.controller( 'RecipeShowCtrl',
   }
 
   $scope.checkMadeRecipeExists = function(recipe) {
-    console.log("In here " + RecipeService.getRecipeMadeStatus(recipe,currentUser))
     return RecipeService.getRecipeMadeStatus(recipe,currentUser)
   }
 
@@ -121,13 +119,11 @@ reciffy.controller( 'RecipeShowCtrl',
   };
 
   $scope.submitRating = function() {
-    console.log($scope.currentStuff.rating)
     RecipeService.rateRecipe();
   };
 
   $scope.openFileWindow = function () {
     angular.element( document.querySelector( '#fileUpload' ) ).trigger('click');
-    console.log('triggering click');
   };
 
   $scope.uploadImage = function (path) {
@@ -137,15 +133,16 @@ reciffy.controller( 'RecipeShowCtrl',
         photo: $scope.imageData,
         recipe_id: $scope.recipe.id
       }).then( function (result) {
-        console.log('Uploaded image');
+        // Success
       }, function (error) {
-        console.log('errors', JSON.stringify(errors));
+        // Error
+        console.error(error);
       });
     };
   };
 
   $scope.createSavedRecipe = function(recipeId, userId) {
-    
+
   }
 
 }]);

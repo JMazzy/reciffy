@@ -14,7 +14,6 @@ reciffy.factory('subscriptionService', ['Restangular', function(Restangular) {
     };
 
     obj.populateSubscriptions = function(allSubscriptions) {
-       console.log(allSubscriptions.length)
        if (allSubscriptions.length) {
           for (var i = 0; i < allSubscriptions.length; i++) {
             subscriptions.push(allSubscriptions[i]);

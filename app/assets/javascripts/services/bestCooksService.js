@@ -9,10 +9,9 @@ reciffy.factory('bestCooksService', ['Restangular', function(Restangular) {
       .then(
         function(data) {
           populateBestCooks(data);
-          console.log(_top);
         },
         function(error) {
-          console.log("API call for top user cooks didn't work.");
+          console.error("API call for top user cooks didn't work.");
         }
       );
     }
@@ -30,6 +29,6 @@ reciffy.factory('bestCooksService', ['Restangular', function(Restangular) {
 
   return {
     callBestCooks : callBestCooks,
-    getBestCooks  : getBestCooks 
+    getBestCooks  : getBestCooks
   };
 }]);

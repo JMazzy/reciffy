@@ -12,7 +12,7 @@ reciffy.factory('topRecipeService', ['Restangular', function(Restangular) {
           return getTopRecipes();
         },
         function(error) {
-          console.log("API call for rated recipes didn't work.");
+          console.error("API call for rated recipes didn't work.");
         }
       );
     }

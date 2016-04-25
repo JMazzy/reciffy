@@ -11,14 +11,13 @@ reciffy.factory('ratedRecipeService', ['Restangular', function(Restangular) {
           populateRated(data);
         },
         function(error) {
-          console.log("API call for rated recipes didn't work.");
+          console.error("API call for rated recipes didn't work.");
         }
       );
     }
   };
 
   var populateRated = function(rawData) {
-    console.log(rawData);
     rawData.forEach(function(recipeJson) {
       _rated[recipeJson.id] = recipeJson;
     });

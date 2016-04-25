@@ -10,7 +10,6 @@ reciffy.directive('uploadImage', function() {
       };
 
       elem.on('change', function() {
-        console.log('entered change function');
         var file = elem[0].files[0];
         // gathers file data (filename and type) to send in json
         scope.profile.imageContent = file.type;

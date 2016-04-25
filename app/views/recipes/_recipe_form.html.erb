@@ -57,7 +57,6 @@
       for (var i in image) {
         var reader = new FileReader();
         reader.onload = function(file) {
-          console.log(file);
           var img = new Image(500, 500);
           img.src = file.target.result;
           $('#recipe_photo_preview').append(img);

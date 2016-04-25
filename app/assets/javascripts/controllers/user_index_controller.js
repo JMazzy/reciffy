@@ -1,27 +1,21 @@
-reciffy.controller('UserIndexCtrl', 
-['$scope', 
-'$state', 
-'$stateParams', 
-'Restangular', 
+reciffy.controller('UserIndexCtrl',
+['$scope',
+'$state',
+'$stateParams',
+'Restangular',
 'UserService',
 'topUserService',
 'topUserCooksService',
 'bestCooksService',
  function(
-$scope, 
-$state, 
-$stateParams, 
-Restangular, 
+$scope,
+$state,
+$stateParams,
+Restangular,
 UserService,
 topUserService,
 topUserCooksService,
 bestCooksService) {
-
-// Restangular.all('users').getList()
-// .then(function(users) {
-//    console.log(users);
-//    $scope.users = users;
-//  })
 
   topUserService.callTopUsers();
   topUserCooksService.callTopUserCooks();

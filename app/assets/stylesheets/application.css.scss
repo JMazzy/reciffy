@@ -48,6 +48,10 @@ $menu-green: #238843;
   cursor: pointer;
 }
 
+.footer {
+  padding-top: 50px;
+}
+
 /* Sign In, Sign Out Links */
 
 .nav-auth-cta {
@@ -229,10 +233,10 @@ div.panel {
   padding: 5px;
 }
 
-.navbar-bottom {
+nav.navbar.navbar-default.navbar-fixed-bottom, div.container-fluid.text-center {
   margin: 0;
   background-color: $menu-grey;
-  height: 50px;
+  max-height: 25px;
 }
 
 span.editable-click {
