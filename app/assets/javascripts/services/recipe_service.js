@@ -179,6 +179,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all('recipes')
     .post(newRecipe)
     .then( function(recipe) {
+      console.log(recipe)
       _recipes[recipe.id] = recipe;
       $state.go('reciffy.recipes.show', {id: recipe.id});
     });
@@ -216,6 +217,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all("comments")
     .post(_currents.comment)
     .then( function(comment) {
+      console.log(comment)
       _comments[comment.id] = comment;
       _currents.comment.comment_description = "";
     });
@@ -282,6 +284,10 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
      .then(function(newRecipe) {
         // Success
     })
+  };
+
+  var makeRecipeIngredient = function() {
+
   };
 
   var addRecipeIngredient = function(recipe_ingredient) {
