@@ -178,7 +178,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all('recipes')
     .post(newRecipe)
     .then( function(recipe) {
-      console.log(recipe)
       _recipes[recipe.id] = recipe;
       $state.go('reciffy.recipes.show', {id: recipe.id});
     });
@@ -216,7 +215,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all("comments")
     .post(_currents.comment)
     .then( function(comment) {
-      console.log(comment)
       _comments[comment.id] = comment;
       _currents.comment.comment_description = "";
     });
@@ -293,8 +291,21 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     recipe = getCurrentRecipe()
     recipe_ingredient["recipe_id"] = recipe.id
 
+    var fractQuant = new Fraction( recipe_ingredient['quantity'] );
+
+    var ingredient = recipe_ingredient['ingredient_name']['title'];
+    var quantity = fractQuant.n / fractQuant.d;
+    var unit = recipe_ingredient['unit'];
+
+    var scrubbedRI = {
+      quantity: quantity,
+      unit: unit,
+      ingredient_name: ingredient,
+      recipe_id: recipe.id,
+    }
+
     return Restangular.all('recipe_ingredients')
-          .post(recipe_ingredient)
+          .post(scrubbedRI)
           .then(
              function(response)  {
                recipe.recipe_ingredients.unshift(response);

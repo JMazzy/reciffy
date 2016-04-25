@@ -7,7 +7,6 @@ reciffy.controller( 'RecipeShowCtrl',
     'RecipeService',
     'madeRecipeService',
     'currentUser',
-    'allMadeRecipes',
     function(
       $scope,
       $state,
@@ -15,15 +14,13 @@ reciffy.controller( 'RecipeShowCtrl',
       Restangular,
       RecipeService,
       madeRecipeService,
-      currentUser,
-      allMadeRecipes) {
+      currentUser) {
 
   $scope.disabledStatus   = true;
   $scope.makeRecipe       = false;
 
   RecipeService.setUnits();
   RecipeService.setIngredients();
-  RecipeService.setMadeRecipes(allMadeRecipes);
 
   RecipeService.setCurrentRecipe( $stateParams.id, currentUser );
 
