@@ -5,37 +5,37 @@
 
 <div class="row">
   <div ng-repeat="subscription in subscriptions">
-    <div class="col-xs-6 col-sm-4 col-md-3 subscription-holder">
-      <div class="panel panel-default subscription-preview">
-        <div class="panel-heading">
-          <h5>
-            <a ui-sref="reciffy.users.show({id: subscription.subscribed_id})">
-             {{subscription.profile.first_name}} {{subscription.profile.last_name}}
-            </a>
-            <button class="btn btn-xs btn-danger pull-right" ng-click="removeSubscription(subscription)">Unsubscribe</button>
-            <br>
-            <a ui-sref="reciffy.users.show({id: subscription.subscription_receiver.id})">
-              {{subscription.subscription_receiver.email}}
-            </a>
-          </h5>
-        </div>
+    <a ui-sref="reciffy.users.show({id: subscription.subscribed_id})">
+      <div class="col-xs-6 col-sm-4 col-md-3 subscription-holder">
+        <div class="panel panel-default subscription-preview">
+          <div class="panel-heading">
+            <h5>
 
-        <a ui-sref="reciffy.users.show({id: subscription.subscription_receiver.id})">
-        <div class="panel-body">
-          <p>
-            <img ng-src="{{subscription.profile.avatar_url}}">
-          </p>
+              {{subscription.profile.first_name}} {{subscription.profile.last_name}}
+
+              <button class="btn btn-xs btn-danger pull-right" ng-click="removeSubscription(subscription)">Unsubscribe</button>
+              <br>
+
+              {{subscription.subscription_receiver.email}}
+
+            </h5>
+          </div>
+
+          <div class="panel-body">
+            <p>
+              <img ng-src="{{subscription.profile.avatar_url}}">
+            </p>
+          </div>
+          <div class="panel-footer subscription-panel-footer">
+            <h5>
+               ({{subscription.subscriptions_by_receivers.length}} subscriptions,
+                {{subscription.recipes_by_receivers.length}} contributed recipes,
+                {{subscription.made_recipes_by_receivers.length}} recipes made)
+            </h5>
+          </div>
         </div>
-        <div class="panel-footer subscription-panel-footer">
-          <h5>
-             ({{subscription.subscriptions_by_receivers.length}} subscriptions,
-              {{subscription.recipes_by_receivers.length}} contributed recipes,
-              {{subscription.made_recipes_by_receivers.length}} recipes made)
-          </h5>
-        </div>
-        </a>
       </div>
-    </div>
+    </a>
   </div>
 </div>
 

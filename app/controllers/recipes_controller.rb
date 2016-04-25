@@ -57,7 +57,7 @@ class RecipesController < ApplicationController
 
         format.html {redirect_to recipe_path(@recipe)}
 
-        format.json { render json: @recipe.to_json }
+        format.json { render json: show_recipe_json(@recipe) }
       end
     else
       respond_to do |format|
