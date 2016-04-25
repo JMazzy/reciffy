@@ -90,7 +90,7 @@
 
                 </span>
               </div>
-              
+
               <div class="form-group col-sm-2">
                 <span class="title"> <br>
                 <a>
@@ -108,7 +108,7 @@
         <table class="table table-striped">
           <tbody>
             <tr ng-repeat="ri in currentStuff.recipe.recipe_ingredients">
-              <td class="col-md-4"> {{ri.quantity}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
+              <td class="col-md-4"> {{ri.quantity | displayFraction}} {{ri.unit.unit_type}} {{ri.ingredient.name}}
               </td>
               <td ng-hide='getDisabledStatus()'>
                 <a>
