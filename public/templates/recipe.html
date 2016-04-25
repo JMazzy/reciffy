@@ -150,10 +150,12 @@
           </span>
         </div>
 
-        <span editable-text='currentStuff.recipe.link' onaftersave='updateMainRecipe()'
-              e-ng-disabled='getDisabledStatus()'>
+        <p>
+          Source: <a href="{{currentStuff.recipe.link}}">
+            {{currentStuff.recipe.link || "link"}}
+          </a>
+        </p>
 
-        </span>
       </div>
 
       <div class="panel-footer">
