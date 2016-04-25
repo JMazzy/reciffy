@@ -58,8 +58,14 @@ reciffy.controller( 'RecipeShowCtrl',
     RecipeService.addComment();
   }
 
-  $scope.deleteComment = function(comment_id) {
-    RecipeService.removeComment(comment_id);
+  $scope.commentDeletable = function(comment) {
+    return comment.user_id == currentUser.id;
+  }
+
+  $scope.deleteComment = function(comment) {
+    if ( $scope.commentDeletable(comment) ) {
+      RecipeService.removeComment(comment);
+    }
   }
 
   $scope.addTag = function() {

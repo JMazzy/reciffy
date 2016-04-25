@@ -10,6 +10,10 @@ class Recipe < ActiveRecord::Base
   has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
   has_many :comments, dependent: :destroy
+  has_many :commenters, through: :comments,
+                        source: :author,
+                        foreign_key: :user_id,
+                        class_name: "User"
   has_many :made_recipes, dependent: :destroy
   has_many :saved_recipes, dependent: :destroy
 

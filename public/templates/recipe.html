@@ -187,14 +187,16 @@
     <div class="comment" ng-repeat="comment in comments | orderObjectBy : '-created_at'">
 
       <p>
-        <strong>User {{comment.user.profile.first_name}} {{comment.user.profile.last_name}}</strong> says:
+        <strong>{{comment.profile.first_name}} {{comment.profile.last_name}}</strong> says:
       </p>
 
       <p>
         {{comment.comment_description}}
       </p>
 
-      <button type="button" ng-click="deleteComment(comment.id)" class="btn btn-danger btn-xs">Delete</button>
+      <button type="button" ng-click="deleteComment(comment)" class="btn btn-danger btn-xs" ng-if="commentDeletable(comment)">
+        Delete
+      </button>
     </div>
 
   </div>

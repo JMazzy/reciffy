@@ -211,15 +211,16 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all("comments")
     .post(_currents.comment)
     .then( function(comment) {
+      console.log(comment)
       _comments[comment.id] = comment;
       _currents.comment.comment_description = "";
     });
   };
 
-  var removeComment = function(comment_id) {
+  var removeComment = function(comment) {
     Restangular
     .one("recipes", _currents.recipe.id)
-    .one("comments", comment_id)
+    .one("comments", comment.id)
     .remove()
     .then(function(deletedComment) {
       delete _comments[deletedComment.id];

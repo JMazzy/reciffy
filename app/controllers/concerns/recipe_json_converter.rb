@@ -34,8 +34,8 @@ module RecipeJsonConverter extend ActiveSupport::Concern
     end
     json_response["comments"] = []
 
-    recipe.comments.each do |comment|
-      json_response["comments"].push(comment.as_json)
+    recipe.comments.includes(:profile).each do |comment|
+      json_response["comments"].push(comment.as_json(include: :profile))
     end
 
     json_response["made_recipes"] =[]

@@ -19,6 +19,10 @@ $toggler-color: lighten(#0E371B, 20%) !default;
 @import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 @import url(https://fonts.googleapis.com/css?family=Indie+Flower);
 
+* {
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+
 .indie-flower-font {
   font-family: 'Indie Flower', cursive;
 }
@@ -98,7 +102,6 @@ $toggler-color: lighten(#0E371B, 20%) !default;
   top: 50%;
   transform: translateY(-50%);
   margin-left: 30px;
-  font-family: 'PT Sans Narrow', sans-serif;
 }
 
 .menu-avatar {
