@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20160425181936) do
     t.datetime "updated_at",   null: false
     t.integer  "original_id"
     t.text     "instructions"
+    t.string   "link"
   end
 
   add_index "recipes", ["original_id"], name: "index_recipes_on_original_id", using: :btree
