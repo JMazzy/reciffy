@@ -293,21 +293,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     recipe_ingredient["recipe_id"] = recipe.id
 
     var fractQuant = new Fraction( recipe_ingredient['quantity'] );
-<<<<<<< HEAD
     recipe_ingredient["quantity"] = fractQuant.n / fractQuant.d;
-=======
-
-    var ingredient = recipe_ingredient['ingredient_name']['title'];
-    var quantity = fractQuant.n / fractQuant.d;
-    var unit = recipe_ingredient['unit'];
-
-    var scrubbedRI = {
-      quantity: quantity,
-      unit: unit,
-      ingredient_name: ingredient,
-      recipe_id: recipe.id,
-    }
->>>>>>> 64c1eebd552a0fa5a1fb546f55f070f1f70981b5
 
     return Restangular.all('recipe_ingredients')
           .post(scrubbedRI)
