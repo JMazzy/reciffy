@@ -55,10 +55,9 @@ class MadeRecipesController < ApplicationController
       end
 
       json_response["recipe"]                = made_recipe.recipe.as_json
-      json_response["original_user"]         = made_recipe.original_user.as_json,
-      json_response["subscriptions"]         =  made_recipe.subscriptions.as_json,
-      json_response["recipes_by_original_user"] = made_recipe.recipes_by_original_user.as_json,
-      json_response["recipe"]["photo_url"]   =  made_recipe.photos[0].photo.url(:thumb).gsub(/\?.*/,"")
+      json_response["original_user"]         = made_recipe.original_user.as_json
+      json_response["subscriptions"]         =  made_recipe.subscriptions.as_json
+      json_response["recipes_by_original_user"] = made_recipe.recipes_by_original_user.as_json
 
       arr.push(json_response)
 
