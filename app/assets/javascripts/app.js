@@ -1,4 +1,4 @@
-var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable', 'ui.bootstrap', 'angular.filter', 'angular-input-stars', 'ngFileUpload'])
+var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable', 'ui.bootstrap', 'angular.filter', 'angular-input-stars', 'ngFileUpload', "angucomplete-alt"])
 
 .config([ 'AuthProvider', function(AuthProvider) {
     // Configure Auth service with AuthProvider
@@ -93,8 +93,8 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
           return Auth.currentUser();
         }],
         allMadeRecipes: ['Restangular', function(Restangular){
-          return Restangular.all("made_recipes").getList()
-        }]
+          return Restangular.all("made_recipes").getList();
+        }],
       },
     })
     // Create Recipe Page
