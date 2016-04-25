@@ -18,7 +18,6 @@ reciffy.controller( 'RecipeShowCtrl',
       currentUser,
       allMadeRecipes) {
 
-
   $scope.disabledStatus   = true;
   $scope.makeRecipe       = false;
 
@@ -104,9 +103,23 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.addRecipeIngredient = function() {
     if (!RecipeService.getdisabledStatus()) {
-      var ri = {unit_id: $scope.r_unit,
-                ingredient_id: $scope.r_ingredient,
-                quantity: $scope.r_quantity
+      if ($scope.r_unit.title) {
+          $scope.r_unit = $scope.r_unit.title
+      } else {
+          $scope.r_unit = $scope.r_unit.originalObject
+      }
+
+      if ($scope.r_ingredient.title) {
+          $scope.r_ingredient = $scope.r_ingredient.title
+      } else {
+          $scope.r_ingredient = $scope.r_ingredient.originalObject
+      }
+
+      var ri = {
+        //unit_id: $scope.r_unit,
+        ingredient_name: $scope.r_ingredient,
+        unit_type: $scope.r_unit,
+        quantity: $scope.r_quantity
       }
       RecipeService.addRecipeIngredient(ri);
 
@@ -145,6 +158,22 @@ reciffy.controller( 'RecipeShowCtrl',
         console.error(error);
       });
     };
+  };
+
+
+ // Here is a naive implementation for matching first name, last name, or full name
+  $scope.localUnitSearch = function(str) {
+    var matches = [];
+
+    $scope.units.forEach(function(unit) {
+      if ((unit.unit_type.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0))  {
+        matches.push(unit.unit_type);
+      }
+    });
+    if (matches.length == 0) {
+       matches.push(str);
+    }
+    return matches;
   };
 
   $scope.createSavedRecipe = function(recipeId, userId) {
