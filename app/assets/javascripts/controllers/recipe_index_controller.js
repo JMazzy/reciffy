@@ -11,6 +11,8 @@ reciffy.controller( 'RecipeIndexCtrl',
   'topRecipeService',
   'trendingRecipeService',
   'RecommendationService',
+  'TagService',
+  'UserService',
   'currentUser',
   'RecentRecipeService',
   function(
@@ -26,7 +28,9 @@ reciffy.controller( 'RecipeIndexCtrl',
     trendingRecipeService,
     RecommendationService,
     currentUser,
-    RecentRecipeService ) {
+    RecentRecipeService,
+    TagService,
+    UserService, ) {
 
   $scope.currentUser = currentUser;
 
@@ -37,6 +41,8 @@ reciffy.controller( 'RecipeIndexCtrl',
   trendingRecipeService.callTrendingRecipes();
   topRecipeService.callTopRecipes();
   RecommendationService.populateRecommendations();
+  TagService.setTags();
+  UserService.setUsers();
 
   $scope.recipes = RecipeService.getRecipes();
   $scope.savedRecipes = savedRecipeService.getSavedRecipes();
