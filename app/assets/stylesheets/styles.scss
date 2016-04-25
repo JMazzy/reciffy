@@ -16,9 +16,8 @@ $toggler-color: lighten(#0E371B, 20%) !default;
 /* Reciffy Font Families */
 /*************************/
 
+@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 @import url(https://fonts.googleapis.com/css?family=Indie+Flower);
-// To use,
-// font-family: 'Indie Flower', cursive;
 
 .indie-flower-font {
   font-family: 'Indie Flower', cursive;
@@ -42,6 +41,7 @@ $toggler-color: lighten(#0E371B, 20%) !default;
   padding-top: 50px;
 
   nav.navbar.navbar-default.navbar-fixed-bottom, div.container-fluid.text-center {
+    border: none;
     margin: 0;
     background-color: $menu-grey;
     max-height: 25px;
