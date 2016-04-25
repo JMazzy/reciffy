@@ -18,7 +18,6 @@ reciffy.controller( 'RecipeShowCtrl',
       currentUser,
       allMadeRecipes) {
 
-
   $scope.disabledStatus   = true;
   $scope.makeRecipe       = false;
 
@@ -104,9 +103,10 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.addRecipeIngredient = function() {
     if (!RecipeService.getdisabledStatus()) {
-      var ri = {unit_id: $scope.r_unit,
-                ingredient_id: $scope.r_ingredient,
-                quantity: $scope.r_quantity
+      var ri = {
+        unit_id: $scope.r_unit,
+        ingredient_name: $scope.r_ingredient,
+        quantity: $scope.r_quantity
       }
       RecipeService.addRecipeIngredient(ri);
 

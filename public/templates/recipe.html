@@ -76,7 +76,17 @@
                    {{ingredient.name}}
                   </option>
                 </select> -->
-                <input type="text" ng-model="r_ingredient" class="form-control">
+
+                <angucomplete-alt
+                placeholder="Start typing an ingredient name..."
+                pause="100"
+                selected-object="r_ingredient"
+                local-data="ingredients"
+                search-fields="name"
+                title-field="name"
+                minlength="1"
+                input-class="form-control"/>
+
                 </span>
               </div>
               <div class="form-group col-sm-2">
