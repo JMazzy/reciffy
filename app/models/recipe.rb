@@ -103,14 +103,12 @@ class Recipe < ActiveRecord::Base
     top_ten = Recipe.personal_top_ten(user_id)
 
     # All tags associated with those recipes
-    top_ten.joins(:recipe).joins("JOIN taggings ON (recipes.id = taggings.taggable_id)").where("taggable_type = 'Recipe'").pluck(:tag_id).uniq
+    top_ten.joins(:recipe).joins("JOIN taggings ON (recipes.id = taggings.taggable_id)").where("taggable_type = 'Recipe'").pluck(:tag_id)
   end
 
   def self.rec_by_tag_recipe_ids(user_id)
     tag_ids = Recipe.top_tag_ids(user_id)
-
-    # All other recipes associated with those tags
-    Recipe.all.find(tag_ids).pluck("recipes.id")
+    Tagging.where("tag_id IN (#{tag_ids.join(",")})").where("taggable_type = 'Recipe'").pluck(:taggable_id)
   end
 
   def self.recs_subscribed(subscriber_id)
@@ -121,18 +119,7 @@ class Recipe < ActiveRecord::Base
     by_tag = Recipe.rec_by_tag_recipe_ids(user_id)
     by_sub = Recipe.recs_subscribed(user_id)
 
-    ids = (by_tag + by_sub).uniq.shuffle
-
-    Recipe.find(ids).includes(
-      :recipe_ingredients,
-      :ingredients,
-      :units,
-      :comments,
-      :tags,
-      :user,
-      :profile,
-      :photos,
-      :ratings )
+    (by_tag + by_sub).uniq.shuffle
   end
 
 end
