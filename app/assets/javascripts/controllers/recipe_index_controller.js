@@ -35,7 +35,6 @@ reciffy.controller( 'RecipeIndexCtrl',
   topRecipeService.callTopRecipes();
   trendingRecipeService.callTrendingRecipes();
   RecommendationService.populateRecommendations();
-  TagService.setTags();
   UserService.setUsers();
 
   $scope.recipes = RecipeService.getRecipes();
@@ -44,7 +43,10 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.recentRecipes = RecentRecipeService.getRecipes();
   $scope.recdRecipes = RecommendationService.getRecommendations();
 
-  $scope.allTaggings = Restangular.all('taggings').getList().$object;
+  TagService.clearTagList();
+  TagService.setTagIdList();
+  $scope.tagList = TagService.getTagList();
+  $scope.tagIdList = TagService.getIdList();
 
   //The current page of the category (horizontal scrolling)
   $scope.page = {};
@@ -143,20 +145,10 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.numLoaded = 0;
 
   $scope.loadMore = function() {
-    console.log("loading more");
-    $scope.numLoaded += 1;
-  };
-
-  $scope.initialLoad = true;
-
-  $scope.noScroll = function() {
-    if ($scope.initialLoad) {
-      if ( $(".recipe").length > 1 ) {
-        $scope.initialLoad = false;
-      }
-      return true;
-    } else {
-      return false;
+    if ($scope.numLoaded < $scope.tagIdList.length) {
+      console.log($scope.numLoaded, $scope.tagIdList.length)
+      TagService.addOneTag($scope.numLoaded);
+      $scope.numLoaded += 1;
     }
   };
 

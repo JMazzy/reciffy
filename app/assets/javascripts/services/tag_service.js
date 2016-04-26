@@ -1,22 +1,37 @@
 reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
-  var _tags = {}
+  var _tagIdList = [];
+  var _tagList = [];
   var _tagHolder = {
     tag: null,
     userIds: [],
     recipeIds: [],
-  }
+  };
 
-  var setTags = function() {
+  var setTagIdList = function() {
     Restangular
     .all('tags')
     .getList()
     .then(function(tags) {
-      for (var tag in tags) {
-        _tags[tag] = tags[tag];
+      _tagIdList.length = 0;
+      for( var t = 0; t < tags.length; t++) {
+        _tagIdList.push(tags[t].id)
       }
     });
   };
+
+  var clearTagList = function() {
+    _tagList.length = 0;
+  }
+
+  var addOneTag = function(index) {
+    Restangular
+    .one('tags', _tagIdList[index])
+    .get()
+    .then( function(tag) {
+      _tagList.push(tag);
+    });
+  }
 
   var findTagByName = function(tagName) {
     var temp;
@@ -30,8 +45,12 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     }
   };
 
-  var getTags = function() {
-    return _tags;
+  var getIdList = function() {
+    return _tagIdList;
+  }
+
+  var getTagList = function() {
+    return _tagList;
   }
 
   var getTagHolder = function() {
@@ -64,11 +83,14 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
   }
 
   return {
-    setTags: setTags,
-    getTags: getTags,
+    setTagIdList: setTagIdList,
+    getIdList: getIdList,
+    getTagList: getTagList,
     getTagHolder: getTagHolder,
     callOneTag: callOneTag,
-    findTagByName: findTagByName
+    findTagByName: findTagByName,
+    addOneTag: addOneTag,
+    clearTagList: clearTagList,
   }
 
 }]);
