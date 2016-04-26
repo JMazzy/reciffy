@@ -35,6 +35,17 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     }
   };
 
+  var setOneRecipe = function(recipe_id) {
+    if ( !_recipes[recipe_id] ) {
+      Restangular
+      .one('recipes', recipe_id)
+      .get()
+      .then( function(recipe) {
+        _recipes[recipe.id] = recipe;
+      })
+    }
+  };
+
   var setMadeRecipes = function() {
     Restangular
     .all('made_recipes')
@@ -369,6 +380,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
 
   return {
     setRecipes: setRecipes,
+    setOneRecipe: setOneRecipe,
     getRecipes: getRecipes,
     setUnits:   setUnits,
     setMadeRecipes: setMadeRecipes,

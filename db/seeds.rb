@@ -6,9 +6,13 @@ def quick_ingredients
     "spinach",
     "salt",
     "pepper",
+    "cumin",
     "green chilly",
-    "flour",
+    "all-purpose flour",
+    "butter",
+    "cocoa powder",
     "baking powder",
+    "baking soda",
     "eggs"
   ]
 
@@ -107,7 +111,7 @@ Recipe.all.each do |r|
     r.recipe_ingredients.create(
       ingredient_id: Ingredient.all.sample.id,
       unit_id: Unit.all.sample.id,
-      quantity: Random.rand(4)
+      quantity: Random.rand(0..5)
     )
   end
 end

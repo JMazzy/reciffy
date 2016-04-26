@@ -1,4 +1,4 @@
-reciffy.factory('savedRecipeService', ['Restangular', function(Restangular) {
+reciffy.factory('savedRecipeService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
   var _saved = {};
 
@@ -9,6 +9,7 @@ reciffy.factory('savedRecipeService', ['Restangular', function(Restangular) {
       .then(
         function(data) {
           populateSaved(data);
+          populateRecipes(data);
           return getSavedRecipes();
         },
         function(error) {
@@ -23,6 +24,12 @@ reciffy.factory('savedRecipeService', ['Restangular', function(Restangular) {
       _saved[recipeJson.id] = recipeJson;
     });
   };
+
+  var populateRecipes = function(rawData) {
+    rawData.forEach(function(saved) {
+      RecipeService.setOneRecipe(saved.recipe_id);
+    })
+  }
 
   var getSavedRecipes = function() {
     return _saved;

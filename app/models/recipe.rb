@@ -57,7 +57,6 @@ class Recipe < ActiveRecord::Base
     return top_recipe_list
   end
 
-
   def self.get_trending_recipes(user,n = 10)
     puts "Finds all user tags and gets recipes for that tag"
     puts "Recipes include average highest ratings for ratings in past 7 days"
@@ -82,8 +81,8 @@ class Recipe < ActiveRecord::Base
     return trending_recipe_list
   end
 
-  def self.get_recent_recipes(n=10)
-    recipe_list = Recipe.includes(
+  def self.all_with_all_includes
+    Recipe.all.includes(
       :recipe_ingredients,
       :ingredients,
       :units,
@@ -93,6 +92,10 @@ class Recipe < ActiveRecord::Base
       :profile,
       :photos,
       :ratings )
+  end
+
+  def self.get_recent_recipes(n=10)
+    recipe_list = Recipe.all_with_all_includes
     recipe_list.order(created_at: :desc).limit(n)
   end
 
@@ -127,16 +130,7 @@ class Recipe < ActiveRecord::Base
     by_tag = Recipe.rec_by_tag_recipe_ids(user_id)
     by_sub = Recipe.rec_by_sub_recipe_ids(user_id)
 
-    Recipe.includes(
-      :recipe_ingredients,
-      :ingredients,
-      :units,
-      :comments,
-      :tags,
-      :user,
-      :profile,
-      :photos,
-      :ratings)
+    Recipe.all_with_all_includes
     .where("id IN (#{(by_tag + by_sub).uniq.shuffle.join(',')})")
   end
 
