@@ -61,8 +61,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .getList()
     .then( function(units) {
       for( var u = 0; u < units.length; u++ ) {
-         _units.push(units[u]);
-        //_units[units[u].id] = units[u];
+        _units.push(units[u]);
       }
     });
   };
@@ -102,8 +101,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
      checkRecipeMade(_recipes[recipe_id])
 
     _current.comment.recipe_id = recipe_id;
-
     _current.tag.recipe_id = recipe_id;
+    _current.rating.recipe_id = recipe_id;
 
     if ( _current.recipe.ratings ) {
       for ( var r = 0; r < _current.recipe.ratings.length; r++) {
@@ -114,17 +113,12 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
         }
       }
     }
-
-    _current.rating.recipe_id = recipe_id;
-
   };
 
   var setCurrentRecipe = function( recipe_id, currentUser ) {
     _clearSubLists();
     if ( !!_recipes[recipe_id] ) {
       _setCurrents( recipe_id, currentUser );
-    } else if (recipe_id === "new") {
-      createEmptyRecipe( currentUser )
     } else {
       _requestSingleRecipe( recipe_id, currentUser )
     }
@@ -146,7 +140,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
       setMadeRecipes(currentUser);
     });
   };
-
 
   var addRecipe = function(recipe) {
     _recipes[recipe.id] = recipe;
