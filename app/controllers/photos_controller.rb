@@ -19,16 +19,17 @@ class PhotosController < ApplicationController
   end
 
   def new
-    @photo = Photo.new
+    @photo = Photo.create
   end
 
   def create
-    @photo = Photo.new(photo_params)
-
     if params[:photo]
-      p 'decoding image'
+      p 'decoding image:'
+      p params[:photo]
       decode_image
     end
+
+    @photo = Photo.new(photo_params)
 
     respond_to do |format|
       if @photo.save
@@ -71,7 +72,7 @@ class PhotosController < ApplicationController
   private
 
   def photo_params
-    params.require(:photo).permit(:photo)
+    params.require(:photo).permit(:photo, :recipe_id)
   end
 
   def decode_image
@@ -90,6 +91,7 @@ class PhotosController < ApplicationController
 
     params[:photo] = data
     p data
+    p params[:photo]
   end
 
   def require_photo_author

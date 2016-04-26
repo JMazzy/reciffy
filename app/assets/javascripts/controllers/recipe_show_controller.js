@@ -34,6 +34,7 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.comments = RecipeService.getComments();
   $scope.units = RecipeService.getUnits();
   $scope.ingredients = RecipeService.getIngredients();
+  $scope.photo = {};
 
   //Recipe Ingredients Added
 
@@ -148,8 +149,9 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.uploadImage = function (path) {
     if ($scope.recipe.id) {
       // do put request
+      console.log($scope.photo);
       Restangular.all('photos').post({
-        photo: $scope.imageData,
+        photo: $scope.photo.imageData,
         recipe_id: $scope.recipe.id
       }).then( function (result) {
         // Success
