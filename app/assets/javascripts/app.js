@@ -1,4 +1,6 @@
-var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable', 'ui.bootstrap', 'angular.filter', 'angular-input-stars', 'ngFileUpload', "angucomplete-alt"])
+var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable',
+                                        'ui.bootstrap', 'angular.filter', 'angular-input-stars',
+                                        'ngFileUpload', "angucomplete-alt"])
 
 .config([ 'AuthProvider', function(AuthProvider) {
     // Configure Auth service with AuthProvider
@@ -149,6 +151,12 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
           });
         }]
       },
+    })
+    // Search Results Route
+    .state("reciffy.search", {
+      url: "/search/:searchString",
+      templateUrl: "/templates/search.html",
+      controller: "searchResultCtrl"
     })
     $urlRouterProvider.otherwise('/recipes/all');
   }]);

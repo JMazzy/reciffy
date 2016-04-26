@@ -8,6 +8,7 @@ reciffy.factory('UserService', ['Restangular', '$state', function(Restangular, $
       for (var u = 0; u < users.length; u++ ) {
         _users[users[u].id] = users[u];
       }
+      //console.log("HIEHIFHIOSJDFIOSDJIFSJFIJFEIOFJSIEOFJIOSFJSIFJSIODFJOS");
     })
   };
 

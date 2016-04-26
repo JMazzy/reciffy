@@ -27,6 +27,9 @@
 //= require angular-filter.min.js
 //= require angucomplete-alt
 //= require fraction
+//= require owl.carousel
+//= require owl.carousel.min.js
+
 
 //= require ng-file-upload-shim
 //= require ng-file-upload
