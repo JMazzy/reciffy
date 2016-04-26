@@ -12,7 +12,6 @@ reciffy.controller('ratedRecipeCtrl',
       $stateParams,
       $state){
 
-        RecipeService.setRecipes();
         $scope.recipes = RecipeService.getRecipes();
 
         // Use Service Method to make API call to get saved recipes

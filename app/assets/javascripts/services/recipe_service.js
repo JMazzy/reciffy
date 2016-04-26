@@ -22,19 +22,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     }
   };
 
-  var setRecipes = function() {
-    if ( Object.keys(_recipes).length < 1 ) {
-      Restangular
-      .all('recipes')
-      .getList()
-      .then( function(recipes) {
-        for( var r = 0; r < recipes.length; r++ ) {
-          _recipes[recipes[r].id] = recipes[r];
-        }
-      });
-    }
-  };
-
   var setOneRecipe = function(recipe_id) {
     if ( !_recipes[recipe_id] ) {
       Restangular
@@ -161,7 +148,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     if ( !!_recipes[recipe_id] ) {
       _setCurrents( recipe_id, currentUser );
     } else if (recipe_id === "new") {
-      _createEmptyRecipe( recipe_id, currentUser )
+      createEmptyRecipe( currentUser )
     } else {
       _requestSingleRecipe( recipe_id, currentUser )
     }
@@ -186,22 +173,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     });
   };
 
-  var _createEmptyRecipe = function( recipe_id, currentUser ) {
-    var newRecipe = {
-      name: "Untitled Recipe",
-      description: "Describe your recipe...",
-      instructions: "How do you make it?",
-      prep_time: 0,
-      cook_time: 0,
-    };
 
-    Restangular
-    .all('recipes')
-    .post(newRecipe)
-    .then( function(recipe) {
-      _recipes[recipe.id] = recipe;
-      $state.go('reciffy.recipes.show', {id: recipe.id});
-    });
+  var addRecipe = function(recipe) {
+    _recipes[recipe.id] = recipe;
   };
 
   var deleteRecipe = function() {
@@ -379,7 +353,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   }
 
   return {
-    setRecipes: setRecipes,
     setOneRecipe: setOneRecipe,
     getRecipes: getRecipes,
     setUnits:   setUnits,
@@ -407,5 +380,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     addRecipeIngredient: addRecipeIngredient,
     forkRecipe: forkRecipe,
     deleteRecipe: deleteRecipe,
+    addRecipe: addRecipe,
   };
 }]);
