@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       resources :ingredients, only: [:index, :show]
       resources :units, only: [:index, :show]
       resources :recommendations, only: [:index]
+      resources :recent_recipes, only: [:index]
     end
   end
 
