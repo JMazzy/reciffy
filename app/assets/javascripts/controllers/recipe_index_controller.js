@@ -45,7 +45,7 @@ reciffy.controller( 'RecipeIndexCtrl',
 
   TagService.clearTagList();
   TagService.setTagIdList();
-  $scope.tagList = TagService.getTagList();;
+  $scope.tagList = TagService.getTagList();
   $scope.tagIdList = TagService.getIdList();
 
   //The current page of the category (horizontal scrolling)
@@ -143,6 +143,7 @@ reciffy.controller( 'RecipeIndexCtrl',
 
   $scope.loadMore = function() {
     if ($scope.numLoaded < $scope.tagIdList.length) {
+      console.log($scope.numLoaded, $scope.tagIdList.length)
       TagService.addOneTag($scope.numLoaded);
       $scope.numLoaded += 1;
     }
