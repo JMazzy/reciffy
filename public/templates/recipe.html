@@ -140,7 +140,7 @@
         </div>
 
         <h4>Tags</h4>
-        <div class="tag label label-info" ng-repeat="(id,tag) in tags" >
+        <div class="tag label label-info" ng-repeat="tag in currentStuff.recipe.tags" >
           <span class="pull-left"><a ui-sref="reciffy.tags.show({id: id})">{{tag.name}}</a> | </span>
           <a><i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" ng-click="deleteTag(tag.id)"></i></a>
         </div>
@@ -202,7 +202,7 @@
 
     <h4>All Comments</h4>
 
-    <div class="comment" ng-repeat="comment in comments | orderObjectBy : '-created_at'">
+    <div class="comment" ng-repeat="comment in currentStuff.recipe.comments | orderBy : '-created_at'">
 
       <p>
         <strong>{{comment.profile.first_name}} {{comment.profile.last_name}}</strong> says:

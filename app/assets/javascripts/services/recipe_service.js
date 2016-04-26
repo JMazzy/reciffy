@@ -1,12 +1,10 @@
 reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', function(Restangular, $state, $stateParams) {
   var _recipes = {};
-  var _comments = {};
-  var _tags = {};
   var _units = [];
   var _ingredients = [];
   var _made_recipes = {};
 
-  var _currents = {
+  var _current = {
     recipe: {},
     tag: {name: "", recipe_id: null},
     comment: {comment_description: "", recipe_id: null},
@@ -16,9 +14,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var checkRecipeMade = function(recipe) {
-    _currents.show_recipe_made = false;
+    _current.show_recipe_made = false;
     if (_made_recipes[recipe.id]) {
-        _currents.show_recipe_made = true;
+        _current.show_recipe_made = true;
     }
   };
 
@@ -70,15 +68,11 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var newRecipe = function() {
-    _currents.recipe = {};
+    _current.recipe = {};
   };
 
   var getRecipes = function() {
     return _recipes;
-  };
-
-  var getTags = function() {
-    return _tags;
   };
 
   var getUnits = function() {
@@ -93,16 +87,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     return _made_recipes;
   };
 
-  var getTag = function() {
-    return _currents.tag;
-  };
-
   var getComment = function() {
-    return _currents.comment;
-  };
-
-  var getComments = function() {
-    return _comments;
+    return _current.comment;
   };
 
   var addRecipe = function(recipe) {
@@ -110,36 +96,26 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var _setCurrents = function(recipe_id, currentUser) {
-    _currents.recipe = _recipes[recipe_id];
+    _current.recipe = _recipes[recipe_id];
 
-    _currents.disabledStatus = ( currentUser.id != _recipes[recipe_id].user_id );
+    _current.disabledStatus = ( currentUser.id != _recipes[recipe_id].user_id );
      checkRecipeMade(_recipes[recipe_id])
 
-    if (_currents.recipe.comments) {
-      for ( var c = 0; c < _currents.recipe.comments.length; c++) {
-        _comments[_currents.recipe.comments[c].id] = _currents.recipe.comments[c];
-        _currents.comment.recipe_id = recipe_id;
-      }
-    }
+    _current.comment.recipe_id = recipe_id;
 
-    if (_currents.recipe.tags) {
-      for ( var t = 0; t < _currents.recipe.tags.length; t++) {
-        _tags[_currents.recipe.tags[t].id] = _currents.recipe.tags[t];
-        _currents.tag.recipe_id = recipe_id;
-      }
-    }
+    _current.tag.recipe_id = recipe_id;
 
-    if ( _currents.recipe.ratings ) {
-      for ( var r = 0; r < _currents.recipe.ratings.length; r++) {
-        if ( _currents.recipe.ratings[r].user_id === currentUser.id ) {
-          _currents.rating.rating = _currents.recipe.ratings[r].rating;
-          _currents.rating.id = _currents.recipe.ratings[r].id;
+    if ( _current.recipe.ratings ) {
+      for ( var r = 0; r < _current.recipe.ratings.length; r++) {
+        if ( _current.recipe.ratings[r].user_id === currentUser.id ) {
+          _current.rating.rating = _current.recipe.ratings[r].rating;
+          _current.rating.id = _current.recipe.ratings[r].id;
           break;
         }
       }
     }
 
-    _currents.rating.recipe_id = recipe_id;
+    _current.rating.recipe_id = recipe_id;
 
   };
 
@@ -155,11 +131,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var _clearSubLists = function() {
-    for (var tag in _tags) delete _tags[tag];
-    for (var comment in _comments) delete _comments[comment];
-    _currents.rating.rating = 0;
-    _currents.rating.recipe_id = null;
-    _currents.rating.id = null;
+    _current.rating.rating = 0;
+    _current.rating.recipe_id = null;
+    _current.rating.id = null;
   }
 
   var _requestSingleRecipe = function(recipe_id, currentUser) {
@@ -179,9 +153,9 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var deleteRecipe = function() {
-    if ( !_currents.disabledStatus ) {
+    if ( !_current.disabledStatus ) {
       Restangular
-      .one( 'recipes', _currents.recipe.id )
+      .one( 'recipes', _current.recipe.id )
       .remove()
       .then( function(recipe) {
         delete _recipes[ recipe.id ];
@@ -193,47 +167,47 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   };
 
   var getCurrentRecipe = function() {
-    return _currents.recipe;
+    return _current.recipe;
   };
 
   var getdisabledStatus = function() {
-    return _currents.disabledStatus;
+    return _current.disabledStatus;
   };
 
   var getCurrentStuff = function() {
-    return _currents;
+    return _current;
   };
 
   var addComment = function() {
     Restangular
-    .one("recipes", _currents.recipe.id)
+    .one("recipes", _current.recipe.id)
     .all("comments")
-    .post(_currents.comment)
+    .post(_current.comment)
     .then( function(comment) {
-      console.log(comment)
-      _comments[comment.id] = comment;
-      _currents.comment.comment_description = "";
+      _current.recipe.comments.unshift(comment);
+      _current.comment.comment_description = "";
     });
   };
 
   var removeComment = function(comment) {
     Restangular
-    .one("recipes", _currents.recipe.id)
+    .one("recipes", _current.recipe.id)
     .one("comments", comment.id)
     .remove()
     .then(function(deletedComment) {
-      delete _comments[deletedComment.id];
+      var idx = _current.recipe.comments.indexOf(deletedComment);
+      _current.recipe.comments.splice(idx, 1);
     });
   };
 
   var addTag = function() {
     Restangular
     .all('tags')
-    .post(_currents.tag, {  taggable_id: _currents.recipe.id,
+    .post(_current.tag, {  taggable_id: _current.recipe.id,
                             taggable_type: "Recipe" })
     .then( function(newTag) {
-      _tags[newTag.id] = newTag;
-      _currents.tag.name = "";
+      _current.recipe.tags.unshift(newTag);
+      _current.tag.name = "";
     });
   };
 
@@ -241,27 +215,28 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   var removeTag = function(tag_id) {
     Restangular
     .one("tags", tag_id)
-    .remove({ taggable_id: _currents.recipe.id,
+    .remove({ taggable_id: _current.recipe.id,
               taggable_type: "Recipe"})
     .then(function(deletedTag) {
-      delete _tags[deletedTag.id];
+      var idx = _current.recipe.tags.indexOf(deletedTag);
+      _current.recipe.tags.splice(idx, 1);
     });
   };
 
   var rateRecipe = function() {
-    if ( _currents.rating.id ) {
-      Restangular.one("ratings", _currents.rating.id)
-      .patch({rating: _currents.rating})
+    if ( _current.rating.id ) {
+      Restangular.one("ratings", _current.rating.id)
+      .patch({rating: _current.rating})
       .then(function(response) {
-        _currents.rating = response;
+        _current.rating = response;
       }, function(error) {
         console.error(error);
       });
     } else {
       Restangular.all("ratings")
-      .post({rating: _currents.rating})
+      .post({rating: _current.rating})
       .then(function(response) {
-        _currents.rating = response;
+        _current.rating = response;
       }, function(error) {
         console.error(error);
       });
@@ -307,12 +282,12 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .one("recipe_ingredients", ri.id)
     .remove()
     .then(function(deletedRecipeIngredient) {
-      var length = _currents.recipe.recipe_ingredients.length
+      var length = _current.recipe.recipe_ingredients.length
       for ( var i = 0; i < length; i++ ) {
-        if ( _currents.recipe.recipe_ingredients[i]
+        if ( _current.recipe.recipe_ingredients[i]
           && deletedRecipeIngredient
-          && _currents.recipe.recipe_ingredients[i].id === deletedRecipeIngredient.id ) {
-          _currents.recipe.recipe_ingredients.splice(i, 1);
+          && _current.recipe.recipe_ingredients[i].id === deletedRecipeIngredient.id ) {
+          _current.recipe.recipe_ingredients.splice(i, 1);
         }
       }
     })
@@ -367,9 +342,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     removeComment: removeComment,
     addTag: addTag,
     removeTag: removeTag,
-    getTags: getTags,
-    getTag: getTag,
-    getComments: getComments,
     getComment: getComment,
     getCurrentStuff: getCurrentStuff,
     getdisabledStatus: getdisabledStatus,
