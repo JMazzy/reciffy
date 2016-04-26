@@ -10,6 +10,8 @@ controller('myCtrl', ['Auth', function(Auth) {
     // Use your configured Auth service.
 }]);
 
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250)
+
 reciffy.factory('_', ['$window', function($window) {
   return $window._; // assumes underscore has already been loaded on the page
 }]);
