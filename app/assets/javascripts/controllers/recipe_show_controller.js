@@ -28,8 +28,6 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.currentStuff = RecipeService.getCurrentStuff();
   $scope.recipe = RecipeService.getCurrentRecipe();
 
-  $scope.tags = RecipeService.getTags();
-  $scope.comments = RecipeService.getComments();
   $scope.units = RecipeService.getUnits();
   $scope.ingredients = RecipeService.getIngredients();
   $scope.photo = {};

@@ -138,4 +138,25 @@ reciffy.controller( 'RecipeIndexCtrl',
       $scope.setNextPage(category, -1);
     }
   }
+
+  $scope.numLoaded = 0;
+
+  $scope.loadMore = function() {
+    console.log("loading more");
+    $scope.numLoaded += 1;
+  };
+
+  $scope.initialLoad = true;
+
+  $scope.noScroll = function() {
+    if ($scope.initialLoad) {
+      if ( $(".recipe").length > 1 ) {
+        $scope.initialLoad = false;
+      }
+      return true;
+    } else {
+
+    }
+
+  };
 }]);

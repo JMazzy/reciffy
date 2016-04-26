@@ -1,6 +1,7 @@
 var reciffy = angular.module('reciffy', ['ui.router', 'restangular', 'Devise', 'xeditable',
                                         'ui.bootstrap', 'angular.filter', 'angular-input-stars',
-                                        'ngFileUpload', "angucomplete-alt"])
+                                        'ngFileUpload', "angucomplete-alt",
+                                        'infinite-scroll'])
 
 .config([ 'AuthProvider', function(AuthProvider) {
     // Configure Auth service with AuthProvider
