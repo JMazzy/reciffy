@@ -27,6 +27,7 @@
 //= require angular-filter.min.js
 //= require angucomplete-alt
 //= require fraction
+//= require ngInfiniteScroll
 
 //= require ng-file-upload-shim
 //= require ng-file-upload
