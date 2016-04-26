@@ -1,6 +1,6 @@
 reciffy.factory('trendingRecipeService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
-  var _trending = {};
+  var _trending = [];
 
   var callTrendingRecipes = function() {
     // Don't make another API call if we already have the data
@@ -19,7 +19,7 @@ reciffy.factory('trendingRecipeService', ['Restangular', 'RecipeService', functi
 
   var populateTrendingRecipes = function(rawData) {
     rawData.forEach(function(tR) {
-      _trending[tR.id] = tR;
+      _trending.push(tR);
       RecipeService.setOneRecipe(tR.id);
     });
   };
