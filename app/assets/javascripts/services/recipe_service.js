@@ -35,10 +35,15 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     }
   };
 
-  var setMadeRecipes = function(allMadeRecipes) {
-    for( var i = 0; i < allMadeRecipes.length; i++ ) {
-      _made_recipes[allMadeRecipes[i].recipe_id] = allMadeRecipes[i].user_id
-    }
+  var setMadeRecipes = function() {
+    Restangular
+    .all('made_recipes')
+    .getList()
+    .then( function(allMadeRecipes) {
+      for( var i = 0; i < allMadeRecipes.length; i++ ) {
+        _made_recipes[allMadeRecipes[i].recipe_id] = allMadeRecipes[i].user_id
+      }
+    });
   };
 
   var setIngredients = function() {
@@ -118,6 +123,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
         _currents.comment.recipe_id = recipe_id;
       }
     }
+
     if (_currents.recipe.tags) {
       for ( var t = 0; t < _currents.recipe.tags.length; t++) {
         _tags[_currents.recipe.tags[t].id] = _currents.recipe.tags[t];
@@ -125,13 +131,16 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
       }
     }
 
-    for ( var r = 0; r < _currents.recipe.ratings.length; r++) {
-      if ( _currents.recipe.ratings[r].user_id === currentUser.id ) {
-        _currents.rating.rating = _currents.recipe.ratings[r].rating;
-        _currents.rating.id = _currents.recipe.ratings[r].id;
-        break;
+    if ( _currents.recipe.ratings ) {
+      for ( var r = 0; r < _currents.recipe.ratings.length; r++) {
+        if ( _currents.recipe.ratings[r].user_id === currentUser.id ) {
+          _currents.rating.rating = _currents.recipe.ratings[r].rating;
+          _currents.rating.id = _currents.recipe.ratings[r].id;
+          break;
+        }
       }
     }
+
     _currents.rating.recipe_id = recipe_id;
 
   };
@@ -179,7 +188,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     .all('recipes')
     .post(newRecipe)
     .then( function(recipe) {
-      console.log(recipe)
       _recipes[recipe.id] = recipe;
       $state.go('reciffy.recipes.show', {id: recipe.id});
     });
