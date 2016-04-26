@@ -16,13 +16,10 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       $scope.tags = user.profile.tags;
       $scope.newTag = { name: "" };
       $scope.avatar = user.photo.url.thumb;
-
-      console.log($scope.tags);
     })
   };
 
   $scope.getProfileData();
-
 
   $scope.updateUserProfile = function(user) {
     Restangular.one('profiles', $scope.profile.id).patch({
@@ -93,8 +90,8 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
           avatar: $scope.profile.imageData
         }
       }).then( function (result) {
-        setTimeout($scope.getProfileData(), 1000);
         console.log('changed profile photo');
+        $scope.avatar = $scope.avatar + '?' + new Date().getTime(); 
         console.log($scope.avatar);
         $scope.getProfileData();
       }, function (error) {
