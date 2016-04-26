@@ -97,29 +97,35 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.personal_top_ten(rater_id)
-    # Top Ten Ratings
-    User.find(rater_id).ratings.where("ratings.rating > 3").order("ratings.rating DESC").limit(10).select(:recipe_id)
+    # Top Ten personally highest rated recipes with rating > 3
+    User.find(rater_id).ratings.joins("JOIN recipes ON (recipe_id = recipes.id)").order("ratings.rating DESC").where("ratings.rating > 3").select("recipes.*").limit(10)
   end
 
   def self.top_tag_ids(user_id)
     top_ten = Recipe.personal_top_ten(user_id)
 
     # All tags associated with those recipes
-    top_ten.joins(:recipe).joins("JOIN taggings ON (recipes.id = taggings.taggable_id)").where("taggable_type = 'Recipe'").pluck(:tag_id)
+    top_ten.joins("JOIN taggings ON (taggable_id = recipes.id)").where("taggable_type = 'Recipe'").joins("JOIN tags on (tag_id = tags.id)").select("tags.*")
   end
 
   def self.rec_by_tag_recipe_ids(user_id)
-    tag_ids = Recipe.top_tag_ids(user_id)
-    Tagging.where("tag_id IN (#{tag_ids.join(",")})").where("taggable_type = 'Recipe'").pluck(:taggable_id)
+    tags = Recipe.personal_top_tags(user_id)
+
+    # All other recipes associated with those tags
+    recipes = tags.joins("JOIN recipes ON (recipe_id = recipes.id)").select("recipe_id").limit(10)
+
+    recipes.map{ |s| s.id }.uniq
   end
 
-  def self.recs_subscribed(subscriber_id)
-    Recipe.all.joins('JOIN subscriptions ON (subscribed_id = user_id)').where("subscriber_id = #{subscriber_id}").pluck("recipes.id")
+  def self.rec_by_sub_recipe_ids(subscriber_id)
+    subscribed_recipes = Recipe.all.joins('JOIN subscriptions ON (subscribed_id = user_id)').where("subscriber_id = #{subscriber_id}").order("recipes.created_at DESC").select("id").limit(10)
+
+    subscribed_recipes.map{ |s| s.id }.uniq
   end
 
   def self.recommendations(user_id)
     by_tag = Recipe.rec_by_tag_recipe_ids(user_id)
-    by_sub = Recipe.recs_subscribed(user_id)
+    by_sub = Recipe.rec_by_sub_recipe_ids(user_id)
 
     (by_tag + by_sub).uniq.shuffle
   end
