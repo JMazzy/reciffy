@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
-  before_action :redirect_if_photo_url_invalid, only: [:create]
-  before_action :require_photo_author, only: [:destroy]
+  # before_action :redirect_if_photo_url_invalid, only: [:create]
+  # before_action :require_photo_author, only: [:destroy]
 
   def index
     @user = User.find_by_id(params[:id])
@@ -19,16 +19,17 @@ class PhotosController < ApplicationController
   end
 
   def new
-    @photo = Photo.new
+    @photo = Photo.create
   end
 
   def create
-    @photo = Photo.new(photo_params)
-
     if params[:photo]
-      p 'decoding image'
+      p 'decoding image:'
+      p params[:photo]
       decode_image
     end
+
+    @photo = Photo.new(photo_params)
 
     respond_to do |format|
       if @photo.save
@@ -71,13 +72,13 @@ class PhotosController < ApplicationController
   private
 
   def photo_params
-    params.require(:photo).permit(:photo)
+    params.require(:photo).permit(:photo, :recipe_id)
   end
 
   def decode_image
     # decode base64 string
     Rails.logger.info 'decoding now'
-    decoded_data = Base64.decode64(params[:photo]) # json parameter set in directive scope
+    decoded_data = Base64.decode64(params[:photo][:photo]) # json parameter set in directive scope
     # create 'file' understandable by Paperclip
     data = StringIO.new(decoded_data)
     data.class_eval do
@@ -88,8 +89,9 @@ class PhotosController < ApplicationController
     data.content_type = 'image/jpeg'
     data.original_filename = 'newImage.jpeg'
 
-    params[:photo] = data
+    params[:photo][:photo] = data
     p data
+    p params[:photo][:photo]
   end
 
   def require_photo_author

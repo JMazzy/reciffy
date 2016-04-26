@@ -32,6 +32,8 @@ class Recipe < ActiveRecord::Base
 
   validates :name, :description, :instructions, :prep_time, :cook_time, presence: true
 
+  after_create :create_activity
+
   def self.get_tagged_recipes(tags)
     tagged_recipes = Recipe.select("recipes.*")
       .joins("JOIN taggings AS ta ON recipes.id = ta.taggable_id and ta.taggable_type = 'Recipe'")
@@ -121,5 +123,18 @@ class Recipe < ActiveRecord::Base
 
     (by_tag + by_sub).uniq.shuffle
   end
+
+  private
+
+    def create_activity
+      Activity.create(
+      user_id: self.user_id,
+      event: "Added a Recipe",
+      activable_id: self.id,
+      activable_type: "#{self.class}",
+      created_at: self.created_at,
+      updated_at: self.updated_at
+      )
+    end
 
 end
