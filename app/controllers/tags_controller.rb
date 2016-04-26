@@ -13,7 +13,7 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     respond_to do |format|
       format.html
-      format.json { render json: @tag.to_json(include: :taggings) }
+      format.json { render json: @tag.to_json(include: [:taggings, :photos]) }
     end
   end
 
