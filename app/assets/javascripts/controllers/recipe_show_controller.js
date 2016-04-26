@@ -25,6 +25,7 @@ reciffy.controller( 'RecipeShowCtrl',
   RecipeService.setIngredients();
   RecipeService.setMadeRecipes(allMadeRecipes);
 
+
   RecipeService.setCurrentRecipe( $stateParams.id, currentUser );
 
   $scope.currentStuff = RecipeService.getCurrentStuff();
@@ -151,8 +152,10 @@ reciffy.controller( 'RecipeShowCtrl',
       // do put request
       console.log($scope.photo);
       Restangular.all('photos').post({
-        photo: $scope.photo.imageData,
-        recipe_id: $scope.recipe.id
+        photo: {
+          photo: $scope.photo.imageData,
+          recipe_id: $scope.recipe.id
+        }
       }).then( function (result) {
         // Success
       }, function (error) {
