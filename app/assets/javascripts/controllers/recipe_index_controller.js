@@ -58,8 +58,10 @@ reciffy.controller( 'RecipeIndexCtrl',
 
   //Gets the array/object length of the recipe category
   $scope.getCategoryLength = function(category) {
-    category = "$scope." + category;
+    //category = "$scope." + category;
+    category = $scope[category];
     if (typeof eval(category) == "object") {
+      //console.log(Object.keys(category).length, category);
       return Object.keys(category).length;
     } else {
       return eval(category).length;
@@ -125,6 +127,7 @@ reciffy.controller( 'RecipeIndexCtrl',
     if (lastRec < len) {
       $scope.setNextPage(category, 1);
     }
+    //console.log(len, page, lastRec);
   }
 
   $scope.moveLeft = function(category) {
@@ -155,5 +158,17 @@ reciffy.controller( 'RecipeIndexCtrl',
     } else {
       return false;
     }
+  };
+
+  $scope.disableLeftScrollButton = function(category) {
+    return $scope.getPageBegin(category) === 0 ? true : false;
+  };
+
+  $scope.disableRightScrollButton = function(category) {
+    var len = $scope.getCategoryLength(category);
+    var page = $scope.getThisPage(category);
+    var lastRec = (page * $scope.max) + $scope.max;
+    console.log(len, page, lastRec);
+    return lastRec >= len ? true : false;
   };
 }]);
