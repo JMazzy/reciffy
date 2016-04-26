@@ -60,23 +60,7 @@ class Recipe < ActiveRecord::Base
     puts "Finds all user tags and gets recipes for that tag"
     puts "Recipes include average highest ratings for ratings in past 7 days"
 
-    # What happens when no tags are created for the user?
-    #   >> user all tags?
-
     tags = user.profile.get_user_tags
-
-    # recipes = Recipe.get_tagged_recipes(tags)
-    #     .joins("JOIN ratings as r ON r.recipe_id = recipes.id")
-    #     .joins("JOIN made_recipes as m ON m.recipe_id = recipes.id")
-    #     .joins("JOIN recipes as f ON f.original_id = recipes.id")
-    #      .where(
-    #       "r.created_at >= :start OR m.created_at >= :start OR f.created_at >= :start",
-    #          :start => 1.week.ago.to_date)
-
-    tagged_recipes = Recipe.select("recipes.*")
-      .joins("JOIN taggings AS ta ON recipes.id = ta.taggable_id and ta.taggable_type = 'Recipe'")
-      .joins("JOIN tags ON ta.tag_id = tags.id").where("tags.name IN (?)", tags)
-    tagged_recipes
 
     recipes = Recipe.get_tagged_recipes(tags)
       .includes(:ratings, :made_recipes, :forked_recipes)
@@ -97,12 +81,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.get_recent_recipes(n=10)
-    recipe_list = Recipe.all_with_all_includes
-    recipe_list.order(created_at: :desc).limit(n)
-  end
-
-  def self.all_with_all_includes
-    Recipe.all.includes(
+    recipe_list = Recipe.includes(
       :recipe_ingredients,
       :ingredients,
       :units,
@@ -112,33 +91,48 @@ class Recipe < ActiveRecord::Base
       :profile,
       :photos,
       :ratings )
+    recipe_list.order(created_at: :desc).limit(n)
   end
 
   def self.personal_top_ten(rater_id)
     # Top Ten Ratings
-    User.find(rater_id).ratings.where("ratings.rating > 3").order("ratings.rating DESC").limit(10)
+    User.find(rater_id).ratings.where("ratings.rating > 3").order("ratings.rating DESC").limit(10).select(:recipe_id)
   end
 
-  def self.personal_top_tags(user_id)
+  def self.top_tag_ids(user_id)
     top_ten = Recipe.personal_top_ten(user_id)
 
     # All tags associated with those recipes
-    top_ten.joins(:recipes).joins(:tags)
+    top_ten.joins(:recipe).joins("JOIN taggings ON (recipes.id = taggings.taggable_id)").where("taggable_type = 'Recipe'").pluck(:tag_id).uniq
   end
 
-  def self.recs_tags(user_id)
-    tags = Recipe.personal_top_tags(user_id)
+  def self.rec_by_tag_recipe_ids(user_id)
+    tag_ids = Recipe.top_tag_ids(user_id)
 
     # All other recipes associated with those tags
-    recipes = tags.joins("JOIN recipes ON (recipe_id = recipes.id)").limit(10)
-
-    recipes.map{ |s| s.id }.uniq
+    Recipe.all.find(tag_ids).pluck("recipes.id")
   end
 
   def self.recs_subscribed(subscriber_id)
-    subscribed_recipes = Recipe.all_with_all_includes.joins('JOIN subscriptions ON (subscribed_id = user_id)').where("subscriber_id = #{subscriber_id}").order("recipes.created_at DESC").limit(10)
+    Recipe.all.joins('JOIN subscriptions ON (subscribed_id = user_id)').where("subscriber_id = #{subscriber_id}").pluck("recipes.id")
+  end
 
-    subscribed_recipes.map{ |s| s.id }.uniq
+  def self.recommendations(user_id)
+    by_tag = Recipe.rec_by_tag_recipe_ids(user_id)
+    by_sub = Recipe.recs_subscribed(user_id)
+
+    ids = (by_tag + by_sub).uniq.shuffle
+
+    Recipe.find(ids).includes(
+      :recipe_ingredients,
+      :ingredients,
+      :units,
+      :comments,
+      :tags,
+      :user,
+      :profile,
+      :photos,
+      :ratings )
   end
 
 end

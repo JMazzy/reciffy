@@ -6,7 +6,6 @@ reciffy.controller( 'RecipeIndexCtrl',
   '$stateParams',
   'Restangular',
   'RecipeService',
-  'savedRecipeService',
   'madeRecipeService',
   'topRecipeService',
   'trendingRecipeService',
@@ -22,7 +21,6 @@ reciffy.controller( 'RecipeIndexCtrl',
     $stateParams,
     Restangular,
     RecipeService,
-    savedRecipeService,
     madeRecipeService,
     topRecipeService,
     trendingRecipeService,
@@ -34,9 +32,6 @@ reciffy.controller( 'RecipeIndexCtrl',
 
   $scope.currentUser = currentUser;
 
-  RecipeService.setRecipes();
-  savedRecipeService.callAllSavedRecipes();
-  madeRecipeService.getAllMadeRecipes();
   topRecipeService.callTopRecipes();
   trendingRecipeService.callTrendingRecipes();
   topRecipeService.callTopRecipes();
@@ -44,22 +39,19 @@ reciffy.controller( 'RecipeIndexCtrl',
   TagService.setTags();
   UserService.setUsers();
 
-  $scope.recipes = RecipeService.getRecipes();
-  $scope.savedRecipes = savedRecipeService.getSavedRecipes();
-  $scope.madeRecipes = madeRecipeService.getMadeRecipes();
   $scope.topRecipes =  topRecipeService.getTopRecipes();
   $scope.trendingRecipes =  trendingRecipeService.getTrendingRecipes();
   $scope.recentRecipes = RecentRecipeService.getRecipes();
-
-  $scope.recs = RecommendationService.getRecommendations();
+  $scope.recdRecipes = RecommendationService.getRecommendations();
 
   $scope.allTaggings = Restangular.all('taggings').getList().$object;
 
   //The current page of the category (horizontal scrolling)
   $scope.page = {};
-  $scope.page["recipes"] = 0;
+  $scope.page["recentRecipes"] = 0;
   $scope.page["topRecipes"] = 0;
-  $scope.page["savedRecipes"] = 0;
+  $scope.page["recdRecipes"] = 0;
+  $scope.page["trendingRecipes"] = 0;
 
   //Max displays per category page (horizontal scrolling)
   $scope.max = 4;
@@ -80,14 +72,17 @@ reciffy.controller( 'RecipeIndexCtrl',
     var page;
 
     switch(category) {
-    case "recipes":
-        page = $scope.page.recipes;
+    case "recentRecipes":
+      page = $scope.page.recentRecipes;
         break;
     case "topRecipes":
-        page = $scope.page.topRecipes;
+      page = $scope.page.topRecipes;
         break;
-    case "savedRecipes":
-        page = $scope.page.savedRecipes;
+    case "recdRecipes":
+      page = $scope.page.recdRecipes;
+        break;
+    case "trendingRecipes":
+      page = $scope.page.trendingRecipes;
         break;
     }
 
@@ -107,15 +102,18 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.setNextPage = function(category,page) {
 
     switch(category) {
-    case "recipes":
-        $scope.page.recipes += page;
-        break;
+    case "recentRecipes":
+      $scope.page.recentRecipes += page;
+      break;
     case "topRecipes":
-        $scope.page.topRecipes += page;
-        break;
-    case "savedRecipes":
-        $scope.page.savedRecipes += page;
-        break;
+      $scope.page.topRecipes += page;
+      break;
+    case "recdRecipes":
+      $scope.page.recdRecipes += page;
+      break;
+    case "trendingRecipes":
+      $scope.page.trendingRecipes += page;
+      break;
     }
   }
 

@@ -3,20 +3,20 @@
   <h3>
     Recommended
 
-    <button class="btn btn-xs btn-success" ng-click="moveLeft('recs')">
+    <button class="btn btn-xs btn-success" ng-click="moveLeft('recdRecipes')">
       <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
     </button>
 
-    <button class="btn btn-xs btn-success" ng-click="moveRight('recs')">
+    <button class="btn btn-xs btn-success" ng-click="moveRight('recdRecipes')">
       <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
     </button>
   </h3>
 
-  <div ng-repeat="rec in recs | limitTo : 8">
+  <div ng-repeat="recipe in recdRecipes | limitTo : getPageEnd('recdRecipes') : getPageBegin('recdRecipes')">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
-      <a ui-sref="reciffy.recipes.show({id: rec})">
-        <recipe-directive recipe="recipes[rec]"></recipe-directive>
+      <a ui-sref="reciffy.recipes.show({id: recipe})">
+        <recipe-directive recipe="recipe"></recipe-directive>
       </a>
 
     </div>
@@ -36,7 +36,7 @@
       <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
     </button>
   </h3>
-  <div ng-repeat="recipe in trendingRecipes | limitTo : 8" class="recipe-holder">
+  <div ng-repeat="recipe in trendingRecipes | limitTo : getPageEnd('trendingRecipes') : getPageBegin('trendingRecipes')" class="recipe-holder">
     <div class="col-xs-6 col-sm-4 col-md-3">
 
       <a ui-sref="reciffy.recipes.show({id: recipe.id})">
@@ -52,17 +52,17 @@
   <h3>
     Recent
 
-    <button class="btn btn-xs btn-success" ng-click="moveLeft('recipes')">
+    <button class="btn btn-xs btn-success" ng-click="moveLeft('recentRecipes')">
       <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
     </button>
 
-    <button class="btn btn-xs btn-success" ng-click="moveRight('recipes')">
+    <button class="btn btn-xs btn-success" ng-click="moveRight('recentRecipes')">
       <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
     </button>
   </h3>
 
-  <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' |
-                 limitTo : getPageEnd('recipes') : getPageBegin('recipes')"
+  <div ng-repeat="recipe in recentRecipes | orderObjectBy : '-created_at' |
+                 limitTo : getPageEnd('recentRecipes') : getPageBegin('recentRecipes')"
       class="recipe-holder">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
