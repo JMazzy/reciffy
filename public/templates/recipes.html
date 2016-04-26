@@ -26,6 +26,19 @@
 
   </div>
 
+  <div class="row">
+    <h3>Trending Recipes</h3>
+    <div ng-repeat="recipe in trendingRecipes | limitTo : 8" class="recipe-holder">
+      <div class="col-xs-6 col-sm-4 col-md-3">
+
+        <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+          <recipe-directive recipe="recipe"></recipe-directive>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
   <!-- New Recipes -->
   <div class="row">
     <h3>New</h3>
@@ -127,19 +140,6 @@
           </a>
 
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <h3>Trending Recipes</h3>
-    <div ng-repeat="recipe in trendingRecipes | limitTo : 8" class="recipe-holder">
-      <div class="col-xs-6 col-sm-4 col-md-3">
-
-        <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-          <recipe-directive recipe="recipe"></recipe-directive>
-        </a>
-
       </div>
     </div>
   </div>

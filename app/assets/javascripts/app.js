@@ -152,6 +152,12 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
         }]
       },
     })
+    // Search Results Route
+    .state("reciffy.search", {
+      url: "/search/:searchString",
+      templateUrl: "/templates/search.html",
+      controller: "searchResultCtrl"
+    })
     $urlRouterProvider.otherwise('/recipes/all');
   }]);
 
