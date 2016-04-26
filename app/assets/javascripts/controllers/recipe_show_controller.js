@@ -23,7 +23,6 @@ reciffy.controller( 'RecipeShowCtrl',
   RecipeService.setIngredients();
   RecipeService.setMadeRecipes();
 
-
   RecipeService.setCurrentRecipe( $stateParams.id, currentUser );
 
   $scope.currentStuff = RecipeService.getCurrentStuff();

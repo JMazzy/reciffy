@@ -2,7 +2,16 @@ class RecipesController < ApplicationController
   include RecipeJsonConverter
 
   def index
-    @recipes = Recipe.all_with_all_includes.where("id = #{current_user.id}")
+    @recipes = current_user.recipes.includes(
+      :recipe_ingredients,
+      :ingredients,
+      :units,
+      :comments,
+      :tags,
+      :user,
+      :profile,
+      :photos,
+      :ratings )
 
     if params[:page]
       @recipes = @recipes.page(params[:page]).per(10)

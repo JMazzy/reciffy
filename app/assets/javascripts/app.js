@@ -56,7 +56,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     .state("reciffy.recipes.my", {
       url: "/my",
       templateUrl: '/templates/my_recipe_layout.html',
-      controller: 'RecipeIndexCtrl',
+      controller: 'MyRecipeCtrl',
       resolve: {
         currentUser: ['Auth', function(Auth) {
           return Auth.currentUser();
@@ -95,12 +95,6 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
           return Auth.currentUser();
         }]
       },
-    })
-    // Create Recipe Page
-    .state("reciffy.recipes.new", {
-      url: "/new",
-      templateUrl: "templates/recipe.html",
-      controller: "RecipeShowCtrl"
     })
     // Tags top level route
     .state("reciffy.tags", {
