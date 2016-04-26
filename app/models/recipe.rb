@@ -109,7 +109,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.rec_by_tag_recipe_ids(user_id)
-    tags = Recipe.personal_top_tags(user_id)
+    tags = Recipe.top_tag_ids(user_id)
 
     # All other recipes associated with those tags
     recipes = tags.joins("JOIN recipes ON (recipe_id = recipes.id)").select("recipe_id").limit(10)
@@ -127,7 +127,17 @@ class Recipe < ActiveRecord::Base
     by_tag = Recipe.rec_by_tag_recipe_ids(user_id)
     by_sub = Recipe.rec_by_sub_recipe_ids(user_id)
 
-    (by_tag + by_sub).uniq.shuffle
+    Recipe.includes(
+      :recipe_ingredients,
+      :ingredients,
+      :units,
+      :comments,
+      :tags,
+      :user,
+      :profile,
+      :photos,
+      :ratings)
+    .where("id IN (#{(by_tag + by_sub).uniq.shuffle.join(',')})")
   end
 
   private
