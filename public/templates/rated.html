@@ -2,7 +2,7 @@
 
   <div ng-repeat="ratedRecipe in ratedRecipes | orderObjectBy : '-created_at'" class="recipe-holder">
 
-    <div class="col-xs-6 col-sm-4 col-md-3">
+    <div class="col-xs-6 col-sm-4 col-md-3" ng-if="recipes[ratedRecipe.recipe_id]">
 
       <a ui-sref="reciffy.recipes.show({id: ratedRecipe.recipe_id})">
         <recipe-directive recipe="recipes[ratedRecipe.recipe_id]"></recipe-directive>

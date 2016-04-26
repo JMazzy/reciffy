@@ -1,4 +1,4 @@
-reciffy.factory('trendingRecipeService', ['Restangular', function(Restangular) {
+reciffy.factory('trendingRecipeService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
   var _trending = {};
 
@@ -18,8 +18,9 @@ reciffy.factory('trendingRecipeService', ['Restangular', function(Restangular) {
   };
 
   var populateTrendingRecipes = function(rawData) {
-    rawData.forEach(function(recipeJson) {
-      _trending[recipeJson.id] = recipeJson;
+    rawData.forEach(function(tR) {
+      _trending[tR.id] = tR;
+      RecipeService.setOneRecipe(tR.id);
     });
   };
 

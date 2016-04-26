@@ -1,4 +1,4 @@
-reciffy.factory('RecentRecipeService', ['Restangular', '$state', '$stateParams', function(Restangular, $state, $stateParams) {
+reciffy.factory('RecentRecipeService', ['Restangular', 'RecipeService', '$state', '$stateParams', function(Restangular, RecipeService, $state, $stateParams) {
   _recipes = [];
 
   var getRecipes = function() {
@@ -14,6 +14,7 @@ reciffy.factory('RecentRecipeService', ['Restangular', '$state', '$stateParams',
       .then( function(response) {
         for (var i = 0; i < response.length; i++ ) {
           _recipes.push( response[i] );
+          RecipeService.addRecipe(response[i]);
         }
       })
     }

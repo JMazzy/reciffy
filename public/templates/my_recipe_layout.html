@@ -1,6 +1,6 @@
 <div class="row">
   <div ng-repeat="myRecipe in myRecipes | orderObjectBy : '-created_at'">
-    <div class="col-xs-6 col-sm-4 col-md-3 made-recipe-holder">
+    <div class="col-xs-6 col-sm-4 col-md-3 made-recipe-holder" ng-if="recipes[myRecipe.id]">
 
       <a ui-sref="reciffy.recipes.show({id: myRecipe.id})">
         <recipe-directive recipe="recipes[myRecipe.id]"></recipe-directive>
