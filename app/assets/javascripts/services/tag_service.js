@@ -1,19 +1,22 @@
 reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
-  var _tags = {}
+  var _tags = {};
+  var _tagIdList = [];
   var _tagHolder = {
     tag: null,
     userIds: [],
     recipeIds: [],
-  }
+  };
 
   var setTags = function() {
     Restangular
     .all('tags')
     .getList()
     .then(function(tags) {
+      _tagIdList.length = 0;
       for (var tag in tags) {
         _tags[tag] = tags[tag];
+        _tagIdList.push(tag.id);
       }
     });
   };
@@ -29,6 +32,10 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
       }
     }
   };
+
+  var getIdList = function() {
+    return _tagIdList;
+  }
 
   var getTags = function() {
     return _tags;

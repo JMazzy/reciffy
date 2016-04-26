@@ -36,7 +36,6 @@ reciffy.controller( 'RecipeIndexCtrl',
   trendingRecipeService.callTrendingRecipes();
   topRecipeService.callTopRecipes();
   RecommendationService.populateRecommendations();
-  TagService.setTags();
   UserService.setUsers();
 
   $scope.recipes = RecipeService.getRecipes();
@@ -44,6 +43,8 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.trendingRecipes =  trendingRecipeService.getTrendingRecipes();
   $scope.recentRecipes = RecentRecipeService.getRecipes();
   $scope.recdRecipes = RecommendationService.getRecommendations();
+
+  $scope.tagIdList = TagService.getIdList()
 
   $scope.allTaggings = Restangular.all('taggings').getList().$object;
 
@@ -142,7 +143,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.numLoaded = 0;
 
   $scope.loadMore = function() {
-    console.log("loading more");
+
     $scope.numLoaded += 1;
   };
 

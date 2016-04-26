@@ -104,4 +104,22 @@
 
 </div>
 
+<div class="row">
+  <h3>By Tag</h3>
+</div>
+<div ng-repeat="(tagName, tagGroup) in allTaggings | groupBy : 'tag.name' | limitTo : 10">
+  <h4>{{ tagName }}</h4>
+  <div class="row">
+    <div ng-repeat="tagging in tagGroup | orderBy : '-created_at' | limitTo : 8">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+
+        <a ui-sref="reciffy.recipes.show({id: tagging.taggable_id})">
+          <recipe-directive recipe="recipes[tagging.taggable_id]"></recipe-directive>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <div infinite-scroll="loadMore()" infinite-scroll-disabled="noScroll()"></div>
