@@ -1,4 +1,4 @@
-reciffy.factory('topRecipeService', ['Restangular', function(Restangular) {
+reciffy.factory('topRecipeService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
   var _top = [];
 
@@ -19,8 +19,9 @@ reciffy.factory('topRecipeService', ['Restangular', function(Restangular) {
   };
 
   var populateTopRecipes = function(rawData) {
-    rawData.forEach(function(recipeJson) {
-      _top.push(recipeJson);
+    rawData.forEach(function(tR) {
+      _top.push(tR);
+      RecipeService.setOneRecipe(tR.id)
     });
   };
 

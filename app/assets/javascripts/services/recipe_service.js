@@ -380,6 +380,6 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     addRecipeIngredient: addRecipeIngredient,
     forkRecipe: forkRecipe,
     deleteRecipe: deleteRecipe,
-    addRecipe: addRecipe,
+    addRecipe: addRecipe
   };
 }]);

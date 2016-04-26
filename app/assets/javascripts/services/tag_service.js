@@ -1,4 +1,4 @@
-reciffy.factory('TagService', ['Restangular', function(Restangular) {
+reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
   var _tags = {}
   var _tagHolder = {
@@ -57,6 +57,7 @@ reciffy.factory('TagService', ['Restangular', function(Restangular) {
           if ( _tagHolder.recipeIds.indexOf(tagging.taggable_id) === -1 ) {
             _tagHolder.recipeIds.push(tagging.taggable_id);
           }
+          RecipeService.setOneRecipe(tagging.taggable_id);
         }
       }
     });

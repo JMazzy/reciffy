@@ -1,6 +1,5 @@
 reciffy.controller('MadeCtrl', ['Restangular', 'Auth', 'madeRecipeService', 'RecipeService', '$scope', '$stateParams', '$state', 'currentUser', function( Restangular, Auth, madeRecipeService, RecipeService, $scope, $stateParams, $state, currentUser){
-
-  RecipeService.setRecipes();
+  
   $scope.recipes = RecipeService.getRecipes();
 
   $scope.currentUser = currentUser;
