@@ -32,6 +32,8 @@ class Recipe < ActiveRecord::Base
 
   validates :name, :description, :instructions, :prep_time, :cook_time, presence: true
 
+  after_create :create_activity
+
   def self.get_tagged_recipes(tags)
     tagged_recipes = Recipe.select("recipes.*")
       .joins("JOIN taggings AS ta ON recipes.id = ta.taggable_id and ta.taggable_type = 'Recipe'")
@@ -64,13 +66,13 @@ class Recipe < ActiveRecord::Base
     #   >> user all tags?
 
     tags = user.profile.get_user_tags
-    
+
     # recipes = Recipe.get_tagged_recipes(tags)
     #     .joins("JOIN ratings as r ON r.recipe_id = recipes.id")
     #     .joins("JOIN made_recipes as m ON m.recipe_id = recipes.id")
     #     .joins("JOIN recipes as f ON f.original_id = recipes.id")
     #      .where(
-    #       "r.created_at >= :start OR m.created_at >= :start OR f.created_at >= :start", 
+    #       "r.created_at >= :start OR m.created_at >= :start OR f.created_at >= :start",
     #          :start => 1.week.ago.to_date)
 
     tagged_recipes = Recipe.select("recipes.*")
@@ -124,5 +126,18 @@ class Recipe < ActiveRecord::Base
     subscribed_recipes.map{ |s| s.id }.uniq
 
   end
+
+  private
+
+    def create_activity
+      Activity.create(
+      user_id: self.user_id,
+      event: "Added a Recipe",
+      activable_id: self.id,
+      activable_type: "#{self.class}",
+      created_at: self.created_at,
+      updated_at: self.updated_at
+      )
+    end
 
 end
