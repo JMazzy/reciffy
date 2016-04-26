@@ -1,4 +1,4 @@
-reciffy.factory('ratedRecipeService', ['Restangular', function(Restangular) {
+reciffy.factory('ratedRecipeService', ['Restangular','RecipeService', function(Restangular, RecipeService) {
 
   var _rated = {};
 
@@ -9,6 +9,7 @@ reciffy.factory('ratedRecipeService', ['Restangular', function(Restangular) {
       .then(
         function(data) {
           populateRated(data);
+          populateRecipes(data);
         },
         function(error) {
           console.error("API call for rated recipes didn't work.");
@@ -20,6 +21,12 @@ reciffy.factory('ratedRecipeService', ['Restangular', function(Restangular) {
   var populateRated = function(rawData) {
     rawData.forEach(function(recipeJson) {
       _rated[recipeJson.id] = recipeJson;
+    });
+  };
+
+  var populateRecipes = function(ratedRecipes) {
+    ratedRecipes.forEach( function(rR) {
+      RecipeService.setOneRecipe(rR.recipe_id);
     });
   };
 
