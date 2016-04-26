@@ -34,7 +34,6 @@ reciffy.controller( 'RecipeIndexCtrl',
 
   topRecipeService.callTopRecipes();
   trendingRecipeService.callTrendingRecipes();
-  topRecipeService.callTopRecipes();
   RecommendationService.populateRecommendations();
   TagService.setTags();
   UserService.setUsers();
@@ -101,7 +100,6 @@ reciffy.controller( 'RecipeIndexCtrl',
   //Sets the next page of the recipe category
   //refactor?
   $scope.setNextPage = function(category,page) {
-
     switch(category) {
     case "recentRecipes":
       $scope.page.recentRecipes += page;
@@ -125,7 +123,7 @@ reciffy.controller( 'RecipeIndexCtrl',
     var lastRec = (page * $scope.max) + $scope.max;
 
     if (lastRec < len) {
-        $scope.setNextPage(category, 1);
+      $scope.setNextPage(category, 1);
     }
   }
 
