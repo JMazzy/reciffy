@@ -155,8 +155,7 @@ reciffy.controller( 'RecipeIndexCtrl',
       }
       return true;
     } else {
-
+      return false;
     }
-
   };
 }]);
