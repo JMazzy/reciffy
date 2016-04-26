@@ -33,11 +33,10 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.save
-        flash[:success] = "Successfully uploaded image!"
+        flash.now[:success] = "Successfully uploaded image!"
         format.json { render json: @photo.as_json }
       else
-        flash[:danger] = "Couldn't upload image!"
-        redirect_to new_photo_path
+        flash.now[:danger] = "Couldn't upload image!"
       end
     end
   end
@@ -87,7 +86,7 @@ class PhotosController < ApplicationController
 
     # set file properties
     data.content_type = 'image/jpeg'
-    data.original_filename = 'newImage.jpeg'
+    data.original_filename = 'newImage_' + DateTime.current.to_s + '.jpeg'
 
     params[:photo][:photo] = data
     p data
