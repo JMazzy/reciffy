@@ -135,8 +135,8 @@
         </div>
 
         <input type="file" id="fileUpload" ng-show="false" upload-recipe-image />
-        <div class="drop-box" ng-click="openFileWindow()">
-            Click to upload another recipe image.
+        <div class="drop-box" ng-click="openFileWindow()" ng-class=" {hidden: recipeImageLink}">
+          Click to upload another recipe image.
         </div>
 
         <h4>Tags</h4>
