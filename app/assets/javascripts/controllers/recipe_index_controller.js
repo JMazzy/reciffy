@@ -55,9 +55,6 @@ reciffy.controller( 'RecipeIndexCtrl',
 
   $scope.allTaggings = Restangular.all('taggings').getList().$object;
 
-<<<<<<< HEAD
-=======
-
   //The current page of the category (horizontal scrolling)
   $scope.page = {};
   $scope.page["recipes"] = 0;
@@ -123,7 +120,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   }
 
   $scope.moveRight = function(category) {
-   
+
     var len = $scope.getCategoryLength(category);
     var page = $scope.getThisPage(category);
     var lastRec = (page * $scope.max) + $scope.max;
@@ -137,12 +134,9 @@ reciffy.controller( 'RecipeIndexCtrl',
 
     var page = $scope.getThisPage(category);
     var firstRec = (page * $scope.max);
-    
+
     if (firstRec > 0) {
       $scope.setNextPage(category, -1);
     }
   }
-
-
->>>>>>> master
 }]);
