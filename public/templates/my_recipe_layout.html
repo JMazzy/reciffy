@@ -1,11 +1,19 @@
 <div class="row">
-  <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | filter : { user_id: currentUser.id }">
-    <div class="col-xs-6 col-sm-4 col-md-3 made-recipe-holder">
+  <div ng-repeat="myRecipe in myRecipes | orderObjectBy : '-created_at'">
+    <div class="col-xs-6 col-sm-4 col-md-3 made-recipe-holder" ng-if="recipes[myRecipe.id]">
 
-      <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-        <recipe-directive recipe="recipe"></recipe-directive>
+      <a ui-sref="reciffy.recipes.show({id: myRecipe.id})">
+        <recipe-directive recipe="recipes[myRecipe.id]"></recipe-directive>
       </a>
 
     </div>
+  </div>
+
+  <div class="col-xs-6 col-sm-4 col-md-3">
+    <a>
+    <i class="plus glyphicon glyphicon-plus glyphicon-white"
+       ng-click="createRecipe()">
+    </i>
+    </a>
   </div>
 </div>

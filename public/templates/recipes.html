@@ -13,9 +13,9 @@
   </h3>
 
   <div ng-repeat="recipe in recdRecipes | limitTo : getPageEnd('recdRecipes') : getPageBegin('recdRecipes')">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipes[recipe.id]">
 
-      <a ui-sref="reciffy.recipes.show({id: recipe})">
+      <a ui-sref="reciffy.recipes.show({id: recipe.id})">
         <recipe-directive recipe="recipe"></recipe-directive>
       </a>
 
@@ -37,7 +37,7 @@
     </button>
   </h3>
   <div ng-repeat="recipe in trendingRecipes | limitTo : getPageEnd('trendingRecipes') : getPageBegin('trendingRecipes')" class="recipe-holder">
-    <div class="col-xs-6 col-sm-4 col-md-3">
+    <div class="col-xs-6 col-sm-4 col-md-3" ng-if="recipes[recipe.id]">
 
       <a ui-sref="reciffy.recipes.show({id: recipe.id})">
         <recipe-directive recipe="recipe"></recipe-directive>
@@ -64,7 +64,7 @@
   <div ng-repeat="recipe in recentRecipes | orderObjectBy : '-created_at' |
                  limitTo : getPageEnd('recentRecipes') : getPageBegin('recentRecipes')"
       class="recipe-holder">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipes[recipe.id]">
 
       <a ui-sref="reciffy.recipes.show({id: recipe.id})">
         <recipe-directive recipe="recipe"></recipe-directive>
@@ -93,7 +93,7 @@
   <div ng-repeat="recipe in topRecipes |
       limitTo : getPageEnd('topRecipes') : getPageBegin('topRecipes')"
        class="recipe-holder">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipes[recipe.id]">
 
       <a ui-sref="reciffy.recipes.show({id: recipe.id})">
         <recipe-directive recipe="recipe"></recipe-directive>

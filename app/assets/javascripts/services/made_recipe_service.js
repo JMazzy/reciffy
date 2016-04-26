@@ -1,4 +1,4 @@
-reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
+reciffy.factory('madeRecipeService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
     var obj = {};
     var made_recipes = [];
@@ -9,6 +9,7 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
       made_recipes.splice(0,made_recipes.length)
       Restangular.all('made_recipes').getList().then(function(result){
         obj.populateMadeRecipes(result);
+        populateRecipes(result);
       });
     };
 
@@ -18,6 +19,12 @@ reciffy.factory('madeRecipeService', ['Restangular', function(Restangular) {
             made_recipes.push(allMadeRecipes[i]);
           }
       }
+    }
+
+    var populateRecipes = function(madeRecipes) {
+      madeRecipes.forEach( function(mR) {
+        RecipeService.setOneRecipe(mR.recipe_id);
+      })
     }
 
     obj.getMadeRecipes = function() {

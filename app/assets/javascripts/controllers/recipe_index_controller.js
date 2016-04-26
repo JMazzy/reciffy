@@ -39,6 +39,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   TagService.setTags();
   UserService.setUsers();
 
+  $scope.recipes = RecipeService.getRecipes();
   $scope.topRecipes =  topRecipeService.getTopRecipes();
   $scope.trendingRecipes =  trendingRecipeService.getTrendingRecipes();
   $scope.recentRecipes = RecentRecipeService.getRecipes();
