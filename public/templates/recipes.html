@@ -2,8 +2,19 @@
 
   <!-- Highest Rated Recipes -->
   <div class="row">
-    <h3>Top Rated</h3>
-    <div ng-repeat="recipe in topRecipes | limitTo : 8" class="recipe-holder">
+    <h3 class="text-center">Top Rated
+      <button class="btn btn-xs btn-success" ng-click="moveLeft('topRecipes')">
+        <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+      </button>
+
+      <button class="btn btn-xs btn-success" ng-click="moveRight('topRecipes')">
+        <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+      </button>
+    </h3>
+
+    <div ng-repeat="recipe in topRecipes | 
+        limitTo : getPageEnd('topRecipes') : getPageBegin('topRecipes')" 
+         class="recipe-holder">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
         <a ui-sref="reciffy.recipes.show({id: recipe.id})">
@@ -12,12 +23,24 @@
 
       </div>
     </div>
+
   </div>
 
   <!-- New Recipes -->
   <div class="row">
     <h3>New</h3>
-    <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | limitTo : 8" class="recipe-holder">
+    
+    <button class="btn btn-xs btn-success" ng-click="moveLeft('recipes')">
+      <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+    </button>
+
+    <button class="btn btn-xs btn-success" ng-click="moveRight('recipes')">
+      <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+    </button>
+
+    <div ng-repeat="recipe in recipes | orderObjectBy : '-created_at' | 
+                   limitTo : getPageEnd('recipes') : getPageBegin('recipes')"
+        class="recipe-holder">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
         <a ui-sref="reciffy.recipes.show({id: recipe.id})">
@@ -30,7 +53,17 @@
 
   <div class="row">
     <h3>Saved for Later</h3>
-    <div ng-repeat="savedRecipe in savedRecipes | orderObjectBy : '-created_at' | limitTo : 8" class="recipe-holder">
+
+    <button class="btn btn-xs btn-success" ng-click="moveLeft('savedRecipes')">
+      <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+    </button>
+
+    <button class="btn btn-xs btn-success" ng-click="moveRight('savedRecipes')">
+      <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+    </button>
+
+    <div ng-repeat="savedRecipe in savedRecipes | orderObjectBy : '-created_at' | 
+                   limitTo : (page.savedRecipes * max) + max : page.savedRecipes * max"> 
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
         <a ui-sref="reciffy.recipes.show({id: savedRecipe.id})">
