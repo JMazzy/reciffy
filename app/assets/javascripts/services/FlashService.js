@@ -12,7 +12,6 @@ reciffy.factory('FlashService', ['Restangular', function(Restangular) {
     .all('flashes')
     .getList()
     .then( function(flash) {
-      console.log(flash)
       for ( var f = 0; f < flash.length; f++ ) {
         _flashes.push(flash[f]);
       }
