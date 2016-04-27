@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe RecipesController, type: :controller do
-  let(:recipe){ create :recipe }
+  let(:recipe){ create :recipe}
+  #recipe = FactoryGirl.create(:recipe)
 
   context 'user logged in' do
     login_user

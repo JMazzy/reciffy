@@ -11,6 +11,7 @@ describe ProfilesController do
       before do
         user
         patch :update,
+              id: user.id,
               user_id: user.id,
               profile: attributes_for(
               :profile,
@@ -19,7 +20,9 @@ describe ProfilesController do
               first_name: 'Foo',
               last_name: 'Bar',
               city: 'Reno',
-              state: 'NV')
+              state: 'NV'),
+              format: :json
+            
       end
 
       it 'profile updated if user signed in' do
@@ -35,6 +38,7 @@ describe ProfilesController do
       before do
         user
         patch :update,
+              id: user.id,
               user_id: user.id,
               profile: attributes_for(
               :profile,

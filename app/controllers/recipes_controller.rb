@@ -2,6 +2,9 @@ class RecipesController < ApplicationController
   include RecipeJsonConverter
 
   def index
+    @r = current_user.recipes
+    puts "Current  user is #{current_user.email}"
+    puts "Current user recipes are #{@r[0]} ***"
     @recipes = current_user.recipes.includes(
       :recipe_ingredients,
       :ingredients,
@@ -16,7 +19,7 @@ class RecipesController < ApplicationController
     if params[:page]
       @recipes = @recipes.page(params[:page]).per(10)
     end
-
+    puts "HERE #{@recipes[0]} INDEX"
     respond_to do |format|
       format.html
       format.json { render json: index_recipe_json(@recipes) }
