@@ -33,6 +33,13 @@ class PhotosController < ApplicationController
     end
   end
 
+  def show
+    @photo = Photo.find(params[:id])
+    respond_to do |format|
+      format.json { render json: @photo.as_json }
+    end
+  end
+
   # def show
   #   @user = User.find_by_id(params[:user_id])
   #   if @user
