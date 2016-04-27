@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe RecipesController, type: :controller do
-  let(:recipe){ create :recipe }
+  let(:recipe){ create :recipe}
+  #recipe = FactoryGirl.create(:recipe)
 
   context 'user logged in' do
     login_user
@@ -21,7 +22,6 @@ describe RecipesController, type: :controller do
 
     describe '#show' do
       it 'gets one recipe' do
-        get :index
         get :show, id: recipe.id
         expect(assigns(:recipe)).to match recipe
       end

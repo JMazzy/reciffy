@@ -3,6 +3,7 @@ class RecipesController < ApplicationController
 
   def index
     @r = current_user.recipes
+    puts "Current  user is #{current_user.email}"
     puts "Current user recipes are #{@r[0]} ***"
     @recipes = current_user.recipes.includes(
       :recipe_ingredients,
