@@ -28,7 +28,7 @@ reciffy.controller( 'RecipeIndexCtrl',
     TagService,
     UserService,
     currentUser,
-    RecentRecipeService ) {
+    RecentRecipeService) {
 
   $scope.currentUser = currentUser;
 

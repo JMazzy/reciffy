@@ -110,7 +110,7 @@
 <div class="row">
   <h3>By Tag</h3>
 </div>
-<div infinite-scroll="loadMore()" class="infinite-scroll">
+<div infinite-scroll="loadMore()" infinite-scroll-distance="2" class="infinite-scroll">
 
   <div ng-repeat="tag in tagList">
     <h4>{{ tag.name }}</h4>
