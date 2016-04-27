@@ -74,7 +74,6 @@ reciffy.controller( 'RecipeIndexCtrl',
   //refactor?
   $scope.getThisPage = function(category) {
     var page;
-
     switch(category) {
     case "recentRecipes":
       page = $scope.page.recentRecipes;
@@ -145,11 +144,13 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.numLoaded = 0;
 
   $scope.loadMore = function() {
-    if ($scope.numLoaded < $scope.tagIdList.length) {
-      console.log($scope.numLoaded, $scope.tagIdList.length)
-      TagService.addOneTag($scope.numLoaded);
-      $scope.numLoaded += 1;
-    }
+    setTimeout(function() {
+      if ($scope.numLoaded < $scope.tagIdList.length) {
+        console.log($scope.numLoaded, $scope.tagIdList.length)
+        TagService.addOneTag($scope.numLoaded);
+        $scope.numLoaded += 1;
+      }
+    }, 3000);
   };
 
   $scope.disableLeftScrollButton = function(category) {
