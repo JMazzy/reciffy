@@ -32,6 +32,14 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     .get()
     .then( function(tag) {
       _tagList.push(tag);
+      for ( var t = 0; t < tag.taggings.length; t++ ) {
+        var tagging = tag.taggings[t];
+        if ( tagging.taggable_type === "Profile" ) {
+          
+        } else if ( tagging.taggable_type === "Recipe" ) {
+          RecipeService.setOneRecipe(tagging.taggable_id);
+        }
+      }
     });
   }
 
