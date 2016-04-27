@@ -177,6 +177,14 @@ reciffy.controller( 'RecipeIndexCtrl',
   }
 
   $scope.anyTaggings = function(tag) {
-    return tag.taggings.length > 0;
+    taggingsNoUsers = [];
+
+    for ( var t = 0; t < tag.taggings.length; t++ ) {
+      if ( tag.taggings[t].taggable_type === "Recipe" ) {
+        taggingsNoUsers.push(tag.taggings[t]);
+      }
+    }
+
+    return taggingsNoUsers.length > 0;
   }
 }]);
