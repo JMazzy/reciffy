@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :recipes do
         resources :comments
+        resources :photos
       end
       get '/top_recipes', to: 'recipes#top'
       get '/trending_recipes', to: 'recipes#trending'

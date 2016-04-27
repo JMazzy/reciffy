@@ -149,8 +149,12 @@ reciffy.controller( 'RecipeShowCtrl',
           photo: $scope.photo.imageData,
           recipe_id: $scope.recipe.id
         }
-      }).then( function (result) {
-        // Success
+      }).then( function (newPhoto) {
+        $scope.photo = {};
+        console.log('New recipe photo uploaded');
+        console.log(Restangular.one('photos', newPhoto.id).get().$object);
+        $scope.currentStuff.recipe.photos.push(
+          Restangular.one('photos', newPhoto.id).get().$object);
       }, function (error) {
         // Error
         console.error(error);
