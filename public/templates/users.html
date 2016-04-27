@@ -2,8 +2,8 @@
 
 
 <!-- Top Subscribed Users -->
+<h4><em>Most Subscribed<em></h4>
 <div class="row">
-  <h4><em>Most Subscribed<em></h4>
   <div ng-repeat="user in topUsers | limitTo : 8" class="user-holder">
     <div class="col-xs-3 col-sm-3 col-md-3">
 
@@ -15,8 +15,8 @@
 </div>
 
 <!-- Top Subscribed Users -->
+<h4><em>Great Cooks!<em></h4>
 <div class="row">
-  <h4><em>Great Cooks!<em></h4>
   <div ng-repeat="user in bestCooks | limitTo : 8" class="user-holder">
     <div class="col-xs-3 col-sm-3 col-md-3">
 
@@ -28,8 +28,8 @@
   </div>
 </div>
 
+<h4><em>Most Recipes Tested By...<em></h4>
 <div class="row">
-  <h4><em>Most Recipes Tested By...<em></h4>
   <div ng-repeat="user in topCooks | limitTo : 8" class="user-holder">
     <div class="col-xs-3 col-sm-3 col-md-3">
       <a ui-sref="reciffy.users.show({id: user.id})">
