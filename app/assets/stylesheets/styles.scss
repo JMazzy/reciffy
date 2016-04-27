@@ -12,6 +12,16 @@ $menu-hover: #2E2A26;
 $menu-green: #238843;
 $toggler-color: lighten(#0E371B, 20%) !default;
 
+$black: #20130B;
+$regal-blue: #233E58;
+$bahama-blue: #376088;
+$polo-blue: #788faf;
+$spindle: #a4b1c4;
+$egg-yolk: #efb43c;
+$sausage: #cb7b58;
+$cucumber: #74854f;
+
+
 /*************************/
 /* Reciffy Font Families */
 /*************************/
@@ -34,6 +44,8 @@ $toggler-color: lighten(#0E371B, 20%) !default;
 .navbar {
   height: 75px;
   border-radius: 0;
+  background-color: $bahama-blue;
+  border: none;
 }
 
 .nav-brand {
@@ -47,8 +59,13 @@ $toggler-color: lighten(#0E371B, 20%) !default;
   nav.navbar.navbar-default.navbar-fixed-bottom, div.container-fluid.text-center {
     border: none;
     margin: 0;
-    background-color: $menu-grey;
+    background-color: $bahama-blue;
+    background-blend-mode: overlay;
     max-height: 25px;
+  }
+
+  .navbar-text {
+    color: $white;
   }
 }
 
@@ -122,19 +139,19 @@ a, a:-webkit-any-link {
 }
 
 div.panel {
-  border-color: $menu-green;
-  box-shadow: 1px 1px 1px $menu-hover;
-  color: $menu-grey;
+  border-color: $regal-blue;
+  box-shadow: 1px 1px 1px $regal-blue;
+  color: $bahama-blue;
 
   div.panel-heading, .panel-footer {
-    background-color: $menu-grey;
+    background-color: $bahama-blue;
     color: $white;
     border: none;
 
     color: $white;
     div:hover {
       color: $white;
-      background-color: $menu-hover;
+      background-color: $regal-blue;
     }
     div:visited {
       color: $white;
@@ -150,6 +167,8 @@ div.panel {
 .recipe {
   max-width: 250px;
   position: relative;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .recipe-heading {
@@ -161,7 +180,7 @@ div.panel {
 }
 
 .recipe-body {
-  background-color: $menu-grey;
+  background-color: $bahama-blue;
   height: 150px;
   text-align: center;
   padding: 0;
@@ -239,10 +258,11 @@ div.panel {
 }
 
 .comment {
-  border: 1px solid $menu-green;
+  border: 1px solid $regal-blue;
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
+  background-color: $white;
 }
 
 /**************/
@@ -295,7 +315,8 @@ span.editable-empty {
 // The small label in the upper right corner of the previews
 .rating-label {
   position: absolute;
-  color: #333;
+  background-color: $egg-yolk;
+  color: $black;
   top: 5px;
   right: 5px;
 }
@@ -316,4 +337,49 @@ span.editable-empty {
 
 .inner-container {
   margin-left: -10vw;
+}
+
+.pure-pusher {
+  background-image: image-url("breakfast.jpg");
+}
+
+.pure-drawer {
+  background-color: $bahama-blue;
+
+  .menu-item-container {
+    border-color: $polo-blue;
+  }
+}
+
+.nav-brand {
+  color: $white;
+}
+
+.pure-toggle-label{
+  span.pure-toggle-icon {
+    background-color: $polo-blue;
+    color: $polo-blue;
+  }
+
+  span.pure-toggle-icon::before {
+    background-color: $polo-blue;
+    color: $polo-blue;
+  }
+
+  span.pure-toggle-icon::after {
+    background-color: $polo-blue;
+    color: $polo-blue;
+  }
+}
+
+.jumbotron {
+  opacity: 0.7;
+}
+
+.single-page-app {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  margin-top: 25px;
 }
