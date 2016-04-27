@@ -343,6 +343,35 @@ span.editable-empty {
   background-image: image-url("breakfast.jpg");
 }
 
+.pure-drawer {
+  background-color: $bahama-blue;
+
+  .menu-item-container {
+    border-color: $polo-blue;
+  }
+}
+
+.nav-brand {
+  color: $white;
+}
+
+.pure-toggle-label{
+  span.pure-toggle-icon {
+    background-color: $polo-blue;
+    color: $polo-blue;
+  }
+
+  span.pure-toggle-icon::before {
+    background-color: $polo-blue;
+    color: $polo-blue;
+  }
+
+  span.pure-toggle-icon::after {
+    background-color: $polo-blue;
+    color: $polo-blue;
+  }
+}
+
 .jumbotron {
   opacity: 0.7;
 }
