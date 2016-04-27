@@ -160,7 +160,6 @@ reciffy.controller( 'RecipeIndexCtrl',
     var len = $scope.getCategoryLength(category);
     var page = $scope.getThisPage(category);
     var lastRec = (page * $scope.max) + $scope.max;
-    console.log(len, page, lastRec);
     return lastRec >= len ? true : false;
   };
 }]);
