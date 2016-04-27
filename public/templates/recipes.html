@@ -109,9 +109,19 @@
 
       <div ng-repeat="tag in tagList">
         <div ng-if="anyTaggings(tag)">
-          <h4>{{ tag.name }}</h4>
+          <h4>
+            {{ tag.name }}
+            <button class="btn btn-xs btn-success" ng-click="taggingsMoveLeft($index)" ng-disabled="taggingsDisableLeftButton($index)">
+              <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+            </button>
+
+            <button class="btn btn-xs btn-success" ng-click="taggingsMoveRight($index)" ng-disabled="taggingsDisableRightButton($index)">
+              <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+            </button>
+          </h4>
+
           <div class="row">
-            <div ng-repeat="tagging in tag.taggings | orderBy : '-created_at' | limitTo : 4">
+            <div ng-repeat="tagging in tag.taggings | orderBy : '-created_at' | limitTo : 4 : getPageBegin(tag.name)">
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipeTagging(tagging)">
 
                 <a ui-sref="reciffy.recipes.show({id: tagging.taggable_id})">
