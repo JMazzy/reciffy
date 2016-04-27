@@ -1,4 +1,7 @@
 <div class="row">
+  <h3 class="text-center">
+       Made Recipes
+  </h3>
 
   <div ng-repeat="madeRecipe in madeRecipes | orderBy : '-created_at'" class="recipe-holder">
     <div class="col-xs-6 col-sm-4 col-md-3" ng-if="recipes[madeRecipe.recipe_id]">
