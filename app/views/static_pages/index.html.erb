@@ -1,17 +1,20 @@
-<% if user_signed_in? %>
-  <div ui-view></div>
-<% else %>
-  <%= render partial: 'shared/flash' %>
-  <div class="jumbotron">
-    <div class="container text-center">
-      <h1 class="indie-flower-font">Welcome to Reciffy!</h1>
-      <h2>Find New Recipes</h2>
-      <h2>Organize Your Recipes</h2>
-      <h2>Share Your Recipes</h2>
-      <h2>See Recommendations</h2>
-      <h2>And more!</h2>
-    </div>
-  </div>
-<% end %>
+<div class="single-page-app">
+  <% if user_signed_in? %>
+    <div ui-view></div>
+  <% else %>
+    <%= render partial: 'shared/flash' %>
 
-<% flash.clear %>
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1 class="indie-flower-font">Welcome to Reciffy!</h1>
+        <h2>Find New Recipes</h2>
+        <h2>Organize Your Recipes</h2>
+        <h2>Share Your Recipes</h2>
+        <h2>See Recommendations</h2>
+        <h2>And more!</h2>
+      </div>
+    </div>
+  <% end %>
+
+  <% flash.clear %>
+</div>
