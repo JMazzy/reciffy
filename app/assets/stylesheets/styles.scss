@@ -147,6 +147,9 @@ div.panel {
     background-color: $bahama-blue;
     color: $white;
     border: none;
+    .editable {
+      color: $white;
+    }
 
     color: $white;
     div:hover {
