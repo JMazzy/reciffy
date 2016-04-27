@@ -34,7 +34,8 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
 
     .state("reciffy", {
       url: "",
-      template: "<div ui-view></div>",
+      templateUrl: "templates/reciffy.html",
+      controller: "ReciffyCtrl",
     })
     // Home Page / Dashboard / Recipes Index
     .state("reciffy.recipes", {
