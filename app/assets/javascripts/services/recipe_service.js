@@ -3,6 +3,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   var _units = [];
   var _ingredients = [];
   var _made_recipes = {};
+  var _photos = [];
 
   var _current = {
     recipe: {},
@@ -64,6 +65,21 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
         _units.push(units[u]);
       }
     });
+  };
+
+  var setPhotos = function(recipe_id) {
+    Restangular
+    .one('recipes', recipe_id)
+    .all('photos')
+    .getList()
+    .then( function(photos) {
+      _photos = photos;
+      console.log(_photos);
+    })
+  };
+
+  var getPhotos = function() {
+    return _photos;
   };
 
   var newRecipe = function() {
@@ -345,6 +361,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     addRecipeIngredient: addRecipeIngredient,
     forkRecipe: forkRecipe,
     deleteRecipe: deleteRecipe,
-    addRecipe: addRecipe
+    addRecipe: addRecipe,
+    setPhotos: setPhotos,
+    getPhotos: getPhotos
   };
 }]);

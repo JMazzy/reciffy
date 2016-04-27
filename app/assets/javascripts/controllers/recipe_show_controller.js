@@ -151,8 +151,12 @@ reciffy.controller( 'RecipeShowCtrl',
           photo: $scope.photo.imageData,
           recipe_id: $scope.recipe.id
         }
-      }).then( function (result) {
-        // Success
+      }).then( function (newPhoto) {
+        $scope.photo = {};
+        console.log('New recipe photo uploaded');
+        console.log(newPhoto);
+        console.log($scope.currentStuff.recipe.photos);
+        $scope.currentStuff.recipe.photos.push(newPhoto);
       }, function (error) {
         // Error
         console.error(error);
