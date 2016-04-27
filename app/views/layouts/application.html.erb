@@ -17,11 +17,18 @@
         <div class="pure-pusher">
 
           <%= render partial: 'shared/navbar' %>
+          <div id="infinite-container">
+            <div class="container">
 
-          <div class="container">
+              <div class="row">
+                <div class="col-xs-12">
+                  <%= render partial: 'shared/flash' %>
+                </div>
+              </div>
 
-            <%= yield %>
+              <%= yield %>
 
+            </div>
           </div>
 
           <%= render partial: 'shared/footer' %>

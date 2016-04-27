@@ -144,13 +144,11 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.numLoaded = 0;
 
   $scope.loadMore = function() {
-    setTimeout(function() {
-      if ($scope.numLoaded < $scope.tagIdList.length) {
-        console.log($scope.numLoaded, $scope.tagIdList.length)
-        TagService.addOneTag($scope.numLoaded);
-        $scope.numLoaded += 1;
-      }
-    }, 3000);
+    if ($scope.numLoaded < $scope.tagIdList.length) {
+      console.log($scope.numLoaded, $scope.tagIdList.length)
+      TagService.addOneTag($scope.numLoaded);
+      $scope.numLoaded += 1;
+    }
   };
 
   $scope.disableLeftScrollButton = function(category) {

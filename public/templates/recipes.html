@@ -1,130 +1,131 @@
 <!-- Recommended Recipes -->
-<div class="row">
-  <h3>
-    Recommended
+  <div class="row">
+    <h3>
+      Recommended
 
-    <button class="btn btn-xs btn-success" ng-click="moveLeft('recdRecipes')" ng-disabled="disableLeftScrollButton('recdRecipes')">
-      <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
-    </button>
+      <button class="btn btn-xs btn-success" ng-click="moveLeft('recdRecipes')" ng-disabled="disableLeftScrollButton('recdRecipes')">
+        <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+      </button>
 
-    <button class="btn btn-xs btn-success" ng-click="moveRight('recdRecipes')" ng-disabled="disableRightScrollButton('recdRecipes')">
-      <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
-    </button>
-  </h3>
+      <button class="btn btn-xs btn-success" ng-click="moveRight('recdRecipes')" ng-disabled="disableRightScrollButton('recdRecipes')">
+        <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+      </button>
+    </h3>
 
-  <div ng-repeat="recipe in recdRecipes | limitTo : 4 : getPageBegin('recdRecipes')">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipes[recipe.id]">
+    <div ng-repeat="recipe in recdRecipes | limitTo : 4 : getPageBegin('recdRecipes')">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipes[recipe.id]">
 
-      <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-        <recipe-directive recipe="recipe"></recipe-directive>
-      </a>
+        <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+          <recipe-directive recipe="recipe"></recipe-directive>
+        </a>
 
-    </div>
-  </div>
-</div>
-
-<!-- Trending Recipes -->
-<div class="row">
-  <h3>
-    Trending
-
-    <button class="btn btn-xs btn-success" ng-click="moveLeft('trendingRecipes')" ng-disabled="disableLeftScrollButton('trendingRecipes')">
-      <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
-    </button>
-
-    <button class="btn btn-xs btn-success" ng-click="moveRight('trendingRecipes')"
-    ng-disabled="disableRightScrollButton('trendingRecipes')">
-      <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
-    </button>
-  </h3>
-
-  <div ng-repeat="recipe in trendingRecipes | limitTo : 4 : getPageBegin('trendingRecipes')" class="recipe-holder">
-    <div class="col-xs-6 col-sm-4 col-md-3" ng-if="recipes[recipe.id]">
-
-      <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-        <recipe-directive recipe="recipe"></recipe-directive>
-      </a>
-
-    </div>
-  </div>
-</div>
-
-<!-- Recent Recipes -->
-<div class="row">
-  <h3>
-    Recent
-
-    <button class="btn btn-xs btn-success" ng-click="moveLeft('recentRecipes')" ng-disabled="disableLeftScrollButton('recentRecipes')">
-      <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
-    </button>
-
-    <button class="btn btn-xs btn-success" ng-click="moveRight('recentRecipes')" ng-disabled="disableRightScrollButton('recentRecipes')">
-      <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
-    </button>
-  </h3>
-
-  <div ng-repeat="recipe in recentRecipes | orderObjectBy : '-created_at' |
-                 limitTo : 4 : getPageBegin('recentRecipes')"
-      class="recipe-holder">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipes[recipe.id]">
-
-      <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-        <recipe-directive recipe="recipe"></recipe-directive>
-      </a>
-
-    </div>
-
-  </div>
-</div>
-
-<!-- Highest Rated Recipes -->
-<div class="row">
-
-  <h3>
-    Top Rated
-
-    <button class="btn btn-xs btn-success" ng-click="moveLeft('topRecipes')" ng-disabled="disableLeftScrollButton('topRecipes')">
-      <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
-    </button>
-
-    <button class="btn btn-xs btn-success" ng-click="moveRight('topRecipes')" ng-disabled="disableRightScrollButton('topRecipes')">
-      <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
-    </button>
-  </h3>
-
-  <div ng-repeat="recipe in topRecipes |
-      limitTo : 4 : getPageBegin('topRecipes')"
-       class="recipe-holder">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipes[recipe.id]">
-
-      <a ui-sref="reciffy.recipes.show({id: recipe.id})">
-        <recipe-directive recipe="recipe"></recipe-directive>
-      </a>
-
-    </div>
-  </div>
-
-</div>
-
-
-<div class="row">
-  <h3>By Tag</h3>
-</div>
-<div infinite-scroll="loadMore()" infinite-scroll-distance="2" class="infinite-scroll">
-
-  <div ng-repeat="tag in tagList">
-    <h4>{{ tag.name }}</h4>
-    <div class="row">
-      <div ng-repeat="tagging in tag.taggings | orderBy : '-created_at' | limitTo : 4">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-
-          <a ui-sref="reciffy.recipes.show({id: tagging.taggable_id})">
-            <recipe-directive recipe="recipes[tagging.taggable_id]"></recipe-directive>
-          </a>
-
-        </div>
       </div>
     </div>
   </div>
 
-</div>
+  <!-- Trending Recipes -->
+  <div class="row">
+    <h3>
+      Trending
+
+      <button class="btn btn-xs btn-success" ng-click="moveLeft('trendingRecipes')" ng-disabled="disableLeftScrollButton('trendingRecipes')">
+        <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+      </button>
+
+      <button class="btn btn-xs btn-success" ng-click="moveRight('trendingRecipes')"
+      ng-disabled="disableRightScrollButton('trendingRecipes')">
+        <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+      </button>
+    </h3>
+
+    <div ng-repeat="recipe in trendingRecipes | limitTo : 4 : getPageBegin('trendingRecipes')" class="recipe-holder">
+      <div class="col-xs-6 col-sm-4 col-md-3" ng-if="recipes[recipe.id]">
+
+        <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+          <recipe-directive recipe="recipe"></recipe-directive>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Recipes -->
+  <div class="row">
+    <h3>
+      Recent
+
+      <button class="btn btn-xs btn-success" ng-click="moveLeft('recentRecipes')" ng-disabled="disableLeftScrollButton('recentRecipes')">
+        <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+      </button>
+
+      <button class="btn btn-xs btn-success" ng-click="moveRight('recentRecipes')" ng-disabled="disableRightScrollButton('recentRecipes')">
+        <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+      </button>
+    </h3>
+
+    <div ng-repeat="recipe in recentRecipes | orderObjectBy : '-created_at' |
+                   limitTo : 4 : getPageBegin('recentRecipes')"
+        class="recipe-holder">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipes[recipe.id]">
+
+        <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+          <recipe-directive recipe="recipe"></recipe-directive>
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Highest Rated Recipes -->
+  <div class="row">
+
+    <h3>
+      Top Rated
+
+      <button class="btn btn-xs btn-success" ng-click="moveLeft('topRecipes')" ng-disabled="disableLeftScrollButton('topRecipes')">
+        <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+      </button>
+
+      <button class="btn btn-xs btn-success" ng-click="moveRight('topRecipes')" ng-disabled="disableRightScrollButton('topRecipes')">
+        <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+      </button>
+    </h3>
+
+    <div ng-repeat="recipe in topRecipes |
+        limitTo : 4 : getPageBegin('topRecipes')"
+         class="recipe-holder">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-if="recipes[recipe.id]">
+
+        <a ui-sref="reciffy.recipes.show({id: recipe.id})">
+          <recipe-directive recipe="recipe"></recipe-directive>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <h3>By Tag</h3>
+  </div>
+    <div infinite-scroll="loadMore()" infinite-scroll-container="'#infinite-container'">
+
+      <div ng-repeat="tag in tagList">
+        <h4>{{ tag.name }}</h4>
+        <div class="row">
+          <div ng-repeat="tagging in tag.taggings | orderBy : '-created_at' | limitTo : 4">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+
+              <a ui-sref="reciffy.recipes.show({id: tagging.taggable_id})">
+                <recipe-directive recipe="recipes[tagging.taggable_id]"></recipe-directive>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
