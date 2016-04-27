@@ -28,7 +28,7 @@ reciffy.controller( 'RecipeIndexCtrl',
     TagService,
     UserService,
     currentUser,
-    RecentRecipeService ) {
+    RecentRecipeService) {
 
   $scope.currentUser = currentUser;
 
@@ -63,7 +63,6 @@ reciffy.controller( 'RecipeIndexCtrl',
     //category = "$scope." + category;
     category = $scope[category];
     if (typeof eval(category) == "object") {
-      //console.log(Object.keys(category).length, category);
       return Object.keys(category).length;
     } else {
       return eval(category).length;
@@ -74,7 +73,6 @@ reciffy.controller( 'RecipeIndexCtrl',
   //refactor?
   $scope.getThisPage = function(category) {
     var page;
-
     switch(category) {
     case "recentRecipes":
       page = $scope.page.recentRecipes;
@@ -129,7 +127,6 @@ reciffy.controller( 'RecipeIndexCtrl',
     if (lastRec < len) {
       $scope.setNextPage(category, 1);
     }
-    //console.log(len, page, lastRec);
   }
 
   $scope.moveLeft = function(category) {
@@ -146,7 +143,6 @@ reciffy.controller( 'RecipeIndexCtrl',
 
   $scope.loadMore = function() {
     if ($scope.numLoaded < $scope.tagIdList.length) {
-      console.log($scope.numLoaded, $scope.tagIdList.length)
       TagService.addOneTag($scope.numLoaded);
       $scope.numLoaded += 1;
     }
@@ -162,4 +158,12 @@ reciffy.controller( 'RecipeIndexCtrl',
     var lastRec = (page * $scope.max) + $scope.max;
     return lastRec >= len ? true : false;
   };
+
+  $scope.recipeTagging = function(tagging) {
+    return tagging.taggable_type === "Recipe";
+  }
+
+  $scope.anyTaggings = function(tag) {
+    return tag.taggings.length > 0;
+  }
 }]);

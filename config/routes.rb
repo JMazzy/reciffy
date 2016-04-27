@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :recipes do
         resources :comments
+        resources :photos
       end
       get '/top_recipes', to: 'recipes#top'
       get '/trending_recipes', to: 'recipes#trending'
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
       resources :units, only: [:index, :show]
       resources :recommendations, only: [:index]
       resources :recent_recipes, only: [:index]
+      resources :flashes, only: [:index]
     end
   end
 

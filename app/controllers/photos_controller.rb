@@ -3,18 +3,10 @@ class PhotosController < ApplicationController
   # before_action :require_photo_author, only: [:destroy]
 
   def index
-    @user = User.find_by_id(params[:id])
-    if @user
-      @friendeds = @user.friendeds
-      @profile = @user.profile
-      @photos = @user.photos
-    else
-      flash[:danger] = "User doesn't exist man..."
-      if signed_in_user?
-        redirect_to user_path(current_user)
-      else
-        redirect_to signup_path
-      end
+    @recipe = Recipe.find(params[:id])
+    @photos = @recipe.photos
+    respond_to do |format|
+      format.json { render json: @photos.to_json }
     end
   end
 
@@ -38,6 +30,13 @@ class PhotosController < ApplicationController
       else
         flash.now[:danger] = "Couldn't upload image!"
       end
+    end
+  end
+
+  def show
+    @photo = Photo.find(params[:id])
+    respond_to do |format|
+      format.json { render json: @photo.as_json }
     end
   end
 

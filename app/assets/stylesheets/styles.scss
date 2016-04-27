@@ -299,3 +299,21 @@ span.editable-empty {
   top: 5px;
   right: 5px;
 }
+
+// Infinite Scrolling
+
+#infinite-container {
+  position:absolute;
+  margin-top: -20px;
+  width: 100vw;
+  // everything above can be commented out
+  // everything below is required
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 85vh;
+  overflow-y: scroll;
+}
+
+.inner-container {
+  margin-left: -10vw;
+}

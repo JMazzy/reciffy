@@ -144,15 +144,17 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.uploadImage = function (path) {
     if ($scope.recipe.id) {
-      // do put request
-      console.log($scope.photo);
       Restangular.all('photos').post({
         photo: {
           photo: $scope.photo.imageData,
           recipe_id: $scope.recipe.id
         }
-      }).then( function (result) {
-        // Success
+      }).then( function (newPhoto) {
+        $scope.photo = {};
+        console.log('New recipe photo uploaded');
+        console.log(Restangular.one('photos', newPhoto.id).get().$object);
+        $scope.currentStuff.recipe.photos.push(
+          Restangular.one('photos', newPhoto.id).get().$object);
       }, function (error) {
         // Error
         console.error(error);
