@@ -90,9 +90,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
           avatar: $scope.profile.imageData
         }
       }).then( function (result) {
-        console.log('changed profile photo');
-        $scope.avatar = $scope.avatar + '?' + new Date().getTime(); 
-        console.log($scope.avatar);
+        $scope.avatar = $scope.avatar + '?' + new Date().getTime();
       }, function (error) {
         console.error('errors', JSON.stringify(errors));
       });

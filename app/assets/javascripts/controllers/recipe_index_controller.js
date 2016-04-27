@@ -63,7 +63,6 @@ reciffy.controller( 'RecipeIndexCtrl',
     //category = "$scope." + category;
     category = $scope[category];
     if (typeof eval(category) == "object") {
-      //console.log(Object.keys(category).length, category);
       return Object.keys(category).length;
     } else {
       return eval(category).length;
@@ -128,7 +127,6 @@ reciffy.controller( 'RecipeIndexCtrl',
     if (lastRec < len) {
       $scope.setNextPage(category, 1);
     }
-    //console.log(len, page, lastRec);
   }
 
   $scope.moveLeft = function(category) {
@@ -145,7 +143,6 @@ reciffy.controller( 'RecipeIndexCtrl',
 
   $scope.loadMore = function() {
     if ($scope.numLoaded < $scope.tagIdList.length) {
-      console.log($scope.numLoaded, $scope.tagIdList.length)
       TagService.addOneTag($scope.numLoaded);
       $scope.numLoaded += 1;
     }

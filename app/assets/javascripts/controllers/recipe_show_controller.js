@@ -144,8 +144,6 @@ reciffy.controller( 'RecipeShowCtrl',
 
   $scope.uploadImage = function (path) {
     if ($scope.recipe.id) {
-      // do put request
-      console.log($scope.photo);
       Restangular.all('photos').post({
         photo: {
           photo: $scope.photo.imageData,
