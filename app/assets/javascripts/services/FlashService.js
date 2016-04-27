@@ -7,7 +7,7 @@ reciffy.factory('FlashService', ['Restangular', function(Restangular) {
   }
 
   var retrieveFlash = function() {
-    _flashes.length = 0;
+    clearFlash();
     Restangular
     .all('flashes')
     .getList()
@@ -19,9 +19,17 @@ reciffy.factory('FlashService', ['Restangular', function(Restangular) {
     });
   }
 
+  var clearFlash = function() {
+    for ( var f = 0; f < _flashes.length; f++ ) {
+      _flashes.pop();
+    }
+    _flashes.length = 0;
+  }
+
   return {
     retrieveFlash: retrieveFlash,
     getFlash: getFlash,
+    clearFlash: clearFlash,
   };
 
 }]);

@@ -23,7 +23,6 @@ class FlashesController < ApplicationController
     flash.each do |k,v|
       flash.delete(k)
     end
-    flash['notice'] = flash['error'] = flash['alert'] = nil
 
   end
 
