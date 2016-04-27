@@ -21,6 +21,7 @@ describe RecipesController, type: :controller do
 
     describe '#show' do
       it 'gets one recipe' do
+        get :index
         get :show, id: recipe.id
         expect(assigns(:recipe)).to match recipe
       end
