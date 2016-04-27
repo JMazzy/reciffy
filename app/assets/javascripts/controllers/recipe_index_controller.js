@@ -48,6 +48,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.tagList = TagService.getTagList();
   $scope.tagIdList = TagService.getIdList();
 
+  // Horizontal Scrolling for Main Categories
   //The current page of the category (horizontal scrolling)
   $scope.page = {};
   $scope.page["recentRecipes"] = 0;
@@ -70,25 +71,8 @@ reciffy.controller( 'RecipeIndexCtrl',
   }
 
   //Gets the current page of the recipe category
-  //refactor?
   $scope.getThisPage = function(category) {
-    var page;
-    switch(category) {
-    case "recentRecipes":
-      page = $scope.page.recentRecipes;
-        break;
-    case "topRecipes":
-      page = $scope.page.topRecipes;
-        break;
-    case "recdRecipes":
-      page = $scope.page.recdRecipes;
-        break;
-    case "trendingRecipes":
-      page = $scope.page.trendingRecipes;
-        break;
-    }
-
-    return page;
+    return $scope.page[category];
   }
 
   $scope.getPageEnd = function(category) {
@@ -100,53 +84,26 @@ reciffy.controller( 'RecipeIndexCtrl',
   }
 
   //Sets the next page of the recipe category
-  //refactor?
   $scope.setNextPage = function(category,page) {
-    switch(category) {
-    case "recentRecipes":
-      $scope.page.recentRecipes += page;
-      break;
-    case "topRecipes":
-      $scope.page.topRecipes += page;
-      break;
-    case "recdRecipes":
-      $scope.page.recdRecipes += page;
-      break;
-    case "trendingRecipes":
-      $scope.page.trendingRecipes += page;
-      break;
-    }
+    $scope.page[category] += page;
   }
 
   $scope.moveRight = function(category) {
-
     var len = $scope.getCategoryLength(category);
     var page = $scope.getThisPage(category);
     var lastRec = (page * $scope.max) + $scope.max;
-
     if (lastRec < len) {
       $scope.setNextPage(category, 1);
     }
   }
 
   $scope.moveLeft = function(category) {
-
     var page = $scope.getThisPage(category);
     var firstRec = (page * $scope.max);
-
     if (firstRec > 0) {
       $scope.setNextPage(category, -1);
     }
   }
-
-  $scope.numLoaded = 0;
-
-  $scope.loadMore = function() {
-    if ($scope.numLoaded < $scope.tagIdList.length) {
-      TagService.addOneTag($scope.numLoaded);
-      $scope.numLoaded += 1;
-    }
-  };
 
   $scope.disableLeftScrollButton = function(category) {
     return $scope.getPageBegin(category) === 0 ? true : false;
@@ -159,11 +116,75 @@ reciffy.controller( 'RecipeIndexCtrl',
     return lastRec >= len ? true : false;
   };
 
+  // Horizontal scrolling for tags
+  $scope.getTaggingsLength = function(tagListIndex) {
+    var taggings = $scope.tagList[tagListIndex].taggings;
+    var recipesForTag = 0;
+    for (var tagging in taggings) {
+      if (taggings[tagging].taggable_type == "Recipe") {
+        recipesForTag++;
+      }
+    }
+    return recipesForTag;
+  };
+
+  $scope.taggingsMoveRight = function(tagListIndex) {
+    var len = $scope.getTaggingsLength(tagListIndex);
+    var page = $scope.getThisPage($scope.tagList[tagListIndex].name);
+    var lastRec = (page * $scope.max) + $scope.max;
+    if (lastRec < len) {
+      $scope.setNextPage($scope.tagList[tagListIndex].name, 1);
+    }
+  };
+
+  $scope.taggingsMoveLeft = function(tagListIndex) {
+    var page = $scope.getThisPage($scope.tagList[tagListIndex].name);
+    var firstRec = (page * $scope.max);
+    if (firstRec > 0) {
+      $scope.setNextPage($scope.tagList[tagListIndex].name, -1);
+    }
+  };
+
+  $scope.taggingsDisableLeftButton = function(tagListIndex) {
+    return $scope.getPageBegin($scope.tagList[tagListIndex].name) === 0 ? true : false;
+  };
+
+  $scope.taggingsDisableRightButton = function(tagListIndex) {
+    var len = $scope.getTaggingsLength(tagListIndex);
+    var page = $scope.getThisPage($scope.tagList[tagListIndex].name);
+    var lastRec = (page * $scope.max) + $scope.max;
+    console.log(lastRec, len);
+    return lastRec >= len ? true : false;
+  };
+
+  $scope.numLoaded = 0;
+
+  $scope.loadMore = function() {
+    if ($scope.numLoaded < $scope.tagIdList.length) {
+      TagService.addOneTag($scope.numLoaded)
+      .then(
+        function() {
+          var loadedTag = $scope.tagList[$scope.tagList.length - 1];
+          $scope.page[loadedTag.name] = 0;
+          $scope.numLoaded += 1;
+        }
+      );
+    }
+  };
+
   $scope.recipeTagging = function(tagging) {
     return tagging.taggable_type === "Recipe";
   }
 
   $scope.anyTaggings = function(tag) {
-    return tag.taggings.length > 0;
+    taggingsNoUsers = [];
+
+    for ( var t = 0; t < tag.taggings.length; t++ ) {
+      if ( tag.taggings[t].taggable_type === "Recipe" ) {
+        taggingsNoUsers.push(tag.taggings[t]);
+      }
+    }
+
+    return taggingsNoUsers.length > 0;
   }
 }]);
