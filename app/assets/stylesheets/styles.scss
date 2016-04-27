@@ -339,10 +339,6 @@ span.editable-empty {
   margin-left: -10vw;
 }
 
-.pure-pusher {
-  background-image: image-url("breakfast.jpg");
-}
-
 .pure-drawer {
   background-color: $bahama-blue;
 
@@ -382,4 +378,10 @@ span.editable-empty {
   border-radius: 5px;
   margin-bottom: 25px;
   margin-top: 25px;
+}
+
+.pure-pusher {
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
 }
