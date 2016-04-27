@@ -314,6 +314,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     };
 
     ingredients = recipe.recipe_ingredients;
+    console.log(ingredients);
 
     Restangular
     .all('recipes')
@@ -328,7 +329,8 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
         var ri = {unit_id: ingredients[i].unit_id,
                   ingredient_id: ingredients[i].ingredient_id,
                   quantity: ingredients[i].quantity,
-        }
+        };
+        console.log(ri);
         addRecipeIngredient(ri)
       }
 

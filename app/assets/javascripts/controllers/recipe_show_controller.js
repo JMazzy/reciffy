@@ -120,7 +120,7 @@ reciffy.controller( 'RecipeShowCtrl',
       }
       RecipeService.addRecipeIngredient(ri);
 
-      $scope.r_unit = "";
+      $scope.r_unit = {};
       $scope.r_quantity = "";
       $scope.r_ingredient = "";
     }
