@@ -28,7 +28,7 @@ reciffy.controller( 'RecipeIndexCtrl',
     TagService,
     UserService,
     currentUser,
-    RecentRecipeService ) {
+    RecentRecipeService) {
 
   $scope.currentUser = currentUser;
 
@@ -74,7 +74,6 @@ reciffy.controller( 'RecipeIndexCtrl',
   //refactor?
   $scope.getThisPage = function(category) {
     var page;
-
     switch(category) {
     case "recentRecipes":
       page = $scope.page.recentRecipes;
@@ -162,4 +161,12 @@ reciffy.controller( 'RecipeIndexCtrl',
     var lastRec = (page * $scope.max) + $scope.max;
     return lastRec >= len ? true : false;
   };
+
+  $scope.recipeTagging = function(tagging) {
+    return tagging.taggable_type === "Recipe";
+  }
+
+  $scope.anyTaggings = function(tag) {
+    return tag.taggings.length > 0;
+  }
 }]);

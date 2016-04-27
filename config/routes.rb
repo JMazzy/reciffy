@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resources :units, only: [:index, :show]
       resources :recommendations, only: [:index]
       resources :recent_recipes, only: [:index]
+      resources :flashes, only: [:index]
     end
   end
 

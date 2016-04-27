@@ -1,12 +1,10 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <% flash.each do |type, message| %>
+<div class="row">
+  <div class="col-md-12">
+    <% flash.each do |type, message| %>
 
-        <% type = rails_to_bootstrap_flash(type) %>
+      <% type = rails_to_bootstrap_flash(type) %>
 
-        <%= content_tag :div, message, class: "alert alert-#{type}" %>
-      <% end %>
-    </div>
+      <%= content_tag :div, message, class: "alert alert-#{type}" %>
+    <% end %>
   </div>
 </div>

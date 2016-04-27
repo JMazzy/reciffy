@@ -1,5 +1,6 @@
 reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
+  var _tags = {};
   var _tagIdList = [];
   var _tagList = [];
   var _tagHolder = {
@@ -15,6 +16,7 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     .then(function(tags) {
       _tagIdList.length = 0;
       for( var t = 0; t < tags.length; t++) {
+        _tags[tags[t].id] = tags[t];
         _tagIdList.push(tags[t].id)
       }
     });
@@ -30,6 +32,14 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     .get()
     .then( function(tag) {
       _tagList.push(tag);
+      for ( var t = 0; t < tag.taggings.length; t++ ) {
+        var tagging = tag.taggings[t];
+        if ( tagging.taggable_type === "Profile" ) {
+          
+        } else if ( tagging.taggable_type === "Recipe" ) {
+          RecipeService.setOneRecipe(tagging.taggable_id);
+        }
+      }
     });
   }
 
