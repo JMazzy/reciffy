@@ -163,6 +163,10 @@ reciffy.controller( 'RecipeIndexCtrl',
   };
 
   $scope.recipeTagging = function(tagging) {
-    return tagging.taggable_type === "Recipe"
+    return tagging.taggable_type === "Recipe";
+  }
+
+  $scope.anyTaggings = function(tag) {
+    return tag.taggings.length > 0;
   }
 }]);
