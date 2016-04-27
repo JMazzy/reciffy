@@ -41,6 +41,7 @@ reciffy.config(['$urlRouterProvider', '$stateProvider',
     .state("reciffy.recipes", {
       url: "/recipes",
       template: "<div ui-view></div>",
+      controller: "RecipeCtrl",
       resolve: {
         currentUser: ['Auth', function(Auth) {
           return Auth.currentUser();

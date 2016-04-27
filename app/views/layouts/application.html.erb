@@ -20,10 +20,6 @@
 
           <div class="container">
 
-            <%= unless current_page?(static_pages_url) %>
-              <%= render partial: 'shared/flash' %>
-            <% end %>
-
             <%= yield %>
 
           </div>
