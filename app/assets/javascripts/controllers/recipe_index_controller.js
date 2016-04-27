@@ -161,4 +161,8 @@ reciffy.controller( 'RecipeIndexCtrl',
     var lastRec = (page * $scope.max) + $scope.max;
     return lastRec >= len ? true : false;
   };
+
+  $scope.recipeTagging = function(tagging) {
+    return tagging.taggable_type === "Recipe"
+  }
 }]);
