@@ -16,7 +16,7 @@
         <h4>Avatar</h4>
         <img ng-src="{{avatar}}"></img>
         <input type="file" id="fileUpload" ng-show="false" upload-image />
-        <div class="drop-box" ng-click="openFileWindow()" ng-class=" {hidden: userImageLink}">
+        <div class="drop-box" ng-click="openFileWindow()" ng-class=" {hidden: userImageLink}" ng-show='avatarChangeEnabled'>
             Click to choose a new avatar.
         </div>
 
