@@ -26,7 +26,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       if @photo.save
         flash.now[:success] = "Successfully uploaded image!"
-        format.json { render json: @photo.as_json }
+        format.json { render json: show_photo_json(@photo) }
       else
         flash.now[:danger] = "Couldn't upload image!"
       end
@@ -36,7 +36,7 @@ class PhotosController < ApplicationController
   def show
     @photo = Photo.find(params[:id])
     respond_to do |format|
-      format.json { render json: @photo.as_json }
+      format.json { render json: show_photo_json(@photo) }
     end
   end
 
@@ -122,5 +122,17 @@ class PhotosController < ApplicationController
         end
       end
     end
+  end
+
+  def show_photo_json(photo)
+    photo_json = photo.as_json
+
+    photo_json["url"] = {}
+    photo_json["url"]["large"] = photo.photo.url(:large).gsub(/\?.*/,"")
+    photo_json["url"]["medium"] = photo.photo.url(:medium).gsub(/\?.*/,"")
+    photo_json["url"]["original"] = photo.photo.url(:original).gsub(/\?.*/,"")
+    photo_json["url"]["thumb"] = photo.photo.url(:thumb).gsub(/\?.*/,"")
+
+    return photo_json
   end
 end

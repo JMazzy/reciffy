@@ -105,17 +105,17 @@
 <h3>By Tag</h3>
 <div class="row">
   <div class="col-xs-12">
-    <div infinite-scroll="loadMore()" infinite-scroll-container="'#infinite-container'">
+    <div infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-container="'#infinite-container'">
 
-      <div ng-repeat="tag in tagList">
+      <div ng-repeat="tag in tags | toArray | limitTo : tagLimit">
         <div ng-if="anyTaggings(tag)">
           <h4>
             {{ tag.name }}
-            <button class="btn btn-xs btn-success" ng-click="taggingsMoveLeft($index)" ng-disabled="taggingsDisableLeftButton($index)">
+            <button class="btn btn-xs btn-success" ng-click="taggingsMoveLeft(tag)" ng-disabled="taggingsDisableLeftButton(tag)">
               <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
             </button>
 
-            <button class="btn btn-xs btn-success" ng-click="taggingsMoveRight($index)" ng-disabled="taggingsDisableRightButton($index)">
+            <button class="btn btn-xs btn-success" ng-click="taggingsMoveRight(tag)" ng-disabled="taggingsDisableRightButton(tag)">
               <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
             </button>
           </h4>

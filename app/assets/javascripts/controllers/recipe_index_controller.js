@@ -14,6 +14,7 @@ reciffy.controller( 'RecipeIndexCtrl',
   'UserService',
   'currentUser',
   'RecentRecipeService',
+  '$filter',
   function(
     Auth,
     $scope,
@@ -28,7 +29,8 @@ reciffy.controller( 'RecipeIndexCtrl',
     TagService,
     UserService,
     currentUser,
-    RecentRecipeService) {
+    RecentRecipeService,
+    $filter ) {
 
   $scope.currentUser = currentUser;
 
@@ -43,10 +45,8 @@ reciffy.controller( 'RecipeIndexCtrl',
   $scope.recentRecipes = RecentRecipeService.getRecipes();
   $scope.recdRecipes = RecommendationService.getRecommendations();
 
-  TagService.clearTagList();
-  TagService.setTagIdList();
-  $scope.tagList = TagService.getTagList();
-  $scope.tagIdList = TagService.getIdList();
+  TagService.callAllTags();
+  $scope.tags = TagService.getTags();
 
   //Display max images in the row for category
   $scope.max = 4;
@@ -109,69 +109,56 @@ reciffy.controller( 'RecipeIndexCtrl',
   }
 
   $scope.disableLeftScrollButton = function(category) {
-    return $scope.getPageBegin(category) === 0 ? true : false;
+    return $scope.getPageBegin(category) === 0;
   };
 
   $scope.disableRightScrollButton = function(category) {
     var len = $scope.getCategoryLength(category);
     var page = $scope.getThisPage(category);
     var lastRec = (page * $scope.max) + $scope.max;
-    return lastRec >= len ? true : false;
+    return lastRec >= len;
   };
 
   // Horizontal scrolling for tags
-  $scope.getTaggingsLength = function(tagListIndex) {
-    var taggings = $scope.tagList[tagListIndex].taggings;
-    var recipesForTag = 0;
-    for (var tagging in taggings) {
-      if (taggings[tagging].taggable_type == "Recipe") {
-        recipesForTag++;
-      }
-    }
-    return recipesForTag;
-  };
-
-  $scope.taggingsMoveRight = function(tagListIndex) {
-    var len = $scope.getTaggingsLength(tagListIndex);
-    var page = $scope.getThisPage($scope.tagList[tagListIndex].name);
+  $scope.taggingsMoveRight = function(tag) {
+    var taggings = $filter('filter')(tag.taggings, { taggable_type: "Recipe" })
+    var len = taggings.length;
+    var page = $scope.getThisPage(tag.name);
     var lastRec = (page * $scope.max) + $scope.max;
     if (lastRec < len) {
-      $scope.setNextPage($scope.tagList[tagListIndex].name, 1);
+      $scope.setNextPage(tag.name, 1);
     }
   };
 
-  $scope.taggingsMoveLeft = function(tagListIndex) {
-    var page = $scope.getThisPage($scope.tagList[tagListIndex].name);
+  $scope.taggingsMoveLeft = function(tag) {
+    var page = $scope.getThisPage(tag.name);
     var firstRec = (page * $scope.max);
     if (firstRec > 0) {
-      $scope.setNextPage($scope.tagList[tagListIndex].name, -1);
+      $scope.setNextPage(tag.name, -1);
     }
   };
 
-  $scope.taggingsDisableLeftButton = function(tagListIndex) {
-    return $scope.getPageBegin($scope.tagList[tagListIndex].name) === 0 ? true : false;
+  $scope.taggingsDisableLeftButton = function(tag) {
+    return $scope.getPageBegin(tag.name) === 0;
   };
 
-  $scope.taggingsDisableRightButton = function(tagListIndex) {
-    var len = $scope.getTaggingsLength(tagListIndex);
-    var page = $scope.getThisPage($scope.tagList[tagListIndex].name);
+  $scope.taggingsDisableRightButton = function(tag) {
+    var taggings = $filter('filter')(tag.taggings, { taggable_type: "Recipe" })
+    var len = taggings.length;
+    var page = $scope.getThisPage(tag.name);
     var lastRec = (page * $scope.max) + $scope.max;
-    console.log(lastRec, len);
-    return lastRec >= len ? true : false;
+    return lastRec >= len;
   };
 
   $scope.numLoaded = 0;
+  $scope.tagLimit = 0;
 
   $scope.loadMore = function() {
-    if ($scope.numLoaded < $scope.tagIdList.length) {
-      TagService.addOneTag($scope.numLoaded)
-      .then(
-        function() {
-          var loadedTag = $scope.tagList[$scope.tagList.length - 1];
-          $scope.page[loadedTag.name] = 0;
-          $scope.numLoaded += 1;
-        }
-      );
+    var idList = Object.keys( $scope.tags );
+    if ($scope.tagLimit < idList.length) {
+      var loadedTag = $scope.tags[ idList[ $scope.tagLimit ] ];
+      $scope.page[ loadedTag.name ] = 0;
+      $scope.tagLimit += 1;
     }
   };
 
