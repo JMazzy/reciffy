@@ -1,4 +1,4 @@
-reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'subscriptionService', 'currentUser', 'Upload', function($scope, $state, $stateParams, Restangular, UserService, subscriptionService, currentUser, Upload) {
+reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'TagService', 'subscriptionService', 'currentUser', 'Upload', function($scope, $state, $stateParams, Restangular, UserService, TagService, subscriptionService, currentUser, Upload) {
 
   $scope.user_subscribed = false;
 
@@ -54,27 +54,26 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
   }
 
   $scope.addTag = function() {
-    Restangular.all('tags')
-    .post($scope.newTag, { taggable_id: $scope.profile.id, taggable_type: "Profile"})
-    .then( function(newTag) {
-      $scope.tags.unshift(newTag);
-      $scope.newTag = {
-        name: "",
-      };
-    })
+    TagService.addTaggingToTag( $scope.newTag.name, $scope.profile.id, "Profile")
+    .then( function(response){
+
+      $scope.tags.push(response.tag);
+
+    });
+
+    $scope.newTag = {name: ""};
   };
 
   // Actually only deletes that particular TAGGING, not the tag itself
   $scope.deleteTag = function(tag_id) {
-    Restangular.one("tags", tag_id)
-    .remove({ taggable_id: $scope.profile.id, taggable_type: "Profile"})
-    .then(function(deletedTag) {
-      for ( var t = 0; t < $scope.tags.length; t++ ) {
-        if ( $scope.tags[t].id === deletedTag.id ) {
-          $scope.tags.splice(t, 1);
-        }
-      }
-    })
+    TagService.removeTaggingFromTag(tag_id, $scope.profile.id, "Profile")
+    .then( function(response) {
+
+      var idx = $scope.tags.indexOf(response.tags);
+
+      $scope.tags.splice(idx, 1);
+
+    });
   };
 
   $scope.openFileWindow = function () {

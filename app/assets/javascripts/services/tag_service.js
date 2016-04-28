@@ -60,28 +60,48 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     }
   }
 
-  var addTag = function(name, taggable_id, taggable_type) {
-    Restangular
+  var addTaggingToTag = function(name, taggable_id, taggable_type) {
+    var promise = Restangular
     .all('tags')
-    .post(_current.tag, {   name: name,
-                            taggable_id: taggable_id,
-                            taggable_type: taggable_type })
-    .then( function(newTag) {
-      _current.recipe.tags.unshift(newTag);
-      _current.tag.name = "";
+    .post({   name: name,
+              taggable_id: taggable_id,
+              taggable_type: taggable_type });
+
+    promise.then( function(response) {
+      var newTag = response.tag;
+      var newTagging = response.tagging;
+      if ( _tags[newTag.id] ) {
+        _tags[newTag.id].taggings.push(newTagging);
+      } else {
+        _tags[newTag.id] = newTag;
+      }
     });
+
+    return promise;
   };
 
-  // Actually only deletes that particular TAGGING, not the tag itself, but goes through the tag controller
-  var removeTag = function(tag_id, taggable_id, taggable_type) {
-    Restangular
+  var removeTaggingFromTag = function(tag_id, taggable_id, taggable_type) {
+    var promise = Restangular
     .one("tags", tag_id)
-    .remove({ taggable_id: _current.recipe.id,
-              taggable_type: "Recipe"})
-    .then(function(deletedTag) {
-      var idx = _current.recipe.tags.indexOf(deletedTag);
-      _current.recipe.tags.splice(idx, 1);
+    .remove({ taggable_id: taggable_id,
+              taggable_type: taggable_type });
+
+    promise.then(function(response) {
+      if (_tags[tag_id]) {
+
+        var deletedTag = response.tag;
+
+        var idx = _tags[tag_id].taggings.indexOf(response.tagging);
+
+        _tags[tag_id].taggings.splice(idx, 1);
+        
+        if ( _tags[tag_id].taggings.length < 1 ) {
+          delete _tags[tag_id];
+        }
+      }
     });
+
+    return promise;
   };
 
   return {
@@ -89,8 +109,8 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     callOneTag: callOneTag,
     findTagByName: findTagByName,
     getTags: getTags,
-    addTag: addTag,
-    removeTag: removeTag,
+    addTaggingToTag: addTaggingToTag,
+    removeTaggingFromTag: removeTaggingFromTag,
   }
 
 }]);

@@ -22,6 +22,7 @@ module RecipeJsonConverter extend ActiveSupport::Concern
 
     json_response["user"] = recipe.user.as_json
     json_response["tags"] = recipe.tags.as_json
+    json_response["taggings"] = recipe.taggings.as_json
     json_response["photos"] = []
     recipe.photos.each do |photo|
       photo_json = photo.as_json
