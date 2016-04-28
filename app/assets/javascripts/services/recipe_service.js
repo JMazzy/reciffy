@@ -135,8 +135,14 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
     _clearSubLists();
     if ( !!_recipes[recipe_id] ) {
       _setCurrents( recipe_id, currentUser );
+      return getCurrentRecipe();
     } else {
-      _requestSingleRecipe( recipe_id, currentUser )
+
+      return _requestSingleRecipe(recipe_id, currentUser).then(
+        function() {
+          return getCurrentRecipe();
+        }
+      );
     }
   };
 
@@ -147,7 +153,7 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
   }
 
   var _requestSingleRecipe = function(recipe_id, currentUser) {
-    Restangular
+    return Restangular
     .one('recipes', recipe_id)
     .get()
     .then( function(recipe) {
