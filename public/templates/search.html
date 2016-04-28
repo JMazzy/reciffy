@@ -4,10 +4,10 @@
 
 <h3>Users</h3>
 <div class="row">
-  <div ng-repeat="userId in tagHolder.userIds">
+  <div ng-repeat="tagging in searchTag.taggings | filter : { taggable_type: 'Profile' }">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-      <a ui-sref="reciffy.users.show({id: userId})">
-        <user-directive user="users[userId]"></user-directive>
+      <a ui-sref="reciffy.users.show({id: tagging.taggable_id})">
+        <user-directive user="users[tagging.taggable_id]"></user-directive>
       </a>
     </div>
   </div>
@@ -16,10 +16,10 @@
 
 <h3>Recipes</h3>
 <div class="row">
-  <div ng-repeat="recipeId in tagHolder.recipeIds">
+  <div ng-repeat="tagging in searchTag.taggings | filter : { taggable_type: 'Recipe' }">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-      <a ui-sref="reciffy.recipes.show({id: recipeId})">
-        <recipe-directive recipe="recipes[recipeId]"></recipe-directive>
+      <a ui-sref="reciffy.recipes.show({id: tagging.taggable_id})">
+        <recipe-directive recipe="recipes[tagging.taggable_id]"></recipe-directive>
       </a>
     </div>
   </div>

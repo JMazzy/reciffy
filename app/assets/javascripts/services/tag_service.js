@@ -1,48 +1,41 @@
 reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangular, RecipeService) {
 
+  // An object to hold the tags which have been retrieved from the API
   var _tags = {};
-  var _tagIdList = [];
-  var _tagList = [];
-  var _tagHolder = {
-    tag: null,
-    userIds: [],
-    recipeIds: [],
-  };
 
-  var setTagIdList = function() {
+  // Get the tag storage object
+  var getTags = function() {
+    return _tags;
+  }
+
+  // API call all the tags (for index page)
+  var callAllTags = function() {
     Restangular
     .all('tags')
     .getList()
-    .then(function(tags) {
-      _tagIdList.length = 0;
-      for( var t = 0; t < tags.length; t++) {
+    .then( function(tags) {
+      for ( var t = 0; t < tags.length; t++ ) {
         _tags[tags[t].id] = tags[t];
-        _tagIdList.push(tags[t].id)
       }
-    });
+    })
+  }
+
+  // API call one tag, if not already loaded
+  var callOneTag = function(tag_id) {
+    if ( !_tags[tag_id] ) {
+      Restangular
+      .one('tags', tag_id)
+      .get()
+      .then( function(tag) {
+        _tags[tag.id] = tag;
+        _loadAssociations(tag);
+      });
+    } else {
+      _loadAssociations(_tags[tag_id])
+    }
   };
 
-  var clearTagList = function() {
-    _tagList.length = 0;
-  }
-
-  var addOneTag = function(index) {
-    return Restangular
-    .one('tags', _tagIdList[index])
-    .get()
-    .then( function(tag) {
-      _tagList.push(tag);
-      for ( var t = 0; t < tag.taggings.length; t++ ) {
-        var tagging = tag.taggings[t];
-        if ( tagging.taggable_type === "Profile" ) {
-
-        } else if ( tagging.taggable_type === "Recipe" ) {
-          RecipeService.setOneRecipe(tagging.taggable_id);
-        }
-      }
-    });
-  }
-
+  // Find one tag by the name (among loaded tags, for search)
   var findTagByName = function(tagName) {
     var temp;
     for (var tag in _tags) {
@@ -55,52 +48,23 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     }
   };
 
-  var getIdList = function() {
-    return _tagIdList;
-  }
+  // Load associated recipes, to ensure they are loaded for display
+  var _loadAssociations = function(tag) {
+    for ( var t = 0; t < tag.taggings.length; t++ ) {
+      var type = tag.taggings[t].taggable_type
+      var id = tag.taggings[t].taggable_id
 
-  var getTagList = function() {
-    return _tagList;
-  }
-
-  var getTagHolder = function() {
-    return _tagHolder;
-  }
-
-  var callOneTag = function(tag_id) {
-    _tagHolder.userIds = [];
-    _tagHolder.recipeIds = [];
-
-    Restangular
-    .one('tags', tag_id)
-    .get()
-    .then( function(response) {
-      _tagHolder.tag = response;
-      for ( var t = 0; t < response.taggings.length; t++ ) {
-        var tagging = response.taggings[t];
-        if ( tagging.taggable_type === "Profile" ) {
-          if ( _tagHolder.userIds.indexOf(tagging.taggable_id) === -1 ) {
-            _tagHolder.userIds.push(tagging.taggable_id);
-          }
-        } else if ( tagging.taggable_type === "Recipe" ) {
-          if ( _tagHolder.recipeIds.indexOf(tagging.taggable_id) === -1 ) {
-            _tagHolder.recipeIds.push(tagging.taggable_id);
-          }
-          RecipeService.setOneRecipe(tagging.taggable_id);
-        }
+      if (type === "Recipe") {
+        RecipeService.setOneRecipe(id);
       }
-    });
+    }
   }
 
   return {
-    setTagIdList: setTagIdList,
-    getIdList: getIdList,
-    getTagList: getTagList,
-    getTagHolder: getTagHolder,
+    callAllTags: callAllTags,
     callOneTag: callOneTag,
     findTagByName: findTagByName,
-    addOneTag: addOneTag,
-    clearTagList: clearTagList,
+    getTags: getTags,
   }
 
 }]);
