@@ -134,7 +134,7 @@
           <img ng-src="{{photo.url.large}}">
         </div>
 
-        <input type="file" id="fileUpload" ng-show="false" upload-recipe-image />
+        <input type="file" id="fileUpload" ng-show="false" upload-recipe-image ng-disabled='getDisabledStatus()' />
         <div class="drop-box" ng-click="openFileWindow()" ng-class=" {hidden: recipeImageLink}">
           Click to upload another recipe image.
         </div>
