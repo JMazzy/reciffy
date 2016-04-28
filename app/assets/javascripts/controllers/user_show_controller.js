@@ -16,6 +16,8 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       $scope.tags = user.profile.tags;
       $scope.newTag = { name: "" };
       $scope.avatar = user.photo.url.thumb;
+      $scope.avatarChangeEnabled = (currentUser.id == user.id);
+      console.log($scope.avatarChangeEnabled);
     })
   };
 

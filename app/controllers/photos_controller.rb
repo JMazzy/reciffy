@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
   # before_action :redirect_if_photo_url_invalid, only: [:create]
   # before_action :require_photo_author, only: [:destroy]
-  before_action :
+  before_action :require_recipe_author, only: [:create]
 
   def index
     @recipe = Recipe.find(params[:id])
@@ -94,10 +94,10 @@ class PhotosController < ApplicationController
   end
 
   def require_photo_author
-    photoy = Photo.find_by_id(params[:id])
-    unless photoy && photoy.user_id == current_user.id
-      flash[:danger] = "You're not the photo's author!!!"
-      redirect_to user_path(current_user)
+    recipe = Recipe.find_by_id(params[:photo][:recipe_id])
+    unless recipe && recipe.user_id == current_user.id
+      flash[:danger] = "You're not the recipe's author!!!"
+      redirect_to root_path + "#/recipes/all"
     end
   end
 
