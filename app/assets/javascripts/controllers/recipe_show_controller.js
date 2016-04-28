@@ -7,6 +7,7 @@ reciffy.controller( 'RecipeShowCtrl',
     'RecipeService',
     'madeRecipeService',
     'currentUser',
+    'TagService',
     function(
       $scope,
       $state,
@@ -14,7 +15,8 @@ reciffy.controller( 'RecipeShowCtrl',
       Restangular,
       RecipeService,
       madeRecipeService,
-      currentUser) {
+      currentUser,
+      TagService) {
 
   $scope.disabledStatus   = true;
   $scope.makeRecipe       = false;
@@ -43,6 +45,10 @@ reciffy.controller( 'RecipeShowCtrl',
   $scope.r_quantity = ""
   $scope.r_ingredient = ""
 
+  TagService.callAllTags();
+  $scope.tags = TagService.getTags();
+  $scope.newTag = {name: ""};
+
   $scope.getDisabledStatus = function() {
     return RecipeService.getdisabledStatus();
   }
@@ -70,12 +76,22 @@ reciffy.controller( 'RecipeShowCtrl',
   }
 
   $scope.addTag = function() {
-    RecipeService.addTag();
+    // RecipeService.addTag();
+    TagService.addTaggingToTag( $scope.newTag.name, $scope.currentStuff.recipe.id, "Recipe")
+    .then( function(response){
+      $scope.currentStuff.recipe.taggings.push(response.tagging)
+    });
+    $scope.newTag = {name: ""};
   }
 
   // Actually only deletes that particular TAGGING, not the tag itself
   $scope.deleteTag = function(tag_id) {
-    RecipeService.removeTag(tag_id);
+    // RecipeService.removeTag(tag_id);
+    TagService.removeTaggingFromTag(tag_id, $scope.currentStuff.recipe.id, "Recipe")
+    .then( function(response) {
+      var idx = $scope.currentStuff.recipe.taggings.indexOf(response.taggings)
+      $scope.currentStuff.recipe.taggings.splice(idx, 1)
+    });
   }
 
   $scope.addMadeRecipe = function(recipe) {
