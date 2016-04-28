@@ -1,4 +1,4 @@
-reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'TagService', 'subscriptionService', 'currentUser', 'Upload', function($scope, $state, $stateParams, Restangular, UserService, TagService, subscriptionService, currentUser, Upload) {
+reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'TagService', 'subscriptionService', 'currentUser', 'Upload', 'UserService', function($scope, $state, $stateParams, Restangular, UserService, TagService, subscriptionService, currentUser, Upload, UserService) {
 
   $scope.user_subscribed = false;
 
@@ -31,20 +31,8 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       tagline: $scope.profile.tagline,
       city: $scope.profile.city,
       state: $scope.profile.state,
-    }).then(function(user) {
-      $scope.user = user;
-      $scope.profile = user.profile;
-      $scope.userRecipes = user.recipes;
-      $scope.userMadeRecipes = user.recipes_made;
-      $scope.userSavedRecipes = user.recipes_saved;
-      $scope.received_subscriptions = user.received_subscription_requests;
-      $scope.checkSubscriberExists(user);
-      $scope.disabledStatus = (currentUser.id != $stateParams.id);
-      $scope.tags = user.profile.tags;
-      $scope.newTag = { name: "" };
-      $scope.avatar = user.photo.url.thumb;
-      $scope.avatarChangeEnabled = (currentUser.id == user.id);
-      console.log($scope.avatarChangeEnabled);
+    }).then(function() {
+      UserService.setOneUser($stateParams.id);
     })
   };
 
