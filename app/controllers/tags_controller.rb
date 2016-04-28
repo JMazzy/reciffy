@@ -4,7 +4,7 @@ class TagsController < ApplicationController
     @tags = Tag.all.includes(:taggings)
     respond_to do |format|
       format.html
-      format.json { render json: @tags.to_json }
+      format.json { render json: @tags.to_json(include: :taggings) }
     end
   end
 

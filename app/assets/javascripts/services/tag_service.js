@@ -9,40 +9,6 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     recipeIds: [],
   };
 
-  var setTagIdList = function() {
-    Restangular
-    .all('tags')
-    .getList()
-    .then(function(tags) {
-      _tagIdList.length = 0;
-      for( var t = 0; t < tags.length; t++) {
-        _tags[tags[t].id] = tags[t];
-        _tagIdList.push(tags[t].id)
-      }
-    });
-  };
-
-  var clearTagList = function() {
-    _tagList.length = 0;
-  }
-
-  var addOneTag = function(index) {
-    return Restangular
-    .one('tags', _tagIdList[index])
-    .get()
-    .then( function(tag) {
-      _tagList.push(tag);
-      for ( var t = 0; t < tag.taggings.length; t++ ) {
-        var tagging = tag.taggings[t];
-        if ( tagging.taggable_type === "Profile" ) {
-
-        } else if ( tagging.taggable_type === "Recipe" ) {
-          RecipeService.setOneRecipe(tagging.taggable_id);
-        }
-      }
-    });
-  }
-
   var findTagByName = function(tagName) {
     var temp;
     for (var tag in _tags) {
@@ -90,17 +56,29 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
         }
       }
     });
+  };
+
+  var getTags = function() {
+    return _tags;
+  }
+
+  var callAllTags = function() {
+    Restangular
+    .all('tags')
+    .getList()
+    .then( function(tags) {
+      for ( var t = 0; t < tags.length; t++ ) {
+        _tags[tags[t].id] = tags[t];
+      }
+    })
   }
 
   return {
-    setTagIdList: setTagIdList,
-    getIdList: getIdList,
-    getTagList: getTagList,
+    getTags: getTags,
     getTagHolder: getTagHolder,
     callOneTag: callOneTag,
+    callAllTags: callAllTags,
     findTagByName: findTagByName,
-    addOneTag: addOneTag,
-    clearTagList: clearTagList,
   }
 
 }]);
