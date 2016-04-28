@@ -48,6 +48,9 @@ reciffy.controller( 'RecipeIndexCtrl',
   TagService.callAllTags();
   $scope.tags = TagService.getTags();
 
+  //Display max images in the row for category
+  $scope.max = 4;
+
   // Horizontal Scrolling for Main Categories
   //The current page of the category (horizontal scrolling)
   $scope.page = {};
@@ -174,4 +177,5 @@ reciffy.controller( 'RecipeIndexCtrl',
 
     return taggingsNoUsers.length > 0;
   }
+
 }]);
