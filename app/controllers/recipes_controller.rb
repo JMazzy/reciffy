@@ -10,6 +10,7 @@ class RecipesController < ApplicationController
       :ingredients,
       :units,
       :comments,
+      :taggings,
       :tags,
       :user,
       :profile,
