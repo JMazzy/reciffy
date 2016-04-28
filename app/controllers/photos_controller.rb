@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
   # before_action :redirect_if_photo_url_invalid, only: [:create]
   # before_action :require_photo_author, only: [:destroy]
-  before_action :
+  # before_action :
 
   def index
     @recipe = Recipe.find(params[:id])
