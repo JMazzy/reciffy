@@ -60,11 +60,57 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     }
   }
 
+  var addTaggingToTag = function(name, taggable_id, taggable_type) {
+    var promise = Restangular
+    .all('tags')
+    .post({   name: name,
+              taggable_id: taggable_id,
+              taggable_type: taggable_type });
+
+    promise.then( function(response) {
+      var newTag = response.tag;
+      var newTagging = response.tagging;
+      if ( _tags[newTag.id] ) {
+        _tags[newTag.id].taggings.push(newTagging);
+      } else {
+        _tags[newTag.id] = newTag;
+      }
+    });
+
+    return promise;
+  };
+
+  var removeTaggingFromTag = function(tag_id, taggable_id, taggable_type) {
+    var promise = Restangular
+    .one("tags", tag_id)
+    .remove({ taggable_id: taggable_id,
+              taggable_type: taggable_type });
+
+    promise.then(function(response) {
+      if (_tags[tag_id]) {
+
+        var deletedTag = response.tag;
+
+        var idx = _tags[tag_id].taggings.indexOf(response.tagging);
+
+        _tags[tag_id].taggings.splice(idx, 1);
+        
+        if ( _tags[tag_id].taggings.length < 1 ) {
+          delete _tags[tag_id];
+        }
+      }
+    });
+
+    return promise;
+  };
+
   return {
     callAllTags: callAllTags,
     callOneTag: callOneTag,
     findTagByName: findTagByName,
     getTags: getTags,
+    addTaggingToTag: addTaggingToTag,
+    removeTaggingFromTag: removeTaggingFromTag,
   }
 
 }]);

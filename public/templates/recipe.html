@@ -140,12 +140,20 @@
         </div>
 
         <h4>Tags</h4>
-        <div class="tag label label-info" ng-repeat="tag in currentStuff.recipe.tags" >
-          <span class="pull-left"><a ui-sref="reciffy.tags.show({id: tag.id})">{{tag.name}}</a> | </span>
-          <a><i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" ng-click="deleteTag(tag.id)"></i></a>
+        <div  class="tag label label-info"
+              ng-repeat="tagging in currentStuff.recipe.taggings" >
+          <span class="pull-left">
+            <a ui-sref="reciffy.tags.show({id: tagging.tag_id})">
+              {{tags[tagging.tag_id].name}}
+            </a>&nbsp;|&nbsp;
+          </span>
+          <a>
+            <i class="remove glyphicon glyphicon-remove glyphicon-white pull-right" ng-click="deleteTag(tagging.tag_id)">
+            </i>
+          </a>
         </div>
         <div class="input-group">
-          <input type="text" ng-model="currentStuff.tag.name" class="form-control input-sm" placeholder="Add a Tag...">
+          <input type="text" ng-model="newTag.name" class="form-control input-sm" placeholder="Add a Tag...">
           <span class="input-group-btn">
             <button class="btn btn-info btn-sm" type="button" ng-click="addTag()">Tag It</button>
           </span>

@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   end
 
   def top
-     
+
     @users = []
     User.get_top_users.each do |user|
       @users.push(show_user_json(user))
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   end
 
   def top_cooks
-     
+
     @users = []
     User.get_top_users_who_cook.each do |user|
       @users.push(show_user_json(user))
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   end
 
   def best_cooks
-     
+
     @users = []
     User.get_best_cooks.each do |user|
       @users.push(show_user_json(user))
@@ -86,6 +86,7 @@ class UsersController < ApplicationController
 
     json_response["profile"] = user.profile.as_json
     json_response["profile"]["tags"] = user.profile.tags.as_json
+    json_response['profile']['taggings'] = user.profile.taggings.as_json
     json_response["received_subscription_requests"] = user.received_subscription_requests.as_json
 
     photo_json = {}
