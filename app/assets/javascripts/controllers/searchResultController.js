@@ -21,7 +21,6 @@ reciffy.controller('searchResultCtrl',
           $scope.searchTag = TagService.findTagByName($stateParams.searchString);
           if ($scope.searchTag) {
             TagService.callOneTag($scope.searchTag.id);
-            $scope.tagHolder = TagService.getTagHolder();
             $scope.recipes = RecipeService.getRecipes();
             $scope.users = UserService.getUsers();
             $scope.noResultsMsg = undefined;
