@@ -58,9 +58,7 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
   $scope.addTag = function() {
     TagService.addTaggingToTag( $scope.newTag.name, $scope.profile.id, "Profile")
     .then( function(response){
-
       $scope.tags.push(response.tag);
-
     });
 
     $scope.newTag = {name: ""};
@@ -70,10 +68,16 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
   $scope.deleteTag = function(tag_id) {
     TagService.removeTaggingFromTag(tag_id, $scope.profile.id, "Profile")
     .then( function(response) {
-
-      var idx = $scope.tags.indexOf(response.tags);
-
-      $scope.tags.splice(idx, 1);
+      
+      var len = $scope.tags.length;
+      for (var i = 0; i < len ; i++) {
+        if ($scope.tags[i].id == response.id) {
+           $scope.tags.splice(i, 1);
+           i = $scope.tags.length + 1 ;
+        }
+      } 
+      // var idx = $scope.tags.indexOf(response);
+      // $scope.tags.splice(idx, 1);
 
     });
   };
