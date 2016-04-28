@@ -60,11 +60,37 @@ reciffy.factory('TagService', ['Restangular', 'RecipeService', function(Restangu
     }
   }
 
+  var addTag = function(name, taggable_id, taggable_type) {
+    Restangular
+    .all('tags')
+    .post(_current.tag, {   name: name,
+                            taggable_id: taggable_id,
+                            taggable_type: taggable_type })
+    .then( function(newTag) {
+      _current.recipe.tags.unshift(newTag);
+      _current.tag.name = "";
+    });
+  };
+
+  // Actually only deletes that particular TAGGING, not the tag itself, but goes through the tag controller
+  var removeTag = function(tag_id, taggable_id, taggable_type) {
+    Restangular
+    .one("tags", tag_id)
+    .remove({ taggable_id: _current.recipe.id,
+              taggable_type: "Recipe"})
+    .then(function(deletedTag) {
+      var idx = _current.recipe.tags.indexOf(deletedTag);
+      _current.recipe.tags.splice(idx, 1);
+    });
+  };
+
   return {
     callAllTags: callAllTags,
     callOneTag: callOneTag,
     findTagByName: findTagByName,
     getTags: getTags,
+    addTag: addTag,
+    removeTag: removeTag,
   }
 
 }]);
