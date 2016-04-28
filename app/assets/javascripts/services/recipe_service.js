@@ -133,17 +133,13 @@ reciffy.factory('RecipeService', ['Restangular', '$state', '$stateParams', funct
 
   var setCurrentRecipe = function( recipe_id, currentUser ) {
     _clearSubLists();
-    if ( !!_recipes[recipe_id] ) {
-      _setCurrents( recipe_id, currentUser );
-      return getCurrentRecipe();
-    } else {
 
       return _requestSingleRecipe(recipe_id, currentUser).then(
         function() {
           return getCurrentRecipe();
         }
       );
-    }
+
   };
 
   var _clearSubLists = function() {
