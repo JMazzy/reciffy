@@ -23,10 +23,15 @@ reciffy.controller( 'RecipeShowCtrl',
   RecipeService.setIngredients();
   RecipeService.setMadeRecipes();
 
-  RecipeService.setCurrentRecipe( $stateParams.id, currentUser );
-
   $scope.currentStuff = RecipeService.getCurrentStuff();
-  $scope.recipe = RecipeService.getCurrentRecipe();
+  RecipeService.setCurrentRecipe($stateParams.id, currentUser).then(
+    function(recipe) {
+      $scope.recipe = recipe;
+    },
+    function() {
+      console.log("error in setting current recipe");
+    }
+  );
 
   $scope.units = RecipeService.getUnits();
   $scope.ingredients = RecipeService.getIngredients();
@@ -142,19 +147,16 @@ reciffy.controller( 'RecipeShowCtrl',
     angular.element( document.querySelector( '#fileUpload' ) ).trigger('click');
   };
 
-  $scope.uploadImage = function (path) {
+  $scope.uploadImage = function () {
     if ($scope.recipe.id) {
       Restangular.all('photos').post({
         photo: {
           photo: $scope.photo.imageData,
           recipe_id: $scope.recipe.id
         }
-      }).then( function (newPhoto) {
-        $scope.photo = {};
-        console.log('New recipe photo uploaded');
-        console.log(Restangular.one('photos', newPhoto.id).get().$object);
-        $scope.currentStuff.recipe.photos.push(
-          Restangular.one('photos', newPhoto.id).get().$object);
+      }).then(
+      function (newPhoto) {
+        $scope.currentStuff.recipe.photos.push(newPhoto);
       }, function (error) {
         // Error
         console.error(error);
