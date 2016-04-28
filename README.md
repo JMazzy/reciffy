@@ -1,41 +1,34 @@
-# Reciffy
+Reciffy
+=======
 
-## Deployment
-
-Deployed to Heroku at: https://reciffy.herokuapp.com/
-
-## Contributors
-* Andrew Baik
-* Kelsey James
-* Deepa Kackar
-* Joshua Masland-Sarani
-
-Welcome to Reciffy!
-====================
+![Reciffy Landing](https://github.com/strychemi/reciffy/raw/master/screenshots/home.png)
 
 What is it?
 -----------
 
-Reciffy is a platform for creating, sharing, and saving recipes for those who have a passion for food and cooking. It is a full-stack recipe web app consisting of a ruby on rails API endpoint on the back-end with an AngularJS Single Page App (SPA) on the front-end.
+Reciffy is a platform for creating, sharing, and saving recipes for those who have a passion for food and cooking. It is a full-stack web app consisting of a ruby on rails API endpoint on the back-end with an AngularJS single page app on the front-end.
 
 Built within 2 weeks as our final project for [Viking Code School](http://www.vikingcodeschool.com/) hackathon.
 
 Team:
 * Andrew Baik
-* Joshua David Masland-Sarani
 * Kelsey James
 * Deepa Kackar
+* Joshua Masland-Sarani
 
-The app implements the following basic features:
+The app implements the following features:
 
-* User authentication/authorization using Devise
+* User authentication/authorization using Devise.
 * Active record and SQL queries into the database for features such as displaying "Top Rated Recipes" or "Recommended Recipes" for the user.
 * Using the Paperclip gem alongside with Amazon S3 buckets for image upload handling.
 * Basic search for recipes and users by Tags.
-* Self-reflective associations (Users can follow each other)
-* Polymorphic associations (Users and Recipes can be tagged)
-* Nested forms for user profiles
-*
+* Self-reflective associations (Users can follow each other).
+* Polymorphic associations (Users and Recipes can be tagged).
+* Nested forms for user profiles.
+* A RESTful Ruby on Rails API endpoint on the backend communicating with a front-end AngularJS single page app.
+* Infinite vertical scrolling implemented with ngInfiniteScroll for infinite smoother UX for browsing recipes.
+* ng-file-upload for image uploads on the front-end.
+* angucomplete-alt for autocompletion on recipe ingredients.
 
 Getting started
 ---------------
@@ -43,12 +36,9 @@ Getting started
 
 To get started, sign-up.
 
-One you are logged in, you will be directed to a leaderboard which shows a variety of statics around active users, their Pokemon knowledge and performance.
 
-Click the "Quiz Me" button in the upper left of the navigation bar to test your Pokemon knowledge.
 
-To follow fellow Pokefans, use the search feature in the middle of the navigation bar to find others by their email. Click on the the link to the user page, select "follow user" button. Pokefans you follow will have their activities displayed in a feed on your leaderboard page.
+One you are logged in, you will be directed to a recipes index page which shows a variety of recipes under various categories, feel free to scroll down and more rows of recipes should pop up!
 
-To edit your profile, click on the "signed-in as" link to go to your profile page. You are able to make any changes from there.
 
 Enjoy!
