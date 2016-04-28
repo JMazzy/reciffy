@@ -1,10 +1,20 @@
 
-
-
 <!-- Top Subscribed Users -->
-<h4><em>Most Subscribed<em></h4>
+<h3><em>Most Subscribed</em>
+  <button class="btn btn-xs btn-success" ng-click="moveLeft('topUsers')" 
+          ng-disabled="disableLeftScrollButton('topUsers')">
+    <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+  </button>
+
+  <button class="btn btn-xs btn-success" ng-click="moveRight('topUsers')" 
+          ng-disabled="disableRightScrollButton('topUsers')">
+    <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+  </button>
+</h3>
+
 <div class="row">
-  <div ng-repeat="user in topUsers | limitTo : 8" class="user-holder">
+  <div ng-repeat="user in topUsers | limitTo : 4 : getPageBegin('topUsers')" 
+      class="user-holder">
     <div class="col-xs-3 col-sm-3 col-md-3">
 
       <a ui-sref="reciffy.users.show({id: user.id})">
@@ -15,9 +25,21 @@
 </div>
 
 <!-- Top Subscribed Users -->
-<h4><em>Great Cooks!<em></h4>
+<h3><em>Great Cooks!</em>
+  <button class="btn btn-xs btn-success" ng-click="moveLeft('bestCooks')" 
+          ng-disabled="disableLeftScrollButton('bestCooks')">
+    <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+  </button>
+
+  <button class="btn btn-xs btn-success" ng-click="moveRight('bestCooks')" 
+          ng-disabled="disableRightScrollButton('bestCooks')">
+    <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+  </button>
+</h3>
+
 <div class="row">
-  <div ng-repeat="user in bestCooks | limitTo : 8" class="user-holder">
+  <div ng-repeat="user in bestCooks | limitTo : 4 : getPageBegin('bestCooks')" 
+       class="user-holder">
     <div class="col-xs-3 col-sm-3 col-md-3">
 
       <a ui-sref="reciffy.users.show({id: user.id})">
@@ -28,9 +50,21 @@
   </div>
 </div>
 
-<h4><em>Most Recipes Tested By...<em></h4>
+<h3><em>Most Recipes Tested By...</em>
+  <button class="btn btn-xs btn-success" ng-click="moveLeft('topCooks')" 
+          ng-disabled="disableLeftScrollButton('topCooks')">
+    <i class="chevron-left glyphicon glyphicon-chevron-left"></i>
+  </button>
+
+  <button class="btn btn-xs btn-success" ng-click="moveRight('topCooks')" 
+          ng-disabled="disableRightScrollButton('topCooks')">
+    <i class="chevron-right glyphicon glyphicon-chevron-right"></i>
+  </button>
+
+</h3>
 <div class="row">
-  <div ng-repeat="user in topCooks | limitTo : 8" class="user-holder">
+  <div ng-repeat="user in topCooks | limitTo : 4 : getPageBegin('topCooks')"  
+       class="user-holder">
     <div class="col-xs-3 col-sm-3 col-md-3">
       <a ui-sref="reciffy.users.show({id: user.id})">
         <user-directive user="user"></user-directive>
