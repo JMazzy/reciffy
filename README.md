@@ -96,4 +96,4 @@ Entity-Relationship Diagram (ERD) for our models and ActiveRecord associations g
 
 ![Reciffy Models](https://github.com/strychemi/reciffy/raw/master/doc/models_brief.png)
 
-For a more details, check out the the [schema](https://github.com/strychemi/reciffy/db/schema.rb).
+For a more details, check out the the [schema](https://github.com/strychemi/reciffy/blob/master/db/schema.rb).
