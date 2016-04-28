@@ -20,10 +20,10 @@ class RecipeIngredientsController < ApplicationController
 
   def create
     @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params)
-    ingredient_name = params[:ingredient_name].downcase || Ingredient.find(params[:ingredient_id]).name.downcase
-    unit_name = params[:unit_type].downcase || Unit.find(params[:unit_id]).unit_type.downcase
-    ingredient = Ingredient.find_or_create_by(name: ingredient_name)
-    unit = Unit.find_or_create_by(unit_type: unit_name)
+    ingredient_name = params[:ingredient_name] || Ingredient.find(params[:ingredient_id]).name
+    unit_name = params[:unit_type] || Unit.find(params[:unit_id]).unit_type
+    ingredient = Ingredient.find_or_create_by(name: ingredient_name.downcase)
+    unit = Unit.find_or_create_by(unit_type: unit_name.downcase)
     @recipe_ingredient[:ingredient_id] = ingredient.id
     @recipe_ingredient[:unit_id] = unit.id
     respond_to do |format|
