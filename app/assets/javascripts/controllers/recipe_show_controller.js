@@ -101,7 +101,7 @@ reciffy.controller( 'RecipeShowCtrl',
             $scope.currentStuff.recipe.taggings.splice(i, 1);
             i = $scope.currentStuff.recipe.taggings.length + 1 ;
         }
-      }    
+      }
     });
   }
 
@@ -158,7 +158,7 @@ reciffy.controller( 'RecipeShowCtrl',
         }
         RecipeService.addRecipeIngredient(ri);
 
-      }  
+      }
     }
   };
 
@@ -194,7 +194,6 @@ reciffy.controller( 'RecipeShowCtrl',
       });
     };
   };
-
 
  // Here is a naive implementation for matching first name, last name, or full name
   $scope.localUnitSearch = function(str) {
