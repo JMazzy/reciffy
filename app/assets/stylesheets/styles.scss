@@ -46,6 +46,7 @@ $cucumber: #74854f;
   border-radius: 0;
   background-color: $bahama-blue;
   border: none;
+  margin-bottom: none;
 }
 
 .nav-brand {
@@ -331,9 +332,10 @@ span.editable-empty {
 // Infinite Scrolling
 
 #infinite-container {
+  margin-top: 75px;
   padding-left: 15px;
   padding-right: 15px;
-  height: 85.5vh;
+  height: 95vh;
   overflow-y: scroll;
 }
 
