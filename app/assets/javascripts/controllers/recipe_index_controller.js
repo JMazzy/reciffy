@@ -64,7 +64,6 @@ reciffy.controller( 'RecipeIndexCtrl',
 
   //Gets the array/object length of the recipe category
   $scope.getCategoryLength = function(category) {
-    //category = "$scope." + category;
     category = $scope[category];
     if (typeof eval(category) == "object") {
       return Object.keys(category).length;
