@@ -31,8 +31,8 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
       tagline: $scope.profile.tagline,
       city: $scope.profile.city,
       state: $scope.profile.state,
-    }).then(function() {
-      UserService.setOneUser($stateParams.id);
+    }).then(function(newProfile) {
+      
     })
   };
 
@@ -68,14 +68,14 @@ reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restang
   $scope.deleteTag = function(tag_id) {
     TagService.removeTaggingFromTag(tag_id, $scope.profile.id, "Profile")
     .then( function(response) {
-      
+
       var len = $scope.tags.length;
       for (var i = 0; i < len ; i++) {
         if ($scope.tags[i].id == response.id) {
            $scope.tags.splice(i, 1);
            i = $scope.tags.length + 1 ;
         }
-      } 
+      }
       // var idx = $scope.tags.indexOf(response);
       // $scope.tags.splice(idx, 1);
 
