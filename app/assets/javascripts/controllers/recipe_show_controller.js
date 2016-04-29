@@ -93,8 +93,15 @@ reciffy.controller( 'RecipeShowCtrl',
     // RecipeService.removeTag(tag_id);
     TagService.removeTaggingFromTag(tag_id, $scope.currentStuff.recipe.id, "Recipe")
     .then( function(response) {
-      var idx = $scope.currentStuff.recipe.taggings.indexOf(response.taggings)
-      $scope.currentStuff.recipe.taggings.splice(idx, 1)
+      //var idx = $scope.currentStuff.recipe.taggings.indexOf(response.taggings)
+      //$scope.currentStuff.recipe.taggings.splice(idx, 1)
+      var len = $scope.currentStuff.recipe.taggings.length;
+      for (var i = 0; i < len ; i++) {
+        if ($scope.currentStuff.recipe.taggings[i].tag_id == response.id) {
+            $scope.currentStuff.recipe.taggings.splice(i, 1);
+            i = $scope.currentStuff.recipe.taggings.length + 1 ;
+        }
+      }    
     });
   }
 
