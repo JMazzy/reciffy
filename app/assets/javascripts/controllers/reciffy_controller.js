@@ -4,5 +4,9 @@ reciffy.controller( 'ReciffyCtrl', ['$scope', '$rootScope', 'FlashService', func
 
   $rootScope.$on('$stateChangeSuccess', function() {
     FlashService.retrieveFlash();
+
+    if ( $(':checkbox:checked').length > 0 ) {
+      $('.pure-toggle').trigger('click');
+    }
   });
 }]);
