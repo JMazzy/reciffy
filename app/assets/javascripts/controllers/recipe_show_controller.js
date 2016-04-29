@@ -130,19 +130,19 @@ reciffy.controller( 'RecipeShowCtrl', [
   $scope.addRecipeIngredient = function() {
     if (!RecipeService.getdisabledStatus()) {
       if ($scope.r_unit.title) {
-         var r_unit = $scope.r_unit.title
+        var r_unit = $scope.r_unit.title
       } else {
-         var r_unit = $scope.r_unit.originalObject
+        var r_unit = $scope.r_unit.originalObject
       }
 
       if ($scope.r_ingredient.title) {
-          var r_ingredient = $scope.r_ingredient.title
+        var r_ingredient = $scope.r_ingredient.title
       } else {
-         var r_ingredient = $scope.r_ingredient.originalObject
+        var r_ingredient = $scope.r_ingredient.originalObject
       }
 
       if (!r_ingredient || !r_unit || !$scope.r_quantity) {
-         alert("Ensure recipe ingredient, quantity and units are not empty!")
+        alert("Ensure recipe ingredient, quantity and units are not empty!")
       } else {
         var ri = {
           //unit_id: $scope.r_unit,
