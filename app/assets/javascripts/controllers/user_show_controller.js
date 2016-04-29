@@ -1,4 +1,25 @@
-reciffy.controller('UserShowCtrl', ['$scope', '$state', '$stateParams', 'Restangular', 'UserService', 'TagService', 'subscriptionService', 'currentUser', 'Upload', 'UserService', function($scope, $state, $stateParams, Restangular, UserService, TagService, subscriptionService, currentUser, Upload, UserService) {
+reciffy.controller('UserShowCtrl', [
+  '$scope',
+  '$state',
+  '$stateParams',
+  'Restangular',
+  'UserService',
+  'TagService',
+  'subscriptionService',
+  'currentUser',
+  'Upload',
+  'UserService',
+  function(
+    $scope,
+    $state,
+    $stateParams,
+    Restangular,
+    UserService,
+    TagService,
+    subscriptionService,
+    currentUser,
+    Upload,
+    UserService) {
 
   $scope.user_subscribed = false;
 
