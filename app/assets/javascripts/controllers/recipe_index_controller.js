@@ -1,5 +1,4 @@
-reciffy.controller( 'RecipeIndexCtrl',
-[
+reciffy.controller( 'RecipeIndexCtrl', [
   'Auth',
   '$scope',
   '$state',

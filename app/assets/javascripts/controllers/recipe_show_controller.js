@@ -1,24 +1,23 @@
-reciffy.controller( 'RecipeShowCtrl',
-  [
-    '$scope',
-    '$state',
-    '$stateParams',
-    'Restangular',
-    'RecipeService',
-    'madeRecipeService',
-    'savedRecipeService',
-    'currentUser',
-    'TagService',
-    function(
-      $scope,
-      $state,
-      $stateParams,
-      Restangular,
-      RecipeService,
-      madeRecipeService,
-      savedRecipeService,
-      currentUser,
-      TagService) {
+reciffy.controller( 'RecipeShowCtrl', [
+  '$scope',
+  '$state',
+  '$stateParams',
+  'Restangular',
+  'RecipeService',
+  'madeRecipeService',
+  'savedRecipeService',
+  'currentUser',
+  'TagService',
+  function(
+    $scope,
+    $state,
+    $stateParams,
+    Restangular,
+    RecipeService,
+    madeRecipeService,
+    savedRecipeService,
+    currentUser,
+    TagService) {
 
   $scope.disabledStatus   = true;
   $scope.makeRecipe       = false;

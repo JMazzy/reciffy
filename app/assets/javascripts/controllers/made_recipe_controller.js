@@ -1,4 +1,21 @@
-reciffy.controller('MadeCtrl', ['Restangular', 'Auth', 'madeRecipeService', 'RecipeService', '$scope', '$stateParams', '$state', 'currentUser', function( Restangular, Auth, madeRecipeService, RecipeService, $scope, $stateParams, $state, currentUser){
+reciffy.controller('MadeCtrl', [
+  'Restangular',
+  'Auth',
+  'madeRecipeService',
+  'RecipeService',
+  '$scope',
+  '$stateParams',
+  '$state',
+  'currentUser',
+  function(
+    Restangular,
+    Auth,
+    madeRecipeService,
+    RecipeService,
+    $scope,
+    $stateParams,
+    $state,
+    currentUser){
 
   $scope.recipes = RecipeService.getRecipes();
 
