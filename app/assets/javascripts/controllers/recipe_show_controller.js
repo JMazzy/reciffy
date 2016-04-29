@@ -89,7 +89,6 @@ reciffy.controller( 'RecipeShowCtrl', [
 
   // Actually only deletes that particular TAGGING, not the tag itself
   $scope.deleteTag = function(tag_id) {
-    // RecipeService.removeTag(tag_id);
     TagService.removeTaggingFromTag(tag_id, $scope.currentStuff.recipe.id, "Recipe")
     .then( function(response) {
       var len = $scope.currentStuff.recipe.taggings.length;
