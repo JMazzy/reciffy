@@ -1,6 +1,6 @@
 class RecommendationsController < ApplicationController
   include RecipeJsonConverter
-  
+
   def index
     @recommendations = Recipe.recommendations( current_user.id )
 
